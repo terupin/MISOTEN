@@ -6,6 +6,13 @@ public class Player_Anim : MonoBehaviour
 {
     public Animator Player_Animator;
 
+    public string R_Anim_bool = "R_counter";  // 終了を検知したいアニメーションの名前
+    public string L_Anim_bool = "L_counter";  // 終了を検知したいアニメーションの名前
+
+    public string R_Anim_name;  // 終了を検知したいアニメーションの名前
+    public string L_Anim_name;  // 終了を検知したいアニメーションの名前
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -15,29 +22,26 @@ public class Player_Anim : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        AnimatorStateInfo animatorStateInfo = Player_Animator.GetCurrentAnimatorStateInfo(0);
+
+
+
+        if (Input.GetKeyDown(KeyCode.R))
         {
-            Player_Animator.SetTrigger("counter");
-            Left_or_Right();
+            Player_Animator.SetBool(R_Anim_bool, true);
+        }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            Player_Animator.SetBool(L_Anim_bool, true);
         }
 
-
-
-    }
-
-    private void Left_or_Right()
-    {
-     
+        if (animatorStateInfo.IsName(R_Anim_name) || animatorStateInfo.IsName(L_Anim_name))
         {
-            if (Input.GetKeyDown(KeyCode.R))
+            if (animatorStateInfo.normalizedTime >= 0.9f && !animatorStateInfo.loop)
             {
-                Player_Animator.SetTrigger("R_counter");
-            }
-            if (Input.GetKeyDown(KeyCode.L))
-            {
-                Player_Animator.SetTrigger("L_counter");
+                Player_Animator.SetBool(R_Anim_bool, false);
+                Player_Animator.SetBool(L_Anim_bool, false);
             }
         }
     }
-
 }
