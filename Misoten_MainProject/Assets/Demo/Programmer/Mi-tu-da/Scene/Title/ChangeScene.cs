@@ -11,6 +11,6 @@ public class ChangeScene : MonoBehaviour
 
     public void ButtonClick()
     {
-        SceneManager.LoadScene(SceneName);
+        SceneManager.LoadScene("Kato_1018");
     }
 }
