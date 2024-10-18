@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.SceneManagement;
+//using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class Kato_Hittest : MonoBehaviour
@@ -13,6 +13,10 @@ public class Kato_Hittest : MonoBehaviour
     public GameObject S_Effect;  
 
     public static bool Ukenagashi_Flg;//éÛÇØó¨ÇµÉtÉâÉO 
+
+    private bool Hitflg=false;
+
+    public GameObject PkatanaHitbox;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +33,17 @@ public class Kato_Hittest : MonoBehaviour
 
         gameObject.transform.position= obj.transform.position;
         gameObject.transform.rotation = obj.transform.rotation;
+
+        if (gameObject.name == "Enemy_HitBox" &&Hitflg)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(PkatanaHitbox.transform.position.x, PkatanaHitbox.transform.position.y, transform.position.z) + PkatanaHitbox.transform.right * 2, 20 * Time.deltaTime);
+        }
+        else
+        {
+            gameObject.transform.position = obj.transform.position;
+            gameObject.transform.rotation = obj.transform.rotation;
+        }
+
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -62,7 +77,18 @@ public class Kato_Hittest : MonoBehaviour
             if (collision.gameObject.name == "Player_HitBox" && P_G_flg)
             {
                 Debug.LogFormat("è’åÇîgî≠ê∂!");
+                //UnityEditor.EditorApplication.isPaused = true;
+                Hitflg = true;
             }
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (gameObject.name == "Enemy_HitBox")
+        {
+
+            Hitflg = false;
         }
     }
 }

@@ -5,7 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Demo/Scene/Amano_Testscene/EzySlice_test.unity
     guid: 8124e5870f4fd4c779e7a5f994e84ad1
+  - enabled: 1
+    path: Assets/Demo/Programmer/Kato/Kato_Ukenagasi_Scene/Kato_Test.unity
+    guid: 6750fcd9df123ee4a84ba4d956dc266b
+  - enabled: 0
+    path: Assets/Demo/Programmer/Kato/Kato_Ukenagasi_Scene/Kato_1018.unity
+    guid: a140afbbbcad204489852cc2c6b87f50
   m_configObjects: {}

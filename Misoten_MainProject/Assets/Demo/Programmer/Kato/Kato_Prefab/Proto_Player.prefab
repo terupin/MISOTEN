@@ -48,6 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Move_Speed: 10
   Rotate_Speed: 50
+  Target: {fileID: 3847602336648284765, guid: 1c8b199eb562ec743a79e9697eb48c5c, type: 3}
 --- !u!54 &5111693112366527929
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -203,3 +204,4 @@ MonoBehaviour:
   R_Anim_name: Ukenagashi_R
   L_Anim_name: Ukenagashi_L
   Grad_Anim_name: Ukenagashi
+  W_HitBox: {fileID: 0}

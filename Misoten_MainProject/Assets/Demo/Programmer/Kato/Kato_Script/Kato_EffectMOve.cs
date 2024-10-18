@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Kato_EffectMOve : MonoBehaviour
 {
-    public float MoveTime = 2.5f;
+    public float MoveTime = 0.5f;
     private float CurrentTime=0.0f;
 
     // Start is called before the first frame update

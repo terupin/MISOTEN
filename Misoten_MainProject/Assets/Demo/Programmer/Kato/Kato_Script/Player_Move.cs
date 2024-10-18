@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class Player_MOve : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class Player_MOve : MonoBehaviour
     public float Move_Speed = 1f;
     public float Rotate_Speed = 1f;
     //private float RotateY;
+
+    public GameObject Target; 
 
     private void Update()
     {
@@ -84,6 +87,14 @@ public class Player_MOve : MonoBehaviour
             GamePadUpdate();
             return true;
         }
+
+        //ジョイスティック右押し込み時カメラ
+        if (UnityEngine.Input.GetKeyDown("joystick button 9"))
+        {
+            gameObject.transform.LookAt(Target.transform);
+        }
+
+       
 
         return false;
     }
