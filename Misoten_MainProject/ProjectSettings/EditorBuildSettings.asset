@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Demo/Scene/Amano_Testscene/EzySlice_test.unity
-    guid: 8124e5870f4fd4c779e7a5f994e84ad1
+    path: Assets/Demo/Programmer/Mi-tu-da/Scene/Title/TitleScene.unity
+    guid: 5bf640912c049c3499b519dfdcd8add8
+  - enabled: 1
+    path: Assets/Scene/Stage1.unity
+    guid: 84305162ebe26df459ce3e0b482ac37e
   m_configObjects: {}
