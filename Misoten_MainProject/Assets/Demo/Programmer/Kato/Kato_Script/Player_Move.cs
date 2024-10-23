@@ -20,42 +20,7 @@ public class Player_MOve : MonoBehaviour
 
     private void Update()
     {
-        //if (Input.GetKey("Y-Axis"))
-        //{
 
-        //}
-
-
-        //    if (Input.anyKey)
-        //{
-        //    var velocity = Vector3.zero;
-
-        //    if (Input.GetKey(KeyCode.W))
-        //    {
-        //        transform.position += transform.forward * Time.deltaTime;
-        //    }
-        //    if (Input.GetKey(KeyCode.A))
-        //    {
-        //        RotateY = -Rotate_Speed;
-        //    }
-        //    if (Input.GetKey(KeyCode.S))
-        //    {
-        //        transform.position -= transform.forward * Time.deltaTime;
-        //    }
-        //    if (Input.GetKey(KeyCode.D))
-        //    {
-        //        RotateY = Rotate_Speed;
-        //    }
-        //    //if (velocity.x != 0 || velocity.z != 0)
-        //    //{
-        //    //    transform.position += transform.rotation * velocity;
-        //    //}
-
-
-        //    gameObject.transform.Rotate(new Vector3(0, RotateY, 0) * Time.deltaTime);
-
-        //   RotateY = 0;
-        //}
 
 
         if (HandleMovementInput())

@@ -34,7 +34,7 @@ public class Kato_Hittest : MonoBehaviour
         gameObject.transform.position= obj.transform.position;
         gameObject.transform.rotation = obj.transform.rotation;
 
-        if (gameObject.name == "Enemy_HitBox" &&Hitflg)
+        if (gameObject.name == "Enemy_HitBox" && Hitflg)
         {
             transform.position = Vector3.MoveTowards(transform.position, new Vector3(PkatanaHitbox.transform.position.x, PkatanaHitbox.transform.position.y, transform.position.z) + PkatanaHitbox.transform.right * 2, 20 * Time.deltaTime);
         }
@@ -65,6 +65,7 @@ public class Kato_Hittest : MonoBehaviour
                 Instantiate(S_Effect);
                 S_Effect.transform.position = gameObject.transform.position;
             }
+ 
 
         }
 
@@ -85,10 +86,11 @@ public class Kato_Hittest : MonoBehaviour
 
     private void OnCollisionExit(Collision collision)
     {
-        if (gameObject.name == "Enemy_HitBox")
+        if (gameObject.name == "Enemy_HitBox" && collision.gameObject.name == "Player_HitBox")
         {
-
+            Ukenagashi_Flg = false;
             Hitflg = false;
+            //UnityEditor.EditorApplication.isPaused = true;
         }
     }
 }
