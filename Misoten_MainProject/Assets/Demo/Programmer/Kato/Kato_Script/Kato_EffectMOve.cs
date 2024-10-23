@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Kato_EffectMOve : MonoBehaviour
 {
-    public float MoveTime = 0.5f;
+    public float MoveTime = 1.5f;
     private float CurrentTime=0.0f;
 
     // Start is called before the first frame update
@@ -21,7 +21,7 @@ public class Kato_EffectMOve : MonoBehaviour
             Destroy(gameObject); 
         }
 
-        gameObject.transform.position += gameObject.transform.up * 0.5f * Time.deltaTime;
+        gameObject.transform.position += gameObject.transform.up * 0.8f * Time.deltaTime;
         gameObject.transform.position += gameObject.transform.right * 10 * Time.deltaTime;
         CurrentTime += Time.deltaTime;
     }

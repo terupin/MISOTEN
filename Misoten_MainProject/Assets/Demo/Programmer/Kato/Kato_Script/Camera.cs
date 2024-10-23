@@ -45,17 +45,20 @@ public class Camera : MonoBehaviour
             if (PushFlg_A)
             {
 
-                {
-                    //transform.position = player.transform.position;
-                    transform.position = (new Vector3(transform.position.x, 2.5f, transform.position.z));
-                    //transform.Rotate(0, -360.0f * Time.deltaTime, 0);
-                    transform.RotateAround(new Vector3((player.transform.position.x+ enemy.transform.position.x)/2, 3.0f, (player.transform.position.z + enemy.transform.position.z) / 2), -transform.up, 540 * Time.deltaTime);
-                }
-                if (transform.rotation.y < enemy.transform.rotation.y)
+                //{
+                //    //transform.position = player.transform.position;
+                //    transform.position = (new Vector3(transform.position.x, 2.5f, transform.position.z));
+                //    //transform.Rotate(0, -360.0f * Time.deltaTime, 0);
+                //    transform.RotateAround(new Vector3((player.transform.position.x+ enemy.transform.position.x)/2, 3.0f, (player.transform.position.z + enemy.transform.position.z) / 2), -transform.up, 540 * Time.deltaTime);
+                //}
+                //if (transform.rotation.y < enemy.transform.rotation.y)
                 {
                     transform.rotation = enemy.transform.rotation;
-                    transform.position = enemy.transform.position - transform.forward * 6;
-                    transform.position = (new Vector3(transform.position.x, 3.0f, transform.position.z));
+                    transform.Rotate(30, 30, 0);
+                    transform.position = enemy.transform.position - enemy.transform.forward * 4;
+                    transform.position = transform.position - enemy.transform.right * 3;
+                    transform.position = transform.position + enemy.transform.up * 4;
+                    //transform.position = (new Vector3(enemy.transform.position.x, 4.5f, enemy.transform.position.z - enemy.transform.forward * 4));
                 }
 
 
