@@ -154,7 +154,7 @@ MonoBehaviour:
   Gard_Anim_bool: Gard
   R_Anim_name: Ukenagashi_R
   L_Anim_name: Ukenagashi_L
-  Grad_Anim_name: Ukenagashi
+  Grad_Anim_name: Ladder_Down_Start_InPlace
   W_HitBox: {fileID: 0}
 --- !u!95 &3313888062335614226
 Animator:
@@ -165,14 +165,20 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8034136248708390114}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 303040b4343ba7f4781dcea84369f6dc, type: 2}
+  m_Avatar: {fileID: 9000000, guid: 63c39a9d9c1dd10418a17ca8cc10951e, type: 3}
+  m_Controller: {fileID: 9100000, guid: 0a758712ef7f3d84b9192ec259575ed2, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_WarningMessage: 
+  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
+    are already bound by a Humanoid avatar. These transforms can only be changed
+    by Humanoid clips.\n\tTransform 'Joint_Hips'\n\tTransform 'Joint_Hips'\n\tTransform
+    'Joint_Chest'\n\tTransform 'Joint_L_UpLeg'\n\tTransform 'Joint_L_Foot'\n\tTransform
+    'Joint_L_UpArm'\n\tTransform 'Joint_Spine'\n\tTransform 'Joint_R_UpArm'\n\tTransform
+    'Joint_Neck'\n\tTransform 'Joint_L_LowLeg'\n\tand more ...\n\tFrom animation
+    clip 'Ukenagashi_R'\n\tFrom animation clip 'Idle'\n\tFrom animation clip 'Ukenagashi_L'"
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
