@@ -1,0 +1,649 @@
+fileFormatVersion: 2
+guid: 4683c148429d54b4e9cb1ab7757172b6
+ModelImporter:
+  serializedVersion: 22200
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Benkei01
+    second: {fileID: 2100000, guid: a2d7c6ef0c06b0144beabd6270ebc4b8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Benkei02
+    second: {fileID: 2100000, guid: d406119e41411914e8e16f17efc113aa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Benkei03
+    second: {fileID: 2100000, guid: bc011e9c3d29b384e97e919c33136fb4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert1
+    second: {fileID: 2100000, guid: f983e2aac8dd25f49b315fec405db2a7, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Char_Enemy01_M_Benkei01_BaseColor
+    second: {fileID: 2800000, guid: 00420908b5e9acd42a62161388eae1a2, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Char_Enemy01_M_Benkei01_Metallic
+    second: {fileID: 2800000, guid: 5fb81f78937917e44bc69b1764b7c3e5, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Char_Enemy01_M_Benkei01_Normal
+    second: {fileID: 2800000, guid: 8045448c65c77eb46906daab2f55fafe, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Char_Enemy01_M_Benkei01_Roughness
+    second: {fileID: 2800000, guid: 4e42dbaa1d359ff42aa37b89881cecdc, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Char_Enemy01_M_Benkei02_BaseColor
+    second: {fileID: 2800000, guid: b45c9d38cb819014999bdee094025b6a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Char_Enemy01_M_Benkei02_Emissive
+    second: {fileID: 2800000, guid: 54765a4a0f39dc540ba976136c314475, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Char_Enemy01_M_Benkei02_Roughness
+    second: {fileID: 2800000, guid: f72ae00ccaa72e04e8eb886db9c3f3b7, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Char_Enemy01_M_Benkei03_BaseColor
+    second: {fileID: 2800000, guid: c6b11646463951b4590618c34540ae54, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Char_Enemy01_M_Benkei03_Roughness
+    second: {fileID: 2800000, guid: 08687d92d1181234e8a878b1da40c3a2, type: 3}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human:
+    - boneName: Joint_Root
+      humanName: Hips
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Joint_L_UpLeg
+      humanName: LeftUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Joint_R_UpLeg
+      humanName: RightUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Joint_L_LowLeg
+      humanName: LeftLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Joint_R_LowLeg
+      humanName: RightLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Joint_Hips
+      humanName: Spine
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Joint_Spine
+      humanName: Chest
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Joint_Neck
+      humanName: Neck
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Joint_Head
+      humanName: Head
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Joint_L_Shoulder
+      humanName: LeftShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Joint_R_Shoulder
+      humanName: RightShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Joint_L_UpArm
+      humanName: LeftUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Joint_R_UpArm
+      humanName: RightUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Joint_L_LowArm
+      humanName: LeftLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Joint_R_RowArm
+      humanName: RightLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Joint_L_Hand
+      humanName: LeftHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Joint_R_Hand
+      humanName: RightHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Joint_Chest
+      humanName: UpperChest
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Joint_R_Foot
+      humanName: RightFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Joint_L_Foot
+      humanName: LeftFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    skeleton:
+    - name: Char_Enemy01_20241031(Clone)
+      parentName: 
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Face
+      parentName: Char_Enemy01_20241031(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zukin
+      parentName: Char_Enemy01_20241031(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Body
+      parentName: Char_Enemy01_20241031(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eri
+      parentName: Char_Enemy01_20241031(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand
+      parentName: Char_Enemy01_20241031(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: KataToge
+      parentName: Char_Enemy01_20241031(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hips
+      parentName: Char_Enemy01_20241031(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Yoroi1
+      parentName: Char_Enemy01_20241031(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Yoroi2
+      parentName: Char_Enemy01_20241031(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Yoroi3
+      parentName: Char_Enemy01_20241031(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: HakamaL
+      parentName: Char_Enemy01_20241031(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: HakamaR
+      parentName: Char_Enemy01_20241031(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: FootL
+      parentName: Char_Enemy01_20241031(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: FootR
+      parentName: Char_Enemy01_20241031(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: DenchikuHole
+      parentName: Char_Enemy01_20241031(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Denchiku01
+      parentName: Char_Enemy01_20241031(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Denchiku02
+      parentName: Char_Enemy01_20241031(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Denchiku03
+      parentName: Char_Enemy01_20241031(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Denchiku04
+      parentName: Char_Enemy01_20241031(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Denchiku05
+      parentName: Char_Enemy01_20241031(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Denchiku06
+      parentName: Char_Enemy01_20241031(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Denchiku07
+      parentName: Char_Enemy01_20241031(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Denchiku08
+      parentName: Char_Enemy01_20241031(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Weapon
+      parentName: Char_Enemy01_20241031(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Joint_Root
+      parentName: Char_Enemy01_20241031(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Joint_Hips
+      parentName: Joint_Root
+      position: {x: -0, y: 1.6150142, z: 0}
+      rotation: {x: 0.50635684, y: -0.49356133, z: 0.50635684, w: -0.49356133}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Joint_Spine
+      parentName: Joint_Hips
+      position: {x: -0.20636173, y: 0.0024086055, z: 0}
+      rotation: {x: 0, y: 0, z: 0.017106887, w: 0.9998537}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Joint_Chest
+      parentName: Joint_Spine
+      position: {x: -0.14301315, y: -0.00030439405, z: -2.0082572e-17}
+      rotation: {x: 0, y: 0, z: 0.05060409, w: 0.9987188}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Joint_Neck
+      parentName: Joint_Chest
+      position: {x: -0.6094736, y: 0.061048787, z: -5.7775534e-18}
+      rotation: {x: -0, y: 7.541861e-33, z: -0.054909963, w: 0.99849135}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Joint_Head
+      parentName: Joint_Neck
+      position: {x: -0.07025041, y: -0.019267123, z: -8.283039e-32}
+      rotation: {x: 0, y: 0, z: 0.20105943, w: 0.9795791}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Joint_L_Shoulder
+      parentName: Joint_Chest
+      position: {x: -0.43533155, y: 0.04183753, z: -0.16755052}
+      rotation: {x: 0.45584178, y: -0.5405629, z: 0.48731822, w: 0.51236796}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Joint_L_UpArm
+      parentName: Joint_L_Shoulder
+      position: {x: -0.19619425, y: 2.842171e-16, z: -4.5890842e-17}
+      rotation: {x: 0, y: 0, z: -0.02988076, w: 0.9995535}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Joint_L_LowArm
+      parentName: Joint_L_UpArm
+      position: {x: -0.6040552, y: -5.684342e-16, z: 2.8434237e-16}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Joint_L_Hand
+      parentName: Joint_L_LowArm
+      position: {x: -0.713, y: 0, z: 3.3241837e-16}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Joint_Denchiku02
+      parentName: Joint_L_LowArm
+      position: {x: -0.37183684, y: -0.0223731, z: -0.0047379932}
+      rotation: {x: -0.5385685, y: 0.8425717, z: -0.0022215317, w: 0.0034755094}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Joint_Denchiku02_end
+      parentName: Joint_Denchiku02
+      position: {x: -0.8230234, y: 0, z: 1.4832579e-15}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Joint_R_Shoulder
+      parentName: Joint_Chest
+      position: {x: -0.43533552, y: 0.041837968, z: 0.167551}
+      rotation: {x: 0.540563, y: 0.45584178, z: 0.512368, w: -0.48731822}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Joint_R_UpArm
+      parentName: Joint_R_Shoulder
+      position: {x: 0.19619337, y: 0.0000004228359, z: 6.756762e-17}
+      rotation: {x: 0, y: 0, z: -0.02988076, w: 0.9995535}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Joint_R_RowArm
+      parentName: Joint_R_UpArm
+      position: {x: 0.604056, y: -1.1368684e-15, z: 4.9292114e-16}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Joint_R_Hand
+      parentName: Joint_R_RowArm
+      position: {x: 0.7126747, y: -1.7053025e-15, z: 5.7626515e-16}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Joint_Weapon
+      parentName: Joint_R_Hand
+      position: {x: 0.20101526, y: 0.006388731, z: 0.0019915437}
+      rotation: {x: -1.0761243e-15, y: -0.7071068, z: -1.0761243e-15, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Joint_Weapon_end
+      parentName: Joint_Weapon
+      position: {x: -1.7324438, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Joint_Denchiku01
+      parentName: Joint_R_RowArm
+      position: {x: 0.3718381, y: 0.022381403, z: 0.0047379923}
+      rotation: {x: 0.8425715, y: 0.5385688, z: 0.0034817208, w: 0.002225504}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Joint_Denchiku01_end
+      parentName: Joint_Denchiku01
+      position: {x: -0.82302773, y: 0, z: 3.330669e-18}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Joint_Denchiku03
+      parentName: Joint_Chest
+      position: {x: -0.13353948, y: 0.117711544, z: -0.0019283438}
+      rotation: {x: 0.88115704, y: -0.47282368, z: -3.9891192e-17, w: 3.0007754e-16}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Joint_Denchiku03_end
+      parentName: Joint_Denchiku03
+      position: {x: -0.82302773, y: 1.1368684e-15, z: -1.7486012e-16}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Joint_Denchiku04
+      parentName: Joint_Chest
+      position: {x: -0.16263404, y: 0.109438986, z: 0.15103073}
+      rotation: {x: 0.79267, y: -0.5397781, z: -0.13286331, w: -0.25032216}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Joint_Denchiku04_end
+      parentName: Joint_Denchiku04
+      position: {x: -0.82302773, y: 1.1368684e-15, z: 3.0198067e-16}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Joint_Denchiku05
+      parentName: Joint_Chest
+      position: {x: -0.14980394, y: 0.103801996, z: -0.1480415}
+      rotation: {x: 0.8000491, y: -0.5383992, z: 0.122796364, w: 0.23445404}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Joint_Denchiku05_end
+      parentName: Joint_Denchiku05
+      position: {x: -0.82302773, y: 0, z: 7.105427e-17}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Joint_Denchiku06
+      parentName: Joint_Chest
+      position: {x: -0.10213154, y: 0.051124692, z: -0.011317674}
+      rotation: {x: -0.5167124, y: 0.85593575, z: 0.015529468, w: 0.01187918}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Joint_Denchiku06_end
+      parentName: Joint_Denchiku06
+      position: {x: -0.82302773, y: 0, z: -1.5765166e-16}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Joint_Denchiku07
+      parentName: Joint_Chest
+      position: {x: -0.07270993, y: 0.090772465, z: 0.16326798}
+      rotation: {x: -0.56128126, y: 0.7780947, z: 0.20924665, w: 0.18907091}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Joint_Denchiku07_end
+      parentName: Joint_Denchiku07
+      position: {x: -0.82302773, y: -2.842171e-16, z: 4.0856205e-16}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Joint_Denchiku08
+      parentName: Joint_Chest
+      position: {x: -0.08268234, y: 0.060966134, z: -0.18752752}
+      rotation: {x: -0.5573537, y: 0.8082994, z: -0.14346744, w: -0.12420155}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Joint_Denchiku08_end
+      parentName: Joint_Denchiku08
+      position: {x: -0.82302773, y: 2.842171e-16, z: 2.842171e-16}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Joint_L_UpLeg
+      parentName: Joint_Hips
+      position: {x: 0.010299556, y: 0.00026364063, z: -0.3431262}
+      rotation: {x: 0.010203458, y: 0.70703316, z: 0.70703316, w: 0.010203458}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Joint_L_LowLeg
+      parentName: Joint_L_UpLeg
+      position: {x: -0.79355305, y: 4.973799e-16, z: 5.8619773e-16}
+      rotation: {x: 0, y: 0.059842855, z: -0, w: 0.9982078}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Joint_L_Foot
+      parentName: Joint_L_LowLeg
+      position: {x: -0.81342125, y: -1.847411e-15, z: -0.009914171}
+      rotation: {x: 0, y: -0.03264661, z: -0, w: 0.99946696}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Joint_R_UpLeg
+      parentName: Joint_Hips
+      position: {x: 0.010300813, y: 0.00026367285, z: 0.343126}
+      rotation: {x: 0.7070331, y: -0.010203458, z: -0.010203459, w: 0.7070333}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Joint_R_LowLeg
+      parentName: Joint_R_UpLeg
+      position: {x: 0.79355216, y: -2.1316282e-16, z: 0.0000000047599245}
+      rotation: {x: 0, y: 0.059842855, z: -0, w: 0.9982078}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Joint_R_Foot
+      parentName: Joint_R_LowLeg
+      position: {x: 0.81342083, y: 0.000000001622833, z: 0.009914193}
+      rotation: {x: 0, y: -0.03264661, z: -0, w: 0.99946696}
+      scale: {x: 1, y: 1, z: 1}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 3
+  humanoidOversampling: 1
+  avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
