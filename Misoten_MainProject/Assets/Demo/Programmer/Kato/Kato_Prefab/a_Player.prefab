@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 3669612430873067828}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -59,17 +59,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 63c39a9d9c1dd10418a17ca8cc10951e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 63c39a9d9c1dd10418a17ca8cc10951e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 63c39a9d9c1dd10418a17ca8cc10951e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 63c39a9d9c1dd10418a17ca8cc10951e,
         type: 3}
@@ -118,11 +118,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 63c39a9d9c1dd10418a17ca8cc10951e,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2664495484311873643}
+      addedObject: {fileID: 3313888062335614226}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 63c39a9d9c1dd10418a17ca8cc10951e,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3313888062335614226}
+      addedObject: {fileID: 3245779696534893641}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 63c39a9d9c1dd10418a17ca8cc10951e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1445944351627941170}
   m_SourcePrefab: {fileID: 100100000, guid: 63c39a9d9c1dd10418a17ca8cc10951e, type: 3}
 --- !u!4 &7220727010080458328 stripped
 Transform:
@@ -136,26 +140,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 7187627942079848883}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2664495484311873643
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8034136248708390114}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdf6b7be8807cfe4a90383367188010c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Player_Animator: {fileID: 3313888062335614226}
-  R_Anim_bool: R_counter
-  L_Anim_bool: L_counter
-  Gard_Anim_bool: Gard
-  R_Anim_name: Ukenagashi_R
-  L_Anim_name: Ukenagashi_L
-  Grad_Anim_name: Ladder_Down_Start_InPlace
-  W_HitBox: {fileID: 0}
 --- !u!95 &3313888062335614226
 Animator:
   serializedVersion: 5
@@ -166,20 +150,47 @@ Animator:
   m_GameObject: {fileID: 8034136248708390114}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 63c39a9d9c1dd10418a17ca8cc10951e, type: 3}
-  m_Controller: {fileID: 9100000, guid: 0a758712ef7f3d84b9192ec259575ed2, type: 2}
+  m_Controller: {fileID: 9100000, guid: 303040b4343ba7f4781dcea84369f6dc, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
-    are already bound by a Humanoid avatar. These transforms can only be changed
-    by Humanoid clips.\n\tTransform 'Joint_Hips'\n\tTransform 'Joint_Hips'\n\tTransform
-    'Joint_Chest'\n\tTransform 'Joint_L_UpLeg'\n\tTransform 'Joint_L_Foot'\n\tTransform
-    'Joint_L_UpArm'\n\tTransform 'Joint_Spine'\n\tTransform 'Joint_R_UpArm'\n\tTransform
-    'Joint_Neck'\n\tTransform 'Joint_L_LowLeg'\n\tand more ...\n\tFrom animation
-    clip 'Ukenagashi_R'\n\tFrom animation clip 'Idle'\n\tFrom animation clip 'Ukenagashi_L'"
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3245779696534893641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8034136248708390114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41b7f5ba51d2ea744bed5b6d0938dc72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player_Animator: {fileID: 3313888062335614226}
+  R_Anim_bool: R_counter
+  L_Anim_bool: L_counter
+  Gard_Anim_bool: Gard
+  R_Anim_name: Ukenagashi_R
+  L_Anim_name: Ukenagashi_L
+  Grad_Anim_name: uketome07_mcp
+  RUN_bool: RUN
+--- !u!114 &1445944351627941170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8034136248708390114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c122390d24e53b4ba5d64657ed77c66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Object: {fileID: 3669612430873067828}
