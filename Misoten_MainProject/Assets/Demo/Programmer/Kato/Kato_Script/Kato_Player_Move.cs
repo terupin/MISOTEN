@@ -103,12 +103,12 @@ public class Kato_Player_MOve : MonoBehaviour
         //else if (degree < 337.5f) { Katana_Direction = 7; }
         //else { Katana_Direction = 0; }
 
-        //float moveX = Input.GetAxis("Vertical");
-        //float RotateY = Input.GetAxis("Horizontal");
+            //float moveX = Input.GetAxis("Vertical");
+            //float RotateY = Input.GetAxis("Horizontal");
 
-        //transform.position += transform.forward * moveX* Move_Speed* Time.deltaTime;
+            //transform.position += transform.forward * moveX* Move_Speed* Time.deltaTime;
 
-        //gameObject.transform.Rotate(new Vector3(0, RotateY , 0) * Time.deltaTime * Rotate_Speed);
+            //gameObject.transform.Rotate(new Vector3(0, RotateY , 0) * Time.deltaTime * Rotate_Speed);
     }
 
     // キーボードの処理

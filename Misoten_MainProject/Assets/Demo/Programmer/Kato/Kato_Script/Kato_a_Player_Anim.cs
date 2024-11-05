@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Kato_Player_Anim : MonoBehaviour
+public class Kato_a_Player_Anim : MonoBehaviour
 {
     public Animator Player_Animator;
 
@@ -10,19 +10,17 @@ public class Kato_Player_Anim : MonoBehaviour
     public string L_Anim_bool = "L_counter";  // 終了を検知したいアニメーションの名前
     public string Gard_Anim_bool = "Gard";  // 終了を検知したいアニメーションの名前
 
-    public string R_Anim_name = "Ukenagashi_R";  // 終了を検知したいアニメーションの名前
-    public string L_Anim_name ="Ukenagashi_L";  // 終了を検知したいアニメーションの名前
-    public string Grad_Anim_name = "Ukenagashi";  // 終了を検知したいアニメーションの名前
+    public string R_Anim_name = "ukeR04_mcp";  // 終了を検知したいアニメーションの名前
+    public string L_Anim_name = "uke06_mcp";  // 終了を検知したいアニメーションの名前
+    public string Grad_Anim_name = "uketome07_mcp";  // 終了を検知したいアニメーションの名前
 
-    public string RUN_bool = "OneHand_Up_Run_F_InPlace";  //
+    public string RUN_bool = "RUN";  //
 
 
 
     private bool PushFlg_L = false;//L押下フラグ
     private bool PushFlg_R = false;//R押下フラグ
     static public int Katana_Direction = -1;
-
-    public GameObject W_HitBox;//武器当たり判定
 
 
     public static bool G_Flg;//ガードフラグ
@@ -70,10 +68,9 @@ public class Kato_Player_Anim : MonoBehaviour
 
         if(PushFlg_L)
         {
-            //W_HitBox.SetActive(true);
             Player_Animator.SetBool(Gard_Anim_bool, true);
 
-            Kato_GetKatana_Direction();
+            Kato_a_GetKatana_Direction();
             if(Kato_Hittest.Ukenagashi_Flg)
             {
                 if (Katana_Direction == 0 || Katana_Direction == 1 || Katana_Direction == 2 || Katana_Direction == 7)
@@ -89,6 +86,8 @@ public class Kato_Player_Anim : MonoBehaviour
         }
         else
         {
+            Player_Animator.SetBool(R_Anim_bool, false);
+            Player_Animator.SetBool(L_Anim_bool, false);
             Player_Animator.SetBool(Gard_Anim_bool, false);
         }
 
@@ -110,7 +109,6 @@ public class Kato_Player_Anim : MonoBehaviour
                 Player_Animator.SetBool(L_Anim_bool, false);
 
                 PushFlg_L = false;
-                //W_HitBox.SetActive(false);
                 Katana_Direction = -1;
             }
         }
@@ -120,7 +118,7 @@ public class Kato_Player_Anim : MonoBehaviour
     }
 
     //コントローラーから斬撃の方向を取得
-    void Kato_GetKatana_Direction()
+    void Kato_a_GetKatana_Direction()
     {
 
         if (PushFlg_L)
