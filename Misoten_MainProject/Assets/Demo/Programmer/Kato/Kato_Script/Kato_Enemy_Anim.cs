@@ -45,58 +45,78 @@ public class Kato_Enemy_Anim : MonoBehaviour
 
         //ƒvƒŒƒCƒ„[‚Ì˜‰ñ“]²
         //‚±‚±‚©‚ç«
-        if (Kato_Hittest.Ukenagashi_Flg && AnimCurrentTime < 0.5f)
-        {
-            Enemy_Animator.SetFloat("E_AnimSpeed", 0.0f); // ˆê’â~
-            Enemy_Animator.enabled = false;
-            Ejoint.transform.RotateAround(Ejoint.transform.position, Vector3.up, -180.0f * Time.deltaTime);
-            AnimCurrentTime += Time.deltaTime;
+        //if (Kato_Hittest.Ukenagashi_Flg && AnimCurrentTime < 0.5f)
+        //{
+        //    Enemy_Animator.SetFloat("E_AnimSpeed", 0.0f); // ˆê’â~
+        //    Enemy_Animator.enabled = false;
+        //    Ejoint.transform.RotateAround(Ejoint.transform.position, Vector3.up, -180.0f * Time.deltaTime);
+        //    AnimCurrentTime += Time.deltaTime;
 
-        }
-        else if (AnimCurrentTime  >0.5f)
-        {
-            //UnityEditor.EditorApplication.isPaused = true;
-        }
-        else 
-        {
+        //}
+        //else if (AnimCurrentTime  >0.5f)
+        //{
+        //    //UnityEditor.EditorApplication.isPaused = true;
+        //}
+        //else 
+        //{
 
-        }
+        //}
         //‚±‚±‚Ü‚Å
 
 
 
-        if (Enemy_Animator.enabled)
+       if( Enemy_Animator.GetBool(Enemy_Anim_bool))
         {
+            if (Kato_Hittest.Ukenagashi_Flg)
+            {
+                if (Kato_Player_Anim.Katana_Direction == 0 || Kato_Player_Anim.Katana_Direction == 1 || Kato_Player_Anim.Katana_Direction == 2 || Kato_Player_Anim.Katana_Direction == 7)
+                {
+                    Enemy_Animator.SetTrigger("Uke_L");
+                    CurrentTime = 0.0f;
+                    Enemy_Animator.SetBool(Enemy_Anim_bool, false);
+                }
+                else if (Kato_Player_Anim.Katana_Direction == 4 || Kato_Player_Anim.Katana_Direction == 5 || Kato_Player_Anim.Katana_Direction == 6 || Kato_Player_Anim.Katana_Direction == 3)
+                {
+                    Enemy_Animator.SetTrigger("Uke_R");
+                    CurrentTime = 0.0f;
+                    Enemy_Animator.SetBool(Enemy_Anim_bool, false);
+                }
+
+            }
+        }
+       else
+        {
+
             if (CurrentTime > CullTime)
             {
-                Enemy_Animator.SetBool(Enemy_Anim_bool, false);
-
+                Enemy_Animator.SetBool(Enemy_Anim_bool, true);
                 randomValue = -1;
-                CurrentTime = 0.0f;
             }
             else
             {
-                Enemy_Animator.SetBool(Enemy_Anim_bool, true);
-            }
+                CurrentTime += Time.deltaTime;
+            }      
 
-
-
-            if (animatorStateInfo.IsName(Enemy_Anim_name))
-            {
-                if (animatorStateInfo.normalizedTime >= 0.9f && !animatorStateInfo.loop)
-                {
-                    Enemy_Animator.SetBool(Enemy_Anim_bool, false);
-                    AnimCurrentTime = 0.0f;
-                }
-            }
-
-            if (CurrentTime == 0.0f)
-            {
-                randomValue = UnityEngine.Random.Range(0, 8);
-            }
-
-            CurrentTime += Time.deltaTime;
         }
+       
+
+
+        if (animatorStateInfo.IsName(Enemy_Anim_name))
+        {
+            if (animatorStateInfo.normalizedTime >= 0.9f && !animatorStateInfo.loop)
+            {
+                Enemy_Animator.SetBool(Enemy_Anim_bool, false);
+                AnimCurrentTime = 0.0f;
+            }
+        }
+
+        if (CurrentTime == 0.0f)
+        {
+            randomValue = UnityEngine.Random.Range(0, 8);
+        }
+
+
+
     }
 
 

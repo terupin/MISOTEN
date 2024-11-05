@@ -14,10 +14,13 @@ public class Kato_Player_Anim : MonoBehaviour
     public string L_Anim_name ="Ukenagashi_L";  // 終了を検知したいアニメーションの名前
     public string Grad_Anim_name = "Ukenagashi";  // 終了を検知したいアニメーションの名前
 
+    public string RUN_bool = "OneHand_Up_Run_F_InPlace";  //
+
+
 
     private bool PushFlg_L = false;//L押下フラグ
     private bool PushFlg_R = false;//R押下フラグ
-    private int Katana_Direction = -1;
+    static public int Katana_Direction = -1;
 
     public GameObject W_HitBox;//武器当たり判定
 
@@ -59,6 +62,8 @@ public class Kato_Player_Anim : MonoBehaviour
             PushFlg_R = false;
             //Debug.Log("R離れた");
         }
+
+        Player_Animator.SetBool(RUN_bool, Player_MOve.RUN_FLG);
 
 
         AnimatorStateInfo animatorStateInfo = Player_Animator.GetCurrentAnimatorStateInfo(0);

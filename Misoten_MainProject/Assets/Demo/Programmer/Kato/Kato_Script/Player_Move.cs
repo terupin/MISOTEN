@@ -15,6 +15,7 @@ public class Player_MOve : MonoBehaviour
     public float Move_Speed = 1f;
     public float Rotate_Speed = 1f;
     //private float RotateY;
+    static public bool RUN_FLG;
 
     public GameObject Target; 
 
@@ -53,13 +54,13 @@ public class Player_MOve : MonoBehaviour
             return true;
         }
 
-        //ジョイスティック右押し込み時カメラ
-        if (UnityEngine.Input.GetKeyDown("joystick button 9"))
-        {
-            gameObject.transform.LookAt(Target.transform);
-        }
+        ////ジョイスティック右押し込み時カメラ
+        //if (UnityEngine.Input.GetKeyDown("joystick button 9"))
+        //{
+        //    gameObject.transform.LookAt(Target.transform);
+        //}
 
-       
+
 
         return false;
     }
@@ -70,6 +71,15 @@ public class Player_MOve : MonoBehaviour
 
         float moveX = Input.GetAxis("Vertical");
         float RotateY = Input.GetAxis("Horizontal");
+
+        if(moveX==0.0f)
+        {
+            RUN_FLG = false;
+        }
+        else
+        {
+            RUN_FLG = true;
+        }
 
         transform.position += transform.forward * moveX* Move_Speed* Time.deltaTime;
         gameObject.transform.Rotate(new Vector3(0, RotateY , 0) * Time.deltaTime * Rotate_Speed);

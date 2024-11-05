@@ -1,0 +1,174 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Kato_a_Player_Anim : MonoBehaviour
+{
+    public Animator Player_Animator;
+
+    public string R_Anim_bool = "R_counter";  // 終了を検知したいアニメーションの名前
+    public string L_Anim_bool = "L_counter";  // 終了を検知したいアニメーションの名前
+    public string Gard_Anim_bool = "Gard";  // 終了を検知したいアニメーションの名前
+
+    public string R_Anim_name = "ukeR04_mcp";  // 終了を検知したいアニメーションの名前
+    public string L_Anim_name = "uke06_mcp";  // 終了を検知したいアニメーションの名前
+    public string Grad_Anim_name = "uketome07_mcp";  // 終了を検知したいアニメーションの名前
+
+    public string RUN_bool = "RUN";  //
+
+
+
+    private bool PushFlg_L = false;//L押下フラグ
+    private bool PushFlg_R = false;//R押下フラグ
+    static public int Katana_Direction = -1;
+
+
+    public static bool G_Flg;//ガードフラグ
+    public static bool A_Flg;//アタックフラグ
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        //W_HitBox.SetActive(true);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        //W_HitBox.SetActive(false);
+
+        //Lを押した時に押し込みフラグをTRUEにする
+        if (UnityEngine.Input.GetKeyDown("joystick button 4"))
+        {
+            PushFlg_L = true;
+        }
+        //Lを離した時に押し込みフラグをfalseにする
+        if (UnityEngine.Input.GetKeyUp("joystick button 4"))
+        {
+            PushFlg_L = false;
+            //Debug.Log("L離れた");
+        }
+
+        //Lを押した時に押し込みフラグをTRUEにする
+        if (UnityEngine.Input.GetKeyDown("joystick button 5"))
+        {
+            PushFlg_R = true;
+        }
+        //Lを離した時に押し込みフラグをfalseにする
+        if (UnityEngine.Input.GetKeyUp("joystick button 5"))
+        {
+            PushFlg_R = false;
+            //Debug.Log("R離れた");
+        }
+
+        Player_Animator.SetBool(RUN_bool, Player_MOve.RUN_FLG);
+
+
+        AnimatorStateInfo animatorStateInfo = Player_Animator.GetCurrentAnimatorStateInfo(0);
+
+        if(PushFlg_L)
+        {
+            Player_Animator.SetBool(Gard_Anim_bool, true);
+
+            Kato_a_GetKatana_Direction();
+            if(Kato_Hittest.Ukenagashi_Flg)
+            {
+                if (Katana_Direction == 0 || Katana_Direction == 1 || Katana_Direction == 2 || Katana_Direction == 7)
+                {
+                    Player_Animator.SetBool(R_Anim_bool, true);
+                }
+                else if (Katana_Direction == 3 || Katana_Direction == 4 || Katana_Direction == 5 || Katana_Direction == 6)
+                {
+                    Player_Animator.SetBool(L_Anim_bool, true);
+                }
+            }          
+
+        }
+        else
+        {
+            Player_Animator.SetBool(R_Anim_bool, false);
+            Player_Animator.SetBool(L_Anim_bool, false);
+            Player_Animator.SetBool(Gard_Anim_bool, false);
+        }
+
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Player_Animator.SetBool(R_Anim_bool, true);
+        }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            Player_Animator.SetBool(L_Anim_bool, true);
+        }
+
+        if (animatorStateInfo.IsName(R_Anim_name) || animatorStateInfo.IsName(L_Anim_name))
+        {
+            if (animatorStateInfo.normalizedTime >= 0.9f && !animatorStateInfo.loop)
+            {
+                Player_Animator.SetBool(R_Anim_bool, false);
+                Player_Animator.SetBool(L_Anim_bool, false);
+
+                PushFlg_L = false;
+                Katana_Direction = -1;
+            }
+        }
+
+        G_Flg = PushFlg_L;
+        A_Flg = PushFlg_R;
+    }
+
+    //コントローラーから斬撃の方向を取得
+    void Kato_a_GetKatana_Direction()
+    {
+
+        if (PushFlg_L)
+        {
+            var h = UnityEngine.Input.GetAxis("Horizontal2");
+            var v = UnityEngine.Input.GetAxis("Vertical2");
+
+            float degree = Mathf.Atan2(v, h) * Mathf.Rad2Deg;
+
+
+
+            if (degree < 0)
+            {
+                degree += 360;
+            }
+
+            if (v == 0 && h == 0)
+            {
+                Katana_Direction = -1;
+            }
+            else
+            {
+                if (Katana_Direction == -1)
+                {
+                    if (v == 0 && h == 0)
+                    {
+                        Katana_Direction = -1;
+                        PushFlg_L = false;
+                    }
+                    else
+                    {
+                        if (degree < 22.5f) { Katana_Direction = 0; }
+                        else if (degree < 67.5f) { Katana_Direction = 1; }
+                        else if (degree < 112.5f) { Katana_Direction = 2; }
+                        else if (degree < 157.5f) { Katana_Direction = 3; }
+                        else if (degree < 202.5f) { Katana_Direction = 4; }
+                        else if (degree < 247.5f) { Katana_Direction = 5; }
+                        else if (degree < 292.5f) { Katana_Direction = 6; }
+                        else if (degree < 337.5f) { Katana_Direction = 7; }
+                        else { Katana_Direction = 0; }
+                    }
+                }
+            }
+
+        }
+        else
+        {
+            Katana_Direction = -1;
+        }
+    }
+
+
+}

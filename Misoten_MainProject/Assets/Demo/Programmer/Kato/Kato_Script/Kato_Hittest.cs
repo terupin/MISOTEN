@@ -6,6 +6,7 @@ using UnityEngine;
 public class Kato_Hittest : MonoBehaviour
 {
     public GameObject obj;
+    private GameObject obj2;
 
     private bool P_G_flg=Kato_Player_Anim.G_Flg;
     private bool P_A_flg = Kato_Player_Anim.A_Flg;
@@ -23,13 +24,15 @@ public class Kato_Hittest : MonoBehaviour
     {
         gameObject.transform.position = obj.transform.position;
         gameObject.transform.rotation = obj.transform.rotation;
+
+        obj2 = GameObject.Find("sword_test(Clone)");
     }
 
     // Update is called once per frame
     void Update()
     {
-        P_G_flg = Kato_Player_Anim.G_Flg;
-        P_A_flg = Kato_Player_Anim.A_Flg;
+        P_G_flg = Kato_a_Player_Anim.G_Flg;
+        P_A_flg = Kato_a_Player_Anim.A_Flg;
 
         gameObject.transform.position= obj.transform.position;
         gameObject.transform.rotation = obj.transform.rotation;
@@ -44,6 +47,13 @@ public class Kato_Hittest : MonoBehaviour
             gameObject.transform.rotation = obj.transform.rotation;
         }
 
+
+     
+
+        if (obj2 != null)
+        {
+            Ukenagashi_Flg = false;
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -62,8 +72,14 @@ public class Kato_Hittest : MonoBehaviour
                 Debug.LogFormat("éÛÇØó¨Çµê¨å˜ÅI");
                 Ukenagashi_Flg = true;
 
-                Instantiate(S_Effect);
-                S_Effect.transform.position = gameObject.transform.position;
+                obj2 = GameObject.Find("sword_test(Clone)");
+                if (obj2 == null && Kato_a_Player_Anim.Katana_Direction>-1)
+                {
+                    Instantiate(S_Effect);
+                    S_Effect.transform.position = gameObject.transform.position;
+                    //UnityEditor.EditorApplication.isPaused = true;
+                }
+
             }
  
 
@@ -78,7 +94,6 @@ public class Kato_Hittest : MonoBehaviour
             if (collision.gameObject.name == "Player_HitBox" && P_G_flg)
             {
                 Debug.LogFormat("è’åÇîgî≠ê∂!");
-                //UnityEditor.EditorApplication.isPaused = true;
                 Hitflg = true;
             }
         }
