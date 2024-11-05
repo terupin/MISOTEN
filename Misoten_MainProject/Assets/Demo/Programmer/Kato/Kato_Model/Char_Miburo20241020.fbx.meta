@@ -3,7 +3,62 @@ guid: 63c39a9d9c1dd10418a17ca8cc10951e
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mt_Face
+    second: {fileID: 2100000, guid: 5c9ba1d4352b3184f83f738185632dba, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mt_Hair
+    second: {fileID: 2100000, guid: 485bb8f71b196c84e94bb233e96a40c1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mt_Luminus
+    second: {fileID: 2100000, guid: 977793bce74247e46add88e0f8c58034, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mt_Wear1
+    second: {fileID: 2100000, guid: 9c590c8812551ad4591fe9cdf5610f25, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mt_Wear2
+    second: {fileID: 2100000, guid: def024b9ff7a5bd42b8e45a71194ea77, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert1
+    second: {fileID: 2100000, guid: 31f1deebd3e96fb4c9698baaa0dc9aea, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tx_Face
+    second: {fileID: 2800000, guid: ddc8c89f9b4fcb94897f8dc73bf63b04, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tx_Hair
+    second: {fileID: 2800000, guid: a6f4e632f43a3974baedd14bf20250de, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tx_Luminus
+    second: {fileID: 2800000, guid: a27c468961c383e4b8d21a62c009640b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tx_Wear1
+    second: {fileID: 2800000, guid: fe2733e71a7b4444cabd854e048fadac, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tx_Wear2
+    second: {fileID: 2800000, guid: 2e2a051965ecf4645badfc689d85b9b2, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -477,86 +532,91 @@ ModelImporter:
     skeleton:
     - name: Char_Miburo20241020(Clone)
       parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Miburo
+      parentName: Char_Miburo20241020(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 0.01, y: 0.01, z: 0.01}
     - name: Head
-      parentName: Char_Miburo20241020(Clone)
+      parentName: Miburo
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Hair
-      parentName: Char_Miburo20241020(Clone)
+      parentName: Miburo
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Tsuno
-      parentName: Char_Miburo20241020(Clone)
+      parentName: Miburo
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Accessory
-      parentName: Char_Miburo20241020(Clone)
+      parentName: Miburo
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Kimono_Naka
-      parentName: Char_Miburo20241020(Clone)
+      parentName: Miburo
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Kimono
-      parentName: Char_Miburo20241020(Clone)
+      parentName: Miburo
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Sode
-      parentName: Char_Miburo20241020(Clone)
+      parentName: Miburo
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Hand
-      parentName: Char_Miburo20241020(Clone)
+      parentName: Miburo
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Hakama
-      parentName: Char_Miburo20241020(Clone)
+      parentName: Miburo
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Machine
-      parentName: Char_Miburo20241020(Clone)
+      parentName: Miburo
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Haori
-      parentName: Char_Miburo20241020(Clone)
+      parentName: Miburo
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Kataate
-      parentName: Char_Miburo20241020(Clone)
+      parentName: Miburo
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Muffler
-      parentName: Char_Miburo20241020(Clone)
+      parentName: Miburo
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Shoes
-      parentName: Char_Miburo20241020(Clone)
+      parentName: Miburo
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Weapon
-      parentName: Char_Miburo20241020(Clone)
+      parentName: Miburo
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Joint_Root
-      parentName: Char_Miburo20241020(Clone)
+      parentName: Miburo
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
@@ -1160,7 +1220,7 @@ ModelImporter:
     globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
