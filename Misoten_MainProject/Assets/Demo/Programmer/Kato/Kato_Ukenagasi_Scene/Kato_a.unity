@@ -3270,6 +3270,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3072760429213681789, guid: 0c03af48d89f8e24db637ca4b1af9eba,
+        type: 3}
+      propertyPath: WeponPoint
+      value: 
+      objectReference: {fileID: 2017728885}
     - target: {fileID: 5509660666022054128, guid: 0c03af48d89f8e24db637ca4b1af9eba,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3432,6 +3437,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3782237256826693610, guid: 4dd33527dbc82c042a136a42eb7fa2ae,
+        type: 3}
+      propertyPath: WeponPoint
+      value: 
+      objectReference: {fileID: 806838772}
     - target: {fileID: 5973180769403263343, guid: 4dd33527dbc82c042a136a42eb7fa2ae,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3503,6 +3513,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3987149692112920800, guid: 84b478aca8157364397819059bc97137,
         type: 3}
+    - target: {fileID: 8355975918904200834, guid: 4dd33527dbc82c042a136a42eb7fa2ae,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8355975918904200834, guid: 4dd33527dbc82c042a136a42eb7fa2ae,
         type: 3}
       propertyPath: PkatanaHitbox
