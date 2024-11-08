@@ -22,6 +22,25 @@ public class Kato_a_Player_Anim : MonoBehaviour
     private bool PushFlg_R = false;//R押下フラグ
     static public int Katana_Direction = -1;
 
+    [SerializeField, Header("連撃タイム(1.0)")]
+    public float RengekiTime;//連撃タイム
+    [SerializeField, Header("連撃最大カウント(2)")]
+    public int RengekiMaxCount;
+    private int RengekiCount;//連撃カウント
+    private bool RengekiFlg;//連撃フラグ
+    private float RengekiCurrentTime = 0.0f;//連撃カレントタイム
+
+    [SerializeField, Header("受け流しタイム(1.0)")]
+    public float Uke_Time;//受けタイム
+    private bool Uke_Input_Flg;//受け入力フラグ
+    private float Uke_CurrentTime = 0.0f;//受けカレントタイム
+
+    [SerializeField, Header("カウンタータイム(1.0)")]
+    public float Counter_Time;//カウンタータイム
+    private bool Counter_Input_Flg;//カウンター入力フラグ
+    private float Counter_CurrentTime = 0.0f;//カウンターカレントタイム
+
+    private bool Counter_Flg;//カウンター成功フラグ
 
     public static bool G_Flg;//ガードフラグ
     public static bool A_Flg;//アタックフラグ
@@ -35,30 +54,30 @@ public class Kato_a_Player_Anim : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //W_HitBox.SetActive(false);
-
         //Lを押した時に押し込みフラグをTRUEにする
         if (UnityEngine.Input.GetKeyDown("joystick button 4"))
         {
             PushFlg_L = true;
+            Uke_Input_Flg = true;
         }
         //Lを離した時に押し込みフラグをfalseにする
         if (UnityEngine.Input.GetKeyUp("joystick button 4"))
         {
             PushFlg_L = false;
-            //Debug.Log("L離れた");
+            Uke_Input_Flg = false;
+            Uke_CurrentTime = 0;
         }
 
-        //Lを押した時に押し込みフラグをTRUEにする
+        //Rを押した時に押し込みフラグをTRUEにする
         if (UnityEngine.Input.GetKeyDown("joystick button 5"))
         {
+            RengekiFlg = true;
             PushFlg_R = true;
         }
-        //Lを離した時に押し込みフラグをfalseにする
+        //Rを離した時に押し込みフラグをfalseにする
         if (UnityEngine.Input.GetKeyUp("joystick button 5"))
         {
             PushFlg_R = false;
-            //Debug.Log("R離れた");
         }
 
         Player_Animator.SetBool(RUN_bool, Player_MOve.RUN_FLG);
@@ -66,12 +85,12 @@ public class Kato_a_Player_Anim : MonoBehaviour
 
         AnimatorStateInfo animatorStateInfo = Player_Animator.GetCurrentAnimatorStateInfo(0);
 
-        if(PushFlg_L)
+        if (Uke_Input_Flg)
         {
             Player_Animator.SetBool(Gard_Anim_bool, true);
 
             Kato_a_GetKatana_Direction();
-            if(Kato_Hittest.Ukenagashi_Flg)
+            if (Kato_HitBoxP.Tubazeri_Flg)
             {
                 if (Katana_Direction == 0 || Katana_Direction == 1 || Katana_Direction == 2 || Katana_Direction == 7)
                 {
@@ -81,7 +100,7 @@ public class Kato_a_Player_Anim : MonoBehaviour
                 {
                     Player_Animator.SetBool(L_Anim_bool, true);
                 }
-            }          
+            }
 
         }
         else
@@ -115,13 +134,96 @@ public class Kato_a_Player_Anim : MonoBehaviour
 
         G_Flg = PushFlg_L;
         A_Flg = PushFlg_R;
+
+        //連撃
+        if (RengekiFlg && !Uke_Input_Flg && !Counter_Input_Flg)
+        {
+            RengekiCurrentTime += Time.deltaTime;
+
+            if (UnityEngine.Input.GetKeyDown("joystick button 5"))
+            {
+                RengekiCount++;
+                Debug.Log(RengekiCount);
+                RengekiCurrentTime = 0;
+            }
+
+            if (RengekiCurrentTime >= RengekiTime)
+            {
+                RengekiCurrentTime = 0;
+                RengekiCount = 0;
+                RengekiFlg = false;
+                Debug.Log("連撃タイム終了");
+                UnityEditor.EditorApplication.isPaused = true;
+            }
+
+            if (RengekiCount >= RengekiMaxCount)
+            {
+
+                RengekiCount = 0;
+                RengekiCurrentTime = 0;
+                RengekiFlg = false;
+                Debug.Log("連撃上限に達しました。");
+                UnityEditor.EditorApplication.isPaused = true;
+            }
+        }
+        if (Uke_CurrentTime == 0.0f)
+        {
+            Katana_Direction = -1;
+        }
+
+        //受け流し
+        if (Uke_Input_Flg && !Counter_Input_Flg)
+        {
+            Uke_CurrentTime += Time.deltaTime;
+
+            if (Katana_Direction != -1)
+            {
+                Debug.Log("方向入力完了");
+                Debug.Log("カウンター入力タイム開始");
+                //UnityEditor.EditorApplication.isPaused = true;
+                Counter_Input_Flg = true;
+                Uke_CurrentTime = 0;
+                Uke_Input_Flg = false;
+            }
+
+            if (Uke_CurrentTime >= Uke_Time)
+            {
+                Uke_CurrentTime = 0;
+                Uke_Input_Flg = false;
+                Debug.Log("受け流しタイム終了");
+                //UnityEditor.EditorApplication.isPaused = true;
+            }
+        }
+
+        //カウンター
+        if (Counter_Input_Flg)
+        {
+            Counter_CurrentTime += Time.deltaTime;
+
+            if (UnityEngine.Input.GetKeyDown("joystick button 5") && Kato_HitBoxP.Tubazeri_Flg)
+            {
+                Counter_Input_Flg = false;
+                Counter_Flg = true;
+                Debug.Log("カウンター入力成功");
+                //UnityEditor.EditorApplication.isPaused = true;
+            }
+
+
+            if (Counter_CurrentTime >= Counter_Time)
+            {
+                Counter_Input_Flg = false;
+                Uke_CurrentTime = 0;
+                Debug.Log("カウンター入力タイム終了");
+                //UnityEditor.EditorApplication.isPaused = true;
+            }
+        }
     }
 
     //コントローラーから斬撃の方向を取得
     void Kato_a_GetKatana_Direction()
     {
 
-        if (PushFlg_L)
+        if (Uke_Input_Flg)
         {
             var h = UnityEngine.Input.GetAxis("Horizontal2");
             var v = UnityEngine.Input.GetAxis("Vertical2");
@@ -146,7 +248,7 @@ public class Kato_a_Player_Anim : MonoBehaviour
                     if (v == 0 && h == 0)
                     {
                         Katana_Direction = -1;
-                        PushFlg_L = false;
+                        //PushFlg_L = false;
                     }
                     else
                     {
