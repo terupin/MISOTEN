@@ -11,6 +11,14 @@ public class Matsunaga_Enemy_Anim : MonoBehaviour
     public string Enemy_Anim_name; // 終了を検知したいアニメーションの名前
     public static int randomValue = -1; // ランダムな値を格納する
 
+    // キャラクターのステータス関係
+    [Header("体力")]
+    public int HitPoint;
+    [Header("振り下ろし時の攻撃力")]
+    public int Attack_point_hit_to_down;
+    [Header("連撃時の攻撃力")]
+    public int Attack_point_double_attack;
+
     // 攻撃関連の変数とフラグ
     public GameObject PkatanaHitbox;
     public GameObject Ejoint;
@@ -55,58 +63,74 @@ public class Matsunaga_Enemy_Anim : MonoBehaviour
         }
     }
 
+    [Header("振り上げの発生確率")]
+    [Range(0.0f, 1.0f)] public float hitToDownProbability = 0.3f;
+    [Header("連撃の発生確率")]
+    [Range(0.0f, 1.0f)] public float doubleAttackProbability = 0.5f;
+
     private attack_patern[] routine; // 攻撃パターンの配列
     private Coroutine attackRoutineCoroutine; // 実行中の攻撃ルーチンの参照
+    private bool isExecutingFieldAction = false; // 耐久フィールド展開中かどうかのフラグ
 
     void Start()
     {
+        // 初期化
         randomValue = -1;
         CurrentTime = 10.0f;
 
+        HitPoint = 10000;
+        Attack_point_hit_to_down = 1;
+        Attack_point_double_attack = 1;
+
         // 3つの攻撃パターンを初期化
         routine = new attack_patern[3];
-        routine[0] = new attack_patern(attack_part.hit_to_down, attack_part.hit_to_down, attack_part.hit_to_down, attack_part.hit_to_down, attack_part.hit_to_down, attack_part.hit_to_down);
-        routine[1] = new attack_patern(attack_part.double_attack, attack_part.double_attack, attack_part.double_attack, attack_part.double_attack, attack_part.double_attack, attack_part.double_attack);
-        routine[2] = new attack_patern(attack_part.registans_field, attack_part.registans_field, attack_part.registans_field, attack_part.registans_field, attack_part.registans_field, attack_part.registans_field);
+        routine[0] = new attack_patern();
+        routine[1] = new attack_patern();
+        routine[2] = new attack_patern();
     }
 
     void Update()
     {
-        // アニメーターの現在の状態を取得
         AnimatorStateInfo animatorStateInfo = Enemy_Animator.GetCurrentAnimatorStateInfo(0);
 
-        // プレイヤーと敵の剣の角度をアニメーターに設定
         if (playersword != null) Enemy_Animator.SetFloat("playersword_angul", playersword.transform.eulerAngles.y);
         if (enemysword != null) Enemy_Animator.SetFloat("enemysword_angul", enemysword.transform.eulerAngles.y);
 
-        // 攻撃パターンをランダムに選択し、ルーチンが存在しない場合に実行
-        int selectedRoutineIndex = UnityEngine.Random.Range(0, routine.Length);
+        // 攻撃ルーチンを開始
         if (attackRoutineCoroutine == null)
         {
-            attackRoutineCoroutine = StartCoroutine(ExecuteAttackRoutineWithDelay(routine[selectedRoutineIndex]));
+            attackRoutineCoroutine = StartCoroutine(ExecuteAttackRoutineWithDelay(SelectRandomRoutine()));
         }
 
-        // ターゲットが設定されている場合、ターゲットの方向を向き、指定距離を保ちながら移動
         if (target != null)
         {
             Vector3 directionToTarget = target.position - transform.position;
-            directionToTarget.y = 0; // 水平方向のみ向く
+            directionToTarget.y = 0;
             Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5.0f);
 
-            Debug.Log("方向転換を行いました。ターゲットに向いています。"); // 方向転換時のログ出力
-
-            // 一定の距離を保ちながらターゲットに向かって移動
             float distanceToTarget = directionToTarget.magnitude;
             if (distanceToTarget > maintainDistance)
             {
                 Vector3 moveDirection = directionToTarget.normalized;
                 transform.position += moveDirection * moveSpeed * Time.deltaTime;
-                Debug.Log("移動を行っています。ターゲットとの距離を保っています。"); // 移動時のログ出力
             }
         }
 
-        // アニメーション終了と攻撃パターンのリセット処理
+        if ((HitPoint <= 7500 && HitPoint > 5000) ||
+            (HitPoint <= 5000 && HitPoint > 2500) ||
+            (HitPoint <= 2500 && HitPoint > 0))
+        {
+            if (!isExecutingFieldAction)
+            {
+                if (attackRoutineCoroutine != null)
+                {
+                    StopCoroutine(attackRoutineCoroutine);
+                }
+                attackRoutineCoroutine = StartCoroutine(ExecuteResistFieldAndResumeRoutine());
+            }
+        }
+
         if (Enemy_Animator.enabled)
         {
             if (CurrentTime > CullTime)
@@ -120,15 +144,12 @@ public class Matsunaga_Enemy_Anim : MonoBehaviour
                 Enemy_Animator.SetBool(Enemy_Anim_bool, true);
             }
 
-            // アニメーション名が一致しており、完了していればリセット
             if (animatorStateInfo.IsName(Enemy_Anim_name) && animatorStateInfo.normalizedTime >= 0.9f && !animatorStateInfo.loop)
             {
                 Enemy_Animator.SetBool(Enemy_Anim_bool, false);
                 AnimCurrentTime = 0.0f;
-                Debug.Log("アニメーションが完了しました: " + Enemy_Anim_name); // アニメーション完了時のログ出力
             }
 
-            // ランダム値のリセット
             if (CurrentTime == 0.0f)
             {
                 randomValue = UnityEngine.Random.Range(0, 8);
@@ -138,7 +159,34 @@ public class Matsunaga_Enemy_Anim : MonoBehaviour
         }
     }
 
-    // 攻撃ルーチンを指定の遅延と共に実行
+    private attack_patern SelectRandomRoutine()
+    {
+        float random = UnityEngine.Random.Range(0f, 1f);
+        if (random < hitToDownProbability)
+        {
+            return routine[0];
+        }
+        else if (random < hitToDownProbability + doubleAttackProbability)
+        {
+            return routine[1];
+        }
+        else
+        {
+            return routine[2];
+        }
+    }
+
+    IEnumerator ExecuteResistFieldAndResumeRoutine()
+    {
+        isExecutingFieldAction = true;
+        ProcessAttack(attack_part.registans_field);
+        yield return new WaitForSeconds(0.5f);
+
+        int nextRoutineIndex = UnityEngine.Random.Range(0, routine.Length);
+        attackRoutineCoroutine = StartCoroutine(ExecuteAttackRoutineWithDelay(routine[nextRoutineIndex]));
+        isExecutingFieldAction = false;
+    }
+
     IEnumerator ExecuteAttackRoutineWithDelay(attack_patern selectedRoutine)
     {
         ProcessAttack(selectedRoutine.one);
@@ -158,31 +206,22 @@ public class Matsunaga_Enemy_Anim : MonoBehaviour
 
         ProcessAttack(selectedRoutine.six);
 
-        // 次の攻撃パターンに移行
-        int nextRoutineIndex = UnityEngine.Random.Range(0, routine.Length);
         yield return new WaitForSeconds(0.5f);
-
-        attackRoutineCoroutine = StartCoroutine(ExecuteAttackRoutineWithDelay(routine[nextRoutineIndex]));
+        attackRoutineCoroutine = StartCoroutine(ExecuteAttackRoutineWithDelay(SelectRandomRoutine()));
     }
 
-    // 各攻撃パートに応じたアクションを実行
     void ProcessAttack(attack_part attack)
     {
         switch (attack)
         {
             case attack_part.hit_to_down:
-                Enemy_Animator.SetTrigger("HitToDown");
-                Debug.Log("アクション: 振り被り攻撃"); // 攻撃アクションログ
+                Debug.Log("振り下ろし攻撃");
                 break;
-
             case attack_part.double_attack:
-                Enemy_Animator.SetTrigger("DoubleAttack");
-                Debug.Log("アクション: 連撃"); // 攻撃アクションログ
+                Debug.Log("連撃");
                 break;
-
             case attack_part.registans_field:
-                Enemy_Animator.SetTrigger("RegistansField");
-                Debug.Log("アクション: 耐久フィールド展開"); // 攻撃アクションログ
+                Debug.Log("耐久フィールド展開");
                 break;
         }
     }
