@@ -964,6 +964,9 @@ MonoBehaviour:
   Enemy_Animator: {fileID: 653352228}
   Enemy_Anim_bool: attack_flag
   Enemy_Anim_name: enemy01Attack1_05_mcp
+  HitPoint: 0
+  Attack_point_hit_to_down: 0
+  Attack_point_double_attack: 0
   PkatanaHitbox: {fileID: 1205868633}
   Ejoint: {fileID: 1661302187}
   CullTime: 5
@@ -972,6 +975,8 @@ MonoBehaviour:
   target: {fileID: 211873078}
   maintainDistance: 5
   moveSpeed: 2
+  hitToDownProbability: 0.6
+  doubleAttackProbability: 0.4
 --- !u!95 &653352228
 Animator:
   serializedVersion: 5
