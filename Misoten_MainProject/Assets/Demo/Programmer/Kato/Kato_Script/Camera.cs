@@ -168,7 +168,7 @@ public class Camera : MonoBehaviour
                         transform.RotateAround(player.transform.position + new Vector3(0.0f, 0.5f, 0.0f), Vector3.up, -Time.deltaTime * CamSpd);
                     }
                 }
-               
+
 
 
 
@@ -186,10 +186,6 @@ public class Camera : MonoBehaviour
 
 
             }
-
-
-            //transform.position = player.transform.position - transform.forward * 3;
-            //transform.position = (new Vector3(transform.position.x, 2.0f, transform.position.z));
         }
 
     }
