@@ -11,6 +11,9 @@ public class Kato_HitBoxE : MonoBehaviour
     [SerializeField, Header("斬撃エフェクト")]
     public GameObject S_Effect;
 
+    [SerializeField, Header("プレイヤーモデル")]
+    public GameObject Player_Model;
+
     private bool Hitflg = false;
 
     public static bool Ukenagashi_Flg;//受け流しフラグ 
@@ -35,9 +38,13 @@ public class Kato_HitBoxE : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.name == "Proto_Player" && !P_G_flg)
+        Debug.LogFormat("{1}は {0}に当たった", collision.gameObject.name, gameObject.name); // ぶつかった相手の名前を取得
+
+        if (collision.gameObject.name == "Player" )
         {
             Debug.LogFormat("{1}は {0}にダメージを与えた！", collision.gameObject.name, gameObject.name);
+            Player_Model.AddComponent<Damage_Flash>();
+            //UnityEditor.EditorApplication.isPaused = true;
         }
         if (collision.gameObject.name == "Player_HitBox" && P_G_flg)
         {
