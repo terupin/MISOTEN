@@ -6,6 +6,7 @@ public class Damage_Flash : MonoBehaviour
 {
    private float MaxTime = 1;   // “_–ÅŽüŠú
     private GameObject ChildObj ;
+    private GameObject Miburo_Box;
 
     private float FlashTime = 0.0f;
 
@@ -13,19 +14,15 @@ public class Damage_Flash : MonoBehaviour
     void Start()
     {
         FlashTime = 0.0f;
-        ChildObj = gameObject.transform.FindChild("Miburo").gameObject;
+        ChildObj = GameObject.Find("Miburo");
+        Miburo_Box = GameObject.Find("Player");
     }
 
     // Update is called once per frame
     void Update()
     {
-        //if (Time.time > nextTime)
-        //{
-        //    gameObject.SetActive(true); 
-
-        //    nextTime += interval;
-        //}
-        FlashTime += Time.deltaTime*6;
+        Miburo_Box.SetActive(false);
+       FlashTime += Time.deltaTime*6;
 
         if((int)FlashTime%2==0)
         {
@@ -38,6 +35,8 @@ public class Damage_Flash : MonoBehaviour
 
         if(FlashTime> MaxTime*6)
         {
+
+            Miburo_Box.SetActive(true);
             Destroy(this);
         }
     }

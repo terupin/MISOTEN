@@ -44,6 +44,7 @@ public class Kato_HitBoxE : MonoBehaviour
         {
             Debug.LogFormat("{1}は {0}にダメージを与えた！", collision.gameObject.name, gameObject.name);
             Player_Model.AddComponent<Damage_Flash>();
+            //Kato_Status_P.instance.Damage(1);
             //UnityEditor.EditorApplication.isPaused = true;
         }
         if (collision.gameObject.name == "Player_HitBox" && P_G_flg)
