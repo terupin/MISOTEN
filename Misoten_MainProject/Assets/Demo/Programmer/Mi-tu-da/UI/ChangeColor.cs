@@ -48,6 +48,7 @@ public class ChangeColor : MonoBehaviour{
     void ChangeImage(int value){
 
         if (value == Imagenumber){
+
             SetAlpha(image, 1.0f); /* •\¦ */
 
             //››•bŠÔ•\¦
@@ -58,8 +59,8 @@ public class ChangeColor : MonoBehaviour{
                 randomValue = 0;
             }
         }
-        else if(value != Imagenumber)
-        {
+        else if(value != Imagenumber){
+
             SetAlpha(image, 0.0f); /* ”ñ•\¦ */
         }
     }
