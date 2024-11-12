@@ -74,7 +74,6 @@ GameObject:
   - component: {fileID: 6842285267520818176}
   - component: {fileID: 1947059885140900734}
   - component: {fileID: 3585649484615341185}
-  - component: {fileID: 6520914563149371012}
   - component: {fileID: 6096856532692373496}
   - component: {fileID: 3072760429213681789}
   m_Layer: 0
@@ -172,21 +171,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6520914563149371012
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8710306301053825646}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45a98f72dbcff674f9dcabb4cb8a2d7c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  obj: {fileID: 0}
-  S_Effect: {fileID: 0}
-  PkatanaHitbox: {fileID: 0}
 --- !u!54 &6096856532692373496
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -229,3 +213,4 @@ MonoBehaviour:
   WeponPoint: {fileID: 0}
   S_Effect: {fileID: 3987149692112920800, guid: 84b478aca8157364397819059bc97137,
     type: 3}
+  Player_Model: {fileID: 0}

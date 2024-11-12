@@ -6,17 +6,36 @@ public class Kato_Status_P : MonoBehaviour
 {
     public int MaxHP=5;
     static public int NowHP;
+    public static int Armor;
+    private float ArmorTime=30.0f;
+    private float ArmorCurrentTime;
     public static Kato_Status_P instance;
+
 
     // Start is called before the first frame update
     void Start()
     {
         NowHP = MaxHP;
+        Armor= 0;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(Armor!=0)
+        {
+            ArmorCurrentTime += Time.deltaTime;
+
+            if(ArmorCurrentTime>=ArmorTime)
+            {
+                Armor = 0;
+                ArmorCurrentTime = 0;
+            }
+        }
+        else
+        {
+            ArmorCurrentTime = 0;
+        }
         
     }
 

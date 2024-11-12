@@ -7,6 +7,9 @@ public class Kato_HitBoxP : MonoBehaviour
     [SerializeField, Header("Œ•æ")]
     public GameObject WeponPoint;
 
+    [SerializeField, Header("Œ•ª–{")]
+    public GameObject WeponRoot;
+
     private bool P_G_flg = Kato_a_Player_Anim.G_Flg;
     private bool P_A_flg = Kato_a_Player_Anim.A_Flg;
 

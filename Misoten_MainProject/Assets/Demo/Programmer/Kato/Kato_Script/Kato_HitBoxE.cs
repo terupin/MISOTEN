@@ -6,6 +6,8 @@ public class Kato_HitBoxE : MonoBehaviour
 {
     [SerializeField, Header("剣先")]
     public GameObject WeponPoint;
+    [SerializeField, Header("剣根本")]
+    public GameObject WeponRoot;
     private GameObject Clone_Effect;//エフェクトのクローン
 
     [SerializeField, Header("斬撃エフェクト")]
