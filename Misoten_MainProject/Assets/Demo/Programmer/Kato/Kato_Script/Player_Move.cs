@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -37,22 +38,37 @@ public class Player_MOve : MonoBehaviour
     private bool HandleMovementInput()
     {
 
-        // キーボードの処理
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.UpArrow)
-            || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.RightArrow))
-        {
+        //// キーボードの処理
+        //if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.UpArrow)
+        //    || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.RightArrow))
+        //{
 
-            KeyboardUpdate();
-            return true;
+        //    KeyboardUpdate();
+        //    return true;
+        //}
+
+        float moveX = Input.GetAxis("Vertical");
+        float RotateY = Input.GetAxis("Horizontal");
+
+        if (MathF.Abs(moveX) >= 0.05f)
+        {
+            RUN_FLG = true;
+        }
+        else
+        {
+            RUN_FLG = false;
         }
 
-        // ゲームパッドの処理
-        if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
-        {
+        transform.position += transform.forward * moveX * Move_Speed * Time.deltaTime;
+        gameObject.transform.Rotate(new Vector3(0, RotateY, 0) * Time.deltaTime * Rotate_Speed);
 
-            GamePadUpdate();
-            return true;
-        }
+        //// ゲームパッドの処理
+        //if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+        //{
+
+        //    GamePadUpdate();
+        //    return true;
+        //}
 
         ////ジョイスティック右押し込み時カメラ
         //if (UnityEngine.Input.GetKeyDown("joystick button 9"))
@@ -71,14 +87,14 @@ public class Player_MOve : MonoBehaviour
 
         float moveX = Input.GetAxis("Vertical");
         float RotateY = Input.GetAxis("Horizontal");
-
-        if(moveX==0.0f)
+    
+        if (MathF.Abs(moveX) >= 0.05f)
         {
-            RUN_FLG = false;
+            RUN_FLG = true;         
         }
         else
         {
-            RUN_FLG = true;
+            RUN_FLG = false;
         }
 
         transform.position += transform.forward * moveX* Move_Speed* Time.deltaTime;

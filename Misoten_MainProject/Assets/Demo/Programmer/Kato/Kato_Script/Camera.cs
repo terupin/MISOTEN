@@ -87,6 +87,7 @@ public class Camera : MonoBehaviour
                     transform.position = enemy.transform.position + enemy.transform.forward * CameraPos.z;
                     transform.position = transform.position - enemy.transform.right * CameraPos.x;
                     transform.position = transform.position + enemy.transform.up * CameraPos.y;
+                    //UnityEditor.EditorApplication.isPaused = true;
                 }
                 else if (Kato_a_Player_Anim.Katana_Direction == 4 || Kato_a_Player_Anim.Katana_Direction == 5 || Kato_a_Player_Anim.Katana_Direction == 6 || Kato_a_Player_Anim.Katana_Direction == 3)
                 {
@@ -95,6 +96,13 @@ public class Camera : MonoBehaviour
                     transform.position = enemy.transform.position + enemy.transform.forward * CameraPos.z;
                     transform.position = transform.position + enemy.transform.right * CameraPos.x;
                     transform.position = transform.position + enemy.transform.up * CameraPos.y;
+                    //UnityEditor.EditorApplication.isPaused = true;
+                }
+                else
+                {
+                    Debug.Log(Kato_a_Player_Anim.Katana_Direction);
+                    
+                    //UnityEditor.EditorApplication.isPaused = true;
                 }
             }
         }
@@ -111,8 +119,7 @@ public class Camera : MonoBehaviour
             {
                 float h = UnityEngine.Input.GetAxis("Vertical2");
                 float v = UnityEngine.Input.GetAxis("Horizontal2");
-
-                //transform.LookAt(player.transform.position);
+           
 
                 if(h!=0)
                 {
@@ -179,7 +186,7 @@ public class Camera : MonoBehaviour
                 if (h == 0 && v == 0)
                 {
 
-                    transform.position = player.transform.position - transform.forward * 3;
+                    transform.position = player.transform.position - transform.forward * 5;
                     transform.position = (new Vector3(transform.position.x, 2.0f, transform.position.z));
                     transform.rotation = player.transform.rotation;
                 }

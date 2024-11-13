@@ -93,7 +93,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 0.2, z: 1}
+  m_LocalScale: {x: 2.4, y: 0.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2798557699720747440}
@@ -211,6 +211,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeponPoint: {fileID: 0}
+  WeponRoot: {fileID: 0}
   S_Effect: {fileID: 3987149692112920800, guid: 84b478aca8157364397819059bc97137,
     type: 3}
   Player_Model: {fileID: 0}

@@ -46,15 +46,14 @@ public class Kato_HitBoxE : MonoBehaviour
         {
             Debug.LogFormat("{1}は {0}にダメージを与えた！", collision.gameObject.name, gameObject.name);
             Player_Model.AddComponent<Damage_Flash>();
-            //Kato_Status_P.instance.Damage(1);
             //UnityEditor.EditorApplication.isPaused = true;
         }
         if (collision.gameObject.name == "Player_HitBox" && P_G_flg)
         {
             Debug.LogFormat("衝撃波発生!");
-
+            Ukenagashi_Flg = true;
             Clone_Effect = GameObject.Find("sword_test(Clone)");
-            if (Clone_Effect == null && Kato_a_Player_Anim.Katana_Direction > -1)
+            if (Clone_Effect == null )
             {
                 Instantiate(S_Effect);
                 S_Effect.transform.position = new Vector3(gameObject.transform.position.x, 2.0f, gameObject.transform.position.z);

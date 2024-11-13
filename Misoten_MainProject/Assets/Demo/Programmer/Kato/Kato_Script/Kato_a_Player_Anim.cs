@@ -14,7 +14,7 @@ public class Kato_a_Player_Anim : MonoBehaviour
     public string L_Anim_name = "uke06_mcp";  // 終了を検知したいアニメーションの名前
     public string Grad_Anim_name = "uketome07_mcp";  // 終了を検知したいアニメーションの名前
 
-    public string RUN_bool = "RUN";  //
+    public string RUN_bool = "Run";  //
 
 
 
@@ -45,10 +45,12 @@ public class Kato_a_Player_Anim : MonoBehaviour
     public static bool G_Flg;//ガードフラグ
     public static bool A_Flg;//アタックフラグ
 
+
+
     // Start is called before the first frame update
     void Start()
     {
-        //W_HitBox.SetActive(true);
+      
     }
 
     // Update is called once per frame
@@ -133,7 +135,7 @@ public class Kato_a_Player_Anim : MonoBehaviour
             }
         }
 
-        G_Flg = PushFlg_L;
+        //G_Flg = PushFlg_L;
         A_Flg = PushFlg_R;
 
         //連撃
@@ -169,17 +171,19 @@ public class Kato_a_Player_Anim : MonoBehaviour
         }
         if (Uke_CurrentTime == 0.0f)
         {
-            Katana_Direction = -1;
+            //Katana_Direction = -1;
         }
 
         //受け流し
         if (Uke_Input_Flg && !Counter_Input_Flg)
         {
+            
             Uke_CurrentTime += Time.deltaTime;
 
             if (Katana_Direction != -1)
             {
                 Debug.Log("方向入力完了");
+                G_Flg = true;
                 Debug.Log("カウンター入力タイム開始");
                 //UnityEditor.EditorApplication.isPaused = true;
                 Counter_Input_Flg = true;
@@ -192,13 +196,20 @@ public class Kato_a_Player_Anim : MonoBehaviour
                 Uke_CurrentTime = 0;
                 Uke_Input_Flg = false;
                 Debug.Log("受け流しタイム終了");
+                G_Flg = false;
                 //UnityEditor.EditorApplication.isPaused = true;
             }
         }
 
+        Player_Animator.SetBool("Gurd", Kato_HitBoxE.Ukenagashi_Flg);
+
+        Player_Animator.SetInteger("KatanaD", Katana_Direction);
+
+
         //カウンター
         if (Counter_Input_Flg)
         {
+            //Katana_Direction = -1;
             Counter_CurrentTime += Time.deltaTime;
 
             if (UnityEngine.Input.GetKeyDown("joystick button 5") && Kato_HitBoxP.Tubazeri_Flg)
@@ -218,6 +229,9 @@ public class Kato_a_Player_Anim : MonoBehaviour
                 //UnityEditor.EditorApplication.isPaused = true;
             }
         }
+
+
+       
     }
 
     //コントローラーから斬撃の方向を取得

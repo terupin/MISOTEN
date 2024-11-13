@@ -18,6 +18,8 @@ public class Kato_HitBoxP : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
+
         gameObject.transform.position = WeponPoint.transform.position;
         gameObject.transform.rotation = WeponPoint.transform.rotation;
     }
@@ -30,7 +32,7 @@ public class Kato_HitBoxP : MonoBehaviour
 
         if (Tubazeri_Flg && P_A_flg)
         {
-            UnityEditor.EditorApplication.isPaused = true;
+            //UnityEditor.EditorApplication.isPaused = true;
         }
 
         gameObject.transform.position = WeponPoint.transform.position;
