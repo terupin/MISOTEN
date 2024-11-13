@@ -14,7 +14,7 @@ public class Kato_a_Player_Anim : MonoBehaviour
     public string L_Anim_name = "uke06_mcp";  // 終了を検知したいアニメーションの名前
     public string Grad_Anim_name = "uketome07_mcp";  // 終了を検知したいアニメーションの名前
 
-    public string RUN_bool = "RUN";  //
+    public string RUN_bool = "Run";  //
 
 
 
@@ -22,7 +22,7 @@ public class Kato_a_Player_Anim : MonoBehaviour
     private bool PushFlg_R = false;//R押下フラグ
     static public int Katana_Direction = -1;
 
-    [SerializeField, Header("連撃タイム(1.0)")]
+    [SerializeField, Header("連撃タイム(0.5)")]
     public float RengekiTime;//連撃タイム
     [SerializeField, Header("連撃最大カウント(2)")]
     public int RengekiMaxCount;
@@ -30,12 +30,12 @@ public class Kato_a_Player_Anim : MonoBehaviour
     private bool RengekiFlg;//連撃フラグ
     private float RengekiCurrentTime = 0.0f;//連撃カレントタイム
 
-    [SerializeField, Header("受け流しタイム(1.0)")]
+    [SerializeField, Header("受け流しタイム(0.5)")]
     public float Uke_Time;//受けタイム
     private bool Uke_Input_Flg;//受け入力フラグ
     private float Uke_CurrentTime = 0.0f;//受けカレントタイム
 
-    [SerializeField, Header("カウンタータイム(1.0)")]
+    [SerializeField, Header("カウンタータイム(0.5)")]
     public float Counter_Time;//カウンタータイム
     private bool Counter_Input_Flg;//カウンター入力フラグ
     private float Counter_CurrentTime = 0.0f;//カウンターカレントタイム
@@ -45,10 +45,12 @@ public class Kato_a_Player_Anim : MonoBehaviour
     public static bool G_Flg;//ガードフラグ
     public static bool A_Flg;//アタックフラグ
 
+
+
     // Start is called before the first frame update
     void Start()
     {
-        //W_HitBox.SetActive(true);
+      
     }
 
     // Update is called once per frame
@@ -133,8 +135,8 @@ public class Kato_a_Player_Anim : MonoBehaviour
             }
         }
 
-        G_Flg = PushFlg_L;
-        A_Flg = PushFlg_R;
+        //G_Flg = PushFlg_L;
+        A_Flg = RengekiFlg;
 
         //連撃
         if (RengekiFlg && !Uke_Input_Flg && !Counter_Input_Flg)
@@ -169,17 +171,19 @@ public class Kato_a_Player_Anim : MonoBehaviour
         }
         if (Uke_CurrentTime == 0.0f)
         {
-            Katana_Direction = -1;
+            //Katana_Direction = -1;
         }
 
         //受け流し
         if (Uke_Input_Flg && !Counter_Input_Flg)
         {
+            
             Uke_CurrentTime += Time.deltaTime;
 
             if (Katana_Direction != -1)
             {
                 Debug.Log("方向入力完了");
+                G_Flg = true;
                 Debug.Log("カウンター入力タイム開始");
                 //UnityEditor.EditorApplication.isPaused = true;
                 Counter_Input_Flg = true;
@@ -192,17 +196,25 @@ public class Kato_a_Player_Anim : MonoBehaviour
                 Uke_CurrentTime = 0;
                 Uke_Input_Flg = false;
                 Debug.Log("受け流しタイム終了");
+                G_Flg = false;
                 //UnityEditor.EditorApplication.isPaused = true;
             }
         }
 
+        Player_Animator.SetBool("Gurd", Kato_HitBoxE.Ukenagashi_Flg);
+
+        Player_Animator.SetInteger("KatanaD", Katana_Direction);
+
+
         //カウンター
         if (Counter_Input_Flg)
         {
+            //Katana_Direction = -1;
             Counter_CurrentTime += Time.deltaTime;
 
             if (UnityEngine.Input.GetKeyDown("joystick button 5") && Kato_HitBoxP.Tubazeri_Flg)
             {
+                G_Flg = false;
                 Counter_Input_Flg = false;
                 Counter_Flg = true;
                 Debug.Log("カウンター入力成功");
@@ -212,12 +224,16 @@ public class Kato_a_Player_Anim : MonoBehaviour
 
             if (Counter_CurrentTime >= Counter_Time)
             {
+                G_Flg = false;
                 Counter_Input_Flg = false;
                 Uke_CurrentTime = 0;
                 Debug.Log("カウンター入力タイム終了");
                 //UnityEditor.EditorApplication.isPaused = true;
             }
         }
+
+
+       
     }
 
     //コントローラーから斬撃の方向を取得

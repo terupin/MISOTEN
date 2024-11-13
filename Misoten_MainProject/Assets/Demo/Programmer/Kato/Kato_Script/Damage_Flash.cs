@@ -15,7 +15,7 @@ public class Damage_Flash : MonoBehaviour
     {
         Kato_Status_P.NowHP--;
         FlashTime = 0.0f;
-        ChildObj = GameObject.Find("Miburo");
+        ChildObj = GameObject.Find("Char_Miburo_noRoot");
         Miburo_Box = GameObject.Find("Player");
     }
 
