@@ -48,7 +48,7 @@ public class Kato_HitBoxE : MonoBehaviour
             Player_Model.AddComponent<Damage_Flash>();
             //UnityEditor.EditorApplication.isPaused = true;
         }
-        if (collision.gameObject.name == "Player_HitBox" && P_G_flg)
+        if (collision.gameObject.name == "Player_HitBox" && Kato_a_Player_Anim.Katana_Direction!=-1)
         {
             Debug.LogFormat("è’åÇîgî≠ê∂!");
             Ukenagashi_Flg = true;

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class HpBar : MonoBehaviour
 {
     // 最大HPと現在のHP。
-    public int MaxHp = 10;
+    private int MaxHp = Kato_Status_E.MaxHP;
     private float CurrentHp;
     private float TargetHp; // ダメージ後の目標HP
     public float DamageUiSpeed = 0.1f; // ダメージが減るスピード
@@ -14,6 +14,7 @@ public class HpBar : MonoBehaviour
 
     void Start()
     {
+        MaxHp = Kato_Status_E.MaxHP;
         slider.minValue = 0;
         slider.maxValue = MaxHp;
         slider.value = MaxHp;
@@ -25,6 +26,11 @@ public class HpBar : MonoBehaviour
 
     private void Update()
     {
+        TargetHp = Kato_Status_E.NowHP;
+
+        Debug.Log(TargetHp);
+        //slider.value = (float)TargetHp;
+
         // 徐々にCurrentHpがTargetHpに向かって減少
         if (CurrentHp > TargetHp)
         {
@@ -34,9 +40,10 @@ public class HpBar : MonoBehaviour
         }
 
         // Dキーが押されたときにダメージを与える
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.Z))
         {
-            ApplyDamage(1); // 1ダメージを与える
+            Kato_Status_E.NowHP = Kato_Status_E.NowHP- 1000;
+            //ApplyDamage(1000); // 1ダメージを与える
         }
 
         if(CurrentHp <= 0)

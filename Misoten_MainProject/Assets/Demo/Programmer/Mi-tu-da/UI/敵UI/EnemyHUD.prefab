@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2506425364515017605}
   - component: {fileID: 5202649676791221305}
-  - component: {fileID: 1565866177113363892}
   m_Layer: 5
   m_Name: EnemyHpBar
   m_TagString: Untagged
@@ -85,27 +84,12 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 5
+  m_MaxValue: 10000
   m_WholeNumbers: 0
-  m_Value: 5
+  m_Value: 10000
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1565866177113363892
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1798734538858906117}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65cbc17720b2d244fb8c9b4d3b1f46c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MaxHp: 5
-  DamageUiSpeed: 1
-  slider: {fileID: 5202649676791221305}
 --- !u!1 &3526615886584237205
 GameObject:
   m_ObjectHideFlags: 0
@@ -379,6 +363,7 @@ GameObject:
   - component: {fileID: 8417076895543245609}
   - component: {fileID: 5875477045551856727}
   - component: {fileID: 4999771893247041658}
+  - component: {fileID: 7655642820167025151}
   m_Layer: 5
   m_Name: EnemyHUD
   m_TagString: Untagged
@@ -469,3 +454,17 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &7655642820167025151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8582528467655980633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65cbc17720b2d244fb8c9b4d3b1f46c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DamageUiSpeed: 1000
+  slider: {fileID: 5202649676791221305}

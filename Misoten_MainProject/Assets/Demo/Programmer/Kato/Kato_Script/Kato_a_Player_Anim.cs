@@ -22,7 +22,7 @@ public class Kato_a_Player_Anim : MonoBehaviour
     private bool PushFlg_R = false;//R押下フラグ
     static public int Katana_Direction = -1;
 
-    [SerializeField, Header("連撃タイム(1.0)")]
+    [SerializeField, Header("連撃タイム(0.5)")]
     public float RengekiTime;//連撃タイム
     [SerializeField, Header("連撃最大カウント(2)")]
     public int RengekiMaxCount;
@@ -30,12 +30,12 @@ public class Kato_a_Player_Anim : MonoBehaviour
     private bool RengekiFlg;//連撃フラグ
     private float RengekiCurrentTime = 0.0f;//連撃カレントタイム
 
-    [SerializeField, Header("受け流しタイム(1.0)")]
+    [SerializeField, Header("受け流しタイム(0.5)")]
     public float Uke_Time;//受けタイム
     private bool Uke_Input_Flg;//受け入力フラグ
     private float Uke_CurrentTime = 0.0f;//受けカレントタイム
 
-    [SerializeField, Header("カウンタータイム(1.0)")]
+    [SerializeField, Header("カウンタータイム(0.5)")]
     public float Counter_Time;//カウンタータイム
     private bool Counter_Input_Flg;//カウンター入力フラグ
     private float Counter_CurrentTime = 0.0f;//カウンターカレントタイム
@@ -136,7 +136,7 @@ public class Kato_a_Player_Anim : MonoBehaviour
         }
 
         //G_Flg = PushFlg_L;
-        A_Flg = PushFlg_R;
+        A_Flg = RengekiFlg;
 
         //連撃
         if (RengekiFlg && !Uke_Input_Flg && !Counter_Input_Flg)
@@ -214,6 +214,7 @@ public class Kato_a_Player_Anim : MonoBehaviour
 
             if (UnityEngine.Input.GetKeyDown("joystick button 5") && Kato_HitBoxP.Tubazeri_Flg)
             {
+                G_Flg = false;
                 Counter_Input_Flg = false;
                 Counter_Flg = true;
                 Debug.Log("カウンター入力成功");
@@ -223,6 +224,7 @@ public class Kato_a_Player_Anim : MonoBehaviour
 
             if (Counter_CurrentTime >= Counter_Time)
             {
+                G_Flg = false;
                 Counter_Input_Flg = false;
                 Uke_CurrentTime = 0;
                 Debug.Log("カウンター入力タイム終了");
