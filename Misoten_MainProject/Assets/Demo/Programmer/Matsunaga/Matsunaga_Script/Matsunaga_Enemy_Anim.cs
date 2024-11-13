@@ -11,6 +11,9 @@ public class Matsunaga_Enemy_Anim : MonoBehaviour
     public string Enemy_Anim_name; // 終了を検知したいアニメーションの名前
     public static int randomValue = -1; // ランダムな値を格納する
 
+    [Header("体力")]
+    public GameObject Enemy_A;
+
     // キャラクターのステータス関係
     [Header("体力")]
     public int HitPoint;
@@ -35,8 +38,8 @@ public class Matsunaga_Enemy_Anim : MonoBehaviour
 
     // ターゲットに向かって移動・向くための変数
     public Transform target; // 目標のオブジェクト
-    public float maintainDistance = 5.0f;  // 保つべき距離
-    public float moveSpeed = 2.0f; // 移動速度
+    public float maintainDistance = 1.5f;  // 保つべき距離
+    public float moveSpeed = 12.0f; // 移動速度
 
     // 攻撃の種類を定義するenum
     enum attack_part
@@ -104,16 +107,16 @@ public class Matsunaga_Enemy_Anim : MonoBehaviour
 
         if (target != null)
         {
-            Vector3 directionToTarget = target.position - transform.position;
+            Vector3 directionToTarget = target.position - Enemy_A.transform.position;
             directionToTarget.y = 0;
             Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5.0f);
+            Enemy_A.transform.rotation = Quaternion.Slerp(Enemy_A.transform.rotation, targetRotation, Time.deltaTime * 5.0f);
 
             float distanceToTarget = directionToTarget.magnitude;
             if (distanceToTarget > maintainDistance)
             {
                 Vector3 moveDirection = directionToTarget.normalized;
-                transform.position += moveDirection * moveSpeed * Time.deltaTime;
+                Enemy_A.transform.position += moveDirection * moveSpeed * Time.deltaTime;
             }
         }
 

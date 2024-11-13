@@ -13,6 +13,7 @@ public class Damage_Flash : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        Kato_Status_P.NowHP--;
         FlashTime = 0.0f;
         ChildObj = GameObject.Find("Miburo");
         Miburo_Box = GameObject.Find("Player");

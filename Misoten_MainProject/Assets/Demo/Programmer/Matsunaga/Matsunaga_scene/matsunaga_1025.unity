@@ -755,6 +755,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 84b478aca8157364397819059bc97137, type: 3}
+--- !u!1 &619872379 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6415395893267889988, guid: 351a4e9de7567a440aabafc6444e53fd,
+    type: 3}
+  m_PrefabInstance: {fileID: 653352216}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &653352216
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -763,6 +769,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1458124913045142844, guid: 1c8b199eb562ec743a79e9697eb48c5c,
+        type: 3}
+      propertyPath: Obj
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1458124913045142844, guid: 1c8b199eb562ec743a79e9697eb48c5c,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9054529420721731296, guid: 1c8b199eb562ec743a79e9697eb48c5c,
+        type: 3}
+      propertyPath: Obj
+      value: 
+      objectReference: {fileID: 86653896}
     - target: {fileID: 670719013025794473, guid: 351a4e9de7567a440aabafc6444e53fd,
         type: 3}
       propertyPath: m_Enabled
@@ -888,21 +909,6 @@ PrefabInstance:
       propertyPath: m_Constraints
       value: 126
       objectReference: {fileID: 0}
-    - target: {fileID: 1458124913045142844, guid: 1c8b199eb562ec743a79e9697eb48c5c,
-        type: 3}
-      propertyPath: Obj
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1458124913045142844, guid: 1c8b199eb562ec743a79e9697eb48c5c,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9054529420721731296, guid: 1c8b199eb562ec743a79e9697eb48c5c,
-        type: 3}
-      propertyPath: Obj
-      value: 
-      objectReference: {fileID: 86653896}
     m_RemovedComponents:
     - {fileID: 9054529420721731296, guid: 1c8b199eb562ec743a79e9697eb48c5c, type: 3}
     - {fileID: 3949771208427030975, guid: 351a4e9de7567a440aabafc6444e53fd, type: 3}
@@ -964,6 +970,7 @@ MonoBehaviour:
   Enemy_Animator: {fileID: 653352228}
   Enemy_Anim_bool: attack_flag
   Enemy_Anim_name: enemy01Attack1_05_mcp
+  Enemy_A: {fileID: 897435449}
   HitPoint: 0
   Attack_point_hit_to_down: 0
   Attack_point_double_attack: 0
@@ -973,8 +980,8 @@ MonoBehaviour:
   playersword: {fileID: 985295641}
   enemysword: {fileID: 1040402383}
   target: {fileID: 211873078}
-  maintainDistance: 5
-  moveSpeed: 2
+  maintainDistance: 2
+  moveSpeed: 8
   hitToDownProbability: 0.6
   doubleAttackProbability: 0.4
 --- !u!95 &653352228
@@ -1368,6 +1375,10 @@ MonoBehaviour:
   enemy: {fileID: 897435449}
   CameraRot: {x: 30, y: 30, z: 0}
   CameraPos: {x: -3, y: 4, z: -4}
+  CamSpd: 100
+  MaxX: 20
+  MinX: -20
+  cam: {fileID: 0}
 --- !u!114 &1641234006
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1590,6 +1601,16 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3072760429213681789, guid: 0c03af48d89f8e24db637ca4b1af9eba,
+        type: 3}
+      propertyPath: WeponPoint
+      value: 
+      objectReference: {fileID: 619872379}
+    - target: {fileID: 3072760429213681789, guid: 0c03af48d89f8e24db637ca4b1af9eba,
+        type: 3}
+      propertyPath: Player_Model
+      value: 
+      objectReference: {fileID: 1884798247}
     - target: {fileID: 5509660666022054128, guid: 0c03af48d89f8e24db637ca4b1af9eba,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1877,6 +1898,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3782237256826693610, guid: 4dd33527dbc82c042a136a42eb7fa2ae,
+        type: 3}
+      propertyPath: WeponPoint
+      value: 
+      objectReference: {fileID: 985295641}
     - target: {fileID: 5973180769403263343, guid: 4dd33527dbc82c042a136a42eb7fa2ae,
         type: 3}
       propertyPath: m_LocalPosition.x

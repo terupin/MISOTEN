@@ -71,6 +71,7 @@ public class Kato_a_Player_Anim : MonoBehaviour
         //Rを押した時に押し込みフラグをTRUEにする
         if (UnityEngine.Input.GetKeyDown("joystick button 5"))
         {
+            Player_Animator.SetTrigger("Attack");
             RengekiFlg = true;
             PushFlg_R = true;
         }
@@ -153,7 +154,7 @@ public class Kato_a_Player_Anim : MonoBehaviour
                 RengekiCount = 0;
                 RengekiFlg = false;
                 Debug.Log("連撃タイム終了");
-                UnityEditor.EditorApplication.isPaused = true;
+               // UnityEditor.EditorApplication.isPaused = true;
             }
 
             if (RengekiCount >= RengekiMaxCount)
@@ -163,7 +164,7 @@ public class Kato_a_Player_Anim : MonoBehaviour
                 RengekiCurrentTime = 0;
                 RengekiFlg = false;
                 Debug.Log("連撃上限に達しました。");
-                UnityEditor.EditorApplication.isPaused = true;
+                //UnityEditor.EditorApplication.isPaused = true;
             }
         }
         if (Uke_CurrentTime == 0.0f)

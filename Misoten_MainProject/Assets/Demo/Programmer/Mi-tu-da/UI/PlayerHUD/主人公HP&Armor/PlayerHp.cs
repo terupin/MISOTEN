@@ -18,11 +18,12 @@ public class PlayerHp : MonoBehaviour
     //Update is called once per frame
     void Update()
     {
+        UpdateHpImage();
         //テスト用のHP変更処理
         if (Input.GetKeyDown(KeyCode.E))
         {
             Hp = Mathf.Max(0, Hp - 1);/*HPを減らすが、0以下にはならない*/
-            UpdateHpImage();
+
         }
         else if (Input.GetKeyDown(KeyCode.R))
         {
@@ -34,9 +35,10 @@ public class PlayerHp : MonoBehaviour
     //HPに応じてImageを変更する
     void UpdateHpImage()
     {
-        if (Hp >= 0 && Hp < hpSprites.Length)
+       
+        if (Kato_Status_P.NowHP >= 0 && Kato_Status_P.NowHP < hpSprites.Length)
         {
-            image.sprite = hpSprites[Hp];
+            image.sprite = hpSprites[Kato_Status_P.NowHP];
         }
     }
 }
