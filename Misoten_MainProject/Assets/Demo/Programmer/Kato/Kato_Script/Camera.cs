@@ -8,25 +8,25 @@ using static UnityEngine.GraphicsBuffer;
 
 public class Camera : MonoBehaviour
 {
-    [SerializeField, Header("ƒvƒŒƒCƒ„[ƒf[ƒ^")]
-    public GameObject player;   //ƒvƒŒƒCƒ„[î•ñŠi”[—p
-    [SerializeField, Header("ƒJƒƒ‰ƒtƒJƒ“‚Ég‚¤“Gƒf[ƒ^")]
+    [SerializeField, Header("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒ‡ãƒ¼ã‚¿")]
+    public GameObject player;   //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æƒ…å ±æ ¼ç´ç”¨
+    [SerializeField, Header("ã‚«ãƒ¡ãƒ©ãƒ•ã‚«ãƒ³æ™‚ã«ä½¿ã†æ•µãƒ‡ãƒ¼ã‚¿")]
     public GameObject enemy;
-    private bool PushFlg_A = false;//L‰Ÿ‰ºƒtƒ‰ƒO
-    private bool PushFlg_L = false;//L‰Ÿ‰ºƒtƒ‰ƒO
+    private bool PushFlg_A = false;//LæŠ¼ä¸‹ãƒ•ãƒ©ã‚°
+    private bool PushFlg_L = false;//LæŠ¼ä¸‹ãƒ•ãƒ©ã‚°
 
-    [SerializeField, Header("ƒJƒƒ‰ƒtƒJƒ“Šp“x (30,30,0)")]
+    [SerializeField, Header("ã‚«ãƒ¡ãƒ©ãƒ•ã‚«ãƒ³è§’åº¦ (30,30,0)")]
     public Vector3 CameraRot= new Vector3(30.0f,30.0f,0.0f);
-    [SerializeField, Header("ƒJƒƒ‰ƒtƒJƒ“‹——£ (-3,4,-4)")]
+    [SerializeField, Header("ã‚«ãƒ¡ãƒ©ãƒ•ã‚«ãƒ³è·é›¢ (-3,4,-4)")]
     public Vector3 CameraPos = new Vector3(-3.0f, 4.0f, -4.0f);
 
-    [SerializeField, Header("ƒJƒƒ‰ˆÚ“®ƒXƒs[ƒh")]
+    [SerializeField, Header("ã‚«ãƒ¡ãƒ©ç§»å‹•ã‚¹ãƒ”ãƒ¼ãƒ‰")]
     public float CamSpd=100;
 
-    [SerializeField, Header("ƒJƒƒ‰ˆÚ“®YãŒÀ’l")]
+    [SerializeField, Header("ã‚«ãƒ¡ãƒ©ç§»å‹•Yä¸Šé™å€¤")]
     public float MaxX = 20.0f;
 
-    [SerializeField, Header("ƒJƒƒ‰ˆÚ“®Y‰ºŒÀ’l")]
+    [SerializeField, Header("ã‚«ãƒ¡ãƒ©ç§»å‹•Yä¸‹é™å€¤")]
     public float MinX = -20.0f;
 
     public GameObject cam;
@@ -34,7 +34,7 @@ public class Camera : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //ƒJƒƒ‰‚ÌŒü‚«‚ğ•ÏX‚·‚é
+        //ã‚«ãƒ¡ãƒ©ã®å‘ãã‚’å¤‰æ›´ã™ã‚‹
         transform.rotation = player.transform.rotation;
 
         transform.position = player.transform.position - transform.forward * 3;
@@ -45,26 +45,26 @@ public class Camera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Aƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚É‰Ÿ‚µ‚İƒtƒ‰ƒO‚ğTRUE‚É‚·‚é
+        //Aãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸæ™‚ã«æŠ¼ã—è¾¼ã¿ãƒ•ãƒ©ã‚°ã‚’TRUEã«ã™ã‚‹
         if (UnityEngine.Input.GetKeyDown("joystick button 0"))
         {
             PushFlg_A = true;
         }
-        //Aƒ{ƒ^ƒ“‚ğ—£‚µ‚½‚É‰Ÿ‚µ‚İƒtƒ‰ƒO‚ğfalse‚É‚·‚é
+        //Aãƒœã‚¿ãƒ³ã‚’é›¢ã—ãŸæ™‚ã«æŠ¼ã—è¾¼ã¿ãƒ•ãƒ©ã‚°ã‚’falseã«ã™ã‚‹
         if (UnityEngine.Input.GetKeyUp("joystick button 0"))
         {
             PushFlg_A = false;
         }
-        //L‚ğ‰Ÿ‚µ‚½‚É‰Ÿ‚µ‚İƒtƒ‰ƒO‚ğTRUE‚É‚·‚é
+        //Lã‚’æŠ¼ã—ãŸæ™‚ã«æŠ¼ã—è¾¼ã¿ãƒ•ãƒ©ã‚°ã‚’TRUEã«ã™ã‚‹
         if (UnityEngine.Input.GetKeyDown("joystick button 4"))
         {
             PushFlg_L = true;
         }
-        //L‚ğ—£‚µ‚½‚É‰Ÿ‚µ‚İƒtƒ‰ƒO‚ğfalse‚É‚·‚é
+        //Lã‚’é›¢ã—ãŸæ™‚ã«æŠ¼ã—è¾¼ã¿ãƒ•ãƒ©ã‚°ã‚’falseã«ã™ã‚‹
         if (UnityEngine.Input.GetKeyUp("joystick button 4"))
         {
             PushFlg_L = false;
-            //Debug.Log("L—£‚ê‚½");
+            //Debug.Log("Lé›¢ã‚ŒãŸ");
         }
 
 
@@ -186,7 +186,9 @@ public class Camera : MonoBehaviour
                 if (h == 0 && v == 0)
                 {
 
-                    transform.position = player.transform.position - transform.forward * 5;
+                    Cam_Spd = CamSpd;
+                    transform.position = player.transform.position - transform.forward * 3;
+
                     transform.position = (new Vector3(transform.position.x, 2.0f, transform.position.z));
                     transform.rotation = player.transform.rotation;
                 }

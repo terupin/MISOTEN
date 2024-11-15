@@ -6,18 +6,28 @@ public class Kato_EffectMove : MonoBehaviour
 {
     public float MoveTime = 1.5f;
     private float CurrentTime=0.0f;
-    public
+
+    private GameObject EnemyObj;
+    
 
     // Start is called before the first frame update
     void Start()
     {
-        if(Kato_a_Player_Anim.Katana_Direction==0 || Kato_a_Player_Anim.Katana_Direction == 1 || Kato_a_Player_Anim.Katana_Direction == 2|| Kato_a_Player_Anim.Katana_Direction == 7)
+        EnemyObj= GameObject.FindWithTag("Enemy");
+
+        if(EnemyObj)
         {
-            gameObject.transform.rotation = Quaternion.Euler(0.0f, 240.0f, 0.0f);
+            Debug.Log(EnemyObj.name);
+            //UnityEditor.EditorApplication.isPaused = true;
+        }
+
+        if (Kato_a_Player_Anim.Katana_Direction == 0 || Kato_a_Player_Anim.Katana_Direction == 1 || Kato_a_Player_Anim.Katana_Direction == 2 || Kato_a_Player_Anim.Katana_Direction == 7)
+        {
+            gameObject.transform.rotation = Quaternion.Euler(0.0f, EnemyObj.transform.rotation.y+60, 0.0f);
         }
         else if (Kato_a_Player_Anim.Katana_Direction == 4 || Kato_a_Player_Anim.Katana_Direction == 5 || Kato_a_Player_Anim.Katana_Direction == 6 || Kato_a_Player_Anim.Katana_Direction == 3)
         {
-            gameObject.transform.rotation = Quaternion.Euler(0.0f, 300.0f, 0.0f);
+            gameObject.transform.rotation = Quaternion.Euler(0.0f, EnemyObj.transform.rotation.y + 120, 0.0f);
         }
 
     }
@@ -27,6 +37,7 @@ public class Kato_EffectMove : MonoBehaviour
     {
         if(CurrentTime>=MoveTime)
         {
+            //UnityEditor.EditorApplication.isPaused = true;
             Destroy(gameObject);
         }
 

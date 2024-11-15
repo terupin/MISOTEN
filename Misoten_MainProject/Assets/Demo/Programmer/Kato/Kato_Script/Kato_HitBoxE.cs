@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Kato_HitBoxE : MonoBehaviour
@@ -15,6 +16,9 @@ public class Kato_HitBoxE : MonoBehaviour
 
     [SerializeField, Header("プレイヤーモデル")]
     public GameObject Player_Model;
+
+    [SerializeField, Header("敵モデル")]
+    public GameObject Enemy_Model;
 
     private bool Hitflg = false;
 
@@ -57,6 +61,15 @@ public class Kato_HitBoxE : MonoBehaviour
             {
                 Instantiate(S_Effect);
                 S_Effect.transform.position = new Vector3(gameObject.transform.position.x, 2.0f, gameObject.transform.position.z);
+
+                //if (Kato_a_Player_Anim.Katana_Direction == 0 || Kato_a_Player_Anim.Katana_Direction == 1 || Kato_a_Player_Anim.Katana_Direction == 2 || Kato_a_Player_Anim.Katana_Direction == 7)
+                //{
+                //    S_Effect.transform.rotation = Quaternion.Euler(0.0f, Enemy_Model.transform.rotation.y-30, 0.0f);
+                //}
+                //else if (Kato_a_Player_Anim.Katana_Direction == 4 || Kato_a_Player_Anim.Katana_Direction == 5 || Kato_a_Player_Anim.Katana_Direction == 6 || Kato_a_Player_Anim.Katana_Direction == 3)
+                //{
+                //    S_Effect.transform.rotation = Quaternion.Euler(0.0f, Enemy_Model.transform.rotation.y - 30, 0.0f);
+                //}
                 //UnityEditor.EditorApplication.isPaused = true;
             }
 
