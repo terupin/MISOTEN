@@ -322,9 +322,9 @@ public class Kato_a_Player_Anim_test : MonoBehaviour
             LockOnCamera.Priority = 15;
 
         }
-        else 
+        else if(isLockOn == false)
         {
-            LockOnCamera.Priority = 3;       
+            LockOnCamera.Priority = 3;
         }
     
     }
