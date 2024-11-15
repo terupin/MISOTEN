@@ -58,7 +58,7 @@ public class Kato_a_Player_Anim_test : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-      
+        
     }
 
     // Update is called once per frame
@@ -69,7 +69,6 @@ public class Kato_a_Player_Anim_test : MonoBehaviour
         {
             PushFlg_L = true;
             Uke_Input_Flg = true;
-            isLockOn = true;
 
         }
         //Lを離した時に押し込みフラグをfalseにする
@@ -91,6 +90,23 @@ public class Kato_a_Player_Anim_test : MonoBehaviour
         if (UnityEngine.Input.GetKeyUp("joystick button 5"))
         {
             PushFlg_R = false;
+        }
+        //R3を押したときにロックオンフラグをTRUEにする
+        if (UnityEngine.Input.GetKeyUp("joystick button 9") && isLockOn == false)
+        {
+            isLockOn = true;
+            CameraChenge();
+        }
+        //R3を離したときにロックオンフラグをfalseにする
+        else if (UnityEngine.Input.GetKeyUp("joystick button 9") && isLockOn == true)
+        {
+            isLockOn = false;
+            CameraChenge();
+        }
+        if (UnityEngine.Input.GetKeyUp("joystick button 9"))
+        {
+            Debug.Log("R3押し込み確認");
+            Debug.Log(isLockOn);
         }
 
         Player_Animator.SetBool(RUN_bool, Player_MOve.RUN_FLG);
@@ -308,7 +324,7 @@ public class Kato_a_Player_Anim_test : MonoBehaviour
         }
         else 
         {
-            LockOnCamera.Priority = 1;       
+            LockOnCamera.Priority = 3;       
         }
     
     }
