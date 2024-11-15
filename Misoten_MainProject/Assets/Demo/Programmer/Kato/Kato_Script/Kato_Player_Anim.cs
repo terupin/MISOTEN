@@ -63,7 +63,7 @@ public class Kato_Player_Anim : MonoBehaviour
             //Debug.Log("R—£‚ê‚½");
         }
 
-        Player_Animator.SetBool(RUN_bool, Player_Move.RUN_FLG);
+        Player_Animator.SetBool(RUN_bool, Player_MOve.RUN_FLG);
 
 
         AnimatorStateInfo animatorStateInfo = Player_Animator.GetCurrentAnimatorStateInfo(0);

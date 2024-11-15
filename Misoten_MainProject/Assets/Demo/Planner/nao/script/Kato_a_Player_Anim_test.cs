@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 
-public class Kato_a_Player_Anim : MonoBehaviour
+public class Kato_a_Player_Anim_test : MonoBehaviour
 {
     public Animator Player_Animator;
 
@@ -45,12 +46,19 @@ public class Kato_a_Player_Anim : MonoBehaviour
     public static bool G_Flg;//ガードフラグ
     public static bool A_Flg;//アタックフラグ
 
+    //カメラ周りに使用する変数宣言
+    public bool isLockOn = false; //ロックオン用カメラ切り替えフラグ
+    [SerializeField] Transform loocOnTarget = null;
+    public CinemachineVirtualCamera virtualCamera;
+    public CinemachineVirtualCamera LockOnCamera;
+
+ 
 
 
     // Start is called before the first frame update
     void Start()
     {
-      
+        
     }
 
     // Update is called once per frame
@@ -61,6 +69,7 @@ public class Kato_a_Player_Anim : MonoBehaviour
         {
             PushFlg_L = true;
             Uke_Input_Flg = true;
+
         }
         //Lを離した時に押し込みフラグをfalseにする
         if (UnityEngine.Input.GetKeyUp("joystick button 4"))
@@ -81,6 +90,23 @@ public class Kato_a_Player_Anim : MonoBehaviour
         if (UnityEngine.Input.GetKeyUp("joystick button 5"))
         {
             PushFlg_R = false;
+        }
+        //R3を押したときにロックオンフラグをTRUEにする
+        if (UnityEngine.Input.GetKeyUp("joystick button 9") && isLockOn == false)
+        {
+            isLockOn = true;
+            CameraChenge();
+        }
+        //R3を離したときにロックオンフラグをfalseにする
+        else if (UnityEngine.Input.GetKeyUp("joystick button 9") && isLockOn == true)
+        {
+            isLockOn = false;
+            CameraChenge();
+        }
+        if (UnityEngine.Input.GetKeyUp("joystick button 9"))
+        {
+            Debug.Log("R3押し込み確認");
+            Debug.Log(isLockOn);
         }
 
         Player_Animator.SetBool(RUN_bool, Player_MOve.RUN_FLG);
@@ -288,6 +314,19 @@ public class Kato_a_Player_Anim : MonoBehaviour
             Katana_Direction = -1;
         }
     }
+    //ロックオン中のカメラの切り替え
+    void CameraChenge()
+    { 
+        if(isLockOn == true)
+        {
+            LockOnCamera.Priority = 15;
 
+        }
+        else 
+        {
+            LockOnCamera.Priority = 3;       
+        }
+    
+    }
 
 }
