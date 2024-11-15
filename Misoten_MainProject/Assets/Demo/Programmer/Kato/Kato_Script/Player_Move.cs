@@ -6,7 +6,8 @@ using static UnityEngine.GraphicsBuffer;
 
 public class Player_Move : MonoBehaviour
 {
-
+    
+ 
 
     [SerializeField]
     public float Move_Speed = 1f;
@@ -43,7 +44,7 @@ public class Player_Move : MonoBehaviour
     }
 
 
-    // “ü—ÍƒfƒoƒCƒXŠÇ—
+    // å…¥åŠ›ãƒ‡ãƒã‚¤ã‚¹ç®¡ç†
     private bool HandleMovementInput()
     {
 
@@ -104,7 +105,7 @@ public class Player_Move : MonoBehaviour
 
         //gameObject.transform.Rotate(new Vector3(0, degree, 0) * Time.deltaTime * Rotate_Speed);
 
-        //// ƒQ[ƒ€ƒpƒbƒh‚Ìˆ—
+        //// ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ã®å‡¦ç†
         //if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
         //{
 
@@ -112,7 +113,7 @@ public class Player_Move : MonoBehaviour
         //    return true;
         //}
 
-        ////ƒWƒ‡ƒCƒXƒeƒBƒbƒN‰E‰Ÿ‚µž‚ÝŽžƒJƒƒ‰
+        ////ã‚¸ãƒ§ã‚¤ã‚¹ãƒ†ã‚£ãƒƒã‚¯å³æŠ¼ã—è¾¼ã¿æ™‚ã‚«ãƒ¡ãƒ©
         //if (UnityEngine.Input.GetKeyDown("joystick button 9"))
         //{
         //    gameObject.transform.LookAt(Target.transform);
@@ -123,7 +124,7 @@ public class Player_Move : MonoBehaviour
         return false;
     }
 
-    // ƒQ[ƒ€ƒpƒbƒh‚Ìˆ—
+    // ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ã®å‡¦ç†
     void GamePadUpdate()
     {
 
@@ -143,10 +144,10 @@ public class Player_Move : MonoBehaviour
         gameObject.transform.Rotate(new Vector3(0, RotateY , 0) * Time.deltaTime * Rotate_Speed);
 
 
-        //Debug.Log("GamePadŽg—p’†");
+        //Debug.Log("GamePadä½¿ç”¨ä¸­");
     }
 
-    // ƒL[ƒ{[ƒh‚Ìˆ—
+    // ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ã®å‡¦ç†
     void KeyboardUpdate()
     {
 
@@ -160,7 +161,7 @@ public class Player_Move : MonoBehaviour
 
         //movementInput = new Vector3(moveX, 0, moveZ).normalized;
 
-        ////Debug.Log("KeyboardŽg—p’†");
+        ////Debug.Log("Keyboardä½¿ç”¨ä¸­");
     }
 
 

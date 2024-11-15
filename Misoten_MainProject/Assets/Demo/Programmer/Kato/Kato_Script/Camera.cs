@@ -8,40 +8,33 @@ using static UnityEngine.GraphicsBuffer;
 
 public class Camera : MonoBehaviour
 {
-    [SerializeField, Header("ƒvƒŒƒCƒ„[ƒf[ƒ^")]
-    public GameObject player;   //ƒvƒŒƒCƒ„[î•ñŠi”[—p
-    [SerializeField, Header("ƒJƒƒ‰ƒtƒJƒ“Žž‚ÉŽg‚¤“Gƒf[ƒ^")]
+    [SerializeField, Header("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒ‡ãƒ¼ã‚¿")]
+    public GameObject player;   //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æƒ…å ±æ ¼ç´ç”¨
+    [SerializeField, Header("ã‚«ãƒ¡ãƒ©ãƒ•ã‚«ãƒ³æ™‚ã«ä½¿ã†æ•µãƒ‡ãƒ¼ã‚¿")]
     public GameObject enemy;
-    private bool PushFlg_A = false;//L‰Ÿ‰ºƒtƒ‰ƒO
-    private bool PushFlg_L = false;//L‰Ÿ‰ºƒtƒ‰ƒO
+    private bool PushFlg_A = false;//LæŠ¼ä¸‹ãƒ•ãƒ©ã‚°
+    private bool PushFlg_L = false;//LæŠ¼ä¸‹ãƒ•ãƒ©ã‚°
 
-    [SerializeField, Header("ƒJƒƒ‰ƒtƒJƒ“Šp“x (30,30,0)")]
+    [SerializeField, Header("ã‚«ãƒ¡ãƒ©ãƒ•ã‚«ãƒ³è§’åº¦ (30,30,0)")]
     public Vector3 CameraRot= new Vector3(30.0f,30.0f,0.0f);
-    [SerializeField, Header("ƒJƒƒ‰ƒtƒJƒ“‹——£ (-3,4,-4)")]
+    [SerializeField, Header("ã‚«ãƒ¡ãƒ©ãƒ•ã‚«ãƒ³è·é›¢ (-3,4,-4)")]
     public Vector3 CameraPos = new Vector3(-3.0f, 4.0f, -4.0f);
 
-    [SerializeField, Header("ƒJƒƒ‰ˆÚ“®ƒXƒs[ƒh")]
-    public float CamSpd=200;
+    [SerializeField, Header("ã‚«ãƒ¡ãƒ©ç§»å‹•ã‚¹ãƒ”ãƒ¼ãƒ‰")]
+    public float CamSpd=100;
 
-    private float Cam_Spd;
-
-    [SerializeField, Header("ƒJƒƒ‰ˆÚ“®YãŒÀ’l")]
+    [SerializeField, Header("ã‚«ãƒ¡ãƒ©ç§»å‹•Yä¸Šé™å€¤")]
     public float MaxX = 20.0f;
 
-    [SerializeField, Header("ƒJƒƒ‰ˆÚ“®Y‰ºŒÀ’l")]
+    [SerializeField, Header("ã‚«ãƒ¡ãƒ©ç§»å‹•Yä¸‹é™å€¤")]
     public float MinX = -20.0f;
 
     public GameObject cam;
 
-
-
-
     // Start is called before the first frame update
     void Start()
     {
-
-        Cam_Spd= CamSpd;
-        //ƒJƒƒ‰‚ÌŒü‚«‚ð•ÏX‚·‚é
+        //ã‚«ãƒ¡ãƒ©ã®å‘ãã‚’å¤‰æ›´ã™ã‚‹
         transform.rotation = player.transform.rotation;
 
         transform.position = player.transform.position - transform.forward * 3;
@@ -52,26 +45,26 @@ public class Camera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Aƒ{ƒ^ƒ“‚ð‰Ÿ‚µ‚½Žž‚É‰Ÿ‚µž‚Ýƒtƒ‰ƒO‚ðTRUE‚É‚·‚é
+        //Aãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸæ™‚ã«æŠ¼ã—è¾¼ã¿ãƒ•ãƒ©ã‚°ã‚’TRUEã«ã™ã‚‹
         if (UnityEngine.Input.GetKeyDown("joystick button 0"))
         {
             PushFlg_A = true;
         }
-        //Aƒ{ƒ^ƒ“‚ð—£‚µ‚½Žž‚É‰Ÿ‚µž‚Ýƒtƒ‰ƒO‚ðfalse‚É‚·‚é
+        //Aãƒœã‚¿ãƒ³ã‚’é›¢ã—ãŸæ™‚ã«æŠ¼ã—è¾¼ã¿ãƒ•ãƒ©ã‚°ã‚’falseã«ã™ã‚‹
         if (UnityEngine.Input.GetKeyUp("joystick button 0"))
         {
             PushFlg_A = false;
         }
-        //L‚ð‰Ÿ‚µ‚½Žž‚É‰Ÿ‚µž‚Ýƒtƒ‰ƒO‚ðTRUE‚É‚·‚é
+        //Lã‚’æŠ¼ã—ãŸæ™‚ã«æŠ¼ã—è¾¼ã¿ãƒ•ãƒ©ã‚°ã‚’TRUEã«ã™ã‚‹
         if (UnityEngine.Input.GetKeyDown("joystick button 4"))
         {
             PushFlg_L = true;
         }
-        //L‚ð—£‚µ‚½Žž‚É‰Ÿ‚µž‚Ýƒtƒ‰ƒO‚ðfalse‚É‚·‚é
+        //Lã‚’é›¢ã—ãŸæ™‚ã«æŠ¼ã—è¾¼ã¿ãƒ•ãƒ©ã‚°ã‚’falseã«ã™ã‚‹
         if (UnityEngine.Input.GetKeyUp("joystick button 4"))
         {
             PushFlg_L = false;
-            //Debug.Log("L—£‚ê‚½");
+            //Debug.Log("Lé›¢ã‚ŒãŸ");
         }
 
 
@@ -126,112 +119,80 @@ public class Camera : MonoBehaviour
             {
                 float h = UnityEngine.Input.GetAxis("Vertical2");
                 float v = UnityEngine.Input.GetAxis("Horizontal2");
+           
 
-                
-                if (h!=0)
+                if(h!=0)
                 {
                     transform.LookAt(player.transform.position + new Vector3(0.0f, 0.5f, 0.0f));
                 }
 
-
-
+                if (MathF.Abs(h) > MathF.Abs(v))
                 {
-                    if (MathF.Abs(h) > MathF.Abs(v))
+                    if (h > 0)
                     {
-                       
-                        if (h > 0)
+                        if (cam.transform.rotation.x <= MaxX)
                         {
-                            Cam_Spd -= 8;
-
-                            if (Cam_Spd < 0)
+                            if (transform.rotation.y > 90 && transform.rotation.y < 270)
                             {
-                                Cam_Spd = 0;
+                                transform.RotateAround(player.transform.position + new Vector3(0.0f, 0.5f, 0.0f), Vector3.right, -Time.deltaTime * CamSpd);
                             }
-                            if (cam.transform.rotation.x <= MaxX)
+                            else
                             {
-
-
-                                if (transform.rotation.y > 90 && transform.rotation.y < 270)
-                                {
-                                    transform.RotateAround(player.transform.position + new Vector3(0.0f, 0.5f, 0.0f), Vector3.right, -Time.deltaTime * Cam_Spd);
-                                }
-                                else
-                                {
-                                    transform.RotateAround(player.transform.position + new Vector3(0.0f, 0.5f, 0.0f), Vector3.right, -Time.deltaTime * Cam_Spd);
-                                }
-
+                                transform.RotateAround(player.transform.position + new Vector3(0.0f, 0.5f, 0.0f), Vector3.right, -Time.deltaTime * CamSpd);
                             }
-
 
                         }
-                        else if (h < 0)
-                        {
-                            Cam_Spd -= 20;
-
-                            if (Cam_Spd < 0)
-                            {
-                                Cam_Spd = 0;
-                            }
-                            if (cam.transform.rotation.x >= MinX)
-                            {
-                                if (transform.rotation.y > 90 && transform.rotation.y < 270)
-                                {
-                                    transform.RotateAround(player.transform.position + new Vector3(0.0f, 0.5f, 0.0f), Vector3.right, Time.deltaTime * Cam_Spd);
-                                }
-                                else
-                                {
-                                    transform.RotateAround(player.transform.position + new Vector3(0.0f, 0.5f, 0.0f), Vector3.right, Time.deltaTime * Cam_Spd);
-                                }
-                            }
 
 
-                        }
                     }
-                    else
+                    else if (h < 0)
                     {
 
-
-                        Cam_Spd-=2;
-
-                        if (Cam_Spd < 0)
+                        if (cam.transform.rotation.x >= MinX)
                         {
-                            Cam_Spd = 0;
+                            if (transform.rotation.y > 90 && transform.rotation.y < 270)
+                            {
+                                transform.RotateAround(player.transform.position + new Vector3(0.0f, 0.5f, 0.0f), Vector3.right, Time.deltaTime * CamSpd);
+                            }
+                            else
+                            {
+                                transform.RotateAround(player.transform.position + new Vector3(0.0f, 0.5f, 0.0f), Vector3.right, Time.deltaTime * CamSpd);
+                            }
                         }
 
-                        if (v > 0)
-                        {
 
-                                transform.RotateAround(player.transform.position + new Vector3(0.0f, 0.5f, 0.0f), Vector3.up, Time.deltaTime * Cam_Spd);
-                            
-
-
-                        }
-                        else if (v < 0)
-                        {
-
-                                transform.RotateAround(player.transform.position + new Vector3(0.0f, 0.5f, 0.0f), Vector3.up, -Time.deltaTime * Cam_Spd);
-                            
-
-                        }
                     }
                 }
+                else
+                {
+                    if (v > 0)
+                    {
+                        transform.RotateAround(player.transform.position + new Vector3(0.0f, 0.5f, 0.0f), Vector3.up, Time.deltaTime * CamSpd);
+
+                    }
+                    else if (v < 0)
+                    {
+                        transform.RotateAround(player.transform.position + new Vector3(0.0f, 0.5f, 0.0f), Vector3.up, -Time.deltaTime * CamSpd);
+                    }
+                }
+
+
+
+
+
+
 
 
                 if (h == 0 && v == 0)
                 {
+
                     Cam_Spd = CamSpd;
                     transform.position = player.transform.position - transform.forward * 3;
+
                     transform.position = (new Vector3(transform.position.x, 2.0f, transform.position.z));
                     transform.rotation = player.transform.rotation;
                 }
-                else
-                {
 
-                    if (Cam_Spd < 0)
-                    {
-                        Cam_Spd = 0;
-                    }
-                }
 
             }
         }
