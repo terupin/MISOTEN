@@ -59,18 +59,10 @@ public class Kato_HitBoxE : MonoBehaviour
             Clone_Effect = GameObject.Find("sword_test(Clone)");
             if (Clone_Effect == null )
             {
+
                 Instantiate(S_Effect);
                 S_Effect.transform.position = new Vector3(gameObject.transform.position.x, 2.0f, gameObject.transform.position.z);
 
-                //if (Kato_a_Player_Anim.Katana_Direction == 0 || Kato_a_Player_Anim.Katana_Direction == 1 || Kato_a_Player_Anim.Katana_Direction == 2 || Kato_a_Player_Anim.Katana_Direction == 7)
-                //{
-                //    S_Effect.transform.rotation = Quaternion.Euler(0.0f, Enemy_Model.transform.rotation.y-30, 0.0f);
-                //}
-                //else if (Kato_a_Player_Anim.Katana_Direction == 4 || Kato_a_Player_Anim.Katana_Direction == 5 || Kato_a_Player_Anim.Katana_Direction == 6 || Kato_a_Player_Anim.Katana_Direction == 3)
-                //{
-                //    S_Effect.transform.rotation = Quaternion.Euler(0.0f, Enemy_Model.transform.rotation.y - 30, 0.0f);
-                //}
-                //UnityEditor.EditorApplication.isPaused = true;
             }
 
             Hitflg = true;
