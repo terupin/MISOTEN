@@ -21,7 +21,9 @@ public class Camera : MonoBehaviour
     public Vector3 CameraPos = new Vector3(-3.0f, 4.0f, -4.0f);
 
     [SerializeField, Header("カメラ移動スピード")]
-    public float CamSpd=100;
+    public float CamSpd=200;
+
+    private float Cam_Spd;
 
     [SerializeField, Header("カメラ移動Y上限値")]
     public float MaxX = 20.0f;
@@ -31,9 +33,14 @@ public class Camera : MonoBehaviour
 
     public GameObject cam;
 
+
+
+
     // Start is called before the first frame update
     void Start()
     {
+
+        Cam_Spd= CamSpd;
         //カメラの向きを変更する
         transform.rotation = player.transform.rotation;
 
@@ -119,78 +126,112 @@ public class Camera : MonoBehaviour
             {
                 float h = UnityEngine.Input.GetAxis("Vertical2");
                 float v = UnityEngine.Input.GetAxis("Horizontal2");
-           
 
-                if(h!=0)
+                
+                if (h!=0)
                 {
                     transform.LookAt(player.transform.position + new Vector3(0.0f, 0.5f, 0.0f));
                 }
 
-                if (MathF.Abs(h) > MathF.Abs(v))
+
+
                 {
-                    if (h > 0)
+                    if (MathF.Abs(h) > MathF.Abs(v))
                     {
-                        if (cam.transform.rotation.x <= MaxX)
+                       
+                        if (h > 0)
                         {
-                            if (transform.rotation.y > 90 && transform.rotation.y < 270)
+                            Cam_Spd -= 8;
+
+                            if (Cam_Spd < 0)
                             {
-                                transform.RotateAround(player.transform.position + new Vector3(0.0f, 0.5f, 0.0f), Vector3.right, -Time.deltaTime * CamSpd);
+                                Cam_Spd = 0;
                             }
-                            else
+                            if (cam.transform.rotation.x <= MaxX)
                             {
-                                transform.RotateAround(player.transform.position + new Vector3(0.0f, 0.5f, 0.0f), Vector3.right, -Time.deltaTime * CamSpd);
+
+
+                                if (transform.rotation.y > 90 && transform.rotation.y < 270)
+                                {
+                                    transform.RotateAround(player.transform.position + new Vector3(0.0f, 0.5f, 0.0f), Vector3.right, -Time.deltaTime * Cam_Spd);
+                                }
+                                else
+                                {
+                                    transform.RotateAround(player.transform.position + new Vector3(0.0f, 0.5f, 0.0f), Vector3.right, -Time.deltaTime * Cam_Spd);
+                                }
+
                             }
+
 
                         }
+                        else if (h < 0)
+                        {
+                            Cam_Spd -= 20;
+
+                            if (Cam_Spd < 0)
+                            {
+                                Cam_Spd = 0;
+                            }
+                            if (cam.transform.rotation.x >= MinX)
+                            {
+                                if (transform.rotation.y > 90 && transform.rotation.y < 270)
+                                {
+                                    transform.RotateAround(player.transform.position + new Vector3(0.0f, 0.5f, 0.0f), Vector3.right, Time.deltaTime * Cam_Spd);
+                                }
+                                else
+                                {
+                                    transform.RotateAround(player.transform.position + new Vector3(0.0f, 0.5f, 0.0f), Vector3.right, Time.deltaTime * Cam_Spd);
+                                }
+                            }
 
 
+                        }
                     }
-                    else if (h < 0)
+                    else
                     {
 
-                        if (cam.transform.rotation.x >= MinX)
+
+                        Cam_Spd-=2;
+
+                        if (Cam_Spd < 0)
                         {
-                            if (transform.rotation.y > 90 && transform.rotation.y < 270)
-                            {
-                                transform.RotateAround(player.transform.position + new Vector3(0.0f, 0.5f, 0.0f), Vector3.right, Time.deltaTime * CamSpd);
-                            }
-                            else
-                            {
-                                transform.RotateAround(player.transform.position + new Vector3(0.0f, 0.5f, 0.0f), Vector3.right, Time.deltaTime * CamSpd);
-                            }
+                            Cam_Spd = 0;
                         }
 
+                        if (v > 0)
+                        {
 
+                                transform.RotateAround(player.transform.position + new Vector3(0.0f, 0.5f, 0.0f), Vector3.up, Time.deltaTime * Cam_Spd);
+                            
+
+
+                        }
+                        else if (v < 0)
+                        {
+
+                                transform.RotateAround(player.transform.position + new Vector3(0.0f, 0.5f, 0.0f), Vector3.up, -Time.deltaTime * Cam_Spd);
+                            
+
+                        }
                     }
                 }
-                else
-                {
-                    if (v > 0)
-                    {
-                        transform.RotateAround(player.transform.position + new Vector3(0.0f, 0.5f, 0.0f), Vector3.up, Time.deltaTime * CamSpd);
-
-                    }
-                    else if (v < 0)
-                    {
-                        transform.RotateAround(player.transform.position + new Vector3(0.0f, 0.5f, 0.0f), Vector3.up, -Time.deltaTime * CamSpd);
-                    }
-                }
-
-
-
-
-
-
 
 
                 if (h == 0 && v == 0)
                 {
-
+                    Cam_Spd = CamSpd;
                     transform.position = player.transform.position - transform.forward * 5;
                     transform.position = (new Vector3(transform.position.x, 2.0f, transform.position.z));
                     transform.rotation = player.transform.rotation;
                 }
+                else
+                {
 
+                    if (Cam_Spd < 0)
+                    {
+                        Cam_Spd = 0;
+                    }
+                }
 
             }
         }
