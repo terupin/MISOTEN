@@ -220,7 +220,7 @@ public class Camera : MonoBehaviour
                 if (h == 0 && v == 0)
                 {
                     Cam_Spd = CamSpd;
-                    transform.position = player.transform.position - transform.forward * 5;
+                    transform.position = player.transform.position - transform.forward * 3;
                     transform.position = (new Vector3(transform.position.x, 2.0f, transform.position.z));
                     transform.rotation = player.transform.rotation;
                 }
