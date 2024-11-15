@@ -109,7 +109,7 @@ public class Kato_a_Player_Anim_test : MonoBehaviour
             Debug.Log(isLockOn);
         }
 
-        Player_Animator.SetBool(RUN_bool, Player_MOve.RUN_FLG);
+        Player_Animator.SetBool(RUN_bool, Player_Move.RUN_FLG);
 
 
         AnimatorStateInfo animatorStateInfo = Player_Animator.GetCurrentAnimatorStateInfo(0);

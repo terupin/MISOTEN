@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Kato_a_Player_Anim : MonoBehaviour
 {
-    public Animator Player_Animator;
 
     public string R_Anim_bool = "R_counter";  // 終了を検知したいアニメーションの名前
     public string L_Anim_bool = "L_counter";  // 終了を検知したいアニメーションの名前
@@ -16,7 +17,7 @@ public class Kato_a_Player_Anim : MonoBehaviour
 
     public string RUN_bool = "Run";  //
 
-
+    public Animator Player_Animator;
 
     private bool PushFlg_L = false;//L押下フラグ
     private bool PushFlg_R = false;//R押下フラグ
@@ -83,7 +84,7 @@ public class Kato_a_Player_Anim : MonoBehaviour
             PushFlg_R = false;
         }
 
-        Player_Animator.SetBool(RUN_bool, Player_MOve.RUN_FLG);
+        Player_Animator.SetBool(RUN_bool, Player_Move.RUN_FLG);
 
 
         AnimatorStateInfo animatorStateInfo = Player_Animator.GetCurrentAnimatorStateInfo(0);
@@ -242,8 +243,8 @@ public class Kato_a_Player_Anim : MonoBehaviour
 
         if (Uke_Input_Flg)
         {
-            var h = UnityEngine.Input.GetAxis("Horizontal2");
-            var v = UnityEngine.Input.GetAxis("Vertical2");
+            float h = UnityEngine.Input.GetAxis("Horizontal2");
+            float v = UnityEngine.Input.GetAxis("Vertical2");
 
             float degree = Mathf.Atan2(v, h) * Mathf.Rad2Deg;
 
@@ -262,7 +263,8 @@ public class Kato_a_Player_Anim : MonoBehaviour
             {
                 if (Katana_Direction == -1)
                 {
-                    if (v == 0 && h == 0)
+
+                    if (MathF.Abs(v) <= 0.1f || MathF.Abs(h) <= 0.1f)
                     {
                         Katana_Direction = -1;
                         //PushFlg_L = false;
