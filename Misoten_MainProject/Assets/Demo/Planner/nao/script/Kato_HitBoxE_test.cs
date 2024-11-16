@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Kato_HitBoxE : MonoBehaviour
+public class Kato_HitBoxE_test : MonoBehaviour
 {
     [SerializeField, Header("åïêÊ")]
     public GameObject WeponPoint;
@@ -24,7 +24,7 @@ public class Kato_HitBoxE : MonoBehaviour
 
     public static bool Ukenagashi_Flg;//éÛÇØó¨ÇµÉtÉâÉO 
 
-    private bool P_G_flg = Kato_Player_Anim.G_Flg;
+    private bool P_G_flg = Kato_a_Player_Anim_test.G_Flg;
 
     // Start is called before the first frame update
     void Start()
@@ -36,7 +36,7 @@ public class Kato_HitBoxE : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        P_G_flg = Kato_a_Player_Anim.G_Flg;
+        P_G_flg = Kato_a_Player_Anim_test.G_Flg;
 
         gameObject.transform.position = WeponPoint.transform.position;
         gameObject.transform.rotation = WeponPoint.transform.rotation;
@@ -52,7 +52,7 @@ public class Kato_HitBoxE : MonoBehaviour
             Player_Model.AddComponent<Damage_Flash>();
             //UnityEditor.EditorApplication.isPaused = true;
         }
-        if (collision.gameObject.name == "Player_HitBox" && Kato_a_Player_Anim.Katana_Direction!=-1)
+        if (collision.gameObject.name == "Player_HitBox" && Kato_a_Player_Anim_test.Katana_Direction!=-1)
         {
             Debug.LogFormat("è’åÇîgî≠ê∂!");
             Ukenagashi_Flg = true;

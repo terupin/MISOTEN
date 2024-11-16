@@ -6,27 +6,51 @@ public class Kato_EffectMove : MonoBehaviour
 {
     public float MoveTime = 1.5f;
     private float CurrentTime=0.0f;
-    public
+
+    private GameObject EnemyObj;
+
+    private float Enemy_Roty;
+    
 
     // Start is called before the first frame update
     void Start()
     {
-        if(Kato_a_Player_Anim.Katana_Direction==0 || Kato_a_Player_Anim.Katana_Direction == 1 || Kato_a_Player_Anim.Katana_Direction == 2|| Kato_a_Player_Anim.Katana_Direction == 7)
+        EnemyObj = GameObject.FindWithTag("Enemy");
+        if (EnemyObj)
         {
-            gameObject.transform.rotation = Quaternion.Euler(0.0f, 240.0f, 0.0f);
+            //Debug.Log(EnemyObj.name);
+            //UnityEditor.EditorApplication.isPaused = true;
+            //Enemy_Roty = EnemyObj.transform.rotation.y;
+
+            Debug.Log(EnemyObj.transform.localEulerAngles.y);
+        }
+        gameObject.transform.position = Vector3.zero;
+
+        if (Kato_a_Player_Anim.Katana_Direction == 0 || Kato_a_Player_Anim.Katana_Direction == 1 || Kato_a_Player_Anim.Katana_Direction == 2 || Kato_a_Player_Anim.Katana_Direction == 7)
+        {
+            gameObject.transform.rotation = Quaternion.Euler(0.0f, EnemyObj.transform.localEulerAngles.y - 60, 0.0f);
         }
         else if (Kato_a_Player_Anim.Katana_Direction == 4 || Kato_a_Player_Anim.Katana_Direction == 5 || Kato_a_Player_Anim.Katana_Direction == 6 || Kato_a_Player_Anim.Katana_Direction == 3)
         {
-            gameObject.transform.rotation = Quaternion.Euler(0.0f, 300.0f, 0.0f);
+            gameObject.transform.rotation = Quaternion.Euler(0.0f, EnemyObj.transform.localEulerAngles.y - 120, 0.0f);
         }
-
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(CurrentTime>=MoveTime)
+
+
+        //Vector3 to = target.transform.position - transform.position;
+        //var angle = Vector3.SignedAngle(transform.forward, to, Vector3.up);
+
+
+
+
+
+        if (CurrentTime>=MoveTime)
         {
+            //UnityEditor.EditorApplication.isPaused = true;
             Destroy(gameObject);
         }
 

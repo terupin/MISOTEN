@@ -4,31 +4,54 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
-public class Player_MOve : MonoBehaviour
+public class Player_Move : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        Application.targetFrameRate = 60;
-    }
-
     [SerializeField]
     public float Move_Speed = 1f;
     public float Rotate_Speed = 1f;
     //private float RotateY;
     static public bool RUN_FLG;
 
-    public GameObject Target; 
+    [SerializeField, Header("敵プレハブ")]
+    public GameObject Target;
+
+    [SerializeField, Header("プレイヤープレハブ")]
+    public GameObject Player;
+
+    //private float Player_Rotate;
+    //private float Now_Rotate;
+
+
+    //private float Timea;
+
+    //private bool D_FLG;
+
+    private float resetrot;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+       // Player_Rotate = Player.transform.rotation.y;
+        Application.targetFrameRate = 60;
+    }
 
     private void Update()
     {
+        float moveX = Input.GetAxis("Vertical");
+        float RotateY = Input.GetAxis("Horizontal");
 
+        float degree = Mathf.Atan2(RotateY, moveX) * Mathf.Rad2Deg;
 
-
-        if (HandleMovementInput())
+        if (MathF.Abs(moveX) >= 0.05f || MathF.Abs(RotateY) >= 0.05f)
         {
+            Player.transform.rotation = Quaternion.Euler(new Vector3(0, degree, 0));
+            transform.position += transform.forward * Move_Speed * Time.deltaTime;
 
-            //MoveCharacter();
+            RUN_FLG = true;
+        }
+        else
+        {
+            RUN_FLG = false;
         }
 
     }
@@ -38,45 +61,28 @@ public class Player_MOve : MonoBehaviour
     private bool HandleMovementInput()
     {
 
-        //// キーボードの処理
-        //if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.UpArrow)
-        //    || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.RightArrow))
-        //{
+    
 
-        //    KeyboardUpdate();
-        //    return true;
+        //if (MathF.Abs(moveX) >= 0.05f || MathF.Abs(RotateY) >= 0.05f)
+        //{
+        //    Player.transform.rotation = Quaternion.Euler(new Vector3(0, Player_Rotate + degree, 0));
+
+        //    resetrot = Player_Rotate + degree;
+
+        //    transform.position += transform.forward * Move_Speed * Time.deltaTime;
+
+        //    RUN_FLG = true;
+        //}
+        //else
+        //{
+        //    Player_Rotate = resetrot;
+        //    Player.transform.rotation = Quaternion.Euler(new Vector3(0, resetrot, 0));
+
+        //    RUN_FLG = false;
+
         //}
 
-        float moveX = Input.GetAxis("Vertical");
-        float RotateY = Input.GetAxis("Horizontal");
-
-        if (MathF.Abs(moveX) >= 0.05f)
-        {
-            RUN_FLG = true;
-        }
-        else
-        {
-            RUN_FLG = false;
-        }
-
-        transform.position += transform.forward * moveX * Move_Speed * Time.deltaTime;
-        gameObject.transform.Rotate(new Vector3(0, RotateY, 0) * Time.deltaTime * Rotate_Speed);
-
-        //// ゲームパッドの処理
-        //if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
-        //{
-
-        //    GamePadUpdate();
-        //    return true;
-        //}
-
-        ////ジョイスティック右押し込み時カメラ
-        //if (UnityEngine.Input.GetKeyDown("joystick button 9"))
-        //{
-        //    gameObject.transform.LookAt(Target.transform);
-        //}
-
-
+        //degree = 0;
 
         return false;
     }
@@ -85,20 +91,20 @@ public class Player_MOve : MonoBehaviour
     void GamePadUpdate()
     {
 
-        float moveX = Input.GetAxis("Vertical");
-        float RotateY = Input.GetAxis("Horizontal");
+        //float moveX = Input.GetAxis("Vertical");
+        //float RotateY = Input.GetAxis("Horizontal");
     
-        if (MathF.Abs(moveX) >= 0.05f)
-        {
-            RUN_FLG = true;         
-        }
-        else
-        {
-            RUN_FLG = false;
-        }
+        //if (MathF.Abs(moveX) >= 0.05f)
+        //{
+        //    RUN_FLG = true;         
+        //}
+        //else
+        //{
+        //    RUN_FLG = false;
+        //}
 
-        transform.position += transform.forward * moveX* Move_Speed* Time.deltaTime;
-        gameObject.transform.Rotate(new Vector3(0, RotateY , 0) * Time.deltaTime * Rotate_Speed);
+        //transform.position += transform.forward * moveX* Move_Speed* Time.deltaTime;
+        //gameObject.transform.Rotate(new Vector3(0, RotateY , 0) * Time.deltaTime * Rotate_Speed);
 
 
         //Debug.Log("GamePad使用中");

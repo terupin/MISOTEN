@@ -109,7 +109,7 @@ public class Kato_a_Player_Anim_test : MonoBehaviour
             Debug.Log(isLockOn);
         }
 
-        Player_Animator.SetBool(RUN_bool, Player_MOve.RUN_FLG);
+        Player_Animator.SetBool(RUN_bool, Player_Move.RUN_FLG);
 
 
         AnimatorStateInfo animatorStateInfo = Player_Animator.GetCurrentAnimatorStateInfo(0);
@@ -119,7 +119,7 @@ public class Kato_a_Player_Anim_test : MonoBehaviour
             Player_Animator.SetBool(Gard_Anim_bool, true);
 
             Kato_a_GetKatana_Direction();
-            if (Kato_HitBoxP.Tubazeri_Flg)
+            if (Kato_HitBoxP_test.Tubazeri_Flg)
             {
                 if (Katana_Direction == 0 || Katana_Direction == 1 || Katana_Direction == 2 || Katana_Direction == 7)
                 {
@@ -215,6 +215,8 @@ public class Kato_a_Player_Anim_test : MonoBehaviour
                 Counter_Input_Flg = true;
                 Uke_CurrentTime = 0;
                 Uke_Input_Flg = false;
+                //ƒJƒƒ‰Ø‚è‘Ö‚¦ˆ—“ü‚ê‚é(ŠÖ”ì‚Á‚Ä“ü‚ê‚é)
+
             }
 
             if (Uke_CurrentTime >= Uke_Time)
@@ -227,7 +229,7 @@ public class Kato_a_Player_Anim_test : MonoBehaviour
             }
         }
 
-        Player_Animator.SetBool("Gurd", Kato_HitBoxE.Ukenagashi_Flg);
+        Player_Animator.SetBool("Gurd", Kato_HitBoxE_test.Ukenagashi_Flg);
 
         Player_Animator.SetInteger("KatanaD", Katana_Direction);
 
@@ -238,7 +240,7 @@ public class Kato_a_Player_Anim_test : MonoBehaviour
             //Katana_Direction = -1;
             Counter_CurrentTime += Time.deltaTime;
 
-            if (UnityEngine.Input.GetKeyDown("joystick button 5") && Kato_HitBoxP.Tubazeri_Flg)
+            if (UnityEngine.Input.GetKeyDown("joystick button 5") && Kato_HitBoxP_test.Tubazeri_Flg)
             {
                 G_Flg = false;
                 Counter_Input_Flg = false;
