@@ -17,7 +17,7 @@ public class Enemy_State : MonoBehaviour
 
     private Enemy_State_ E_State;
 
-    [SerializeField, Header("ターゲットとなるプレイヤー")]
+    [SerializeField, Header("ターゲットとなるプレイヤー(プレイヤーみぶろ)")]
     public GameObject Target_P;
 
     [SerializeField, Header("サーチ射程(10)")]
@@ -31,6 +31,7 @@ public class Enemy_State : MonoBehaviour
 
     private float P_E_Length;//プレイヤーと敵の距離
 
+    [SerializeField, Header("アニメーター")]
     public Animator E01Anim;
 
     private float StateTime=2.5f;
