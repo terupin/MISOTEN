@@ -13,8 +13,8 @@ public class Kato_HitBoxP_test : MonoBehaviour
 
     public GameObject Enemy_Model;
 
-    private bool P_G_flg = Kato_a_Player_Anim.G_Flg;
-    private bool P_A_flg = Kato_a_Player_Anim.A_Flg;
+    private bool P_G_flg = Kato_a_Player_Anim_test.G_Flg;
+    private bool P_A_flg = Kato_a_Player_Anim_test.A_Flg;
 
     public static bool Tubazeri_Flg;//éÛÇØó¨ÇµÉtÉâÉO 
 
@@ -37,8 +37,8 @@ public class Kato_HitBoxP_test : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        P_G_flg = Kato_a_Player_Anim.G_Flg;
-        P_A_flg = Kato_a_Player_Anim.A_Flg;
+        P_G_flg = Kato_a_Player_Anim_test.G_Flg;
+        P_A_flg = Kato_a_Player_Anim_test.A_Flg;
 
         if (Tubazeri_Flg && P_A_flg)
         {
@@ -48,30 +48,30 @@ public class Kato_HitBoxP_test : MonoBehaviour
         gameObject.transform.position = WeponPoint.transform.position;
         gameObject.transform.rotation = WeponPoint.transform.rotation;
 
-        if(changecamstartL == true)
-        {
-            camchangecount++;
-            ukenagasiLCam.Priority = 15;
+        //if(changecamstartL == true)
+        //{
+        //    camchangecount++;
+        //    ukenagasiLCam.Priority = 15;
 
-        }
-        else if(camchangecount >= 5)
-        {
-            changecamstartL = false;
-            camchangecount = 0;
-            ukenagasiLCam.Priority = 1;
-        }
-        if (changecamstartR == true)
-        {
-            camchangecount++;
-            ukenagasiRCam.Priority = 15;
+        //}
+        //else if(camchangecount >= 5)
+        //{
+        //    changecamstartL = false;
+        //    camchangecount = 0;
+        //    ukenagasiLCam.Priority = 1;
+        //}
+        //if (changecamstartR == true)
+        //{
+        //    camchangecount++;
+        //    ukenagasiRCam.Priority = 15;
 
-        }
-        else if (camchangecount >= 5)
-        {
-            changecamstartR = false;
-            camchangecount = 0;
-            ukenagasiRCam.Priority = 2;
-        }
+        //}
+        //else if (camchangecount >= 5)
+        //{
+        //    changecamstartR = false;
+        //    camchangecount = 0;
+        //    ukenagasiRCam.Priority = 2;
+        //}
 
     }
 
@@ -83,19 +83,19 @@ public class Kato_HitBoxP_test : MonoBehaviour
             Enemy_Model.AddComponent<Enemy_Damage>();
             //UnityEditor.EditorApplication.isPaused = true;
         }
-        if (collision.gameObject.name == "Enemy" && Kato_HitBoxE.Ukenagashi_Flg)
+        if (collision.gameObject.name == "Enemy" && Kato_HitBoxE_test.Ukenagashi_Flg)
         {
             Enemy_Model.AddComponent<UkenagashiDamage>();
             Debug.LogFormat("éÛÇØó¨Çµê¨å˜ÅI");
             Tubazeri_Flg = true;
-            if(Input.GetAxis("Horizontal2") < -0.01)
-            {
-                changecamstartL = true;
-            }
-            else if(Input.GetAxis("Horizontal2") > 0.01)
-            {
-                changecamstartR = true;
-            }
+            //if(Input.GetAxis("Horizontal2") < -0.01)
+            //{
+            //    changecamstartL = true;
+            //}
+            //else if(Input.GetAxis("Horizontal2") > 0.01)
+            //{
+            //    changecamstartR = true;
+            //}
             
         }
     }
