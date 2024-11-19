@@ -150,28 +150,28 @@ public class Kato_a_Player_Anim : MonoBehaviour
 
 
         //カウンター
-        //if (Counter_Input_Flg)
-        //{
-        //    //Katana_Direction = -1;
-        //    Counter_CurrentTime += Time.deltaTime;
+        if (Counter_Input_Flg)
+        {
+            //Katana_Direction = -1;
+            Counter_CurrentTime += Time.deltaTime;
 
-        //    if (UnityEngine.Input.GetKeyDown("joystick button 5") && Kato_HitBoxP.Tubazeri_Flg)
-        //    {
-        //        //Counter_Input_Flg = false;
-        //        Counter_Flg = true;
-        //        Debug.Log("カウンター入力成功");
-        //        //UnityEditor.EditorApplication.isPaused = true;
-        //    }
+            if (UnityEngine.Input.GetKeyDown("joystick button 5") /*&& Kato_HitBoxP.Tubazeri_Flg*/)
+            {
+                //Counter_Input_Flg = false;
+                Counter_Flg = true;
+                Debug.Log("カウンター入力成功");
+                //UnityEditor.EditorApplication.isPaused = true;
+            }
 
 
-        //    if (Counter_CurrentTime >= Counter_Time)
-        //    {
-        //        Counter_Input_Flg = false;
-        //        Uke_CurrentTime = 0;
-        //        Debug.Log("カウンター入力タイム終了");
-        //        //UnityEditor.EditorApplication.isPaused = true;
-        //    }
-        //}
+            if (Counter_CurrentTime >= Counter_Time)
+            {
+                Counter_Input_Flg = false;
+                Uke_CurrentTime = 0;
+                Debug.Log("カウンター入力タイム終了");
+                //UnityEditor.EditorApplication.isPaused = true;
+            }
+        }
         Kato_a_GetKatana_Direction();
 
         //受け流し
