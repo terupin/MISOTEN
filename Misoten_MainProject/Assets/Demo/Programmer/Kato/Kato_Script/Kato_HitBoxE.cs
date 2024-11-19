@@ -60,7 +60,7 @@ public class Kato_HitBoxE : MonoBehaviour
             {
 
                 Instantiate(S_Effect);
-                S_Effect.transform.position = new Vector3(gameObject.transform.position.x, 2.0f, gameObject.transform.position.z);
+                //S_Effect.transform.position = new Vector3(gameObject.transform.position.x, 2.0f, gameObject.transform.position.z);
 
             }
 

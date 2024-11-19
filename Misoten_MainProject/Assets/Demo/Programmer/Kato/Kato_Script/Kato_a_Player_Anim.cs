@@ -57,7 +57,13 @@ public class Kato_a_Player_Anim : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //Lを押した時に押し込みフラグをTRUEにする
+        if (UnityEngine.Input.GetKeyDown("joystick button 4"))
+        {
+            PushFlg_L = true;
+            Uke_Input_Flg = true;
+            //Katana_Direction = -1;
+        }
 
         //Lを離した時に押し込みフラグをfalseにする
         if (UnityEngine.Input.GetKeyUp("joystick button 4"))
@@ -149,33 +155,11 @@ public class Kato_a_Player_Anim : MonoBehaviour
 
 
 
-        //カウンター
-        if (Counter_Input_Flg)
-        {
-            //Katana_Direction = -1;
-            Counter_CurrentTime += Time.deltaTime;
 
-            if (UnityEngine.Input.GetKeyDown("joystick button 5") /*&& Kato_HitBoxP.Tubazeri_Flg*/)
-            {
-                //Counter_Input_Flg = false;
-                Counter_Flg = true;
-                Debug.Log("カウンター入力成功");
-                //UnityEditor.EditorApplication.isPaused = true;
-            }
-
-
-            if (Counter_CurrentTime >= Counter_Time)
-            {
-                Counter_Input_Flg = false;
-                Uke_CurrentTime = 0;
-                Debug.Log("カウンター入力タイム終了");
-                //UnityEditor.EditorApplication.isPaused = true;
-            }
-        }
         Kato_a_GetKatana_Direction();
 
         //受け流し
-        if (Uke_Input_Flg && PushFlg_L)
+        if (Uke_Input_Flg )
         {
             Debug.Log(Uke_CurrentTime);
 
@@ -196,7 +180,7 @@ public class Kato_a_Player_Anim : MonoBehaviour
             if (Uke_CurrentTime >= Uke_Time)
             {
                 Katana_Direction = -1;
-                Uke_CurrentTime = 0;
+                Uke_CurrentTime = 0.0f;
                 Uke_Input_Flg = false;
                 PushFlg_L = false;
                 Debug.Log("受け流しタイム終了");
@@ -207,6 +191,27 @@ public class Kato_a_Player_Anim : MonoBehaviour
         else
         {
             Katana_Direction = -1;
+        }
+
+
+
+        //カウンター
+        if (Counter_Input_Flg)
+        {
+            Counter_CurrentTime += Time.deltaTime;
+
+            if (UnityEngine.Input.GetKeyDown("joystick button 5") /*&& Kato_HitBoxP.Tubazeri_Flg*/)
+            {
+                Counter_Flg = true;
+                Debug.Log("カウンター入力成功");
+            }
+
+            if (Counter_CurrentTime >= Counter_Time)
+            {
+                Counter_Input_Flg = false;
+                Counter_CurrentTime = 0;
+                Debug.Log("カウンター入力タイム終了");
+            }
         }
 
         //連撃
@@ -243,7 +248,7 @@ public class Kato_a_Player_Anim : MonoBehaviour
 
 
         Player_Animator.SetBool("Gurd",Kato_HitBoxE.Ukenagashi_Flg);
-        if(PushFlg_L)
+        if(G_Flg)
         {
             Player_Animator.SetInteger("KatanaD", Katana_Direction);
         }
@@ -252,13 +257,7 @@ public class Kato_a_Player_Anim : MonoBehaviour
             Player_Animator.SetInteger("KatanaD", -1);
         }
 
-        //Lを押した時に押し込みフラグをTRUEにする
-        if (UnityEngine.Input.GetKeyDown("joystick button 4"))
-        {
-            PushFlg_L = true;
-            Uke_Input_Flg = true;
-            //Katana_Direction = -1;
-        }
+
 
 
 

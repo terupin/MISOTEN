@@ -8,6 +8,7 @@ public class Kato_EffectMove : MonoBehaviour
     private float CurrentTime=0.0f;
 
     private GameObject EnemyObj;
+    private GameObject EnemyKatanaBox;
 
     private float Enemy_Roty;
     
@@ -16,15 +17,16 @@ public class Kato_EffectMove : MonoBehaviour
     void Start()
     {
         EnemyObj = GameObject.FindWithTag("Enemy");
-        if (EnemyObj)
-        {
-            //Debug.Log(EnemyObj.name);
-            //UnityEditor.EditorApplication.isPaused = true;
-            //Enemy_Roty = EnemyObj.transform.rotation.y;
+        EnemyKatanaBox = GameObject.Find("Enemy_HitBox");
+        //if (EnemyObj)
+        //{
+        //    //Debug.Log(EnemyObj.name);
+        //    //UnityEditor.EditorApplication.isPaused = true;
+        //    //Enemy_Roty = EnemyObj.transform.rotation.y;
 
-            Debug.Log(EnemyObj.transform.localEulerAngles.y);
-        }
-        gameObject.transform.position = Vector3.zero;
+        //    Debug.Log(EnemyObj.transform.localEulerAngles.y);
+        //}
+        gameObject.transform.position = new Vector3(EnemyKatanaBox.transform.localPosition.x,2.0f, EnemyKatanaBox.transform.localPosition.z);
 
         if (Kato_a_Player_Anim.Katana_Direction == 0 || Kato_a_Player_Anim.Katana_Direction == 1 || Kato_a_Player_Anim.Katana_Direction == 2 || Kato_a_Player_Anim.Katana_Direction == 7)
         {
