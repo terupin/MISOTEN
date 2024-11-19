@@ -1,11 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using Cinemachine;
 using UnityEngine;
+using UnityEngine.UIElements;
 
-public class Kato_a_Player_Anim_test : MonoBehaviour
+public class Kato_a_Player_Anim_camcheck : MonoBehaviour
 {
-    public Animator Player_Animator;
 
     public string R_Anim_bool = "R_counter";  // 終了を検知したいアニメーションの名前
     public string L_Anim_bool = "L_counter";  // 終了を検知したいアニメーションの名前
@@ -17,7 +17,7 @@ public class Kato_a_Player_Anim_test : MonoBehaviour
 
     public string RUN_bool = "Run";  //
 
-
+    public Animator Player_Animator;
 
     private bool PushFlg_L = false;//L押下フラグ
     private bool PushFlg_R = false;//R押下フラグ
@@ -46,19 +46,12 @@ public class Kato_a_Player_Anim_test : MonoBehaviour
     public static bool G_Flg;//ガードフラグ
     public static bool A_Flg;//アタックフラグ
 
-    //カメラ周りに使用する変数宣言
-    public bool isLockOn = false; //ロックオン用カメラ切り替えフラグ
-    [SerializeField] Transform loocOnTarget = null;
-    public CinemachineVirtualCamera virtualCamera;
-    public CinemachineVirtualCamera LockOnCamera;
-
- 
-
+    public MainCamera mainCamerascript;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+      
     }
 
     // Update is called once per frame
@@ -69,7 +62,6 @@ public class Kato_a_Player_Anim_test : MonoBehaviour
         {
             PushFlg_L = true;
             Uke_Input_Flg = true;
-
         }
         //Lを離した時に押し込みフラグをfalseにする
         if (UnityEngine.Input.GetKeyUp("joystick button 4"))
@@ -91,23 +83,8 @@ public class Kato_a_Player_Anim_test : MonoBehaviour
         {
             PushFlg_R = false;
         }
-        //R3を押したときにロックオンフラグをTRUEにする
-        if (UnityEngine.Input.GetKeyUp("joystick button 9") && isLockOn == false)
-        {
-            isLockOn = true;
-            CameraChenge();
-        }
-        //R3を離したときにロックオンフラグをfalseにする
-        else if (UnityEngine.Input.GetKeyUp("joystick button 9") && isLockOn == true)
-        {
-            isLockOn = false;
-            CameraChenge();
-        }
-        if (UnityEngine.Input.GetKeyUp("joystick button 9"))
-        {
-            Debug.Log("R3押し込み確認");
-            Debug.Log(isLockOn);
-        }
+        
+
 
         Player_Animator.SetBool(RUN_bool, Player_Move.RUN_FLG);
 
@@ -119,7 +96,7 @@ public class Kato_a_Player_Anim_test : MonoBehaviour
             Player_Animator.SetBool(Gard_Anim_bool, true);
 
             Kato_a_GetKatana_Direction();
-            if (Kato_HitBoxP_test.Tubazeri_Flg)
+            if (Kato_HitBoxP_camcheck.Tubazeri_Flg)
             {
                 if (Katana_Direction == 0 || Katana_Direction == 1 || Katana_Direction == 2 || Katana_Direction == 7)
                 {
@@ -216,7 +193,6 @@ public class Kato_a_Player_Anim_test : MonoBehaviour
                 Uke_CurrentTime = 0;
                 Uke_Input_Flg = false;
                 //カメラ切り替え処理入れる(関数作って入れる)
-
             }
 
             if (Uke_CurrentTime >= Uke_Time)
@@ -229,7 +205,7 @@ public class Kato_a_Player_Anim_test : MonoBehaviour
             }
         }
 
-        Player_Animator.SetBool("Gurd", Kato_HitBoxE_camcheck.Ukenagashi_Flg);
+        Player_Animator.SetBool("Gurd", Kato_HitBoxE.Ukenagashi_Flg);
 
         Player_Animator.SetInteger("KatanaD", Katana_Direction);
 
@@ -240,7 +216,7 @@ public class Kato_a_Player_Anim_test : MonoBehaviour
             //Katana_Direction = -1;
             Counter_CurrentTime += Time.deltaTime;
 
-            if (UnityEngine.Input.GetKeyDown("joystick button 5") && Kato_HitBoxP_test.Tubazeri_Flg)
+            if (UnityEngine.Input.GetKeyDown("joystick button 5") && Kato_HitBoxP_camcheck.Tubazeri_Flg)
             {
                 G_Flg = false;
                 Counter_Input_Flg = false;
@@ -270,8 +246,8 @@ public class Kato_a_Player_Anim_test : MonoBehaviour
 
         if (Uke_Input_Flg)
         {
-            var h = UnityEngine.Input.GetAxis("Horizontal2");
-            var v = UnityEngine.Input.GetAxis("Vertical2");
+            float h = UnityEngine.Input.GetAxis("Horizontal2");
+            float v = UnityEngine.Input.GetAxis("Vertical2");
 
             float degree = Mathf.Atan2(v, h) * Mathf.Rad2Deg;
 
@@ -290,7 +266,8 @@ public class Kato_a_Player_Anim_test : MonoBehaviour
             {
                 if (Katana_Direction == -1)
                 {
-                    if (v == 0 && h == 0)
+
+                    if (MathF.Abs(v) <= 0.1f || MathF.Abs(h) <= 0.1f)
                     {
                         Katana_Direction = -1;
                         //PushFlg_L = false;
@@ -316,19 +293,6 @@ public class Kato_a_Player_Anim_test : MonoBehaviour
             Katana_Direction = -1;
         }
     }
-    //ロックオン中のカメラの切り替え
-    void CameraChenge()
-    { 
-        if(isLockOn == true)
-        {
-            LockOnCamera.Priority = 15;
 
-        }
-        else 
-        {
-            LockOnCamera.Priority = 3;       
-        }
-    
-    }
 
 }
