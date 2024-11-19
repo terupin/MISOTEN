@@ -481,9 +481,7 @@ MonoBehaviour:
   RengekiTime: 0.5
   RengekiMaxCount: 2
   Uke_Time: 0.5
-  Uke_CurrentTime: 0
   Counter_Time: 1
-  Counter_CurrentTime: 0
 --- !u!4 &4483380184182187960 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9c6aaf2a20547364d96c267b33d3f265,
