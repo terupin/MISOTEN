@@ -17,7 +17,7 @@ public class Muteki : MonoBehaviour
     {
        
 
-        if (Kato_a_Player_Anim.Katana_Direction != -1)
+        if (Kato_a_Player_Anim.Katana_Direction != -1 ||Kato_a_Player_Anim.G_Flg)
         {
             Miburo_Box.SetActive(false);
             
