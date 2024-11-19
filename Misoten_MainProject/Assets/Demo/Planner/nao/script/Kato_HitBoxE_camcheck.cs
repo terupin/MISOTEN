@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Kato_HitBoxE_test_camcheck : MonoBehaviour
+public class Kato_HitBoxE_camcheck : MonoBehaviour
 {
     [SerializeField, Header("åïêÊ")]
     public GameObject WeponPoint;
