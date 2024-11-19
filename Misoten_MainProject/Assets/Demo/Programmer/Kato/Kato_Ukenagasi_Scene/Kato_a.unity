@@ -1914,42 +1914,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a7f10768c0424dc4186b059b5362e701, type: 3}
---- !u!1 &1251987587 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3851697167270165762, guid: 8eb4fdc726e23774da71f86d9d295d96,
-    type: 3}
-  m_PrefabInstance: {fileID: 1805590262}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &1251987592 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 2618861639207004343, guid: 8eb4fdc726e23774da71f86d9d295d96,
-    type: 3}
-  m_PrefabInstance: {fileID: 1805590262}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1251987593
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1251987587}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41b7f5ba51d2ea744bed5b6d0938dc72, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  R_Anim_bool: R_counter
-  L_Anim_bool: L_counter
-  Gard_Anim_bool: Gard
-  R_Anim_name: ukeR04_mcp
-  L_Anim_name: uke06_mcp
-  Grad_Anim_name: uketome07_mcp
-  RUN_bool: Run
-  Player_Animator: {fileID: 1251987592}
-  RengekiTime: 1
-  RengekiMaxCount: 2
-  Uke_Time: 1
-  Counter_Time: 1
 --- !u!1 &1262545057 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 408933056732622817, guid: 5a5dfd0327ec98346a40d1796a249e1e,
@@ -2853,6 +2817,16 @@ PrefabInstance:
       propertyPath: Move_Speed
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 4669491866440464128, guid: 8eb4fdc726e23774da71f86d9d295d96,
+        type: 3}
+      propertyPath: Uke_Time
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4669491866440464128, guid: 8eb4fdc726e23774da71f86d9d295d96,
+        type: 3}
+      propertyPath: RengekiTime
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6696693179243410524, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}
       propertyPath: m_IsActive
@@ -2925,10 +2899,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1097163956}
-    - targetCorrespondingSourceObject: {fileID: 3851697167270165762, guid: 8eb4fdc726e23774da71f86d9d295d96,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1251987593}
   m_SourcePrefab: {fileID: 100100000, guid: 8eb4fdc726e23774da71f86d9d295d96, type: 3}
 --- !u!4 &1805590263 stripped
 Transform:
