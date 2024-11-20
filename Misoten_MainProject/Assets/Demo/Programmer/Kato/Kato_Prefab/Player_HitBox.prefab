@@ -62,7 +62,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1, y: 1, z: 1}
-  m_LocalScale: {x: 1.2, y: 0.2, z: 0.2}
+  m_LocalScale: {x: 1.2, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2908230174139525377}
@@ -181,6 +181,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WeponPoint: {fileID: 0}
   WeponRoot: {fileID: 0}
+  Enemy_Model: {fileID: 0}
 --- !u!1 &6234090326671345115
 GameObject:
   m_ObjectHideFlags: 0
