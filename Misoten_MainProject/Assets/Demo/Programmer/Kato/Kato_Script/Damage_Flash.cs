@@ -25,14 +25,14 @@ public class Damage_Flash : MonoBehaviour
         Miburo_Box.SetActive(false);
        FlashTime += Time.deltaTime*6;
 
-        if((int)FlashTime%2==0)
-        {
-            ChildObj.SetActive(true);
-        }
-        else if ((int)FlashTime % 2 == 1)
-        {
-            ChildObj.SetActive(false);
-        }
+        //if((int)FlashTime%2==0)
+        //{
+        //    ChildObj.SetActive(true);
+        //}
+        //else if ((int)FlashTime % 2 == 1)
+        //{
+        //    ChildObj.SetActive(false);
+        //}
 
         if(FlashTime> MaxTime*6)
         {

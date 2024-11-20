@@ -37,6 +37,7 @@ Transform:
   m_Children:
   - {fileID: 4328376115139170498}
   - {fileID: 4483380184182187960}
+  - {fileID: 4107478772556514997}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4307563697888750479
@@ -52,8 +53,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Move_Speed: 10
-  Rotate_Speed: 50
   Target: {fileID: 3847602336648284765, guid: 1c8b199eb562ec743a79e9697eb48c5c, type: 3}
+  Player: {fileID: 0}
+  Camera_o: {fileID: 0}
 --- !u!114 &3429618914247794518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -274,6 +276,37 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!1 &7474802990552301971
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4107478772556514997}
+  m_Layer: 0
+  m_Name: CameraPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4107478772556514997
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7474802990552301971}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.26, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7990267080315534937}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &4157548114301485139
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -348,15 +381,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9c6aaf2a20547364d96c267b33d3f265,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3297775407692920892}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9c6aaf2a20547364d96c267b33d3f265,
-        type: 3}
-      insertIndex: -1
       addedObject: {fileID: 2253144863584131910}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9c6aaf2a20547364d96c267b33d3f265,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 4100271816001211969}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9c6aaf2a20547364d96c267b33d3f265,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4669491866440464128}
   m_SourcePrefab: {fileID: 100100000, guid: 9c6aaf2a20547364d96c267b33d3f265, type: 3}
 --- !u!1 &3851697167270165762 stripped
 GameObject:
@@ -385,30 +418,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &3297775407692920892
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3851697167270165762}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41b7f5ba51d2ea744bed5b6d0938dc72, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Player_Animator: {fileID: 2618861639207004343}
-  R_Anim_bool: R_counter
-  L_Anim_bool: L_counter
-  Gard_Anim_bool: Gard
-  R_Anim_name: ukeR04_mcp
-  L_Anim_name: uke06_mcp
-  Grad_Anim_name: uketome07_mcp
-  RUN_bool: Run
-  RengekiTime: 1
-  RengekiMaxCount: 2
-  Uke_Time: 1
-  Counter_Time: 1
 --- !u!114 &2253144863584131910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -449,6 +458,30 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &4669491866440464128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3851697167270165762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41b7f5ba51d2ea744bed5b6d0938dc72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  R_Anim_bool: R_counter
+  L_Anim_bool: L_counter
+  Gard_Anim_bool: Gard
+  R_Anim_name: ukeR04_mcp
+  L_Anim_name: uke06_mcp
+  Grad_Anim_name: uketome07_mcp
+  RUN_bool: Run
+  Player_Animator: {fileID: 2618861639207004343}
+  RengekiTime: 0.5
+  RengekiMaxCount: 2
+  Uke_Time: 0.5
+  Counter_Time: 1
 --- !u!4 &4483380184182187960 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9c6aaf2a20547364d96c267b33d3f265,

@@ -17,20 +17,21 @@ public class Enemy_State : MonoBehaviour
 
     private Enemy_State_ E_State;
 
-    [SerializeField, Header("ターゲットとなるプレイヤー")]
+    [SerializeField, Header("ターゲットとなるプレイヤー(プレイヤーみぶろ)")]
     public GameObject Target_P;
 
     [SerializeField, Header("サーチ射程(10)")]
     public float SearchLength=10;
 
-    [SerializeField, Header("攻撃射程(3.5)")]
-    public float    AttackLength=3.5f;
+    [SerializeField, Header("攻撃射程(4.5)")]
+    public float    AttackLength=4.5f;
 
     [SerializeField, Header("移動スピード(12)")]
     public float MoveSpeed=12;
 
     private float P_E_Length;//プレイヤーと敵の距離
 
+    [SerializeField, Header("アニメーター")]
     public Animator E01Anim;
 
     private float StateTime=2.5f;
@@ -109,7 +110,7 @@ public class Enemy_State : MonoBehaviour
 
         if (E_State == Enemy_State_.Tategiri)
         {
-            if(Kato_HitBoxE.Ukenagashi_Flg)
+            if(Kato_HitBoxE.Ukenagashi_Flg )
             {
                 StateCurrentTime = 0.0f;
                 E_State = Enemy_State_.Ukenagasare;
