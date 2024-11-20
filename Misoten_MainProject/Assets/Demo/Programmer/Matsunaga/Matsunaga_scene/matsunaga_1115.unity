@@ -2509,6 +2509,8 @@ MonoBehaviour:
   - {x: -9, y: 0, z: 0}
   - {x: -9, y: 0, z: 4}
   - {x: -9, y: 0, z: 9}
+  barrierPrefab: {fileID: 4615949204175965807, guid: 5c0851da6032e7242a857ef6bd80c0a3,
+    type: 3}
 --- !u!1001 &1784352574
 PrefabInstance:
   m_ObjectHideFlags: 0
