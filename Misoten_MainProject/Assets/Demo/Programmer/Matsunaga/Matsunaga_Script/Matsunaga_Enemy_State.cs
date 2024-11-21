@@ -45,10 +45,29 @@ public class Matsunaga_Enemy_State : MonoBehaviour
     [SerializeField, Header("クールダウン時間")]
     private float CooldownTime = 2.5f;
 
+    [Header("耐久フィールドのオブジェクト")]
+    public GameObject durabilityFieldPrefab;  // インスペクタで指定する耐久フィールドのオブジェクト
+
+    [Header("耐久フィールドを生成する座標")]
+    public Vector3[] fieldPositions; // 座標を指定する配列
+
+    private float currentHP;
+    private bool hasUsedDurabilityField75 = false;
+    private bool hasUsedDurabilityField50 = false;
+    private bool hasUsedDurabilityField25 = false;
+
+    // バリアのオブジェクト
+    [Header("バリアオブジェクト")]
+    public GameObject barrierPrefab;
+
+    private float elapsedTime = 0f;  // 経過時間を追跡するための変数
+
     private void Start()
     {
         E_State = Enemy_State_.Idle;
         StateCurrentTime = 0.0f;
+        currentHP = 100f;  // 初期HPを100に設定
+        elapsedTime = 0f;  // 経過時間をリセット
         E01Anim.SetBool("Idle", true);
     }
 
@@ -64,10 +83,18 @@ public class Matsunaga_Enemy_State : MonoBehaviour
         Debug.Log($"プレイヤーとの距離: {P_E_Length}");
 
         StateCurrentTime += Time.deltaTime;
+        elapsedTime += Time.deltaTime;  // 修正された部分
 
         if (E_State == Enemy_State_.Cooldown && StateCurrentTime >= StateTime)
         {
             SetState(Enemy_State_.Idle);
+        }
+
+        // 30秒経過後に体力を75に設定
+        if (elapsedTime >= 30f && currentHP == 100f)
+        {
+            currentHP = 75f;
+            Debug.Log("30秒経過後、体力が75に設定されました");
         }
 
         if (E_State == Enemy_State_.Idle || E_State == Enemy_State_.Walk)
@@ -80,9 +107,50 @@ public class Matsunaga_Enemy_State : MonoBehaviour
             HandleRenGeki();
         }
 
+        HandleDurabilityField();  // 修正された部分
+
+        CheckDenchikuAndSpawnBarrier();  // denchikuがあればバリアを出す
+
         UpdateAnimations();
     }
 
+    private void SetState(Enemy_State_ newState)
+    {
+        E_State = newState;
+        StateCurrentTime = 0.0f;
+    }
+
+    // denchikuが1つ以上あればバリアを出す
+    private void CheckDenchikuAndSpawnBarrier()
+    {
+        // シーン内に存在する「denchiku」タグのオブジェクトを検索
+        GameObject[] denchikuObjects = GameObject.FindGameObjectsWithTag("denchiku");
+
+        if (denchikuObjects.Length > 0)  // denchikuが1つ以上存在する場合
+        {
+            // denchikuが生成されたタイミングでバリアを生成
+            SpawnBarrier();  // バリアを生成
+        }
+    }
+
+    // バリアを生成する
+    private void SpawnBarrier()
+    {
+        // バリアを指定した位置に生成
+        Instantiate(barrierPrefab, transform.position, Quaternion.identity);
+        Debug.Log("バリアを生成しました");
+    }
+
+    private void SpawnDurabilityField()
+    {
+        foreach (var position in fieldPositions)
+        {
+            Instantiate(durabilityFieldPrefab, position, Quaternion.identity);  // 指定座標に耐久フィールドを生成
+            Debug.Log($"耐久フィールドを生成: {position}");
+        }
+    }
+
+    // 移動と状態の更新
     private void HandleMovementAndState()
     {
         if (StateCurrentTime >= StateTime)
@@ -91,7 +159,7 @@ public class Matsunaga_Enemy_State : MonoBehaviour
 
             if (P_E_Length < AttackLength)
             {
-                Debug.Log("攻撃開始！");
+                Debug.Log("攻撃範囲に入ったので攻撃を開始！");
                 DecideAttackType();
             }
             else if (P_E_Length < SearchLength)
@@ -117,6 +185,18 @@ public class Matsunaga_Enemy_State : MonoBehaviour
         }
     }
 
+    private void DecideAttackType()
+    {
+        int randomValue = Random.Range(0, 100);
+        if (randomValue < TategiriChance)
+        {
+            SetState(Enemy_State_.Tategiri);
+        }
+        else
+        {
+            SetState(Enemy_State_.RenGeki_First);
+        }
+    }
 
     private void HandleRenGeki()
     {
@@ -137,18 +217,30 @@ public class Matsunaga_Enemy_State : MonoBehaviour
         }
     }
 
-    private void DecideAttackType()
+    // 既存のコードの続き
+
+    // 耐久フィールドを管理するためのメソッド
+    private void HandleDurabilityField()
     {
-        int randomValue = Random.Range(0, 100);
-        if (randomValue < TategiriChance)
+        // 体力によって耐久フィールドを使用するかどうか判断
+        if (currentHP <= 75f && !hasUsedDurabilityField75)
         {
-            SetState(Enemy_State_.Tategiri);
+            SpawnDurabilityField();  // 耐久フィールドを生成
+            hasUsedDurabilityField75 = true;  // 75%で発動したらフラグを立てる
         }
-        else
+        else if (currentHP <= 50f && !hasUsedDurabilityField50)
         {
-            SetState(Enemy_State_.RenGeki_First);
+            SpawnDurabilityField();  // 耐久フィールドを生成
+            hasUsedDurabilityField50 = true;  // 50%で発動したらフラグを立てる
+        }
+        else if (currentHP <= 25f && !hasUsedDurabilityField25)
+        {
+            SpawnDurabilityField();  // 耐久フィールドを生成
+            hasUsedDurabilityField25 = true;  // 25%で発動したらフラグを立てる
         }
     }
+
+
 
     private bool IsAnimationFinished(string stateName)
     {
@@ -156,16 +248,11 @@ public class Matsunaga_Enemy_State : MonoBehaviour
         return stateInfo.IsName(stateName) && stateInfo.normalizedTime >= 1.0f;
     }
 
-    private void SetState(Enemy_State_ newState)
-    {
-        E_State = newState;
-        StateCurrentTime = 0.0f;
-    }
-
     private void UpdateAnimations()
     {
         E01Anim.SetBool("Walk", E_State == Enemy_State_.Walk);
         E01Anim.SetBool("Idle", E_State == Enemy_State_.Idle);
         E01Anim.SetBool("Tategiri", E_State == Enemy_State_.Tategiri);
+        E01Anim.SetBool("RenGeki", E_State == Enemy_State_.RenGeki_First || E_State == Enemy_State_.RenGeki_Second);
     }
 }
