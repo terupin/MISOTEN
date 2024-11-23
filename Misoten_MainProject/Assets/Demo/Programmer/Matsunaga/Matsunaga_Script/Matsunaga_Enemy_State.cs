@@ -45,10 +45,28 @@ public class Matsunaga_Enemy_State : MonoBehaviour
     [SerializeField, Header("クールダウン時間")]
     private float CooldownTime = 2.5f;
 
+    [Header("耐久フィールドのオブジェクト")]
+    public GameObject durabilityFieldPrefab;
+
+    [Header("耐久フィールドを生成する座標")]
+    public Vector3[] fieldPositions;
+
+    private float currentHP;
+    private bool hasUsedDurabilityField75 = false;
+    private bool hasUsedDurabilityField50 = false;
+    private bool hasUsedDurabilityField25 = false;
+
+    [Header("バリアオブジェクト")]
+    public GameObject barrierPrefab;
+
+    private float elapsedTime = 0f;
+
     private void Start()
     {
         E_State = Enemy_State_.Idle;
         StateCurrentTime = 0.0f;
+        currentHP = 100f;
+        elapsedTime = 0f;
         E01Anim.SetBool("Idle", true);
     }
 
@@ -64,10 +82,11 @@ public class Matsunaga_Enemy_State : MonoBehaviour
         Debug.Log($"プレイヤーとの距離: {P_E_Length}");
 
         StateCurrentTime += Time.deltaTime;
+        elapsedTime += Time.deltaTime;
 
-        if (E_State == Enemy_State_.Cooldown && StateCurrentTime >= StateTime)
+        if (E_State == Enemy_State_.Cooldown)
         {
-            SetState(Enemy_State_.Idle);
+            HandleCooldown();
         }
 
         if (E_State == Enemy_State_.Idle || E_State == Enemy_State_.Walk)
@@ -80,7 +99,36 @@ public class Matsunaga_Enemy_State : MonoBehaviour
             HandleRenGeki();
         }
 
+        if (E_State == Enemy_State_.Tategiri)
+        {
+            HandleTategiri();
+        }
+
+        HandleDurabilityField();
+
         UpdateAnimations();
+    }
+
+
+    private void SetState(Enemy_State_ newState)
+    {
+        E_State = newState;
+        StateCurrentTime = 0.0f;
+    }
+
+    private void SpawnBarrier()
+    {
+        Instantiate(barrierPrefab, transform.position, Quaternion.identity);
+        Debug.Log("バリアを生成しました");
+    }
+
+    private void SpawnDurabilityField()
+    {
+        foreach (var position in fieldPositions)
+        {
+            Instantiate(durabilityFieldPrefab, position, Quaternion.identity);
+            Debug.Log($"耐久フィールドを生成: {position}");
+        }
     }
 
     private void HandleMovementAndState()
@@ -91,7 +139,7 @@ public class Matsunaga_Enemy_State : MonoBehaviour
 
             if (P_E_Length < AttackLength)
             {
-                Debug.Log("攻撃開始！");
+                Debug.Log("攻撃範囲に入ったので攻撃を開始！");
                 DecideAttackType();
             }
             else if (P_E_Length < SearchLength)
@@ -117,6 +165,36 @@ public class Matsunaga_Enemy_State : MonoBehaviour
         }
     }
 
+    private void DecideAttackType()
+    {
+        int randomValue = Random.Range(0, 100);
+        Debug.Log($"DecideAttackType: Random Value = {randomValue}, TategiriChance = {TategiriChance}");
+
+        if (randomValue < TategiriChance)
+        {
+            Debug.Log("縦切り攻撃を選択しました！");
+            SetState(Enemy_State_.Tategiri);
+        }
+        else
+        {
+            Debug.Log("連撃攻撃を選択しました！");
+            SetState(Enemy_State_.RenGeki_First);
+        }
+    }
+
+    private void HandleTategiri()
+    {
+        if (E_State == Enemy_State_.Tategiri)
+        {
+            if (IsAnimationFinished("Tategiri"))
+            {
+                Debug.Log("縦切り攻撃が完了しました。Cooldown 状態に遷移します。");
+                E01Anim.SetBool("Tategiri", false); // アニメーションパラメータをリセット
+                SetState(Enemy_State_.Cooldown);    // クールダウン状態へ
+            }
+        }
+    }
+
 
     private void HandleRenGeki()
     {
@@ -137,16 +215,33 @@ public class Matsunaga_Enemy_State : MonoBehaviour
         }
     }
 
-    private void DecideAttackType()
+    private void HandleCooldown()
     {
-        int randomValue = Random.Range(0, 100);
-        if (randomValue < TategiriChance)
+        if (StateCurrentTime < CooldownTime)
         {
-            SetState(Enemy_State_.Tategiri);
+            return;
         }
-        else
+
+        SetState(Enemy_State_.Idle);
+        Debug.Log("クールダウンが終了し、Idle状態に遷移しました。");
+    }
+
+    private void HandleDurabilityField()
+    {
+        if (currentHP <= 75f && !hasUsedDurabilityField75)
         {
-            SetState(Enemy_State_.RenGeki_First);
+            SpawnDurabilityField();
+            hasUsedDurabilityField75 = true;
+        }
+        else if (currentHP <= 50f && !hasUsedDurabilityField50)
+        {
+            SpawnDurabilityField();
+            hasUsedDurabilityField50 = true;
+        }
+        else if (currentHP <= 25f && !hasUsedDurabilityField25)
+        {
+            SpawnDurabilityField();
+            hasUsedDurabilityField25 = true;
         }
     }
 
@@ -156,16 +251,11 @@ public class Matsunaga_Enemy_State : MonoBehaviour
         return stateInfo.IsName(stateName) && stateInfo.normalizedTime >= 1.0f;
     }
 
-    private void SetState(Enemy_State_ newState)
-    {
-        E_State = newState;
-        StateCurrentTime = 0.0f;
-    }
-
     private void UpdateAnimations()
     {
         E01Anim.SetBool("Walk", E_State == Enemy_State_.Walk);
         E01Anim.SetBool("Idle", E_State == Enemy_State_.Idle);
         E01Anim.SetBool("Tategiri", E_State == Enemy_State_.Tategiri);
+        E01Anim.SetBool("RenGeki", E_State == Enemy_State_.RenGeki_First || E_State == Enemy_State_.RenGeki_Second);
     }
 }
