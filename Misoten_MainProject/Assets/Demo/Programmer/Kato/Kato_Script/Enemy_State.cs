@@ -13,6 +13,7 @@ public class Enemy_State : MonoBehaviour
         Hirumi,
         Tategiri,
         Ukenagasare,
+        CoolDown,
     };
 
     private Enemy_State_ E_State;
@@ -117,16 +118,22 @@ public class Enemy_State : MonoBehaviour
                 StateCurrentTime = 0.0f;
                 E_State = Enemy_State_.Ukenagasare;
 
-                if (Kato_a_Player_Anim.Katana_Direction==0|| Kato_a_Player_Anim.Katana_Direction==1 || Kato_a_Player_Anim.Katana_Direction == 2 || Kato_a_Player_Anim.Katana_Direction == 7 )
-                {
-                    E01Anim.SetTrigger("UkeR");
-                }
-                else if (Kato_a_Player_Anim.Katana_Direction == 3 || Kato_a_Player_Anim.Katana_Direction == 4 || Kato_a_Player_Anim.Katana_Direction == 5 || Kato_a_Player_Anim.Katana_Direction == 6)
-                {
-                    E01Anim.SetTrigger("UkeL");
-                }
+
             }
         }
+
+        if (E_State == Enemy_State_.Ukenagasare)
+        {
+            if (Kato_a_Player_Anim.Katana_Direction == 0 || Kato_a_Player_Anim.Katana_Direction == 1 || Kato_a_Player_Anim.Katana_Direction == 2 || Kato_a_Player_Anim.Katana_Direction == 7)
+            {
+                E01Anim.SetTrigger("UkeR");
+            }
+            else if (Kato_a_Player_Anim.Katana_Direction == 3 || Kato_a_Player_Anim.Katana_Direction == 4 || Kato_a_Player_Anim.Katana_Direction == 5 || Kato_a_Player_Anim.Katana_Direction == 6)
+            {
+                E01Anim.SetTrigger("UkeL");
+            }
+        }
+
 
             E01Anim.SetBool("Walk", E_State == Enemy_State_.Walk);
         E01Anim.SetBool("Idle", E_State == Enemy_State_.Idle);

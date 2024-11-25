@@ -195,8 +195,14 @@ public class Kato_a_Player_Anim : MonoBehaviour
                 //UnityEditor.EditorApplication.isPaused = true;
             }
         }
+        if(Kato_Status_P.NowHP <= 0)
+        {
+            Player_Animator.SetBool("GameOver", true);
+        }
+        
 
 
+        Player_Animator.SetBool("GurdNotInput", Uke_Input_Flg);
         Player_Animator.SetBool("Gurd",Kato_HitBoxE.Ukenagashi_Flg);
         if(G_Flg)
         {

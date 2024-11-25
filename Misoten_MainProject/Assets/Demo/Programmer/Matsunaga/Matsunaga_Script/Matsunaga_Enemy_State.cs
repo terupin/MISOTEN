@@ -69,13 +69,14 @@ public class Matsunaga_Enemy_State : MonoBehaviour
         // 初期状態を設定
         E_State = Enemy_State_.Idle;
         StateCurrentTime = 0.0f; // 経過時間を初期化
-        currentHP = 100f; // 初期HPを設定
+        currentHP = Kato_Status_E.NowHP/Kato_Status_E.MaxHP; // 初期HPを設定
         elapsedTime = 0f; // 経過時間を初期化
         E01Anim.SetBool("Idle", true); // Idleアニメーションを初期状態に設定
     }
 
     private void Update()
     {
+        currentHP = Kato_Status_E.NowHP / Kato_Status_E.MaxHP;
         // ターゲットが設定されていない場合は警告を表示し処理を中断
         if (Target_P == null)
         {
@@ -199,19 +200,22 @@ public class Matsunaga_Enemy_State : MonoBehaviour
             // 縦切り攻撃を選択
             Debug.Log("縦切り攻撃を選択しました！");
             SetState(Enemy_State_.Tategiri);
+            //UnityEditor.EditorApplication.isPaused = true;
         }
         else
         {
             // 連撃攻撃を選択
             Debug.Log("連撃攻撃を選択しました！");
             SetState(Enemy_State_.RenGeki);
+            //UnityEditor.EditorApplication.isPaused = true;
         }
     }
 
     // 縦切り攻撃の処理
     private void HandleTategiri()
     {
-        if (IsAnimationFinished("Tategiri"))
+
+        if (IsAnimationFinished("Enemy01_Tategiri00"))
         {
             // 縦切り攻撃完了後、クールダウンに遷移
             Debug.Log("縦切り攻撃が完了しました。Cooldown 状態に遷移します。");
@@ -223,7 +227,7 @@ public class Matsunaga_Enemy_State : MonoBehaviour
     // 連撃攻撃の処理
     private void HandleRenGeki()
     {
-        if (IsAnimationFinished("RenGeki"))
+        if (IsAnimationFinished("Enemy01_RtoLtoR"))
         {
             // 連撃攻撃完了後、クールダウンに遷移
             Debug.Log("連撃攻撃が完了しました。Cooldown 状態に遷移します。");
