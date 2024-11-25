@@ -54,6 +54,10 @@ public class Matsunaga_Enemy_State : MonoBehaviour
     [Header("耐久フィールドを生成する座標")]
     public Vector3[] fieldPositions; // 耐久フィールドを生成する座標
 
+    [Header("耐久フィールドのスケール")]
+    [SerializeField]
+    public Vector3 fieldScale = new Vector3(1, 1, 1); // 耐久フィールドのスケール（デフォルト値: 1, 1, 1）
+
     private float currentHP; // 敵の現在のHP
     private bool hasUsedDurabilityField75 = false; // HP75%で耐久フィールドを生成済みかを管理
     private bool hasUsedDurabilityField50 = false; // HP50%で耐久フィールドを生成済みかを管理
@@ -144,8 +148,13 @@ public class Matsunaga_Enemy_State : MonoBehaviour
     {
         foreach (var position in fieldPositions)
         {
-            Instantiate(durabilityFieldPrefab, position, Quaternion.identity); // 各位置にフィールドを生成
-            Debug.Log($"耐久フィールドを生成: {position}");
+            // 耐久フィールドを生成
+            GameObject field = Instantiate(durabilityFieldPrefab, position, Quaternion.identity);
+
+            // スケールを適用
+            field.transform.localScale = fieldScale;
+
+            Debug.Log($"耐久フィールドを生成: {position}, スケール: {fieldScale}");
         }
     }
 
