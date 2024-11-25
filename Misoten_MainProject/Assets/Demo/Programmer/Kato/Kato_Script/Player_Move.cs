@@ -33,10 +33,13 @@ public class Player_Move : MonoBehaviour
 
         if (MathF.Abs(moveX) >= 0.05f || MathF.Abs(RotateY) >= 0.05f)
         {           
-            Player.transform.rotation = Quaternion.Euler(new Vector3(0, Camera_o.transform.localEulerAngles.y+degree, 0));
-            transform.position += transform.forward * Move_Speed * Time.deltaTime;
+            if(Kato_Status_P.NowHP>0)
+            {
+                Player.transform.rotation = Quaternion.Euler(new Vector3(0, Camera_o.transform.localEulerAngles.y + degree, 0));
+                transform.position += transform.forward * Move_Speed * Time.deltaTime;
 
-            RUN_FLG = true;
+                RUN_FLG = true;
+            }
         }
         else
         {
