@@ -2348,6 +2348,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: bf9044ae4f4de53439d0d3fb6110bf34, type: 2}
     - target: {fileID: 3429618914247794518, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3429618914247794518, guid: 8eb4fdc726e23774da71f86d9d295d96,
+        type: 3}
       propertyPath: Player_Animator
       value: 
       objectReference: {fileID: 1671458795}
@@ -2472,6 +2477,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1322884152}
+    - targetCorrespondingSourceObject: {fileID: 3669612430873067828, guid: 8eb4fdc726e23774da71f86d9d295d96,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1322884153}
   m_SourcePrefab: {fileID: 100100000, guid: 8eb4fdc726e23774da71f86d9d295d96, type: 3}
 --- !u!1 &1322884130 stripped
 GameObject:
@@ -2541,6 +2550,24 @@ MonoBehaviour:
   ukenagasiLCam: {fileID: 777521276}
   ukenagasiRCam: {fileID: 1884755258}
   camchangecountlimit: 5
+--- !u!114 &1322884153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1322884133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 238dca1c85878de4181b21ba308a6812, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Miburo_Animator: {fileID: 1671458795}
+  Step_WaitTime: 1
+  Parry_WaitTime: 1
+  Attack01_WaitTime: 1
+  Attack02_WaitTime: 1
+  Katana_DirectionSet_WaitTime: 1
 --- !u!1001 &1405806334
 PrefabInstance:
   m_ObjectHideFlags: 0
