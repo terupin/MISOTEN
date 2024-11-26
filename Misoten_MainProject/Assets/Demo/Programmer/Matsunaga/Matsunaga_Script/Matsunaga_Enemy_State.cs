@@ -66,6 +66,9 @@ public class Matsunaga_Enemy_State : MonoBehaviour
     [Header("バリアオブジェクト")]
     public GameObject barrierPrefab; // バリアのプレハブオブジェクト
 
+    [Header("バリアを生成する座標")]
+    public Vector3[] barrierPosition; // バリアを生成する座標の配列
+
     private float elapsedTime = 0f; // 経過時間を記録
 
     private void Start()
@@ -73,13 +76,21 @@ public class Matsunaga_Enemy_State : MonoBehaviour
         // 初期状態を設定
         E_State = Enemy_State_.Idle;
         StateCurrentTime = 0.0f; // 経過時間を初期化
-        currentHP = Kato_Status_E.NowHP/Kato_Status_E.MaxHP; // 初期HPを設定
+        currentHP = Kato_Status_E.NowHP / Kato_Status_E.MaxHP; // 初期HPを設定
         elapsedTime = 0f; // 経過時間を初期化
         E01Anim.SetBool("Idle", true); // Idleアニメーションを初期状態に設定
     }
 
     private void Update()
     {
+        // 1キーが押されたらHPを75%に設定
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            currentHP = 0.75f * Kato_Status_E.MaxHP;  // HPを75%に設定
+            Debug.Log("HPを75%に設定しました！");
+        }
+
+
         currentHP = Kato_Status_E.NowHP / Kato_Status_E.MaxHP;
         // ターゲットが設定されていない場合は警告を表示し処理を中断
         if (Target_P == null)
@@ -139,7 +150,7 @@ public class Matsunaga_Enemy_State : MonoBehaviour
     // バリアを生成する
     private void SpawnBarrier()
     {
-        Instantiate(barrierPrefab, transform.position, Quaternion.identity); // 現在の位置にバリアを生成
+        Instantiate(barrierPrefab, barrierPosition[0], Quaternion.identity); // 現在の位置にバリアを生成
         Debug.Log("バリアを生成しました");
     }
 
@@ -220,6 +231,7 @@ public class Matsunaga_Enemy_State : MonoBehaviour
         }
     }
 
+
     // 縦切り攻撃の処理
     private void HandleTategiri()
     {
@@ -286,6 +298,8 @@ public class Matsunaga_Enemy_State : MonoBehaviour
             hasUsedDurabilityField25 = true;
         }
     }
+
+
 
     // 指定アニメーションが終了しているかを判定
     private bool IsAnimationFinished(string animationName)
