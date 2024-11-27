@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Miburo_State : MonoBehaviour
 {
@@ -9,9 +11,22 @@ public class Miburo_State : MonoBehaviour
     private bool _Parry;
     private bool _Attack01;
     private bool _Attack02;
-
+    private bool _Run;
 
     private int _Katana_Direction;
+
+    [SerializeField, Header("移動スピード")]
+    public float Move_Speed;
+    
+
+    [SerializeField, Header("敵プレハブ")]
+    public GameObject Target;
+
+    [SerializeField, Header("プレイヤープレハブ")]
+    public GameObject Player;
+
+    [SerializeField, Header("カメラ")]
+    public GameObject Camera_o;
 
     [SerializeField, Header("みぶろアニメーター")]
     public Animator Miburo_Animator;
@@ -84,7 +99,40 @@ public class Miburo_State : MonoBehaviour
             _Katana_Direction = -1;
         }
 
-        Miburo_Animator.SetBool("Gard",_Parry);
+        Player_Run_Input();
+
+        if (_Attack01 ||_Attack02)
+        {
+            
+        }
+        else
+        {
+            if(_Run)
+            {
+                Player_Run();
+            }
+          
+        }
+
+
+
+
+        Miburo_Animator.SetBool("Gurd", _Parry);
+        Miburo_Animator.SetBool("Run", _Run);
+        Miburo_Animator.SetInteger("KatanaD", _Katana_Direction);
+        if(Kato_Status_P.NowHP<=0)
+        {
+            Miburo_Animator.SetBool("GameOver", true);
+        }
+
+        //Miburo_Animator.SetBool("GameOver", Player_Move.RUN_FLG);
+        //Miburo_Animator.SetBool("Run", Player_Move.RUN_FLG);
+
+
+        if (UnityEngine.Input.GetKeyDown(KeyCode.K))
+        {
+            Miburo_Animator.SetTrigger("Damage");
+        }
     }
 
     //コルーチン()
@@ -94,8 +142,10 @@ public class Miburo_State : MonoBehaviour
         {
             _Attack01 = true;
             Debug.Log("攻撃1開始");
+            Miburo_Animator.SetBool("Attack01",true);
             yield return new WaitForSeconds(Attack01_WaitTime);
             Debug.Log("攻撃1待ち時間終了");
+            Miburo_Animator.SetBool("Attack01", false);
             _Attack01 = false;
         }
         else
@@ -112,8 +162,10 @@ public class Miburo_State : MonoBehaviour
         {
             _Attack02 = true;
             Debug.Log("攻撃2開始");
+            Miburo_Animator.SetBool("Attack02", true);
             yield return new WaitForSeconds(Attack02_WaitTime);
             Debug.Log("攻撃2待ち時間終了");
+            Miburo_Animator.SetBool("Attack02", false);
             _Attack02 = false;
         }
         else
@@ -200,5 +252,35 @@ public class Miburo_State : MonoBehaviour
         }
 
         return Katana_Direction;
+    }
+
+    //移動
+    public void Player_Run()
+    {
+        float moveX = Input.GetAxis("Vertical");
+        float RotateY = Input.GetAxis("Horizontal");
+        float degree = Mathf.Atan2(RotateY, moveX) * Mathf.Rad2Deg;//コントローラー角度取得
+
+        gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, Camera_o.transform.localEulerAngles.y + degree, 0));
+        gameObject.transform.position += gameObject.transform.forward * Move_Speed * Time.deltaTime;
+    }
+
+    //移動入力
+    public void Player_Run_Input()
+    {
+        float moveX = Input.GetAxis("Vertical");
+        float RotateY = Input.GetAxis("Horizontal"); 
+
+        if (MathF.Abs(moveX) >= 0.05f || MathF.Abs(RotateY) >= 0.05f)
+        {
+            if (Kato_Status_P.NowHP > 0)
+            {
+                _Run = true;
+            }
+        }
+        else
+        {
+            _Run = false;
+        }
     }
 }
