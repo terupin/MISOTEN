@@ -126,7 +126,6 @@ public class Miburo_State : MonoBehaviour
         }
 
         //Miburo_Animator.SetBool("GameOver", Player_Move.RUN_FLG);
-        //Miburo_Animator.SetBool("Run", Player_Move.RUN_FLG);
 
 
         if (UnityEngine.Input.GetKeyDown(KeyCode.K))
