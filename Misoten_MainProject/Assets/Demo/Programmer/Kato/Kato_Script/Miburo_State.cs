@@ -7,12 +7,16 @@ using UnityEngine.UIElements;
 
 public class Miburo_State : MonoBehaviour
 {
+    //フラグ
     private bool _Step;
     private bool _Parry;
     private bool _Attack01;
     private bool _Attack02;
     private bool _Run;
+    private bool _Ukenagashi_R;
+    private bool _Ukenagashi_L;
 
+    //刀の方向
     private int _Katana_Direction;
 
     [SerializeField, Header("移動スピード")]
@@ -99,42 +103,78 @@ public class Miburo_State : MonoBehaviour
             _Katana_Direction = -1;
         }
 
-        Player_Run_Input();
+        Player_Run_Input();//走行入力がされているかのフラグ
 
         if (_Attack01 ||_Attack02)
-        {
-            
+        {         
         }
         else
         {
             if(_Run)
             {
-                Player_Run();
-            }
-          
+                Player_Run();//走行処理
+            }      
         }
 
+        if(_Parry)
+        {
+            if(_Katana_Direction==0|| _Katana_Direction == 1 || _Katana_Direction == 2 || _Katana_Direction == 7 )
+            {
+                Miburo_Animator.SetTrigger("UkenagashiL");
+            }
+            else if(_Katana_Direction == 0 || _Katana_Direction == 1 || _Katana_Direction == 2 || _Katana_Direction == 7)
+            {
+                Miburo_Animator.SetTrigger("UkenagashiR");
+            }
+            
+        }
 
-
-
+        //判定をアニメーターへ
         Miburo_Animator.SetBool("Gurd", _Parry);
         Miburo_Animator.SetBool("Run", _Run);
         Miburo_Animator.SetInteger("KatanaD", _Katana_Direction);
+
+        //HP0以下ならゲームオーバー
         if(Kato_Status_P.NowHP<=0)
         {
             Miburo_Animator.SetBool("GameOver", true);
         }
 
-        //Miburo_Animator.SetBool("GameOver", Player_Move.RUN_FLG);
 
+        //以下テスト用
 
-        if (UnityEngine.Input.GetKeyDown(KeyCode.K))
+        //ダメージ
+        if (UnityEngine.Input.GetKeyDown(KeyCode.L))
         {
             Miburo_Animator.SetTrigger("Damage");
         }
+
+        //縦切り受け流し左(みぶろポジション前３右0.5)
+        if (UnityEngine.Input.GetKeyDown(KeyCode.J))
+        {
+            Miburo_Animator.SetTrigger("UkenagashiL");
+        }
+
+        //縦切り受け流し左(みぶろポジション前３右0.5)
+        if (UnityEngine.Input.GetKeyDown(KeyCode.K))
+        {
+            Miburo_Animator.SetTrigger("UkenagashiR");
+        }
+
+        //連撃受け流し1回目(みぶろポジション前３右0.5)
+        if (UnityEngine.Input.GetKeyDown(KeyCode.N))
+        {
+            Miburo_Animator.SetTrigger("UkenagashiL");
+        }
+
+        //連撃受け流し2回目(みぶろポジション前３右0.5)
+        if (UnityEngine.Input.GetKeyDown(KeyCode.M))
+        {
+            Miburo_Animator.SetTrigger("UkenagashiR");
+        }
     }
 
-    //コルーチン()
+    //コルーチン(攻撃1)
     private IEnumerator Miburo_Attack01()
     {
         if (!_Attack01)
@@ -153,7 +193,7 @@ public class Miburo_State : MonoBehaviour
         }
     }
 
-    //コルーチン()
+    //コルーチン(攻撃2)
     private IEnumerator Miburo_Attack02()
     {
 
@@ -173,7 +213,7 @@ public class Miburo_State : MonoBehaviour
         }
     }
 
-    //コルーチン()
+    //コルーチン(受け流し構え)
     private IEnumerator Miburo_Parry()
     {
         if (!_Parry)
@@ -191,7 +231,7 @@ public class Miburo_State : MonoBehaviour
 
     }
 
-    //コルーチン()
+    //コルーチン(ステップ)
     private IEnumerator Miburo_Step()
     {
         if (!_Step)
