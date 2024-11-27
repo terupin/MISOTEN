@@ -20,7 +20,7 @@ public class Kato_HitBoxE : MonoBehaviour
     [SerializeField, Header("敵モデル")]
     public GameObject Enemy_Model;
 
-
+    public static bool Damage_Flg;//受け流しフラグ 
     public static bool Ukenagashi_Flg;//受け流しフラグ 
 
     private bool P_G_flg = Kato_Player_Anim.G_Flg;
@@ -30,6 +30,7 @@ public class Kato_HitBoxE : MonoBehaviour
     {
         gameObject.transform.position = WeponPoint.transform.position;
         gameObject.transform.rotation = WeponPoint.transform.rotation;
+        Damage_Flg = false;
     }
 
     // Update is called once per frame
@@ -45,12 +46,21 @@ public class Kato_HitBoxE : MonoBehaviour
     {
         //Debug.LogFormat("{1}は {0}に当たった", collision.gameObject.name, gameObject.name); // ぶつかった相手の名前を取得
 
-        if (collision.gameObject.name == "Player" )
+        if (collision.gameObject.name == "Player" && Enemy_State.E_AttackFlg)
         {
             //Debug.LogFormat("{1}は {0}にダメージを与えた！", collision.gameObject.name, gameObject.name);
+
+   
+            
+           
             Player_Model.AddComponent<Damage_Flash>();
+            Damage_Flg = true;
             //UnityEditor.EditorApplication.isPaused = true;
         }
+        //else
+        //{
+        //    Damage_Flg = false;
+        //}
         if (collision.gameObject.name == "Player_HitBox" && Kato_a_Player_Anim.Katana_Direction!=-1 && Kato_a_Player_Anim.G_Flg)
         {
             //Debug.LogFormat("衝撃波発生!");
@@ -60,7 +70,7 @@ public class Kato_HitBoxE : MonoBehaviour
             {
 
                 Instantiate(S_Effect);
-                //S_Effect.transform.position = new Vector3(gameObject.transform.position.x, 2.0f, gameObject.transform.position.z);
+               
 
             }
 
@@ -73,8 +83,8 @@ public class Kato_HitBoxE : MonoBehaviour
         {
             Ukenagashi_Flg = false;
         }
-       
 
+        Damage_Flg = false;
 
         if (gameObject.name == "Enemy_HitBox" && collision.gameObject.name == "Player_HitBox")
         {

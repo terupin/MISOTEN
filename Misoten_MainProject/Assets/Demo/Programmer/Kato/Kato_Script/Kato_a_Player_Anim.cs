@@ -92,30 +92,6 @@ public class Kato_a_Player_Anim : MonoBehaviour
 
         AnimatorStateInfo animatorStateInfo = Player_Animator.GetCurrentAnimatorStateInfo(0);
 
-        //if (Uke_Input_Flg)
-        //{
-        //    Player_Animator.SetBool(Gard_Anim_bool, true);
-
-        //    //Kato_a_GetKatana_Direction();
-        //    if (Kato_HitBoxP.Tubazeri_Flg)
-        //    {
-        //        if (Katana_Direction == 0 || Katana_Direction == 1 || Katana_Direction == 2 || Katana_Direction == 7)
-        //        {
-        //            Player_Animator.SetBool(R_Anim_bool, true);
-        //        }
-        //        else if (Katana_Direction == 3 || Katana_Direction == 4 || Katana_Direction == 5 || Katana_Direction == 6)
-        //        {
-        //            Player_Animator.SetBool(L_Anim_bool, true);
-        //        }
-        //    }
-
-        //}
-        //else
-        //{
-        //    Player_Animator.SetBool(R_Anim_bool, false);
-        //    Player_Animator.SetBool(L_Anim_bool, false);
-        //    Player_Animator.SetBool(Gard_Anim_bool, false);
-        //}
 
 
         if (Input.GetKeyDown(KeyCode.R))
@@ -127,33 +103,7 @@ public class Kato_a_Player_Anim : MonoBehaviour
             Player_Animator.SetBool(L_Anim_bool, true);
         }
 
-        //if (animatorStateInfo.IsName(R_Anim_name) || animatorStateInfo.IsName(L_Anim_name))
-        //{
-        //    if (animatorStateInfo.normalizedTime >= 0.9f && !animatorStateInfo.loop)
-        //    {
-        //        Player_Animator.SetBool(R_Anim_bool, false);
-        //        Player_Animator.SetBool(L_Anim_bool, false);
-
-        //        PushFlg_L = false;
-        //        Katana_Direction = -1;
-        //    }
-        //}
-
-        //G_Flg = PushFlg_L;
         A_Flg = RengekiFlg;
-
-
-        if (Uke_CurrentTime == 0.0f)
-        {
-            //Katana_Direction = -1;
-        }
-
-
-
-
-
-
-
 
 
         Kato_a_GetKatana_Direction();
@@ -245,8 +195,14 @@ public class Kato_a_Player_Anim : MonoBehaviour
                 //UnityEditor.EditorApplication.isPaused = true;
             }
         }
+        if(Kato_Status_P.NowHP <= 0)
+        {
+            Player_Animator.SetBool("GameOver", true);
+        }
+        
 
 
+        Player_Animator.SetBool("GurdNotInput", Uke_Input_Flg);
         Player_Animator.SetBool("Gurd",Kato_HitBoxE.Ukenagashi_Flg);
         if(G_Flg)
         {
@@ -256,6 +212,12 @@ public class Kato_a_Player_Anim : MonoBehaviour
         {
             Player_Animator.SetInteger("KatanaD", -1);
         }
+
+        if (Kato_HitBoxE.Damage_Flg)
+        {
+            Player_Animator.SetTrigger("Damage");
+        }
+
 
 
 

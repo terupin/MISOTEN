@@ -11,6 +11,7 @@ public class Kato_Step : MonoBehaviour
 
     private float StepCurrentTime = 0.0f;
     private bool StepFlg;
+    public Animator Player_Animator;
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +26,8 @@ public class Kato_Step : MonoBehaviour
         {
             if (!StepFlg)
             {
-                gameObject.transform.position += gameObject.transform.forward * StepRength;
+                gameObject.transform.position -= gameObject.transform.forward * StepRength;
+                Player_Animator.SetTrigger("Step");
                 StepFlg = true;
             }
 

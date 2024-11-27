@@ -13,21 +13,24 @@ public class Enemy_State : MonoBehaviour
         Hirumi,
         Tategiri,
         Ukenagasare,
+        CoolDown,
     };
 
     private Enemy_State_ E_State;
+
+    static public bool E_AttackFlg;
 
     [SerializeField, Header("ターゲットとなるプレイヤー(プレイヤーみぶろ)")]
     public GameObject Target_P;
 
     [SerializeField, Header("サーチ射程(10)")]
-    public float SearchLength=10;
+    public float SearchLength;
 
     [SerializeField, Header("攻撃射程(4.5)")]
-    public float    AttackLength=4.5f;
+    public float    AttackLength;
 
     [SerializeField, Header("移動スピード(12)")]
-    public float MoveSpeed=12;
+    public float MoveSpeed;
 
     private float P_E_Length;//プレイヤーと敵の距離
 
@@ -115,22 +118,35 @@ public class Enemy_State : MonoBehaviour
                 StateCurrentTime = 0.0f;
                 E_State = Enemy_State_.Ukenagasare;
 
-                if (Kato_a_Player_Anim.Katana_Direction==0|| Kato_a_Player_Anim.Katana_Direction==1 || Kato_a_Player_Anim.Katana_Direction == 2 || Kato_a_Player_Anim.Katana_Direction == 7 )
-                {
-                    E01Anim.SetTrigger("UkeR");
-                }
-                else if (Kato_a_Player_Anim.Katana_Direction == 3 || Kato_a_Player_Anim.Katana_Direction == 4 || Kato_a_Player_Anim.Katana_Direction == 5 || Kato_a_Player_Anim.Katana_Direction == 6)
-                {
-                    E01Anim.SetTrigger("UkeL");
-                }
+
             }
         }
+
+        if (E_State == Enemy_State_.Ukenagasare)
+        {
+            if (Kato_a_Player_Anim.Katana_Direction == 0 || Kato_a_Player_Anim.Katana_Direction == 1 || Kato_a_Player_Anim.Katana_Direction == 2 || Kato_a_Player_Anim.Katana_Direction == 7)
+            {
+                E01Anim.SetTrigger("UkeR");
+            }
+            else if (Kato_a_Player_Anim.Katana_Direction == 3 || Kato_a_Player_Anim.Katana_Direction == 4 || Kato_a_Player_Anim.Katana_Direction == 5 || Kato_a_Player_Anim.Katana_Direction == 6)
+            {
+                E01Anim.SetTrigger("UkeL");
+            }
+        }
+
 
             E01Anim.SetBool("Walk", E_State == Enemy_State_.Walk);
         E01Anim.SetBool("Idle", E_State == Enemy_State_.Idle);
         E01Anim.SetBool("Tategiri", E_State == Enemy_State_.Tategiri);
 
-
+        if(E_State == Enemy_State_.Tategiri|| E_State == Enemy_State_.Tategiri)
+        {
+            E_AttackFlg = true;
+        }
+        else
+        {
+            E_AttackFlg = false;
+        }
 
     }
 }
