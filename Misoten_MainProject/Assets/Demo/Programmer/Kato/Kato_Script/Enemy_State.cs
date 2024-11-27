@@ -63,13 +63,13 @@ public class Enemy_State : MonoBehaviour
 
         if (UnityEngine.Input.GetKeyDown(KeyCode.N))
         {
-            E01Anim.SetTrigger("UkeR");
+            E01Anim.SetTrigger("RengekiUkeL");
         }
 
         //
         if (UnityEngine.Input.GetKeyDown(KeyCode.M))
         {
-            E01Anim.SetTrigger("UkeR");
+            E01Anim.SetTrigger(" RengekiUkeR");        
         }
 
         P_E_Length = Vector3.Distance(Target_P.transform.position, gameObject.transform.position);

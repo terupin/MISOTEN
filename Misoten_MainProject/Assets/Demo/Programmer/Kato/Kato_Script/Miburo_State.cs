@@ -161,13 +161,13 @@ public class Miburo_State : MonoBehaviour
             Miburo_Animator.SetTrigger("UkenagashiR");
         }
 
-        //連撃受け流し1回目(みぶろポジション前３右0.5)
+        //連撃受け流し2回目(みぶろポジション前３右0.5)
         if (UnityEngine.Input.GetKeyDown(KeyCode.N))
         {
             Miburo_Animator.SetTrigger("UkenagashiL");
         }
 
-        //連撃受け流し2回目(みぶろポジション前３右0.5)
+        //連撃受け流し1回目(みぶろポジション前３右0.5)
         if (UnityEngine.Input.GetKeyDown(KeyCode.M))
         {
             Miburo_Animator.SetTrigger("UkenagashiR");
