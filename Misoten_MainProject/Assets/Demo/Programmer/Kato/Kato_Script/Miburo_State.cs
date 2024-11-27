@@ -106,16 +106,14 @@ public class Miburo_State : MonoBehaviour
         Player_Run_Input();//走行入力がされているかのフラグ
 
         if (_Attack01 ||_Attack02)
-        {
-            
+        {         
         }
         else
         {
             if(_Run)
             {
                 Player_Run();//走行処理
-            }
-          
+            }      
         }
 
         if(_Parry)
@@ -131,7 +129,7 @@ public class Miburo_State : MonoBehaviour
             
         }
 
-
+        //判定をアニメーターへ
         Miburo_Animator.SetBool("Gurd", _Parry);
         Miburo_Animator.SetBool("Run", _Run);
         Miburo_Animator.SetInteger("KatanaD", _Katana_Direction);
@@ -143,24 +141,40 @@ public class Miburo_State : MonoBehaviour
         }
 
 
-        //テスト用
+        //以下テスト用
+
+        //ダメージ
         if (UnityEngine.Input.GetKeyDown(KeyCode.L))
         {
             Miburo_Animator.SetTrigger("Damage");
         }
 
+        //縦切り受け流し左(みぶろポジション前３右0.5)
         if (UnityEngine.Input.GetKeyDown(KeyCode.J))
         {
             Miburo_Animator.SetTrigger("UkenagashiL");
         }
 
+        //縦切り受け流し左(みぶろポジション前３右0.5)
         if (UnityEngine.Input.GetKeyDown(KeyCode.K))
+        {
+            Miburo_Animator.SetTrigger("UkenagashiR");
+        }
+
+        //連撃受け流し1回目(みぶろポジション前３右0.5)
+        if (UnityEngine.Input.GetKeyDown(KeyCode.N))
+        {
+            Miburo_Animator.SetTrigger("UkenagashiL");
+        }
+
+        //連撃受け流し2回目(みぶろポジション前３右0.5)
+        if (UnityEngine.Input.GetKeyDown(KeyCode.M))
         {
             Miburo_Animator.SetTrigger("UkenagashiR");
         }
     }
 
-    //コルーチン()
+    //コルーチン(攻撃1)
     private IEnumerator Miburo_Attack01()
     {
         if (!_Attack01)
@@ -179,7 +193,7 @@ public class Miburo_State : MonoBehaviour
         }
     }
 
-    //コルーチン()
+    //コルーチン(攻撃2)
     private IEnumerator Miburo_Attack02()
     {
 
@@ -199,7 +213,7 @@ public class Miburo_State : MonoBehaviour
         }
     }
 
-    //コルーチン()
+    //コルーチン(受け流し構え)
     private IEnumerator Miburo_Parry()
     {
         if (!_Parry)
@@ -217,7 +231,7 @@ public class Miburo_State : MonoBehaviour
 
     }
 
-    //コルーチン()
+    //コルーチン(ステップ)
     private IEnumerator Miburo_Step()
     {
         if (!_Step)

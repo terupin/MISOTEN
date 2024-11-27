@@ -61,6 +61,17 @@ public class Enemy_State : MonoBehaviour
             E01Anim.SetTrigger("UkeR");
         }
 
+        if (UnityEngine.Input.GetKeyDown(KeyCode.N))
+        {
+            E01Anim.SetTrigger("UkeR");
+        }
+
+        //
+        if (UnityEngine.Input.GetKeyDown(KeyCode.M))
+        {
+            E01Anim.SetTrigger("UkeR");
+        }
+
         P_E_Length = Vector3.Distance(Target_P.transform.position, gameObject.transform.position);
        // Debug.Log(P_E_Length);
 
