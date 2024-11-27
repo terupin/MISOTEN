@@ -1047,7 +1047,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 2b76eea3aea1f9c488d32a0f8a329048, type: 2}
+      objectReference: {fileID: 9100000, guid: 98f4aa6f2298948429b92779d5a7de0d, type: 2}
     - target: {fileID: 2764781664508249081, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -1136,7 +1136,7 @@ PrefabInstance:
     - target: {fileID: 4897045886958965061, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4897045886958965061, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
@@ -2336,6 +2336,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2618861639207004343, guid: 8eb4fdc726e23774da71f86d9d295d96,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: ae134be1999d3ba4aa332559e2578618, type: 2}
     - target: {fileID: 3004039993689770561, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}
       propertyPath: m_Enabled
@@ -2384,7 +2389,7 @@ PrefabInstance:
     - target: {fileID: 4307563697888750479, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4307563697888750479, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}
@@ -2395,6 +2400,11 @@ PrefabInstance:
         type: 3}
       propertyPath: Uke_Time
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4669491866440464128, guid: 8eb4fdc726e23774da71f86d9d295d96,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4669491866440464128, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}
@@ -2472,11 +2482,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3669612430873067828, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1322884144}
+      addedObject: {fileID: 1322884152}
     - targetCorrespondingSourceObject: {fileID: 3669612430873067828, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1322884152}
+      addedObject: {fileID: 1322884153}
   m_SourcePrefab: {fileID: 100100000, guid: 8eb4fdc726e23774da71f86d9d295d96, type: 3}
 --- !u!1 &1322884130 stripped
 GameObject:
@@ -2515,18 +2525,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHP: 5
---- !u!114 &1322884144
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1322884133}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f946dcc78f900c649aa014576da12487, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1322884152
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2546,6 +2544,28 @@ MonoBehaviour:
   ukenagasiLCam: {fileID: 777521276}
   ukenagasiRCam: {fileID: 1884755258}
   camchangecountlimit: 5
+--- !u!114 &1322884153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1322884133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 238dca1c85878de4181b21ba308a6812, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Move_Speed: 5.5
+  Target: {fileID: 723284144}
+  Player: {fileID: 1322884133}
+  Camera_o: {fileID: 1498831290}
+  Miburo_Animator: {fileID: 1671458795}
+  Step_WaitTime: 1
+  Parry_WaitTime: 1
+  Attack01_WaitTime: 1
+  Attack02_WaitTime: 1
+  Katana_DirectionSet_WaitTime: 1
 --- !u!1001 &1405806334
 PrefabInstance:
   m_ObjectHideFlags: 0
