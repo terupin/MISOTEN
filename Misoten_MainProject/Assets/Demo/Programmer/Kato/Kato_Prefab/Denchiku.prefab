@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8444920281136701078}
   - component: {fileID: 7682379295307311515}
   - component: {fileID: 2873261973855537649}
+  - component: {fileID: 4786572601708110314}
   m_Layer: 0
   m_Name: Denchiku
   m_TagString: Denchiku
@@ -82,6 +83,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &4786572601708110314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5976777111638295936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8263f71e244d84a47b186fd61d00675f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5040364421089406469
 PrefabInstance:
   m_ObjectHideFlags: 0
