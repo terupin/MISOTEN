@@ -45,7 +45,7 @@ public class Kato_EffectMove : MonoBehaviour
 
         if (CurrentTime>=MoveTime)
         {
-            UnityEditor.EditorApplication.isPaused = true;
+            //UnityEditor.EditorApplication.isPaused = true;
             //Destroy(gameObject);
         }
 

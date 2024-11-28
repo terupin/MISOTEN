@@ -10,8 +10,17 @@ public class Slash_Homing : MonoBehaviour
     [SerializeField, Header("衝撃波速度")]
     public float MoveSpeed; // 敵の移動速度
 
-    [SerializeField, Header("trueなら近いオブジェクトをfalseなら遠いオブジェクト")]
+    [SerializeField, Header("ホーミング開始距離")]
+    public float Homing_Start_Dis;
+    [SerializeField, Header("ホーミング終了距離")]
+    public float Homing_End_Dis;
+
+    [SerializeField, Header("trueなら最も近いオブジェクトをfalseなら最も遠いオブジェクト")]
     public bool SearchPriority;
+
+    [SerializeField, Header("衝撃波が生成されている時間(秒)")]
+    public float MoveTime ;
+    private float CurrentTime = 0.0f;
 
     private GameObject Target; // プレイヤーオブジェクトのTransform
 
@@ -22,12 +31,29 @@ public class Slash_Homing : MonoBehaviour
     //ひとまとめにする
     private GameObject[] _HomingList ;
 
-    private float[] _HomingDistance ;
+    private float[] _HomingDistance ;//距離
 
+    private GameObject EnemyObj;
+    private GameObject EnemyKatanaBox;
 
     // Start is called before the first frame update
     void Start()
     {
+        EnemyObj = GameObject.FindWithTag("Enemy");
+        EnemyKatanaBox = GameObject.Find("Enemy_HitBox");
+
+        gameObject.transform.position = new Vector3(EnemyKatanaBox.transform.localPosition.x, 0.0f, EnemyKatanaBox.transform.localPosition.z);
+
+        //if (Kato_a_Player_Anim.Katana_Direction == 0 || Kato_a_Player_Anim.Katana_Direction == 1 || Kato_a_Player_Anim.Katana_Direction == 2 || Kato_a_Player_Anim.Katana_Direction == 7)
+        //{
+        //    gameObject.transform.rotation = Quaternion.Euler(0.0f, EnemyObj.transform.localEulerAngles.y - 120, 0.0f);
+        //}
+        //else if (Kato_a_Player_Anim.Katana_Direction == 4 || Kato_a_Player_Anim.Katana_Direction == 5 || Kato_a_Player_Anim.Katana_Direction == 6 || Kato_a_Player_Anim.Katana_Direction == 3)
+        //{
+        //    gameObject.transform.rotation = Quaternion.Euler(0.0f, EnemyObj.transform.localEulerAngles.y - 60, 0.0f);
+        //}
+
+        gameObject.transform.rotation = Quaternion.Euler(0.0f, EnemyObj.transform.localEulerAngles.y , 0.0f);
 
         ////オブジェクト生成時に探索
         StartCoroutine(Homing_Search());
@@ -40,21 +66,41 @@ public class Slash_Homing : MonoBehaviour
         {
             float HomingDistance= Vector3.Distance(Target.transform.position, gameObject.transform.position);
 
-            // 対象物と自分自身の座標からベクトルを算出してQuaternion(回転値)を取得
-            Vector3 HomingVector = Target.transform.position - this.transform.position;
-            // もし上下方向の回転はしないようにしたければ以下のようにする。
-            HomingVector.y = 0f;
 
-            // Quaternion(回転値)を取得
-            Quaternion quaternion = Quaternion.LookRotation(HomingVector);
-            // 取得した回転値をこのゲームオブジェクトのrotationに代入
-            this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(HomingVector), RotateSpeed*Time.deltaTime);
+            if(HomingDistance<=Homing_Start_Dis && HomingDistance >=Homing_End_Dis)
+            {
+                // 対象物と自分自身の座標からベクトルを算出してQuaternion(回転値)を取得
+                Vector3 HomingVector = Target.transform.position - this.transform.position;
+                // もし上下方向の回転はしないようにしたければ以下のようにする。
+                HomingVector.y = 0f;
 
-            // ターゲットに向かって移動
-            gameObject.transform.position+= gameObject.transform.forward * MoveSpeed * Time.deltaTime;
+                // Quaternion(回転値)を取得
+                Quaternion quaternion = Quaternion.LookRotation(HomingVector);
+                // 取得した回転値をこのゲームオブジェクトのrotationに代入
+                this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(HomingVector), RotateSpeed * Time.deltaTime);
+
+            }
+
+            if (HomingDistance <= Homing_End_Dis)
+            {
+                gameObject.transform.LookAt(new Vector3(Target.transform.position.x,gameObject.transform.position.y, Target.transform.position.z));
+            }
+
+
         }
+
+        //  衝撃波はホーミング時以外は直進します。
+        gameObject.transform.position += gameObject.transform.forward * MoveSpeed * Time.deltaTime;
+
+        if (CurrentTime >= MoveTime)
+        {
+            //UnityEditor.EditorApplication.isPaused = true;
+            Destroy(gameObject);
+        }
+        CurrentTime += Time.deltaTime;
     }
 
+    //ホーミング対象をサーチ
     private IEnumerator Homing_Search()
     {
 

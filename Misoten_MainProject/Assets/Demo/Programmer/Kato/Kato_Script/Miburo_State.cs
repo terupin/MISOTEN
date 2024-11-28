@@ -57,6 +57,9 @@ public class Miburo_State : MonoBehaviour
     [SerializeField, Header("ボーン")]
     public GameObject _Born;
 
+    [SerializeField, Header("斬撃エフェクト(テスト用)")]
+    public GameObject S_Effect;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -158,6 +161,11 @@ public class Miburo_State : MonoBehaviour
         if (UnityEngine.Input.GetKeyDown(KeyCode.J))
         {
             Miburo_Animator.SetTrigger("UkenagashiL");
+        }
+
+        if (UnityEngine.Input.GetKeyDown(KeyCode.V))
+        {
+            Instantiate(S_Effect);
         }
 
         //縦切り受け流し左(みぶろポジション前３右1)
