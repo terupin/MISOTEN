@@ -83,6 +83,8 @@ public class Matsunaga_Enemy_State : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log($"currentHP: {currentHP}");
+
         // 1キーが押されたらHPを75%に設定
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
@@ -197,17 +199,30 @@ public class Matsunaga_Enemy_State : MonoBehaviour
             }
         }
 
+        // Idle状態の場合でもプレイヤーの方向を向く
+        if (E_State == Enemy_State_.Idle && P_E_Length < SearchLength)
+        {
+            Vector3 direction = (Target_P.transform.position - transform.position).normalized; // プレイヤー方向
+            direction.y = 0; // Y軸回転を抑制
+            Quaternion targetRotation = Quaternion.LookRotation(direction); // プレイヤー方向を向く回転
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * MoveSpeed); // スムーズな回転
+        }
+
         // Walk状態の場合、プレイヤーに向かって移動
         if (E_State == Enemy_State_.Walk)
         {
             if (P_E_Length > AttackLength && P_E_Length < SearchLength)
             {
                 Vector3 direction = (Target_P.transform.position - transform.position).normalized; // プレイヤー方向
-                transform.rotation = Quaternion.LookRotation(direction); // プレイヤー方向を向く
+                direction.y = 0; // Y軸回転を抑制
+                Quaternion targetRotation = Quaternion.LookRotation(direction); // プレイヤー方向を向く回転
+                transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * MoveSpeed); // スムーズな回転
+
                 transform.position += direction * MoveSpeed * Time.deltaTime; // プレイヤーに向かって移動
             }
         }
     }
+
 
     // 攻撃タイプを決定する
     private void DecideAttackType()

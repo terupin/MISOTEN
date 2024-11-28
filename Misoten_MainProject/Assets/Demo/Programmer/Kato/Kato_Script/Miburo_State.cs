@@ -16,6 +16,10 @@ public class Miburo_State : MonoBehaviour
     private bool _Ukenagashi_R;
     private bool _Ukenagashi_L;
 
+    [SerializeField, Header("取得したいアニメーターのステート名")]
+    public string StateName;
+    private string currentStateName;
+
     //刀の方向
     private int _Katana_Direction;
 
@@ -50,7 +54,11 @@ public class Miburo_State : MonoBehaviour
     [SerializeField, Header("待ち時間(受け流し方向セット)")]
     public float Katana_DirectionSet_WaitTime;
 
+    [SerializeField, Header("ボーン")]
+    public GameObject _Born;
 
+    [SerializeField, Header("斬撃エフェクト(テスト用)")]
+    public GameObject S_Effect;
 
     // Start is called before the first frame update
     void Start()
@@ -155,23 +163,33 @@ public class Miburo_State : MonoBehaviour
             Miburo_Animator.SetTrigger("UkenagashiL");
         }
 
-        //縦切り受け流し左(みぶろポジション前３右0.5)
+        if (UnityEngine.Input.GetKeyDown(KeyCode.V))
+        {
+            Instantiate(S_Effect);
+        }
+
+        //縦切り受け流し左(みぶろポジション前３右1)
         if (UnityEngine.Input.GetKeyDown(KeyCode.K))
         {
             Miburo_Animator.SetTrigger("UkenagashiR");
         }
 
         //連撃受け流し1回目(みぶろポジション前３右0.5)
-        if (UnityEngine.Input.GetKeyDown(KeyCode.N))
-        {
-            Miburo_Animator.SetTrigger("UkenagashiL");
-        }
-
-        //連撃受け流し2回目(みぶろポジション前３右0.5)
         if (UnityEngine.Input.GetKeyDown(KeyCode.M))
         {
             Miburo_Animator.SetTrigger("UkenagashiR");
         }
+
+        //連撃受け流し2回目(みぶろポジション前３右0.5)
+        if (UnityEngine.Input.GetKeyDown(KeyCode.N))
+        {
+            Miburo_Animator.SetTrigger("Rengeki02");
+            Miburo_Animator.SetBool("Counter",true);
+        }
+        Vector3 a = gameObject.transform.position;
+
+        //gameObject.transform.position =  new Vector3(a.x+_Born.transform.position.x, 0, a.z+ _Born.transform.position.z);
+        GetCurrentAnimationStateName();
     }
 
     //コルーチン(攻撃1)
@@ -321,5 +339,44 @@ public class Miburo_State : MonoBehaviour
         {
             _Run = false;
         }
+    }
+
+
+
+    //アニメーターからステート名を取得
+    void GetCurrentAnimationStateName()
+    {
+        if (Miburo_Animator.GetCurrentAnimatorStateInfo(0).IsName("UKE"))
+        {
+            gameObject.transform.position += gameObject.transform.forward * Time.deltaTime*5.5f;
+            //UnityEditor.EditorApplication.isPaused = true;
+            //currentStateName = "Idle";
+            gameObject.transform.position = new Vector3(_Born.transform.position.x, 0, _Born.transform.position.z);
+        }
+        if (Miburo_Animator.GetCurrentAnimatorStateInfo(0).IsName("UKE2"))
+        {
+            gameObject.transform.position += gameObject.transform.forward * Time.deltaTime * 2.5f;
+            //UnityEditor.EditorApplication.isPaused = true;
+            //currentStateName = "Idle";
+            gameObject.transform.position = new Vector3(_Born.transform.position.x, 0, _Born.transform.position.z);
+        }
+        if (Miburo_Animator.GetCurrentAnimatorStateInfo(0).IsName("UKE3"))
+        {
+            gameObject.transform.position -= gameObject.transform.forward * Time.deltaTime * 0.1f;
+            //UnityEditor.EditorApplication.isPaused = true;
+            //currentStateName = "Idle";
+            gameObject.transform.position = new Vector3(_Born.transform.position.x, 0, _Born.transform.position.z);
+        }
+  
+
+        //else
+        {
+
+        }
+        //if (Miburo_Animator.GetCurrentAnimatorStateInfo(0).IsName(StateName))
+        //{
+        //    currentStateName = "Run";
+        //}
+        //Debug.Log(currentStateName);
     }
 }

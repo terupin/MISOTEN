@@ -76,16 +76,30 @@ public class Kato_MainCamera : MonoBehaviour
             if (C_ukenagashi == 0 || C_ukenagashi == 1 || C_ukenagashi == 2 || C_ukenagashi == 7)
             {
                 changecamstartR = true;
-                Debug.Log(changecamstartL);
+                Debug.Log(changecamstartR);
             }
             else if (C_ukenagashi == 3 || C_ukenagashi == 4 || C_ukenagashi == 5 || C_ukenagashi == 6)
             {
                 changecamstartL = true;
-                Debug.Log(changecamstartR);
+                Debug.Log(changecamstartL);
             }
         }
 
-        
+        //テスト
+        if (UnityEngine.Input.GetKeyDown(KeyCode.N))
+        {
+            changecamstartL = true;
+            Debug.Log(changecamstartL);
+        }
+
+        //テスト
+        if (UnityEngine.Input.GetKeyDown(KeyCode.M))
+        {
+            changecamstartR = true;
+            Debug.Log(changecamstartR);
+
+        }
+
 
 
         if (changecamstartL == true)
