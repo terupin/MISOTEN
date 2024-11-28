@@ -1947,7 +1947,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Target_P: {fileID: 1322884133}
-  SearchLength: 100
+  SearchLength: 500
   AttackLength: 3.5
   MoveSpeed: 12
   TategiriChance: 100
