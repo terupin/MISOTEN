@@ -103,16 +103,10 @@ public class Miburo_State : MonoBehaviour
             else
             {
 
-                if (_Katana_Direction == 0 || _Katana_Direction == 1 || _Katana_Direction == 2 || _Katana_Direction == 7)
-                {
-                    Miburo_Animator.SetTrigger("UkenagashiL");
-                }
-                else if (_Katana_Direction == 3 || _Katana_Direction == 4 || _Katana_Direction == 5 || _Katana_Direction == 6)
-                {
-                    Miburo_Animator.SetTrigger("UkenagashiR");
-                }
+
                 Debug.Log("入力完了\n入力方向　" + _Katana_Direction);
                 StartCoroutine(Counter_Timing_Input());
+
                 //UnityEditor.EditorApplication.isPaused = true;
             }
         }
@@ -140,8 +134,32 @@ public class Miburo_State : MonoBehaviour
         Miburo_Animator.SetBool("Run", _Run);
         Miburo_Animator.SetInteger("KatanaD", _Katana_Direction);
 
+
+        if(_Uke_Input)
+        {
+            if (_Katana_Direction == 0 || _Katana_Direction == 1 || _Katana_Direction == 2 || _Katana_Direction == 7)
+            {
+                Miburo_Animator.SetBool("UkenagashiL", true);
+            }
+            else if (_Katana_Direction == 3 || _Katana_Direction == 4 || _Katana_Direction == 5 || _Katana_Direction == 6)
+            {
+                Miburo_Animator.SetBool("UkenagashiR", true);
+            }
+            else
+            {
+                Miburo_Animator.SetBool("UkenagashiL", false);
+                Miburo_Animator.SetBool("UkenagashiR", false);
+            }
+
+        }
+        else
+        {
+            Miburo_Animator.SetBool("UkenagashiL", false);
+            Miburo_Animator.SetBool("UkenagashiR", false);
+        }
+
         //HP0以下ならゲームオーバー
-        if(Kato_Status_P.NowHP<=0)
+        if (Kato_Status_P.NowHP<=0)
         {
             Miburo_Animator.SetBool("GameOver", true);
         }
@@ -255,7 +273,7 @@ public class Miburo_State : MonoBehaviour
             Debug.Log("受け開始");
             yield return new WaitForSeconds(3);
             Debug.Log("受け待ち時間終了");
-            //_Uke_Input = false;
+            _Uke_Input = false;
         }
         else
         {
