@@ -328,5 +328,155 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
         E01Anim.SetBool("Walk", E_State == Enemy_State_.Walk);
         E01Anim.SetBool("Tategiri", E_State == Enemy_State_.Tategiri);
         E01Anim.SetBool("Rengeki", E_State == Enemy_State_.RenGeki);
+        KatoUpdateAnim();
+    }
+    private float Check_Current_Time;//ì¸óÕäJénÇ©ÇÁåoâﬂÇµÇΩéûä‘
+
+    //ècêÿÇË ç≈ëÂì¸óÕóPó\ 1.7ïb
+    //òAåÇ1 ç≈ëÂì¸óÕóPó\ 1.2ïb
+    //òAåÇ2 ç≈ëÂì¸óÕóPó\ 0.5ïb
+    [SerializeField, Header("ècêÿÇË ç≈ëÂì¸óÕóPó\ 1.7ïb")]
+    public float Check_Time0;
+    [SerializeField, Header("òAåÇ1 ç≈ëÂì¸óÕóPó\ 1.2ïb")]
+    public float Check_Time1;
+    [SerializeField, Header("òAåÇ2 ç≈ëÂì¸óÕóPó\ 0.5ïb")]
+    public float Check_Time2;
+
+    static public bool UkeL;
+    static public bool UkeR;
+    static public bool RenUke01;
+    static public bool RenUke02;
+
+    private void KatoUpdateAnim()
+    {
+        //ècêÿÇËêUÇËè„Ç∞
+        if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Tategiri"))
+        {
+            //UnityEditor.EditorApplication.isPaused = true;
+            if (Miburo_State._Uke_Input)
+            {
+
+                if (Check_Current_Time > 0.0f && Check_Time0 >= Check_Current_Time)
+                {
+                    Debug.Log("aaaaaaaa" + Check_Current_Time);
+                   // UnityEditor.EditorApplication.isPaused = true;
+                    //éÛÇØó¨Çµê¨å˜
+                    Debug.Log(Check_Current_Time);
+                    if (Miburo_State._Katana_Direction==0|| Miburo_State._Katana_Direction == 1 || Miburo_State._Katana_Direction == 2 || Miburo_State._Katana_Direction == 7)
+                    {
+                        UkeL = true;
+                        E01Anim.SetBool("UkeL", true);
+                        UnityEditor.EditorApplication.isPaused = true;
+                    }
+                    else if (Miburo_State._Katana_Direction == 3 || Miburo_State._Katana_Direction == 4 || Miburo_State._Katana_Direction == 5 || Miburo_State._Katana_Direction == 6)
+                    {
+                        UkeR = true;
+                        E01Anim.SetBool("UkeR", true);
+                        UnityEditor.EditorApplication.isPaused = true;
+                    }
+                }
+            }
+            else
+            {
+
+                Check_Current_Time += Time.deltaTime;
+            }
+        }
+        else
+        {
+            E01Anim.SetBool("UkeL", false);
+            E01Anim.SetBool("UkeR", false);
+            Check_Current_Time = 0;
+        }
+
+        //ècêÿÇËêUÇËÇ®ÇÎÇµ
+        if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Tategiri 0"))
+        {
+            Debug.Log(Check_Current_Time);
+
+
+            Check_Current_Time = 0;
+            //UnityEditor.EditorApplication.isPaused = true;
+        }
+
+        //òAåÇ1êUÇËè„Ç∞
+        if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren01"))
+        {
+            if (Miburo_State._Uke_Input)
+            {
+                Debug.Log("iiiiiiiii" + Check_Current_Time);
+                UnityEditor.EditorApplication.isPaused = true;
+                if (Check_Current_Time > 0.0f && Check_Time1 >= Check_Current_Time)
+                {
+                    //éÛÇØó¨Çµê¨å˜
+                    Debug.Log(Check_Current_Time);
+                    UnityEditor.EditorApplication.isPaused = true;
+                    //Enemy01_Animator.SetBool("RenUke01", true);
+                    RenUke01 = true;
+                    E01Anim.SetBool("RenUke01", true);
+                }
+            }
+            else
+            {
+                Check_Current_Time += Time.deltaTime;
+            }
+        }
+        else
+        {
+            RenUke01 = false;
+            E01Anim.SetBool("RenUke01", false);
+            //Enemy01_Animator.SetBool("RenUke01", false);
+            //Check_Current_Time = 0;
+        }
+
+        //òAåÇ1êUÇËÇ®ÇÎÇµ
+        if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren1"))
+        {
+            Debug.Log(Check_Current_Time);
+            //UnityEditor.EditorApplication.isPaused = true;
+            Check_Current_Time = 0;
+        }
+
+        //òAåÇ2êUÇËè„Ç∞
+        if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren02"))
+        {
+            if (Miburo_State._Uke_Input)
+            {
+                Debug.Log("uuuuuuuu" + Check_Current_Time);
+                UnityEditor.EditorApplication.isPaused = true;
+                if (Check_Current_Time > 0.0f && Check_Time2 >= Check_Current_Time)
+                {
+                    //éÛÇØó¨Çµê¨å˜
+                    RenUke02 = true;
+                    E01Anim.SetBool("RenUke02", true);
+                    Debug.Log(Check_Current_Time);
+                    //UnityEditor.EditorApplication.isPaused = true;
+                }
+            }
+            else
+            {
+                Check_Current_Time += Time.deltaTime;
+            }
+        }
+        else
+        {
+            RenUke02 = false;
+            E01Anim.SetBool("RenUke02", false);
+            //Check_Current_Time = 0;
+        }
+
+        if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        {
+            Check_Current_Time = 0;
+        }
+
+         //òAåÇ2êUÇËÇ®ÇÎÇµ         
+        if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren2"))
+        {
+
+            Debug.Log(Check_Current_Time);
+            //UnityEditor.EditorApplication.isPaused = true;
+            Check_Current_Time = 0;
+        }
     }
 }

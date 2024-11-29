@@ -1190,13 +1190,33 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3965139916692988938, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
+      propertyPath: Target_P
+      value: 
+      objectReference: {fileID: 1322884133}
+    - target: {fileID: 3965139916692988938, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
+      propertyPath: Check_Time0
+      value: 1.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3965139916692988938, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
+      propertyPath: Check_Time1
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3965139916692988938, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
+      propertyPath: Check_Time2
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3965139916692988938, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
       propertyPath: RenGekiChance
-      value: 40
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3965139916692988938, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
       propertyPath: TategiriChance
-      value: 60
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4030540995310200053, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
@@ -1371,15 +1391,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3847602336648284765, guid: 5a5dfd0327ec98346a40d1796a249e1e,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 723284145}
-    - targetCorrespondingSourceObject: {fileID: 3847602336648284765, guid: 5a5dfd0327ec98346a40d1796a249e1e,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 723284153}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a5dfd0327ec98346a40d1796a249e1e, type: 3}
 --- !u!4 &723284142 stripped
 Transform:
@@ -1393,74 +1405,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 723284140}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &723284145
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 723284144}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30f9519c76ef751448dce0b0472d5a9a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Target_P: {fileID: 1322884133}
-  SearchLength: 0
-  AttackLength: 0
-  MoveSpeed: 0
-  TategiriChance: 60
-  RenGekiChance: 40
-  E01Anim: {fileID: 2002034717}
-  CooldownTime: 2.5
-  StaggerTime: 1
-  durabilityFieldPrefab: {fileID: 5976777111638295936, guid: ba6f924de61fb164cb25456e3a9d4b85,
-    type: 3}
-  fieldPositions:
-  - {x: 9, y: 0, z: 0}
-  - {x: 9, y: 0, z: 4}
-  - {x: 9, y: 0, z: 9}
-  - {x: -9, y: 0, z: 0}
-  - {x: -9, y: 0, z: 4}
-  - {x: -9, y: 0, z: 9}
-  fieldScale: {x: 1, y: 1, z: 1}
-  barrierPrefab: {fileID: 4615949204175965807, guid: db6df99c53c36c84b958bc27b58a20c8,
-    type: 3}
-  barrierPosition: []
---- !u!114 &723284153
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 723284144}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 660f294d44b05574a8fdf85dae5cfd04, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Target_P: {fileID: 1322884133}
-  SearchLength: 10
-  AttackLength: 3.5
-  MoveSpeed: 12
-  TategiriChance: 60
-  RenGekiChance: 40
-  E01Anim: {fileID: 2002034717}
-  CooldownTime: 2.5
-  StaggerTime: 1
-  durabilityFieldPrefab: {fileID: 5976777111638295936, guid: ba6f924de61fb164cb25456e3a9d4b85,
-    type: 3}
-  fieldPositions: []
-  fieldScale: {x: 1, y: 1, z: 1}
-  barrierPrefab: {fileID: 4615949204175965807, guid: db6df99c53c36c84b958bc27b58a20c8,
-    type: 3}
-  barrierPosition:
-  - {x: -16, y: 0, z: -16}
-  - {x: -16, y: 0, z: 0}
-  - {x: -16, y: 0, z: 16}
-  - {x: 16, y: 0, z: -16}
-  - {x: 16, y: 0, z: 0}
-  - {x: 16, y: 0, z: 16}
 --- !u!1 &777521274
 GameObject:
   m_ObjectHideFlags: 0
@@ -2448,6 +2392,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsTrigger
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 180414970915545063, guid: 8eb4fdc726e23774da71f86d9d295d96,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 180414970915545063, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}
