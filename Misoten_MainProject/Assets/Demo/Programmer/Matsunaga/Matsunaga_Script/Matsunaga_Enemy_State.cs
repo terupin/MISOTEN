@@ -21,7 +21,7 @@ public class Matsunaga_Enemy_State : MonoBehaviour
     public GameObject Target_P; // 敵がターゲットするプレイヤーオブジェクト
 
     [SerializeField, Header("サーチ射程(10)")]
-    public float SearchLength = 10; // 敵がプレイヤーを探知できる距離
+    public float SearchLength = 100; // 敵がプレイヤーを探知できる距離
 
     [SerializeField, Header("攻撃射程(3.5)")]
     public float AttackLength = 3.5f; // 敵が攻撃可能な距離
@@ -83,15 +83,18 @@ public class Matsunaga_Enemy_State : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log($"currentHP: {currentHP}");
+        //E01Anim.SetBool("Tategiri", true);
+        //Debug.Log($"currentHP: {currentHP}");
+        Debug.Log($"Tategiriフラグ: {E01Anim.GetBool("Tategiri")}");
 
         // 1キーが押されたらHPを75%に設定
+        /*
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             currentHP = 0.75f * Matsunaga_Status_E.MaxHP;  // HPを75%に設定
             Debug.Log("HPを75%に設定しました！");
         }
-
+        */
 
         currentHP = Matsunaga_Status_E.NowHP / Matsunaga_Status_E.MaxHP;
         // ターゲットが設定されていない場合は警告を表示し処理を中断
@@ -250,7 +253,6 @@ public class Matsunaga_Enemy_State : MonoBehaviour
     // 縦切り攻撃の処理
     private void HandleTategiri()
     {
-
         if (IsAnimationFinished("Enemy01_Tategiri00"))
         {
             // 縦切り攻撃完了後、クールダウンに遷移
@@ -319,9 +321,12 @@ public class Matsunaga_Enemy_State : MonoBehaviour
     // 指定アニメーションが終了しているかを判定
     private bool IsAnimationFinished(string animationName)
     {
-        return !E01Anim.GetCurrentAnimatorStateInfo(0).IsName(animationName)
-            || E01Anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f;
+        var stateInfo = E01Anim.GetCurrentAnimatorStateInfo(0);
+
+        // アニメーションが現在再生中で、かつnormalizedTimeが1.0以上なら終了しているとみなす
+        return stateInfo.IsName(animationName) && stateInfo.normalizedTime >= 1.0f;
     }
+
 
     // 状態に応じてアニメーションを更新
     private void UpdateAnimations()
