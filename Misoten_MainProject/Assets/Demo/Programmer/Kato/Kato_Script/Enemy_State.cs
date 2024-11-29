@@ -45,7 +45,7 @@ public class Enemy_State : MonoBehaviour
     {
         E_State = Enemy_State_.Idle;
         StateCurrentTime = 0.0f;
-        E01Anim.SetBool("Idle",true);
+        //E01Anim.SetBool("Idle",true);
     }
 
     // Update is called once per frame
@@ -172,3 +172,5 @@ public class Enemy_State : MonoBehaviour
 
     }
 }
+
+
