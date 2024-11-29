@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7990267080315534937}
-  - component: {fileID: 4307563697888750479}
   - component: {fileID: 3429618914247794518}
   - component: {fileID: 6346175220718111584}
   - component: {fileID: 126546910121383811}
@@ -17,7 +16,7 @@ GameObject:
   - component: {fileID: 4899932748930790640}
   - component: {fileID: 1243681727059629837}
   - component: {fileID: 7402921998873306554}
-  - component: {fileID: 180414970915545063}
+  - component: {fileID: 5559175423462806870}
   m_Layer: 0
   m_Name: Player_Miburo
   m_TagString: Player
@@ -43,22 +42,6 @@ Transform:
   - {fileID: 8806816764915908928}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4307563697888750479
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3669612430873067828}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d110e196d7f6f4e48973157e4f2be6b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Move_Speed: 10
-  Target: {fileID: 3847602336648284765, guid: 1c8b199eb562ec743a79e9697eb48c5c, type: 3}
-  Player: {fileID: 0}
-  Camera_o: {fileID: 0}
 --- !u!114 &3429618914247794518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,7 +142,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 238dca1c85878de4181b21ba308a6812, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StateName: UKE
   Move_Speed: 5.5
   Target: {fileID: 0}
   Player: {fileID: 0}
@@ -179,7 +161,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3669612430873067828}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aead279a02bfc8f4c80e74a8c2d5e041, type: 3}
   m_Name: 
@@ -191,7 +173,7 @@ MonoBehaviour:
   ukenagasiLCam: {fileID: 0}
   ukenagasiRCam: {fileID: 0}
   camchangecountlimit: 5
---- !u!114 &180414970915545063
+--- !u!114 &5559175423462806870
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -200,14 +182,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 3669612430873067828}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a91d9f665b4edf44814f64453c9ee37, type: 3}
+  m_Script: {fileID: 11500000, guid: 458ac48c3d7466e4f91ac08d1dcbfb4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Enemy01_Animator: {fileID: 0}
-  Miburo_Animator: {fileID: 6762955980653805399}
-  Check_Time0: 1.5
-  Check_Time1: 1
-  Check_Time2: 0.5
+  isLockOn: 0
+  loocOnTarget: {fileID: 0}
+  virtualCamera: {fileID: 0}
+  LockOnCamera: {fileID: 0}
+  ukenagasiLCam: {fileID: 0}
+  ukenagasiRCam: {fileID: 0}
+  camchangecountlimit: 10
+  MainCamLock: {fileID: 0}
+  LDownflg: 0
 --- !u!1 &7287183770792060896
 GameObject:
   m_ObjectHideFlags: 0

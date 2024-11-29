@@ -1178,7 +1178,7 @@ PrefabInstance:
     - target: {fileID: 4897045886958965061, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4897045886958965061, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
@@ -2445,10 +2445,40 @@ PrefabInstance:
       propertyPath: RengekiTime
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5559175423462806870, guid: 8eb4fdc726e23774da71f86d9d295d96,
+        type: 3}
+      propertyPath: MainCamLock
+      value: 
+      objectReference: {fileID: 1498831292}
+    - target: {fileID: 5559175423462806870, guid: 8eb4fdc726e23774da71f86d9d295d96,
+        type: 3}
+      propertyPath: LockOnCamera
+      value: 
+      objectReference: {fileID: 221206124}
+    - target: {fileID: 5559175423462806870, guid: 8eb4fdc726e23774da71f86d9d295d96,
+        type: 3}
+      propertyPath: ukenagasiLCam
+      value: 
+      objectReference: {fileID: 777521276}
+    - target: {fileID: 5559175423462806870, guid: 8eb4fdc726e23774da71f86d9d295d96,
+        type: 3}
+      propertyPath: ukenagasiRCam
+      value: 
+      objectReference: {fileID: 1884755258}
+    - target: {fileID: 5559175423462806870, guid: 8eb4fdc726e23774da71f86d9d295d96,
+        type: 3}
+      propertyPath: virtualCamera
+      value: 
+      objectReference: {fileID: 1498831293}
     - target: {fileID: 6696693179243410524, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7402921998873306554, guid: 8eb4fdc726e23774da71f86d9d295d96,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7402921998873306554, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}
@@ -2539,11 +2569,7 @@ PrefabInstance:
     - {fileID: 180414970915545063, guid: 8eb4fdc726e23774da71f86d9d295d96, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3669612430873067828, guid: 8eb4fdc726e23774da71f86d9d295d96,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1322884134}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8eb4fdc726e23774da71f86d9d295d96, type: 3}
 --- !u!4 &1322884131 stripped
 Transform:
@@ -2557,27 +2583,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1322884129}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1322884134
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1322884133}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 458ac48c3d7466e4f91ac08d1dcbfb4b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isLockOn: 0
-  loocOnTarget: {fileID: 0}
-  virtualCamera: {fileID: 1498831293}
-  LockOnCamera: {fileID: 221206124}
-  ukenagasiLCam: {fileID: 777521276}
-  ukenagasiRCam: {fileID: 1884755258}
-  camchangecountlimit: 10
-  MainCamLock: {fileID: 1498831292}
-  LDownflg: 0
 --- !u!1001 &1405806334
 PrefabInstance:
   m_ObjectHideFlags: 0
