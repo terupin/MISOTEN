@@ -1397,7 +1397,7 @@ MonoBehaviour:
   MoveSpeed: 0
   TategiriChance: 60
   RenGekiChance: 40
-  E01Anim: {fileID: 2118550237}
+  E01Anim: {fileID: 2002034717}
   CooldownTime: 2.5
   StaggerTime: 1
   durabilityFieldPrefab: {fileID: 5976777111638295936, guid: ba6f924de61fb164cb25456e3a9d4b85,
@@ -2651,8 +2651,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a91d9f665b4edf44814f64453c9ee37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Enemy01_Animator: {fileID: 2118550237}
+  Enemy01_Animator: {fileID: 2002034717}
   Miburo_Animator: {fileID: 1537864872}
+  Check_Time: 0
 --- !u!1001 &1405806334
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4042,6 +4043,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba6f924de61fb164cb25456e3a9d4b85, type: 3}
+--- !u!95 &2002034717 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 284557907054861467, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+    type: 3}
+  m_PrefabInstance: {fileID: 723284140}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2013410473
 GameObject:
   m_ObjectHideFlags: 1
@@ -4090,12 +4097,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &2118550237 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 2607608037686943385, guid: 5a5dfd0327ec98346a40d1796a249e1e,
-    type: 3}
-  m_PrefabInstance: {fileID: 723284140}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2136868813
 PrefabInstance:
   m_ObjectHideFlags: 0
