@@ -15,8 +15,6 @@ public class Miburo_State : MonoBehaviour
     private bool _Run;
 
 
-     static public bool _Ukenagashi_R;
-    static public bool _Ukenagashi_L;
     static public bool _Uke_Input;//受け流し入力
 
     [SerializeField, Header("取得したいアニメーターのステート名")]
@@ -108,12 +106,10 @@ public class Miburo_State : MonoBehaviour
                 if (_Katana_Direction == 0 || _Katana_Direction == 1 || _Katana_Direction == 2 || _Katana_Direction == 7)
                 {
                     Miburo_Animator.SetTrigger("UkenagashiL");
-                    _Ukenagashi_L = true;
                 }
                 else if (_Katana_Direction == 3 || _Katana_Direction == 4 || _Katana_Direction == 5 || _Katana_Direction == 6)
                 {
                     Miburo_Animator.SetTrigger("UkenagashiR");
-                    _Ukenagashi_R = true;
                 }
                 Debug.Log("入力完了\n入力方向　" + _Katana_Direction);
                 StartCoroutine(Counter_Timing_Input());
@@ -122,8 +118,6 @@ public class Miburo_State : MonoBehaviour
         }
         else
         {
-            _Ukenagashi_L = false;
-            _Ukenagashi_R = false;
             _Katana_Direction = -1;
         }
 

@@ -366,13 +366,13 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
                     {
                         UkeL = true;
                         E01Anim.SetBool("UkeL", true);
-                        UnityEditor.EditorApplication.isPaused = true;
+                        //UnityEditor.EditorApplication.isPaused = true;
                     }
                     else if (Miburo_State._Katana_Direction == 3 || Miburo_State._Katana_Direction == 4 || Miburo_State._Katana_Direction == 5 || Miburo_State._Katana_Direction == 6)
                     {
                         UkeR = true;
                         E01Anim.SetBool("UkeR", true);
-                        UnityEditor.EditorApplication.isPaused = true;
+                        //UnityEditor.EditorApplication.isPaused = true;
                     }
                 }
             }
