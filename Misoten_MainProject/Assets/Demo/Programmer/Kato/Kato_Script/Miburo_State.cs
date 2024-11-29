@@ -15,8 +15,6 @@ public class Miburo_State : MonoBehaviour
     private bool _Run;
 
 
-     static public bool _Ukenagashi_R;
-    static public bool _Ukenagashi_L;
     static public bool _Uke_Input;//受け流し入力
 
     [SerializeField, Header("取得したいアニメーターのステート名")]
@@ -24,7 +22,8 @@ public class Miburo_State : MonoBehaviour
     private string currentStateName;
 
     //刀の方向
-    private int _Katana_Direction;
+    //private int _Katana_Direction;
+    static public int _Katana_Direction;
 
     [SerializeField, Header("移動スピード")]
     public float Move_Speed;
@@ -103,8 +102,12 @@ public class Miburo_State : MonoBehaviour
             }
             else
             {
+
+
                 Debug.Log("入力完了\n入力方向　" + _Katana_Direction);
                 StartCoroutine(Counter_Timing_Input());
+
+                //UnityEditor.EditorApplication.isPaused = true;
             }
         }
         else
@@ -125,32 +128,38 @@ public class Miburo_State : MonoBehaviour
             }      
         }
 
-        if(_Parry)
-        {
-            if(_Katana_Direction==0|| _Katana_Direction == 1 || _Katana_Direction == 2 || _Katana_Direction == 7 )
-            {
-                Miburo_Animator.SetTrigger("UkenagashiL");
-                _Ukenagashi_L=true;
-            }
-            else if(_Katana_Direction == 0 || _Katana_Direction == 1 || _Katana_Direction == 2 || _Katana_Direction == 7)
-            {
-                Miburo_Animator.SetTrigger("UkenagashiR");
-                _Ukenagashi_R = true;
-            }
-            else
-            {
-                _Ukenagashi_L = false;
-                _Ukenagashi_R = false;
-            }            
-        }
 
         //判定をアニメーターへ
         Miburo_Animator.SetBool("Gurd", _Parry);
         Miburo_Animator.SetBool("Run", _Run);
         Miburo_Animator.SetInteger("KatanaD", _Katana_Direction);
 
+
+        if(_Uke_Input)
+        {
+            if (_Katana_Direction == 0 || _Katana_Direction == 1 || _Katana_Direction == 2 || _Katana_Direction == 7)
+            {
+                Miburo_Animator.SetBool("UkenagashiL", true);
+            }
+            else if (_Katana_Direction == 3 || _Katana_Direction == 4 || _Katana_Direction == 5 || _Katana_Direction == 6)
+            {
+                Miburo_Animator.SetBool("UkenagashiR", true);
+            }
+            else
+            {
+                Miburo_Animator.SetBool("UkenagashiL", false);
+                Miburo_Animator.SetBool("UkenagashiR", false);
+            }
+
+        }
+        else
+        {
+            Miburo_Animator.SetBool("UkenagashiL", false);
+            Miburo_Animator.SetBool("UkenagashiR", false);
+        }
+
         //HP0以下ならゲームオーバー
-        if(Kato_Status_P.NowHP<=0)
+        if (Kato_Status_P.NowHP<=0)
         {
             Miburo_Animator.SetBool("GameOver", true);
         }
