@@ -60,6 +60,9 @@ public class Miburo_State : MonoBehaviour
     [SerializeField, Header("斬撃エフェクト(テスト用)")]
     public GameObject S_Effect;
 
+    [SerializeField, Header("")]
+    static public bool _Uke_Input;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -104,6 +107,7 @@ public class Miburo_State : MonoBehaviour
             else
             {
                 Debug.Log("入力完了\n入力方向　" + _Katana_Direction);
+                StartCoroutine(Counter_Timing_Input());
             }
         }
         else
@@ -129,6 +133,7 @@ public class Miburo_State : MonoBehaviour
             if(_Katana_Direction==0|| _Katana_Direction == 1 || _Katana_Direction == 2 || _Katana_Direction == 7 )
             {
                 Miburo_Animator.SetTrigger("UkenagashiL");
+
             }
             else if(_Katana_Direction == 0 || _Katana_Direction == 1 || _Katana_Direction == 2 || _Katana_Direction == 7)
             {
@@ -241,6 +246,23 @@ public class Miburo_State : MonoBehaviour
             yield return new WaitForSeconds(Parry_WaitTime);
             Debug.Log("パリイ待ち時間終了");
             _Parry = false;
+        }
+        else
+        {
+            Debug.Log("待ち時間です。入力は反映されません。");
+        }
+
+    }
+
+    private IEnumerator Counter_Timing_Input()
+    {
+        if (!_Uke_Input)
+        {
+            _Uke_Input = true;
+            Debug.Log("受け開始");
+            yield return new WaitForSeconds(3);
+            Debug.Log("受け待ち時間終了");
+            _Uke_Input = false;
         }
         else
         {

@@ -155,18 +155,20 @@ public class Enemy_State : MonoBehaviour
         //}
 
 
-            E01Anim.SetBool("Walk", E_State == Enemy_State_.Walk);
-        E01Anim.SetBool("Idle", E_State == Enemy_State_.Idle);
-        E01Anim.SetBool("Tategiri", E_State == Enemy_State_.Tategiri);
 
-        if(E_State == Enemy_State_.Tategiri|| E_State == Enemy_State_.Tategiri)
-        {
-            E_AttackFlg = true;
-        }
-        else
-        {
-            E_AttackFlg = false;
-        }
+
+        //E01Anim.SetBool("Walk", E_State == Enemy_State_.Walk);
+        //E01Anim.SetBool("Idle", E_State == Enemy_State_.Idle);
+        //E01Anim.SetBool("Tategiri", E_State == Enemy_State_.Tategiri);
+
+        //if(E_State == Enemy_State_.Tategiri|| E_State == Enemy_State_.Tategiri)
+        //{
+        //    E_AttackFlg = true;
+        //}
+        //else
+        //{
+        //    E_AttackFlg = false;
+        //}
 
     }
 }
