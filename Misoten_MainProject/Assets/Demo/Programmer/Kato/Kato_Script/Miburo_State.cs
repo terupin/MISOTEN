@@ -17,10 +17,6 @@ public class Miburo_State : MonoBehaviour
 
     static public bool _Uke_Input;//受け流し入力
 
-    [SerializeField, Header("取得したいアニメーターのステート名")]
-    public string StateName;
-    private string currentStateName;
-
     //刀の方向
     //private int _Katana_Direction;
     static public int _Katana_Direction;
