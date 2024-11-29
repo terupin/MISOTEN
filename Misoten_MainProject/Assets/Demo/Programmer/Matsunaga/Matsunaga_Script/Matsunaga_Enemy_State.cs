@@ -76,7 +76,7 @@ public class Matsunaga_Enemy_State : MonoBehaviour
         // 初期状態を設定
         E_State = Enemy_State_.Idle;
         StateCurrentTime = 0.0f; // 経過時間を初期化
-        currentHP = Kato_Status_E.NowHP / Kato_Status_E.MaxHP; // 初期HPを設定
+        currentHP = Matsunaga_Status_E.NowHP / Matsunaga_Status_E.MaxHP; // 初期HPを設定
         elapsedTime = 0f; // 経過時間を初期化
         E01Anim.SetBool("Idle", true); // Idleアニメーションを初期状態に設定
     }
@@ -88,12 +88,12 @@ public class Matsunaga_Enemy_State : MonoBehaviour
         // 1キーが押されたらHPを75%に設定
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            currentHP = 0.75f * Kato_Status_E.MaxHP;  // HPを75%に設定
+            currentHP = 0.75f * Matsunaga_Status_E.MaxHP;  // HPを75%に設定
             Debug.Log("HPを75%に設定しました！");
         }
 
 
-        currentHP = Kato_Status_E.NowHP / Kato_Status_E.MaxHP;
+        currentHP = Matsunaga_Status_E.NowHP / Matsunaga_Status_E.MaxHP;
         // ターゲットが設定されていない場合は警告を表示し処理を中断
         if (Target_P == null)
         {
@@ -297,17 +297,17 @@ public class Matsunaga_Enemy_State : MonoBehaviour
     // HPに応じた耐久フィールドの生成
     private void HandleDurabilityField()
     {
-        if (currentHP <= 75f && !hasUsedDurabilityField75)
+        if (currentHP <= 0.75f && !hasUsedDurabilityField75)
         {
             SpawnDurabilityField();
             hasUsedDurabilityField75 = true;
         }
-        if (currentHP <= 50f && !hasUsedDurabilityField50)
+        if (currentHP <= 0.50f && !hasUsedDurabilityField50)
         {
             SpawnDurabilityField();
             hasUsedDurabilityField50 = true;
         }
-        if (currentHP <= 25f && !hasUsedDurabilityField25)
+        if (currentHP <= 0.25f && !hasUsedDurabilityField25)
         {
             SpawnDurabilityField();
             hasUsedDurabilityField25 = true;

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Matsunaga_Status_E : MonoBehaviour
 {
-    static public int MaxHP = 10000;
-    static public int NowHP =MaxHP;
+    static public float MaxHP = 10000;
+    static public float NowHP =MaxHP;
 
     // Start is called before the first frame update
     void Start()
