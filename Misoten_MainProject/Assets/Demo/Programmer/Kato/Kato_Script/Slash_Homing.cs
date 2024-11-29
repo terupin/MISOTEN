@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Slash_Homing : MonoBehaviour
 {
-    [SerializeField, Header("ホーミング回転速度")]
+    [SerializeField, Header("ホーミング旋回速度")]
     public float RotateSpeed;
     [SerializeField, Header("衝撃波速度")]
     public float MoveSpeed; // 敵の移動速度
