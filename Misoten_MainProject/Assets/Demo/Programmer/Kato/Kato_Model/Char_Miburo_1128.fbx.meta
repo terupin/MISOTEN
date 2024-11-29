@@ -1,0 +1,254 @@
+fileFormatVersion: 2
+guid: 0865c428a4caae844b1672a5823b0091
+ModelImporter:
+  serializedVersion: 22200
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mt_Player_Face
+    second: {fileID: 2100000, guid: 5fbdc1624d94a0b4b85eb24ed757c27e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mt_Player_FaceParts
+    second: {fileID: 2100000, guid: b756e2ee289e4ee4987a700f2622c42b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mt_Player_Hair
+    second: {fileID: 2100000, guid: 62c7e41deb799e547adb56a28390e1e0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mt_Player_Luminous
+    second: {fileID: 2100000, guid: 416fcb3f35344ba4888f8354f2676efc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mt_Player_Weapon
+    second: {fileID: 2100000, guid: 4a18346ef4ce7c34a95f636d069a0b9a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mt_Player_Wear1
+    second: {fileID: 2100000, guid: 1b0979457f1ae0b49bfae797ecb9cae2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mt_Player_Wear2
+    second: {fileID: 2100000, guid: b2628705d63957342869a1bcc64f745b, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tx_Player_Face_BaseColor
+    second: {fileID: 2800000, guid: 4dfc429be74a0c041ad05f9ed7077639, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tx_Player_Face_Opacity
+    second: {fileID: 2800000, guid: af3a995eac805f348938dee603a04ca0, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tx_Player_Hair_BaseColor
+    second: {fileID: 2800000, guid: d53452a57688b6f41a00819d32437fb9, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tx_Player_Hair_Normal
+    second: {fileID: 2800000, guid: 5dcd595756c0d8449a2b2dfac8b2ede0, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tx_Player_Hair_Roughness
+    second: {fileID: 2800000, guid: 1ce01fca9945d4c49a1a98c42affc790, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tx_Player_Luminus_BaseColor
+    second: {fileID: 2800000, guid: 99c1ed3309df0824a99cbedae18353f9, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tx_Player_Luminus_Emissive
+    second: {fileID: 2800000, guid: 0109d206d779e854fb22f561b52bb06c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tx_Player_Luminus_Metalness
+    second: {fileID: 2800000, guid: 0953ede018e3b5641bed33c8bf510e5b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tx_Player_Luminus_Opacity
+    second: {fileID: 2800000, guid: 8499e8c3a2ad75340815e71cd2a7cd38, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tx_Player_Luminus_Roughness
+    second: {fileID: 2800000, guid: 6210211b881bb01499ca023a5a9af449, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tx_Player_Weapon_BaseColor
+    second: {fileID: 2800000, guid: 257b6a308076ec04eb44c36c8281229c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tx_Player_Weapon_Emissive
+    second: {fileID: 2800000, guid: fc903c8cb2db64745a79153318ca8148, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tx_Player_Weapon_Metallic
+    second: {fileID: 2800000, guid: bc1b9f6fc5a77d64da4e4d4404f4bb42, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tx_Player_Weapon_Normal
+    second: {fileID: 2800000, guid: e4adfb6d4049af943b170cc2c82ea5f5, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tx_Player_Weapon_Roughness
+    second: {fileID: 2800000, guid: e0f8e88046b203649b582cc1c494af60, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tx_Player_Wear1_BaseColor
+    second: {fileID: 2800000, guid: acb161cb9d9a6574db2013701603184e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tx_Player_Wear1_Normal
+    second: {fileID: 2800000, guid: 16e79e2a1e9ae9346b3139c450fef092, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tx_Player_Wear2_BaseColor
+    second: {fileID: 2800000, guid: 9d83708fc24da1f428c2f3e01f3eae91, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tx_Player_Wear2_Emissive
+    second: {fileID: 2800000, guid: 15bd691ef738e3f4e878ab42d9d185cb, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tx_Player_Wear2_Metalness
+    second: {fileID: 2800000, guid: 597c6a29ce2e56e46a35e92fe5f175c3, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tx_Player_Wear2_Normal
+    second: {fileID: 2800000, guid: 2bb7bf8f99866094fa0afcbcb76ac498, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tx_Player_Wear2_Roughness
+    second: {fileID: 2800000, guid: 38f475fcd0c141844ab6f2df56c18915, type: 3}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
