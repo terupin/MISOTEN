@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Windows;
 using static UnityEngine.GraphicsBuffer;
 
-public class Camera : MonoBehaviour
+public class Kato_Camera_ : MonoBehaviour
 {
     [SerializeField, Header("プレイヤーデータ")]
     public GameObject player;   //プレイヤー情報格納用

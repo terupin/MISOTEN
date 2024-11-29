@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Matsunaga_Enemy_State : MonoBehaviour
+public class Kato_Matsunaga_Enemy_State : MonoBehaviour
 {
     // 敵の状態を表す列挙型
     public enum Enemy_State_
@@ -21,7 +21,7 @@ public class Matsunaga_Enemy_State : MonoBehaviour
     public GameObject Target_P; // 敵がターゲットするプレイヤーオブジェクト
 
     [SerializeField, Header("サーチ射程(10)")]
-    public float SearchLength = 100; // 敵がプレイヤーを探知できる距離
+    public float SearchLength = 10; // 敵がプレイヤーを探知できる距離
 
     [SerializeField, Header("攻撃射程(3.5)")]
     public float AttackLength = 3.5f; // 敵が攻撃可能な距離
@@ -30,10 +30,10 @@ public class Matsunaga_Enemy_State : MonoBehaviour
     public float MoveSpeed = 12; // 敵が移動する速度
 
     [SerializeField, Header("縦切り攻撃確率(%)"), Range(0, 100)]
-    public int TategiriChance = 60; // 縦切り攻撃を選択する確率
+    public int TategiriChance ; // 縦切り攻撃を選択する確率
 
     [SerializeField, Header("連撃攻撃確率(%)"), Range(0, 100)]
-    public int RenGekiChance = 40; // 連撃攻撃を選択する確率
+    public int RenGekiChance ; // 連撃攻撃を選択する確率
 
     private float P_E_Length; // プレイヤーと敵との距離を保持
 
@@ -83,18 +83,15 @@ public class Matsunaga_Enemy_State : MonoBehaviour
 
     private void Update()
     {
-        //E01Anim.SetBool("Tategiri", true);
-        //Debug.Log($"currentHP: {currentHP}");
-        Debug.Log($"Tategiriフラグ: {E01Anim.GetBool("Tategiri")}");
+        Debug.Log($"currentHP: {currentHP}");
 
         // 1キーが押されたらHPを75%に設定
-        /*
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             currentHP = 0.75f * Matsunaga_Status_E.MaxHP;  // HPを75%に設定
             Debug.Log("HPを75%に設定しました！");
         }
-        */
+
 
         currentHP = Matsunaga_Status_E.NowHP / Matsunaga_Status_E.MaxHP;
         // ターゲットが設定されていない場合は警告を表示し処理を中断
@@ -117,23 +114,19 @@ public class Matsunaga_Enemy_State : MonoBehaviour
         {
             HandleCooldown();
         }
-
-        if (E_State == Enemy_State_.Idle || E_State == Enemy_State_.Walk)
+        else if (E_State == Enemy_State_.Idle || E_State == Enemy_State_.Walk)
         {
             HandleMovementAndState();
         }
-
-        if (E_State == Enemy_State_.RenGeki)
+        else if (E_State == Enemy_State_.RenGeki)
         {
-            HandleRenGeki();
+            HandleRenGeki();           
         }
-
-        if (E_State == Enemy_State_.Tategiri)
+        else if (E_State == Enemy_State_.Tategiri)
         {
             HandleTategiri();
         }
-
-        if (E_State == Enemy_State_.Stagger)
+        else if (E_State == Enemy_State_.Stagger)
         {
             HandleStagger();
         }
@@ -187,6 +180,7 @@ public class Matsunaga_Enemy_State : MonoBehaviour
                 // 攻撃範囲内にプレイヤーがいる場合、攻撃を開始
                 Debug.Log("攻撃範囲に入ったので攻撃を開始！");
                 DecideAttackType();
+                //UnityEditor.EditorApplication.isPaused = true;
             }
             else if (P_E_Length < SearchLength)
             {
@@ -253,24 +247,27 @@ public class Matsunaga_Enemy_State : MonoBehaviour
     // 縦切り攻撃の処理
     private void HandleTategiri()
     {
-        if (IsAnimationFinished("Enemy01_Tategiri00"))
+
+        if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Tategiri 0") && E01Anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f)
         {
             // 縦切り攻撃完了後、クールダウンに遷移
             Debug.Log("縦切り攻撃が完了しました。Cooldown 状態に遷移します。");
             E01Anim.SetBool("Tategiri", false); // アニメーションをリセット
-            SetState(Enemy_State_.Cooldown);
+            SetState(Enemy_State_.Cooldown);            
+            //UnityEditor.EditorApplication.isPaused = true;
         }
     }
 
     // 連撃攻撃の処理
     private void HandleRenGeki()
     {
-        if (IsAnimationFinished("Enemy01_RtoLtoR"))
+        if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren2") && E01Anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f)
         {
             // 連撃攻撃完了後、クールダウンに遷移
             Debug.Log("連撃攻撃が完了しました。Cooldown 状態に遷移します。");
-            E01Anim.SetBool("RenGeki", false); // アニメーションをリセット
+            E01Anim.SetBool("Rengeki", false); // アニメーションをリセット
             SetState(Enemy_State_.Cooldown);
+            //UnityEditor.EditorApplication.isPaused = true;
         }
     }
 
@@ -316,25 +313,20 @@ public class Matsunaga_Enemy_State : MonoBehaviour
         }
     }
 
-
-
     // 指定アニメーションが終了しているかを判定
     private bool IsAnimationFinished(string animationName)
     {
-        var stateInfo = E01Anim.GetCurrentAnimatorStateInfo(0);
-
-        // アニメーションが現在再生中で、かつnormalizedTimeが1.0以上なら終了しているとみなす
-        return stateInfo.IsName(animationName) && stateInfo.normalizedTime >= 1.0f;
+        return //E01Anim.GetCurrentAnimatorStateInfo(0).IsName(animationName)
+            /*&&*/ E01Anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f;
     }
-
 
     // 状態に応じてアニメーションを更新
     private void UpdateAnimations()
     {
         // 状態ごとのアニメーションフラグを更新
-        E01Anim.SetBool("Idle", E_State == Enemy_State_.Idle);
+        E01Anim.SetBool("Idle", E_State == Enemy_State_.Idle || E_State == Enemy_State_.Cooldown);
         E01Anim.SetBool("Walk", E_State == Enemy_State_.Walk);
         E01Anim.SetBool("Tategiri", E_State == Enemy_State_.Tategiri);
-        E01Anim.SetBool("RenGeki", E_State == Enemy_State_.RenGeki);
+        E01Anim.SetBool("Rengeki", E_State == Enemy_State_.RenGeki);
     }
 }
