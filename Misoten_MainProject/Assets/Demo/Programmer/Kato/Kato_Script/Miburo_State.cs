@@ -13,8 +13,11 @@ public class Miburo_State : MonoBehaviour
     private bool _Attack01;
     private bool _Attack02;
     private bool _Run;
-    private bool _Ukenagashi_R;
-    private bool _Ukenagashi_L;
+
+
+     static public bool _Ukenagashi_R;
+    static public bool _Ukenagashi_L;
+    static public bool _Uke_Input;//受け流し入力
 
     [SerializeField, Header("取得したいアニメーターのステート名")]
     public string StateName;
@@ -54,14 +57,8 @@ public class Miburo_State : MonoBehaviour
     [SerializeField, Header("待ち時間(受け流し方向セット)")]
     public float Katana_DirectionSet_WaitTime;
 
-    [SerializeField, Header("ボーン")]
-    public GameObject _Born;
-
-    [SerializeField, Header("斬撃エフェクト(テスト用)")]
+    [SerializeField, Header("斬撃エフェクト(debugテスト用)")]
     public GameObject S_Effect;
-
-    [SerializeField, Header("")]
-    static public bool _Uke_Input;
 
     // Start is called before the first frame update
     void Start()
@@ -133,13 +130,18 @@ public class Miburo_State : MonoBehaviour
             if(_Katana_Direction==0|| _Katana_Direction == 1 || _Katana_Direction == 2 || _Katana_Direction == 7 )
             {
                 Miburo_Animator.SetTrigger("UkenagashiL");
-
+                _Ukenagashi_L=true;
             }
             else if(_Katana_Direction == 0 || _Katana_Direction == 1 || _Katana_Direction == 2 || _Katana_Direction == 7)
             {
                 Miburo_Animator.SetTrigger("UkenagashiR");
+                _Ukenagashi_R = true;
             }
-            
+            else
+            {
+                _Ukenagashi_L = false;
+                _Ukenagashi_R = false;
+            }            
         }
 
         //判定をアニメーターへ
@@ -363,8 +365,6 @@ public class Miburo_State : MonoBehaviour
         }
     }
 
-
-
     //アニメーターからステート名を取得
     void GetCurrentAnimationStateName()
     {
@@ -390,15 +390,5 @@ public class Miburo_State : MonoBehaviour
             gameObject.transform.position = new Vector3(Player.transform.position.x, 0, Player.transform.position.z);
         }
   
-
-        //else
-        {
-
-        }
-        //if (Miburo_Animator.GetCurrentAnimatorStateInfo(0).IsName(StateName))
-        //{
-        //    currentStateName = "Run";
-        //}
-        //Debug.Log(currentStateName);
     }
 }
