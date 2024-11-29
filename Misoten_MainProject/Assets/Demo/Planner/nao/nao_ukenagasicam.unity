@@ -1148,12 +1148,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1805590264}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &496528499 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 400940015733465030, guid: 8eb4fdc726e23774da71f86d9d295d96,
-    type: 3}
-  m_PrefabInstance: {fileID: 1805590262}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &554511627
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2101,12 +2095,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 995783416}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1045931330 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3094085712029224567, guid: 5a5dfd0327ec98346a40d1796a249e1e,
-    type: 3}
-  m_PrefabInstance: {fileID: 2112684870}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1071212249
 GameObject:
   m_ObjectHideFlags: 0
@@ -2448,12 +2436,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2112684871}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1262545057 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 408933056732622817, guid: 5a5dfd0327ec98346a40d1796a249e1e,
-    type: 3}
-  m_PrefabInstance: {fileID: 2112684870}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1263797134
 GameObject:
   m_ObjectHideFlags: 0
@@ -3339,12 +3321,12 @@ PrefabInstance:
         type: 3}
       propertyPath: WeponRoot
       value: 
-      objectReference: {fileID: 1262545057}
+      objectReference: {fileID: 0}
     - target: {fileID: 3072760429213681789, guid: 0c03af48d89f8e24db637ca4b1af9eba,
         type: 3}
       propertyPath: WeponPoint
       value: 
-      objectReference: {fileID: 1045931330}
+      objectReference: {fileID: 0}
     - target: {fileID: 3072760429213681789, guid: 0c03af48d89f8e24db637ca4b1af9eba,
         type: 3}
       propertyPath: Enemy_Model
@@ -3446,12 +3428,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c03af48d89f8e24db637ca4b1af9eba, type: 3}
---- !u!1 &1753024768 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2544398300756750222, guid: 8eb4fdc726e23774da71f86d9d295d96,
-    type: 3}
-  m_PrefabInstance: {fileID: 1805590262}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1755327889 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3847602336648284765, guid: 5a5dfd0327ec98346a40d1796a249e1e,
@@ -3659,6 +3635,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7402921998873306554, guid: 8eb4fdc726e23774da71f86d9d295d96,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7990267080315534937, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3756,6 +3737,8 @@ MonoBehaviour:
   ukenagasiLCam: {fileID: 777521276}
   ukenagasiRCam: {fileID: 1884755258}
   camchangecountlimit: 20
+  MainCamLock: {fileID: 1498831292}
+  LDownflg: 0
 --- !u!1001 &1819397809
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3778,7 +3761,7 @@ PrefabInstance:
         type: 3}
       propertyPath: WeponRoot
       value: 
-      objectReference: {fileID: 496528499}
+      objectReference: {fileID: 0}
     - target: {fileID: 3782237256826693610, guid: 4dd33527dbc82c042a136a42eb7fa2ae,
         type: 3}
       propertyPath: m_Enabled
@@ -3788,7 +3771,7 @@ PrefabInstance:
         type: 3}
       propertyPath: WeponPoint
       value: 
-      objectReference: {fileID: 1753024768}
+      objectReference: {fileID: 0}
     - target: {fileID: 3782237256826693610, guid: 4dd33527dbc82c042a136a42eb7fa2ae,
         type: 3}
       propertyPath: Enemy_Model

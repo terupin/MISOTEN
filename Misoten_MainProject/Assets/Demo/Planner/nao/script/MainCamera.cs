@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
 
@@ -18,13 +16,14 @@ public class MainCamera : MonoBehaviour
     public CinemachineVirtualCamera ukenagasiRCam;
     private int C_ukenagashi = Kato_a_Player_Anim.Katana_Direction;
     [SerializeField, Header("Žó‚¯—¬‚µƒJƒƒ‰Ø‚è‘Ö‚¦ƒtƒŒ[ƒ€”")]
-    private float camchangecountlimit ;
-    
+    private float camchangecountlimit;
+    public CinemachineInputProvider MainCamLock;
+    public bool LDownflg = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -32,6 +31,7 @@ public class MainCamera : MonoBehaviour
     {
         ukenagashicam();
         LockOncamerachange();
+        maincamlock();
     }
 
     void CameraChenge()
@@ -81,7 +81,7 @@ public class MainCamera : MonoBehaviour
             changecamstartL = true;
             Debug.Log(changecamstartR);
         }
-        
+
 
 
         if (changecamstartL == true)
@@ -99,17 +99,40 @@ public class MainCamera : MonoBehaviour
 
         if (camchangecount >= camchangecountlimit)
         {
-            changecamstartL = false; 
+            changecamstartL = false;
             changecamstartR = false;
             camchangecount = 0;
             ukenagasiLCam.Priority = 1;
             ukenagasiRCam.Priority = 2;
-            
+
         }
         Debug.Log(camchangecount);
         Debug.Log(ukenagasiLCam.Priority);
         Debug.Log(ukenagasiRCam.Priority);
         Debug.Log(C_ukenagashi);
+    }
+
+    void maincamlock()
+    {
+        if (UnityEngine.Input.GetKey("joystick button 4"))
+        {
+            LDownflg = true;
+        }
+        else 
+        {
+            LDownflg = false;
+            MainCamLock.enabled = true;
+        }
+
+        if (LDownflg == true)
+        {
+            MainCamLock.enabled = false;
+        }
+
+        //if (unityengine.input.getkeyup("joystick button 4"))
+        //{
+        //    ldownflg = false;
+        //}
     }
 
 }
