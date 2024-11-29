@@ -78,6 +78,8 @@ public class test_sword : MonoBehaviour
                 MakeItPhysical(upperHull);
                 MakeItPhysical(lowerHull);
 
+
+
                 //元のオブジェクトを削除
                 Destroy(targetObject);
             }
