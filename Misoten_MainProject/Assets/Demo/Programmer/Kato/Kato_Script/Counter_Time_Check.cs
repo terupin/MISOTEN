@@ -11,8 +11,12 @@ public class Counter_Time_Check : MonoBehaviour
     public Animator Miburo_Animator;
 
     private float Check_Current_Time;//“ü—ÍŠJn‚©‚çŒo‰ß‚µ‚½ŠÔ
-    
-    //cØ‚è “ü—Í—P—\ 1.7•b
+
+    public float Check_Time;
+
+    //cØ‚è Å‘å“ü—Í—P—\ 1.7•b
+    //˜AŒ‚1 Å‘å“ü—Í—P—\ 1.2•b
+    //˜AŒ‚2 Å‘å“ü—Í—P—\ 0.5•b
 
     // Start is called before the first frame update
     void Start()
@@ -23,28 +27,59 @@ public class Counter_Time_Check : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-
         //“GƒXƒe[ƒg
         if (Enemy01_Animator.GetCurrentAnimatorStateInfo(0).IsName("Tategiri"))
         {
             if (Miburo_State._Uke_Input)
             {
-
                 Debug.Log(Check_Current_Time);
                 UnityEditor.EditorApplication.isPaused = true;
             }
-
             Check_Current_Time += Time.deltaTime;
         }
 
         if (Enemy01_Animator.GetCurrentAnimatorStateInfo(0).IsName("Tategiri 0"))
         {
-                Debug.Log(Check_Current_Time);
-                UnityEditor.EditorApplication.isPaused = true;
-            
+            Debug.Log(Check_Current_Time);
+
+            Check_Current_Time = 0;
+            //UnityEditor.EditorApplication.isPaused = true;
         }
 
+        //“GƒXƒe[ƒg
+        if (Enemy01_Animator.GetCurrentAnimatorStateInfo(0).IsName("Ren01"))
+        {
+            if (Miburo_State._Uke_Input)
+            {
+                Debug.Log(Check_Current_Time);
+                UnityEditor.EditorApplication.isPaused = true;
+            }
+            Check_Current_Time += Time.deltaTime;
+        }
 
+        if (Enemy01_Animator.GetCurrentAnimatorStateInfo(0).IsName("Ren1"))
+        {
+            Debug.Log(Check_Current_Time);
+            //UnityEditor.EditorApplication.isPaused = true;
+            Check_Current_Time = 0;
+        }
+
+        //“GƒXƒe[ƒg
+        if (Enemy01_Animator.GetCurrentAnimatorStateInfo(0).IsName("Ren02"))
+        {
+            if (Miburo_State._Uke_Input)
+            {
+                Debug.Log(Check_Current_Time);
+                UnityEditor.EditorApplication.isPaused = true;
+            }
+            Check_Current_Time += Time.deltaTime;
+        }
+
+        if (Enemy01_Animator.GetCurrentAnimatorStateInfo(0).IsName("Ren2"))
+        {
+            Debug.Log(Check_Current_Time);
+            //UnityEditor.EditorApplication.isPaused = true;
+            Check_Current_Time = 0;
+        }
     }
 }

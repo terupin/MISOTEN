@@ -373,21 +373,21 @@ public class Miburo_State : MonoBehaviour
             gameObject.transform.position += gameObject.transform.forward * Time.deltaTime*5.5f;
             //UnityEditor.EditorApplication.isPaused = true;
             //currentStateName = "Idle";
-            gameObject.transform.position = new Vector3(_Born.transform.position.x, 0, _Born.transform.position.z);
+            gameObject.transform.position = new Vector3(Player.transform.position.x, 0, Player.transform.position.z);
         }
         if (Miburo_Animator.GetCurrentAnimatorStateInfo(0).IsName("UKE2"))
         {
             gameObject.transform.position += gameObject.transform.forward * Time.deltaTime * 2.5f;
             //UnityEditor.EditorApplication.isPaused = true;
             //currentStateName = "Idle";
-            gameObject.transform.position = new Vector3(_Born.transform.position.x, 0, _Born.transform.position.z);
+            gameObject.transform.position = new Vector3(Player.transform.position.x, 0, Player.transform.position.z);
         }
         if (Miburo_Animator.GetCurrentAnimatorStateInfo(0).IsName("UKE3"))
         {
             gameObject.transform.position -= gameObject.transform.forward * Time.deltaTime * 0.1f;
             //UnityEditor.EditorApplication.isPaused = true;
             //currentStateName = "Idle";
-            gameObject.transform.position = new Vector3(_Born.transform.position.x, 0, _Born.transform.position.z);
+            gameObject.transform.position = new Vector3(Player.transform.position.x, 0, Player.transform.position.z);
         }
   
 
