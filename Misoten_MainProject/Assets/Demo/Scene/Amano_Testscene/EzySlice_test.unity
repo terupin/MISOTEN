@@ -1488,10 +1488,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1938004380}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb699cd6850140846bf9267d9f08695d, type: 3}
+  m_Script: {fileID: 11500000, guid: f5488bc5fe75de947814d373fbd62d7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  droping_item: {fileID: 3231220533851748536, guid: 0531c024f58164d42ac8bbf6e641c97c,
+  cut_materal: {fileID: 2100000, guid: 81c5e87c7589a35498d78c2028efbeb9, type: 2}
+  droping_item: {fileID: 9085198610253395286, guid: 9cca41b8822d9df4bb4b08caeec9b258,
     type: 3}
 --- !u!1001 &1940805102
 PrefabInstance:
@@ -1744,7 +1745,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba9d84c504b4f404b91e5ddde5080782, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Slice_Color: {fileID: 2100000, guid: dcad5658b4d2a85499cd1fe5d5805534, type: 2}
+  wood_Mtl: {fileID: 0}
+  storn_Mtl: {fileID: 0}
+  neon_Mtl: {fileID: 0}
   cut_tag: Cut
   swordTop: {fileID: 2058259473}
   swordHit: {fileID: 513781002}
@@ -1937,7 +1940,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 7ac0913a45521c240b91ef33cfc7b130,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 32
+      value: -28.050419
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7ac0913a45521c240b91ef33cfc7b130,
         type: 3}
@@ -1947,7 +1950,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 7ac0913a45521c240b91ef33cfc7b130,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 33
+      value: 6.219452
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7ac0913a45521c240b91ef33cfc7b130,
         type: 3}
@@ -2002,8 +2005,33 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7ac0913a45521c240b91ef33cfc7b130,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2032091670}
   m_SourcePrefab: {fileID: 100100000, guid: 7ac0913a45521c240b91ef33cfc7b130, type: 3}
+--- !u!1 &2032091669 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 7ac0913a45521c240b91ef33cfc7b130,
+    type: 3}
+  m_PrefabInstance: {fileID: 2032091668}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2032091670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2032091669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5488bc5fe75de947814d373fbd62d7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cut_materal: {fileID: 2100000, guid: 63d7c61626a50ef4fa3f792c1f78b696, type: 2}
+  droping_item: {fileID: 3635429945146411207, guid: 9e30248f377a3724a86a2fd16fbf9abd,
+    type: 3}
 --- !u!1 &2058259472
 GameObject:
   m_ObjectHideFlags: 0
