@@ -2609,7 +2609,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3669612430873067828, guid: 8eb4fdc726e23774da71f86d9d295d96,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1322884163}
   m_SourcePrefab: {fileID: 100100000, guid: 8eb4fdc726e23774da71f86d9d295d96, type: 3}
 --- !u!1 &1322884130 stripped
 GameObject:
@@ -2635,6 +2639,20 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1322884129}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1322884163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1322884133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a91d9f665b4edf44814f64453c9ee37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Enemy01_Animator: {fileID: 2118550237}
+  Miburo_Animator: {fileID: 1537864872}
 --- !u!1001 &1405806334
 PrefabInstance:
   m_ObjectHideFlags: 0

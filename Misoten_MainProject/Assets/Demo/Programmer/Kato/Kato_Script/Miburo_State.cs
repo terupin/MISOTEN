@@ -60,6 +60,9 @@ public class Miburo_State : MonoBehaviour
     [SerializeField, Header("斬撃エフェクト(テスト用)")]
     public GameObject S_Effect;
 
+    [SerializeField, Header("")]
+    static public bool _Uke_Input;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -104,6 +107,7 @@ public class Miburo_State : MonoBehaviour
             else
             {
                 Debug.Log("入力完了\n入力方向　" + _Katana_Direction);
+                StartCoroutine(Counter_Timing_Input());
             }
         }
         else
@@ -129,6 +133,7 @@ public class Miburo_State : MonoBehaviour
             if(_Katana_Direction==0|| _Katana_Direction == 1 || _Katana_Direction == 2 || _Katana_Direction == 7 )
             {
                 Miburo_Animator.SetTrigger("UkenagashiL");
+
             }
             else if(_Katana_Direction == 0 || _Katana_Direction == 1 || _Katana_Direction == 2 || _Katana_Direction == 7)
             {
@@ -249,6 +254,23 @@ public class Miburo_State : MonoBehaviour
 
     }
 
+    private IEnumerator Counter_Timing_Input()
+    {
+        if (!_Uke_Input)
+        {
+            _Uke_Input = true;
+            Debug.Log("受け開始");
+            yield return new WaitForSeconds(3);
+            Debug.Log("受け待ち時間終了");
+            _Uke_Input = false;
+        }
+        else
+        {
+            Debug.Log("待ち時間です。入力は反映されません。");
+        }
+
+    }
+
     //コルーチン(ステップ)
     private IEnumerator Miburo_Step()
     {
@@ -351,21 +373,21 @@ public class Miburo_State : MonoBehaviour
             gameObject.transform.position += gameObject.transform.forward * Time.deltaTime*5.5f;
             //UnityEditor.EditorApplication.isPaused = true;
             //currentStateName = "Idle";
-            gameObject.transform.position = new Vector3(_Born.transform.position.x, 0, _Born.transform.position.z);
+            gameObject.transform.position = new Vector3(Player.transform.position.x, 0, Player.transform.position.z);
         }
         if (Miburo_Animator.GetCurrentAnimatorStateInfo(0).IsName("UKE2"))
         {
             gameObject.transform.position += gameObject.transform.forward * Time.deltaTime * 2.5f;
             //UnityEditor.EditorApplication.isPaused = true;
             //currentStateName = "Idle";
-            gameObject.transform.position = new Vector3(_Born.transform.position.x, 0, _Born.transform.position.z);
+            gameObject.transform.position = new Vector3(Player.transform.position.x, 0, Player.transform.position.z);
         }
         if (Miburo_Animator.GetCurrentAnimatorStateInfo(0).IsName("UKE3"))
         {
             gameObject.transform.position -= gameObject.transform.forward * Time.deltaTime * 0.1f;
             //UnityEditor.EditorApplication.isPaused = true;
             //currentStateName = "Idle";
-            gameObject.transform.position = new Vector3(_Born.transform.position.x, 0, _Born.transform.position.z);
+            gameObject.transform.position = new Vector3(Player.transform.position.x, 0, Player.transform.position.z);
         }
   
 
