@@ -12,7 +12,8 @@ public class Matsunaga_Enemy_State : MonoBehaviour
         Tategiri,   // 縦切り攻撃状態
         RenGeki,    // 連撃攻撃状態
         Stagger,    // ひるみ状態
-        Cooldown    // クールダウン状態
+        Cooldown,   // クールダウン状態
+        Kaihou      // 耐久フィールド展開状態
     };
 
     [SerializeField, Header("デバックモード")]
@@ -143,31 +144,42 @@ public class Matsunaga_Enemy_State : MonoBehaviour
                 SetState(Enemy_State_.RenGeki);
             }
 
+            // 4キーが押されたら怯みステートを実行
             if (Input.GetKeyDown(KeyCode.Alpha4))
             {
                 Debug.Log("dc4: 怯みステートを実行します");
                 SetState(Enemy_State_.Stagger);
             }
 
+            // 5キーが押されたら歩行ステートを実行
             if (Input.GetKeyDown(KeyCode.Alpha5))
             {
                 Debug.Log("dc5: 歩行ステートを実行します");
                 SetState(Enemy_State_.Walk);
             }
 
-            if (Input.GetKeyDown(KeyCode.Alpha6)) // 6キーを押したとき
+            // 6キーが押されたらidleステートを実行
+            if (Input.GetKeyDown(KeyCode.Alpha6))
             {
                 Debug.Log("dc6: idleステートを実行します");
 
                 // Idle状態に遷移
                 SetState(Enemy_State_.Idle);
             }
+
+            // 7キーが押されたら解放ステートを実行
+            if (Input.GetKeyDown(KeyCode.Alpha7))
+            {
+                Debug.Log("dc7: 解放ステートを実行します");
+                SetState(Enemy_State_.Kaihou);
+                E01Anim.SetBool("Kaihou", true); // 解放アニメーションのフラグを設定
+            }
         }
         else
         {
             currentHP = Matsunaga_Status_E.NowHP / Matsunaga_Status_E.MaxHP;
         }
-        
+
         if (Target_P == null)
         {
             Debug.LogWarning("Target_P が設定されていません！");
@@ -206,6 +218,11 @@ public class Matsunaga_Enemy_State : MonoBehaviour
         if (E_State == Enemy_State_.Stagger)
         {
             HandleStagger();
+        }
+
+        if (E_State == Enemy_State_.Kaihou)
+        {
+            HandleKaihou();
         }
 
         // HPに応じて耐久フィールドを生成
@@ -369,6 +386,16 @@ public class Matsunaga_Enemy_State : MonoBehaviour
         }
     }
 
+    // 解放の処理
+    private void HandleKaihou()
+    {
+        if (IsAnimationFinished("Enemy01_Kaihou"))
+        {
+            Debug.Log("解放アニメーションが完了しました。Idle 状態に遷移します。");
+            E01Anim.SetBool("Kaihou", false); // アニメーションをリセット
+            SetState(Enemy_State_.Idle);
+        }
+    }
 
     // クールダウン状態の処理
     private void HandleCooldown()
@@ -389,14 +416,12 @@ public class Matsunaga_Enemy_State : MonoBehaviour
             SpawnDurabilityField();
             SpawnBarrier();
             hasUsedDurabilityField75 = true;
-            E01Anim.SetBool("Kiahou", true); // アニメーションをリセット
-            if (IsAnimationFinished("Enemy01_Kaihou"))
-            {
-                Debug.Log("解放");
-                E01Anim.SetBool("Kiahou", false); // アニメーションをリセット
-                SetState(Enemy_State_.Cooldown);
-            }
+
+            E01Anim.SetBool("Kaihou", true); // アニメーションをリセット
+
+            StartCoroutine(WaitForKaihouAnimation());
         }
+
         if (currentHP <= 0.50f && !hasUsedDurabilityField50)
         {
             SpawnDurabilityField();
@@ -405,10 +430,11 @@ public class Matsunaga_Enemy_State : MonoBehaviour
             if (IsAnimationFinished("Enemy01_Kaihou"))
             {
                 Debug.Log("解放");
-                E01Anim.SetBool("Kiahou", false); // アニメーションをリセット
-                SetState(Enemy_State_.Cooldown);
+                E01Anim.SetBool("Kaihou", false); // アニメーションをリセット
+                SetState(Enemy_State_.Idle);
             }
         }
+
         if (currentHP <= 0.25f && !hasUsedDurabilityField25)
         {
             SpawnDurabilityField();
@@ -417,10 +443,20 @@ public class Matsunaga_Enemy_State : MonoBehaviour
             if (IsAnimationFinished("Enemy01_Kaihou"))
             {
                 Debug.Log("解放");
-                E01Anim.SetBool("Kiahou", false); // アニメーションをリセット
-                SetState(Enemy_State_.Cooldown);
+                E01Anim.SetBool("Kaihou", false); // アニメーションをリセット
+                SetState(Enemy_State_.Idle);
             }
         }
+    }
+
+    private IEnumerator WaitForKaihouAnimation()
+    {
+        yield return new WaitUntil(() => IsAnimationFinished("Enemy01_Kaihou"));
+
+        // 解放アニメーションが終了したら、フラグをリセットし状態をIdleに遷移
+        E01Anim.SetBool("Kaihou", false);
+        Debug.Log("解放アニメーションが完了しました");
+        SetState(Enemy_State_.Idle);
     }
 
     // プレイヤーを向く処理
@@ -444,9 +480,10 @@ public class Matsunaga_Enemy_State : MonoBehaviour
     {
         var stateInfo = E01Anim.GetCurrentAnimatorStateInfo(0);
 
-        // アニメーションが現在再生中で、かつnormalizedTimeが1.0以上なら終了しているとみなす
-        return stateInfo.IsName(animationName) && stateInfo.normalizedTime >= 0.95f;
+        // アニメーションが現在再生中で、かつnormalizedTimeが1.0以上なら終了している
+        return stateInfo.IsName(animationName) && stateInfo.normalizedTime >= 1.0f;
     }
+
 
     // 状態に応じてアニメーションを更新
     private void UpdateAnimations()
@@ -457,6 +494,6 @@ public class Matsunaga_Enemy_State : MonoBehaviour
         E01Anim.SetBool("Tategiri", E_State == Enemy_State_.Tategiri);
         E01Anim.SetBool("RenGeki", E_State == Enemy_State_.RenGeki);
         E01Anim.SetBool("Hirumi", E_State == Enemy_State_.Stagger);
-
+        E01Anim.SetBool("Kaihou", E_State == Enemy_State_.Kaihou);
     }
 }
