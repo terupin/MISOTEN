@@ -418,8 +418,10 @@ public class Matsunaga_Enemy_State : MonoBehaviour
             hasUsedDurabilityField75 = true;
 
             E01Anim.SetBool("Kaihou", true); // アニメーションをリセット
+            SetState(Enemy_State_.Kaihou);
 
-            StartCoroutine(WaitForKaihouAnimation());
+            //StartCoroutine(WaitForKaihouAnimation());
+            Debug.Log("Kaihou アニメーションを再生開始しました。");
         }
 
         if (currentHP <= 0.50f && !hasUsedDurabilityField50)
@@ -427,12 +429,12 @@ public class Matsunaga_Enemy_State : MonoBehaviour
             SpawnDurabilityField();
             SpawnBarrier();
             hasUsedDurabilityField50 = true;
-            if (IsAnimationFinished("Enemy01_Kaihou"))
-            {
-                Debug.Log("解放");
-                E01Anim.SetBool("Kaihou", false); // アニメーションをリセット
-                SetState(Enemy_State_.Idle);
-            }
+
+            E01Anim.SetBool("Kaihou", true); // アニメーションをリセット
+            SetState(Enemy_State_.Kaihou);
+
+            //StartCoroutine(WaitForKaihouAnimation());
+            Debug.Log("Kaihou アニメーションを再生開始しました。");
         }
 
         if (currentHP <= 0.25f && !hasUsedDurabilityField25)
@@ -440,12 +442,12 @@ public class Matsunaga_Enemy_State : MonoBehaviour
             SpawnDurabilityField();
             SpawnBarrier();
             hasUsedDurabilityField25 = true;
-            if (IsAnimationFinished("Enemy01_Kaihou"))
-            {
-                Debug.Log("解放");
-                E01Anim.SetBool("Kaihou", false); // アニメーションをリセット
-                SetState(Enemy_State_.Idle);
-            }
+
+            E01Anim.SetBool("Kaihou", true); // アニメーションをリセット
+            SetState(Enemy_State_.Kaihou);
+
+            //StartCoroutine(WaitForKaihouAnimation());
+            Debug.Log("Kaihou アニメーションを再生開始しました。");
         }
     }
 
