@@ -722,6 +722,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8376098966986707176, guid: 1d950f3ea5279f14b8e4f4d517c02b43,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376098966986707176, guid: 1d950f3ea5279f14b8e4f4d517c02b43,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8426807385836690784, guid: 1d950f3ea5279f14b8e4f4d517c02b43,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -1379,6 +1389,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 3965139916692988938, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4030540995310200053, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -1972,21 +1987,9 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 723284145}
   m_SourcePrefab: {fileID: 100100000, guid: 5a5dfd0327ec98346a40d1796a249e1e, type: 3}
---- !u!1 &723284141 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 408933056732622817, guid: 5a5dfd0327ec98346a40d1796a249e1e,
-    type: 3}
-  m_PrefabInstance: {fileID: 723284140}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &723284142 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4758359255201521612, guid: 5a5dfd0327ec98346a40d1796a249e1e,
-    type: 3}
-  m_PrefabInstance: {fileID: 723284140}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &723284143 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3094085712029224567, guid: 5a5dfd0327ec98346a40d1796a249e1e,
     type: 3}
   m_PrefabInstance: {fileID: 723284140}
   m_PrefabAsset: {fileID: 0}
@@ -3062,7 +3065,7 @@ PrefabInstance:
         type: 3}
       propertyPath: Player_Animator
       value: 
-      objectReference: {fileID: 1671458795}
+      objectReference: {fileID: 0}
     - target: {fileID: 3669612430873067828, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}
       propertyPath: m_Name
@@ -3185,21 +3188,9 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1322884152}
   m_SourcePrefab: {fileID: 100100000, guid: 8eb4fdc726e23774da71f86d9d295d96, type: 3}
---- !u!1 &1322884130 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 400940015733465030, guid: 8eb4fdc726e23774da71f86d9d295d96,
-    type: 3}
-  m_PrefabInstance: {fileID: 1322884129}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1322884131 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4107478772556514997, guid: 8eb4fdc726e23774da71f86d9d295d96,
-    type: 3}
-  m_PrefabInstance: {fileID: 1322884129}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1322884132 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2544398300756750222, guid: 8eb4fdc726e23774da71f86d9d295d96,
     type: 3}
   m_PrefabInstance: {fileID: 1322884129}
   m_PrefabAsset: {fileID: 0}
@@ -3270,12 +3261,12 @@ PrefabInstance:
         type: 3}
       propertyPath: WeponRoot
       value: 
-      objectReference: {fileID: 723284141}
+      objectReference: {fileID: 0}
     - target: {fileID: 3072760429213681789, guid: 0c03af48d89f8e24db637ca4b1af9eba,
         type: 3}
       propertyPath: WeponPoint
       value: 
-      objectReference: {fileID: 723284143}
+      objectReference: {fileID: 0}
     - target: {fileID: 3072760429213681789, guid: 0c03af48d89f8e24db637ca4b1af9eba,
         type: 3}
       propertyPath: Enemy_Model
@@ -3878,12 +3869,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 2.057, y: 180, z: 0}
---- !u!95 &1671458795 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 2618861639207004343, guid: 8eb4fdc726e23774da71f86d9d295d96,
-    type: 3}
-  m_PrefabInstance: {fileID: 1322884129}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1717520529
 GameObject:
   m_ObjectHideFlags: 3
@@ -4406,12 +4391,12 @@ PrefabInstance:
         type: 3}
       propertyPath: WeponRoot
       value: 
-      objectReference: {fileID: 1322884130}
+      objectReference: {fileID: 0}
     - target: {fileID: 3782237256826693610, guid: 4dd33527dbc82c042a136a42eb7fa2ae,
         type: 3}
       propertyPath: WeponPoint
       value: 
-      objectReference: {fileID: 1322884132}
+      objectReference: {fileID: 0}
     - target: {fileID: 3782237256826693610, guid: 4dd33527dbc82c042a136a42eb7fa2ae,
         type: 3}
       propertyPath: Enemy_Model
