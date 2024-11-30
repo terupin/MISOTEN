@@ -5,7 +5,19 @@ using UnityEngine.SceneManagement;
 
 public class Kato_Matsunaga_Enemy_State : MonoBehaviour
 {
-    
+    //ècêÿÇË ç≈ëÂì¸óÕóPó\ 1.7ïb
+    //òAåÇ1 ç≈ëÂì¸óÕóPó\ 1.2ïb
+    //òAåÇ2 ç≈ëÂì¸óÕóPó\ 0.5ïb
+    [SerializeField, Header("ècêÿÇË ç≈ëÂì¸óÕóPó\ 1.7ïb")]
+    public float Check_Time0;
+    [SerializeField, Header("òAåÇ1 ç≈ëÂì¸óÕóPó\ 1.2ïb")]
+    public float Check_Time1;
+    [SerializeField, Header("òAåÇ2 ç≈ëÂì¸óÕóPó\ 0.5ïb")]
+    public float Check_Time2;
+
+    static public bool UkeL;
+    static public bool UkeR;
+
     static public bool UKe__Ren01;
     static public bool UKe__Ren02;
 
@@ -347,20 +359,7 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
     }
     private float Check_Current_Time;//ì¸óÕäJénÇ©ÇÁåoâﬂÇµÇΩéûä‘
 
-    //ècêÿÇË ç≈ëÂì¸óÕóPó\ 1.7ïb
-    //òAåÇ1 ç≈ëÂì¸óÕóPó\ 1.2ïb
-    //òAåÇ2 ç≈ëÂì¸óÕóPó\ 0.5ïb
-    [SerializeField, Header("ècêÿÇË ç≈ëÂì¸óÕóPó\ 1.7ïb")]
-    public float Check_Time0;
-    [SerializeField, Header("òAåÇ1 ç≈ëÂì¸óÕóPó\ 1.2ïb")]
-    public float Check_Time1;
-    [SerializeField, Header("òAåÇ2 ç≈ëÂì¸óÕóPó\ 0.5ïb")]
-    public float Check_Time2;
 
-    static public bool UkeL;
-    static public bool UkeR;
-    static public bool RenUke01;
-    static public bool RenUke02;
 
     private void KatoUpdateAnim()
     {
@@ -427,7 +426,7 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
                     Debug.Log(Check_Current_Time);
                     //UnityEditor.EditorApplication.isPaused = true;
                     //Enemy01_Animator.SetBool("RenUke01", true);
-                    RenUke01 = true;
+                  
                     E01Anim.SetBool("RenUke01", true);
                     UKe__Ren01 = true;
                 }
@@ -440,7 +439,7 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
         }
         else
         {
-            RenUke01 = false;
+ 
             E01Anim.SetBool("RenUke01", false);
             //Enemy01_Animator.SetBool("RenUke01", false);
             //Check_Current_Time = 0;
@@ -464,7 +463,7 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
                 if (Check_Current_Time > 0.0f && Check_Time2 >= Check_Current_Time)
                 {
                     //éÛÇØó¨Çµê¨å˜
-                    RenUke02 = true;
+
                     E01Anim.SetBool("RenUke02", true);
                     Debug.Log(Check_Current_Time);
                     //UnityEditor.EditorApplication.isPaused = true;
@@ -481,7 +480,7 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
         }
         else
         {
-            RenUke02 = false;
+
             E01Anim.SetBool("RenUke02", false);
             //Check_Current_Time = 0;
         }

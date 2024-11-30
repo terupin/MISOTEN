@@ -167,7 +167,33 @@ public class Miburo_State : MonoBehaviour
             Miburo_Animator.SetBool("UkenagashiR", false);
         }
 
+        if(Kato_Matsunaga_Enemy_State.UkeL)
+        {
+            Miburo_Animator.SetBool("UkenagashiL", true);
+        }
+        else
+        {
+            Miburo_Animator.SetBool("UkenagashiL", false);
+        }
 
+        if (Kato_Matsunaga_Enemy_State.UkeR)
+        {
+            Miburo_Animator.SetBool("UkenagashiR", true);
+        }
+        else
+        {
+            Miburo_Animator.SetBool("UkenagashiR", false);
+        }
+
+        if (Kato_Matsunaga_Enemy_State.UKe__Ren01)
+        {
+            Miburo_Animator.SetTrigger("Rengeki01");
+        }
+
+        if (Kato_Matsunaga_Enemy_State.UKe__Ren02)
+        {
+            Miburo_Animator.SetTrigger("Rengeki02");
+        }
 
 
         //以下テスト用
