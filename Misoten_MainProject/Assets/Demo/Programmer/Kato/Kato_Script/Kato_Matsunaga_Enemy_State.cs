@@ -1,9 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Kato_Matsunaga_Enemy_State : MonoBehaviour
 {
+    
+    static public bool UKe__Ren01;
+    static public bool UKe__Ren02;
+
     // 敵の状態を表す列挙型
     public enum Enemy_State_
     {
@@ -76,24 +81,31 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
         // 初期状態を設定
         E_State = Enemy_State_.Idle;
         StateCurrentTime = 0.0f; // 経過時間を初期化
-        currentHP = Matsunaga_Status_E.NowHP / Matsunaga_Status_E.MaxHP; // 初期HPを設定
+        currentHP = Kato_Status_E.NowHP / Kato_Status_E.MaxHP; // 初期HPを設定
         elapsedTime = 0f; // 経過時間を初期化
         E01Anim.SetBool("Idle", true); // Idleアニメーションを初期状態に設定
     }
 
     private void Update()
     {
+        if(Kato_Status_E.NowHP<=0)
+        {
+            //StartCoroutine(GameClear());
+            
+            return;
+        }
+
         Debug.Log($"currentHP: {currentHP}");
 
         // 1キーが押されたらHPを75%に設定
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            currentHP = 0.75f * Matsunaga_Status_E.MaxHP;  // HPを75%に設定
+            currentHP = 0.75f * Kato_Status_E.MaxHP;  // HPを75%に設定
             Debug.Log("HPを75%に設定しました！");
         }
 
 
-        currentHP = Matsunaga_Status_E.NowHP / Matsunaga_Status_E.MaxHP;
+        currentHP = Kato_Status_E.NowHP / Kato_Status_E.MaxHP;
         // ターゲットが設定されていない場合は警告を表示し処理を中断
         if (Target_P == null)
         {
@@ -299,16 +311,19 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
         if (currentHP <= 0.75f && !hasUsedDurabilityField75)
         {
             SpawnDurabilityField();
+            E01Anim.SetTrigger("Kaihou");
             hasUsedDurabilityField75 = true;
         }
         if (currentHP <= 0.50f && !hasUsedDurabilityField50)
         {
             SpawnDurabilityField();
+            E01Anim.SetTrigger("Kaihou");
             hasUsedDurabilityField50 = true;
         }
         if (currentHP <= 0.25f && !hasUsedDurabilityField25)
         {
             SpawnDurabilityField();
+            E01Anim.SetTrigger("Kaihou");
             hasUsedDurabilityField25 = true;
         }
     }
@@ -410,14 +425,16 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
                 {
                     //受け流し成功
                     Debug.Log(Check_Current_Time);
-                    UnityEditor.EditorApplication.isPaused = true;
+                    //UnityEditor.EditorApplication.isPaused = true;
                     //Enemy01_Animator.SetBool("RenUke01", true);
                     RenUke01 = true;
                     E01Anim.SetBool("RenUke01", true);
+                    UKe__Ren01 = true;
                 }
             }
             else
             {
+                UKe__Ren01 = false;
                 Check_Current_Time += Time.deltaTime;
             }
         }
@@ -451,12 +468,16 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
                     E01Anim.SetBool("RenUke02", true);
                     Debug.Log(Check_Current_Time);
                     //UnityEditor.EditorApplication.isPaused = true;
+                    UKe__Ren02 = true;
                 }
             }
             else
             {
+                UKe__Ren02 = false;
                 Check_Current_Time += Time.deltaTime;
             }
+
+
         }
         else
         {
@@ -480,5 +501,20 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
             //UnityEditor.EditorApplication.isPaused = true;
             Check_Current_Time = 0;
         }
+
+        if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Hirumi"))
+        {
+            SetState(Enemy_State_.Stagger);
+           
+        }
+    }
+
+    //ゲームクリア
+    private IEnumerator GameClear()
+    {
+
+        yield return new WaitForSeconds(5);
+        SceneManager.LoadScene("ClearScene");
+
     }
 }

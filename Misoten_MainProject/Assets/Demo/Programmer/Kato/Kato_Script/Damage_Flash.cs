@@ -22,7 +22,11 @@ public class Damage_Flash : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Miburo_Box.SetActive(false);
+        if(Miburo_Box)
+        {
+            Miburo_Box.SetActive(false);
+        }
+
        FlashTime += Time.deltaTime*6;
 
         //if((int)FlashTime%2==0)
@@ -36,8 +40,11 @@ public class Damage_Flash : MonoBehaviour
 
         if(FlashTime> MaxTime*6)
         {
-
-            Miburo_Box.SetActive(true);
+            if(!Miburo_Box)
+            {
+                Miburo_Box.SetActive(true);
+            }
+          
             Destroy(this);
         }
     }
