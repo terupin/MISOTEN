@@ -10,10 +10,9 @@ public class Miburo_State : MonoBehaviour
     //フラグ
     private bool _Step;
     private bool _Parry;
-    private bool _Attack01;
-    private bool _Attack02;
+    static public bool _Attack01;
+    static public bool _Attack02;
     private bool _Run;
-
 
     static public bool _Uke_Input;//受け流し入力
 
@@ -64,8 +63,13 @@ public class Miburo_State : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //R1ボタン押下
-        if (UnityEngine.Input.GetKeyDown("joystick button 5"))
+        if (Miburo_Animator.GetCurrentAnimatorStateInfo(0).IsName("Battou"))
+        {
+            return;
+        }
+
+            //R1ボタン押下
+            if (UnityEngine.Input.GetKeyDown("joystick button 5"))
         {
             if (_Attack01)
             {
@@ -275,7 +279,6 @@ public class Miburo_State : MonoBehaviour
         {
             Debug.Log("待ち時間です。入力は反映されません。");
         }
-
     }
 
     //コルーチン(ステップ)
@@ -395,5 +398,11 @@ public class Miburo_State : MonoBehaviour
             gameObject.transform.position = new Vector3(Player.transform.position.x, 0, Player.transform.position.z);
         }
   
+    }
+
+    //受け流し成功時の位置調整
+    void CounterPosSet()
+    {
+        gameObject.transform.position = new Vector3(Target.transform.position.x, Target.transform.position.y, Target.transform.position.z);
     }
 }
