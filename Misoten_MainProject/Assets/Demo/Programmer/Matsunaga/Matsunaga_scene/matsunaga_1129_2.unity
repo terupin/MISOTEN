@@ -2008,12 +2008,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30f9519c76ef751448dce0b0472d5a9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debug_switch: 1
   Target_P: {fileID: 1322884133}
   SearchLength: 100
   AttackLength: 3.5
   MoveSpeed: 12
-  TategiriChance: 100
-  RenGekiChance: 0
+  TategiriChance: 0
+  RenGekiChance: 100
   E01Anim: {fileID: 531520669}
   CooldownTime: 2.5
   StaggerTime: 1

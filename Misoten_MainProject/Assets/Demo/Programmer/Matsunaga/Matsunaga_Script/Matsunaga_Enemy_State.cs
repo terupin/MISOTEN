@@ -15,6 +15,9 @@ public class Matsunaga_Enemy_State : MonoBehaviour
         Cooldown    // クールダウン状態
     };
 
+    [SerializeField, Header("デバックモード")]
+    public bool debug_switch = false; //デバッグ用の処理のスイッチ
+
     private Enemy_State_ E_State; // 現在の敵の状態を格納
 
     [SerializeField, Header("ターゲットとなるプレイヤー")]
@@ -83,21 +86,65 @@ public class Matsunaga_Enemy_State : MonoBehaviour
 
     private void Update()
     {
-        //E01Anim.SetBool("Tategiri", true);
-        //Debug.Log($"currentHP: {currentHP}");
-        Debug.Log($"Tategiriフラグ: {E01Anim.GetBool("Tategiri")}");
-
-        // 1キーが押されたらHPを75%に設定
-        /*
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        // プレイヤーが設定されている場合のみ方向を向く処理を実行
+        if (Target_P != null)
         {
-            currentHP = 0.75f * Matsunaga_Status_E.MaxHP;  // HPを75%に設定
-            Debug.Log("HPを75%に設定しました！");
+            LookAtPlayer(); // プレイヤーを向く処理を呼び出し
         }
-        */
 
-        currentHP = Matsunaga_Status_E.NowHP / Matsunaga_Status_E.MaxHP;
-        // ターゲットが設定されていない場合は警告を表示し処理を中断
+        //デバッグ用プログラム
+        if (debug_switch)
+        {
+            // 1キーが押されたらHPが順番に変化
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                //Debug.Log("HPを75%に設定しました！");
+                if (currentHP == 1.0f) // 現在HPが100%なら
+                {
+                    currentHP = 0.75f;  // HPを75%に設定
+                    Debug.Log($"dc1-1 HPを75%に設定しました！: {currentHP} / 1.0f");
+                }
+                else if (currentHP == 0.75f) // 現在HPが75%なら
+                {
+                    currentHP = 0.50f;  // HPを50%に設定
+                    Debug.Log($"dc1-2 HPを50%に設定しました！: {currentHP} / 1.0f");
+                }
+                else if (currentHP == 0.50f) // 現在HPが50%なら
+                {
+                    currentHP = 0.25f;  // HPを25%に設定
+                    Debug.Log($"dc1-3 HPを25%に設定しました！: {currentHP} / 1.0f");
+                }
+                else if (currentHP == 0.25f) // 現在HPが25%なら
+                {
+                    currentHP = 0f;  // HPを0%に設定
+                    Debug.Log($"dc1-4 HPを0%に設定しました！: {currentHP} / 1.0f");
+                }
+                else if (currentHP == 0f) // 現在HPが0%なら
+                {
+                    currentHP = 1.0f;  // HPを100%に設定
+                    Debug.Log($"dc1-5 HPを100%に設定しました！: {currentHP} / 1.0f");
+                }
+            }
+
+            // 2キーが押されたら縦切りステートを実行
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                Debug.Log("dc2: 縦切りステートを実行します！");
+                SetState(Enemy_State_.Tategiri);
+            }
+
+            // 3キーが押されたら連撃ステートを実行
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                Debug.Log("dc3: 連撃ステートを実行します！");
+                SetState(Enemy_State_.RenGeki);
+            }
+        }
+        else
+        {
+            currentHP = Matsunaga_Status_E.NowHP / Matsunaga_Status_E.MaxHP;
+        }
+        
         if (Target_P == null)
         {
             Debug.LogWarning("Target_P が設定されていません！");
@@ -316,6 +363,21 @@ public class Matsunaga_Enemy_State : MonoBehaviour
         }
     }
 
+    // プレイヤーを向く処理
+    private void LookAtPlayer()
+    {
+        // プレイヤーの方向を計算
+        Vector3 direction = (Target_P.transform.position - transform.position).normalized;
+
+        // Y軸方向の回転のみ適用
+        direction.y = 0;
+
+        // プレイヤー方向を向く回転を計算
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+
+        // スムーズに回転させる
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * MoveSpeed);
+    }
 
 
     // 指定アニメーションが終了しているかを判定
@@ -324,7 +386,7 @@ public class Matsunaga_Enemy_State : MonoBehaviour
         var stateInfo = E01Anim.GetCurrentAnimatorStateInfo(0);
 
         // アニメーションが現在再生中で、かつnormalizedTimeが1.0以上なら終了しているとみなす
-        return stateInfo.IsName(animationName) && stateInfo.normalizedTime >= 1.0f;
+        return stateInfo.IsName(animationName) && stateInfo.normalizedTime >= 0.95f;
     }
 
 
