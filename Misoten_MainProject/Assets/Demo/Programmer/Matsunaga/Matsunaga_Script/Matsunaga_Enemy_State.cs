@@ -15,6 +15,9 @@ public class Matsunaga_Enemy_State : MonoBehaviour
         Cooldown    // クールダウン状態
     };
 
+    [SerializeField, Header("デバックモード")]
+    public bool debug_switch = true; //デバッグ用の処理のスイッチ
+
     private Enemy_State_ E_State; // 現在の敵の状態を格納
 
     [SerializeField, Header("ターゲットとなるプレイヤー")]
@@ -69,6 +72,9 @@ public class Matsunaga_Enemy_State : MonoBehaviour
     [Header("バリアを生成する座標")]
     public Vector3[] barrierPosition; // バリアを生成する座標の配列
 
+    [Header("バリアのスケール")]
+    public Vector3 barrierScale = new Vector3(1, 1, 1); // バリアのスケール（デフォルト値: 1, 1, 1）
+
     private float elapsedTime = 0f; // 経過時間を記録
 
     private void Start()
@@ -83,21 +89,85 @@ public class Matsunaga_Enemy_State : MonoBehaviour
 
     private void Update()
     {
-        //E01Anim.SetBool("Tategiri", true);
-        //Debug.Log($"currentHP: {currentHP}");
-        Debug.Log($"Tategiriフラグ: {E01Anim.GetBool("Tategiri")}");
-
-        // 1キーが押されたらHPを75%に設定
-        /*
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        // プレイヤーが設定されている場合のみ方向を向く処理を実行
+        if (Target_P != null)
         {
-            currentHP = 0.75f * Matsunaga_Status_E.MaxHP;  // HPを75%に設定
-            Debug.Log("HPを75%に設定しました！");
+            LookAtPlayer(); // プレイヤーを向く処理を呼び出し
         }
-        */
 
-        currentHP = Matsunaga_Status_E.NowHP / Matsunaga_Status_E.MaxHP;
-        // ターゲットが設定されていない場合は警告を表示し処理を中断
+        //デバッグ用プログラム
+        if (debug_switch)
+        {
+            // 1キーが押されたらHPが順番に変化
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                //Debug.Log("HPを75%に設定しました！");
+                if (currentHP == 1.0f) // 現在HPが100%なら
+                {
+                    currentHP = 0.75f;  // HPを75%に設定
+                    Debug.Log($"dc1-1 HPを75%に設定しました！: {currentHP} / 1.0f");
+                }
+                else if (currentHP == 0.75f) // 現在HPが75%なら
+                {
+                    currentHP = 0.50f;  // HPを50%に設定
+                    Debug.Log($"dc1-2 HPを50%に設定しました！: {currentHP} / 1.0f");
+                }
+                else if (currentHP == 0.50f) // 現在HPが50%なら
+                {
+                    currentHP = 0.25f;  // HPを25%に設定
+                    Debug.Log($"dc1-3 HPを25%に設定しました！: {currentHP} / 1.0f");
+                }
+                else if (currentHP == 0.25f) // 現在HPが25%なら
+                {
+                    currentHP = 0f;  // HPを0%に設定
+                    Debug.Log($"dc1-4 HPを0%に設定しました！: {currentHP} / 1.0f");
+                }
+                else if (currentHP == 0f) // 現在HPが0%なら
+                {
+                    currentHP = 1.0f;  // HPを100%に設定
+                    Debug.Log($"dc1-5 HPを100%に設定しました: {currentHP} / 1.0f");
+                }
+            }
+
+            // 2キーが押されたら縦切りステートを実行
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                Debug.Log("dc2: 縦切りステートを実行します");
+                SetState(Enemy_State_.Tategiri);
+            }
+
+            // 3キーが押されたら連撃ステートを実行
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                Debug.Log("dc3: 連撃ステートを実行します");
+                SetState(Enemy_State_.RenGeki);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                Debug.Log("dc4: 怯みステートを実行します");
+                SetState(Enemy_State_.Stagger);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                Debug.Log("dc5: 歩行ステートを実行します");
+                SetState(Enemy_State_.Walk);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha6)) // 6キーを押したとき
+            {
+                Debug.Log("dc6: idleステートを実行します");
+
+                // Idle状態に遷移
+                SetState(Enemy_State_.Idle);
+            }
+        }
+        else
+        {
+            currentHP = Matsunaga_Status_E.NowHP / Matsunaga_Status_E.MaxHP;
+        }
+        
         if (Target_P == null)
         {
             Debug.LogWarning("Target_P が設定されていません！");
@@ -155,8 +225,16 @@ public class Matsunaga_Enemy_State : MonoBehaviour
     // バリアを生成する
     private void SpawnBarrier()
     {
-        Instantiate(barrierPrefab, barrierPosition[0], Quaternion.identity); // 現在の位置にバリアを生成
-        Debug.Log("バリアを生成しました");
+        foreach (var position in barrierPosition)
+        {
+            // バリアを生成
+            GameObject barrier = Instantiate(barrierPrefab, position, Quaternion.identity);
+
+            // スケールを適用
+            barrier.transform.localScale = barrierScale;
+
+            Debug.Log($"バリアを生成: {position}, スケール: {barrierScale}");
+        }
     }
 
     // 耐久フィールドを生成する
@@ -177,6 +255,13 @@ public class Matsunaga_Enemy_State : MonoBehaviour
     // 待機または移動状態での処理
     private void HandleMovementAndState()
     {
+        // デバッグモード中は移動しない
+        if (debug_switch)
+        {
+            Debug.Log("デバッグモード中のため移動処理は実行されません。");
+            return; // 処理を中断
+        }
+
         if (StateCurrentTime >= StateTime)
         {
             // 状態遷移タイミングをリセット
@@ -226,7 +311,6 @@ public class Matsunaga_Enemy_State : MonoBehaviour
         }
     }
 
-
     // 攻撃タイプを決定する
     private void DecideAttackType()
     {
@@ -248,7 +332,6 @@ public class Matsunaga_Enemy_State : MonoBehaviour
             //UnityEditor.EditorApplication.isPaused = true;
         }
     }
-
 
     // 縦切り攻撃の処理
     private void HandleTategiri()
@@ -277,13 +360,15 @@ public class Matsunaga_Enemy_State : MonoBehaviour
     // ひるみ状態の処理
     private void HandleStagger()
     {
-        if (StateCurrentTime >= StaggerTime)
+        if (IsAnimationFinished("Enemy01_Hirumi"))
         {
             // ひるみ状態終了後、待機状態に遷移
             Debug.Log("ひるみ状態が終了しました。Idle 状態に遷移します。");
+            E01Anim.SetBool("Hiruimi", false); // ひるみアニメーションのフラグをリセット
             SetState(Enemy_State_.Idle);
         }
     }
+
 
     // クールダウン状態の処理
     private void HandleCooldown()
@@ -302,21 +387,57 @@ public class Matsunaga_Enemy_State : MonoBehaviour
         if (currentHP <= 0.75f && !hasUsedDurabilityField75)
         {
             SpawnDurabilityField();
+            SpawnBarrier();
             hasUsedDurabilityField75 = true;
+            E01Anim.SetBool("Kiahou", true); // アニメーションをリセット
+            if (IsAnimationFinished("Enemy01_Kaihou"))
+            {
+                Debug.Log("解放");
+                E01Anim.SetBool("Kiahou", false); // アニメーションをリセット
+                SetState(Enemy_State_.Cooldown);
+            }
         }
         if (currentHP <= 0.50f && !hasUsedDurabilityField50)
         {
             SpawnDurabilityField();
+            SpawnBarrier();
             hasUsedDurabilityField50 = true;
+            if (IsAnimationFinished("Enemy01_Kaihou"))
+            {
+                Debug.Log("解放");
+                E01Anim.SetBool("Kiahou", false); // アニメーションをリセット
+                SetState(Enemy_State_.Cooldown);
+            }
         }
         if (currentHP <= 0.25f && !hasUsedDurabilityField25)
         {
             SpawnDurabilityField();
+            SpawnBarrier();
             hasUsedDurabilityField25 = true;
+            if (IsAnimationFinished("Enemy01_Kaihou"))
+            {
+                Debug.Log("解放");
+                E01Anim.SetBool("Kiahou", false); // アニメーションをリセット
+                SetState(Enemy_State_.Cooldown);
+            }
         }
     }
 
+    // プレイヤーを向く処理
+    private void LookAtPlayer()
+    {
+        // プレイヤーの方向を計算
+        Vector3 direction = (Target_P.transform.position - transform.position).normalized;
 
+        // Y軸方向の回転のみ適用
+        direction.y = 0;
+
+        // プレイヤー方向を向く回転を計算
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+
+        // スムーズに回転させる
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * MoveSpeed);
+    }
 
     // 指定アニメーションが終了しているかを判定
     private bool IsAnimationFinished(string animationName)
@@ -324,9 +445,8 @@ public class Matsunaga_Enemy_State : MonoBehaviour
         var stateInfo = E01Anim.GetCurrentAnimatorStateInfo(0);
 
         // アニメーションが現在再生中で、かつnormalizedTimeが1.0以上なら終了しているとみなす
-        return stateInfo.IsName(animationName) && stateInfo.normalizedTime >= 1.0f;
+        return stateInfo.IsName(animationName) && stateInfo.normalizedTime >= 0.95f;
     }
-
 
     // 状態に応じてアニメーションを更新
     private void UpdateAnimations()
@@ -336,5 +456,7 @@ public class Matsunaga_Enemy_State : MonoBehaviour
         E01Anim.SetBool("Walk", E_State == Enemy_State_.Walk);
         E01Anim.SetBool("Tategiri", E_State == Enemy_State_.Tategiri);
         E01Anim.SetBool("RenGeki", E_State == Enemy_State_.RenGeki);
+        E01Anim.SetBool("Hirumi", E_State == Enemy_State_.Stagger);
+
     }
 }
