@@ -5,7 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Demo/Programmer/Kato/Kato_Ukenagasi_Scene/Kato_a.unity
     guid: 2820dd49d69873f4398acac03c51221e
+  - enabled: 1
+    path: Assets/Demo/Programmer/Kato/Kato_Ukenagasi_Scene/Kato_Stage01 1.unity
+    guid: d2a71487ad061cd41a8a53afdc854291
   m_configObjects: {}

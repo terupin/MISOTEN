@@ -417,7 +417,7 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
                 {
                     //éÛÇØó¨Çµê¨å˜
                     Debug.Log(Check_Current_Time);
-                    UnityEditor.EditorApplication.isPaused = true;
+                    //UnityEditor.EditorApplication.isPaused = true;
                     //Enemy01_Animator.SetBool("RenUke01", true);
                     RenUke01 = true;
                     E01Anim.SetBool("RenUke01", true);
