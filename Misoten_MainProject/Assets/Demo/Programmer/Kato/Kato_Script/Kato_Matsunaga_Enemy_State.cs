@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Kato_Matsunaga_Enemy_State : MonoBehaviour
 {
@@ -87,6 +88,13 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
 
     private void Update()
     {
+        if(Kato_Status_E.NowHP<=0)
+        {
+            //StartCoroutine(GameClear());
+            
+            return;
+        }
+
         Debug.Log($"currentHP: {currentHP}");
 
         // 1キーが押されたらHPを75%に設定
@@ -499,5 +507,14 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
             SetState(Enemy_State_.Stagger);
            
         }
+    }
+
+    //ゲームクリア
+    private IEnumerator GameClear()
+    {
+
+        yield return new WaitForSeconds(5);
+        SceneManager.LoadScene("ClearScene");
+
     }
 }

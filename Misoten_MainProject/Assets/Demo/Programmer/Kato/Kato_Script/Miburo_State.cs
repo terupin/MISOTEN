@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Rendering;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class Miburo_State : MonoBehaviour
@@ -67,6 +68,8 @@ public class Miburo_State : MonoBehaviour
         if (Kato_Status_P.NowHP <= 0)
         {
             Miburo_Animator.SetBool("GameOver", true);
+            //StartCoroutine(Gameover());
+
             return;
         }
         if (Miburo_Animator.GetCurrentAnimatorStateInfo(0).IsName("Battou"))
@@ -406,5 +409,14 @@ public class Miburo_State : MonoBehaviour
     void CounterPosSet()
     {
         gameObject.transform.position = new Vector3(Target.transform.position.x, Target.transform.position.y, Target.transform.position.z);
+    }
+
+    //ゲームオーバー
+    private IEnumerator Gameover()
+    {
+
+        yield return new WaitForSeconds(5);
+        SceneManager.LoadScene("OverScene");
+
     }
 }
