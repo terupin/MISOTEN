@@ -78,7 +78,7 @@ GameObject:
   - component: {fileID: 3072760429213681789}
   m_Layer: 0
   m_Name: Enemy_HitBox
-  m_TagString: Untagged
+  m_TagString: EWeapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -215,3 +215,4 @@ MonoBehaviour:
   S_Effect: {fileID: 3987149692112920800, guid: 84b478aca8157364397819059bc97137,
     type: 3}
   Player_Model: {fileID: 0}
+  Enemy_Model: {fileID: 0}

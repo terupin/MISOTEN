@@ -8,6 +8,8 @@ TagManager:
   - Enemy
   - Denchiku
   - ShockWave
+  - PWeapon
+  - EWeapon
   layers:
   - Default
   - TransparentFX
