@@ -9,6 +9,7 @@ EditorBuildSettings:
     path: Assets/Demo/Programmer/Kato/Kato_Ukenagasi_Scene/Kato_a.unity
     guid: 2820dd49d69873f4398acac03c51221e
   - enabled: 1
+
     path: Assets/Demo/Programmer/Mi-tu-da/Scene/Test_Scene.unity
     guid: 09bf64f329bbc1543a5301203133a3ab
   - enabled: 1

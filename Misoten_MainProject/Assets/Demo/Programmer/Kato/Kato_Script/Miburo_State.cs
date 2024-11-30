@@ -63,6 +63,12 @@ public class Miburo_State : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //HP0以下ならゲームオーバー
+        if (Kato_Status_P.NowHP <= 0)
+        {
+            Miburo_Animator.SetBool("GameOver", true);
+            return;
+        }
         if (Miburo_Animator.GetCurrentAnimatorStateInfo(0).IsName("Battou"))
         {
             return;
@@ -158,11 +164,7 @@ public class Miburo_State : MonoBehaviour
             Miburo_Animator.SetBool("UkenagashiR", false);
         }
 
-        //HP0以下ならゲームオーバー
-        if (Kato_Status_P.NowHP<=0)
-        {
-            Miburo_Animator.SetBool("GameOver", true);
-        }
+
 
 
         //以下テスト用
