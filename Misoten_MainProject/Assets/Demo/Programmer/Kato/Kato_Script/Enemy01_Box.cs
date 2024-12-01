@@ -43,11 +43,11 @@ public class Enemy01_Box : MonoBehaviour
                 {
                     gameObject.AddComponent<Enemy_Damage>();
                 }
-                else if (Miburo_State._Attack01&& Kato_Matsunaga_Enemy_State.UKe__Ren02&& Miburo_State._Attack01)
+                else if (Miburo_State._Attack01&& Kato_Matsunaga_Enemy_State.UKe__Ren02/*&& Miburo_State._Attack01*/)
                 {
                     gameObject.AddComponent<Enemy_Damage3>();
                 }
-                else if (Miburo_State._Attack01&& Kato_Matsunaga_Enemy_State.UKe__Ren02 && Miburo_State._Attack02)
+                else if (Miburo_State._Attack01&& Kato_Matsunaga_Enemy_State.UKe__Ren02/* && Miburo_State._Attack02*/)
                 {
                     gameObject.AddComponent<Enemy_Damage4>();
                 }

@@ -185,54 +185,62 @@ public class Miburo_State : MonoBehaviour
             Miburo_Animator.SetBool("UkenagashiR", false);
         }
 
+        Miburo_Animator.SetBool("Ren01", Kato_Matsunaga_Enemy_State.UKe__Ren01);
+        Miburo_Animator.SetBool("Ren02", Kato_Matsunaga_Enemy_State.UKe__Ren02);
+
         if (Kato_Matsunaga_Enemy_State.UKe__Ren01)
         {
-            Miburo_Animator.SetTrigger("Rengeki01");
+            //Miburo_Animator.SetBool("Ren01", Kato_Matsunaga_Enemy_State.UKe__Ren01);
         }
 
         if (Kato_Matsunaga_Enemy_State.UKe__Ren02)
         {
-            Miburo_Animator.SetTrigger("Rengeki02");
+            //Miburo_Animator.SetTrigger("Rengeki02");
         }
 
 
         //以下テスト用
 
         //ダメージ
-        if (UnityEngine.Input.GetKeyDown(KeyCode.L))
-        {
-            Miburo_Animator.SetTrigger("Damage");
-        }
+        //if (UnityEngine.Input.GetKeyDown(KeyCode.L))
+        //{
+        //    Miburo_Animator.SetBool("Ren02", true);
+        //}
 
-        //縦切り受け流し左(みぶろポジション前３右0.5)
-        if (UnityEngine.Input.GetKeyDown(KeyCode.J))
-        {
-            Miburo_Animator.SetTrigger("UkenagashiL");
-        }
+        ////縦切り受け流し左(みぶろポジション前３右0.5)
+        //if (UnityEngine.Input.GetKeyDown(KeyCode.J))
+        //{
+        //    Miburo_Animator.SetTrigger("UkenagashiL");
+        //}
 
         if (UnityEngine.Input.GetKeyDown(KeyCode.V))
         {
-            Instantiate(S_Effect);
+            GameObject Clone_Effect = GameObject.Find("Slash_Effect(Clone)");
+            if (Clone_Effect == null)
+            {
+                Instantiate(S_Effect);
+            }
+           
         }
 
-        //縦切り受け流し左(みぶろポジション前３右1)
-        if (UnityEngine.Input.GetKeyDown(KeyCode.K))
-        {
-            Miburo_Animator.SetTrigger("UkenagashiR");
-        }
+        ////縦切り受け流し左(みぶろポジション前３右1)
+        //if (UnityEngine.Input.GetKeyDown(KeyCode.K))
+        //{
+        //    Miburo_Animator.SetTrigger("UkenagashiR");
+        //}
 
-        //連撃受け流し1回目(みぶろポジション前３右0.5)
-        if (UnityEngine.Input.GetKeyDown(KeyCode.M))
-        {
-            Miburo_Animator.SetTrigger("UkenagashiR");
-        }
+        ////連撃受け流し1回目(みぶろポジション前３右0.5)
+        //if (UnityEngine.Input.GetKeyDown(KeyCode.M))
+        //{
+        //    Miburo_Animator.SetTrigger("UkenagashiR");
+        //}
 
-        //連撃受け流し2回目(みぶろポジション前３右0.5)
-        if (UnityEngine.Input.GetKeyDown(KeyCode.N))
-        {
-            Miburo_Animator.SetTrigger("Rengeki02");
-            Miburo_Animator.SetBool("Counter",true);
-        }
+        ////連撃受け流し2回目(みぶろポジション前３右0.5)
+        //if (UnityEngine.Input.GetKeyDown(KeyCode.N))
+        //{
+        //    Miburo_Animator.SetTrigger("Rengeki02");
+        //    Miburo_Animator.SetBool("Counter",true);
+        //}
         Vector3 a = gameObject.transform.position;
 
         //gameObject.transform.position =  new Vector3(a.x+_Born.transform.position.x, 0, a.z+ _Born.transform.position.z);

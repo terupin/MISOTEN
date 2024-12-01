@@ -15,6 +15,11 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
     [SerializeField, Header("˜AŒ‚2 Å‘å“ü—Í—P—\ 0.5•b")]
     public float Check_Time2;
 
+    [SerializeField, Header("ŽaŒ‚ƒGƒtƒFƒNƒg")]
+    public GameObject S_Effect;
+
+    private GameObject Clone_Effect = GameObject.Find("Slash_Effect(Clone)");
+
     static public bool UkeL;
     static public bool UkeR;
 
@@ -90,6 +95,7 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
 
     private void Start()
     {
+        Clone_Effect = GameObject.Find("Slash_Effect(Clone)");
         // ‰Šúó‘Ô‚ðÝ’è
         E_State = Enemy_State_.Idle;
         StateCurrentTime = 0.0f; // Œo‰ßŽžŠÔ‚ð‰Šú‰»
@@ -392,7 +398,8 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
             }
             else
             {
-
+                UkeL = false;
+                UkeR = false;
                 Check_Current_Time += Time.deltaTime;
             }
         }
@@ -400,7 +407,7 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
         {
             E01Anim.SetBool("UkeL", false);
             E01Anim.SetBool("UkeR", false);
-            Check_Current_Time = 0;
+            //Check_Current_Time = 0;
         }
 
         //cØ‚èU‚è‚¨‚ë‚µ
@@ -431,15 +438,15 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
                     UKe__Ren01 = true;
                 }
             }
-            else
-            {
-                UKe__Ren01 = false;
+
+                //UKe__Ren01 = false;
                 Check_Current_Time += Time.deltaTime;
-            }
+            
         }
         else
         {
- 
+            UKe__Ren01 = false;
+
             E01Anim.SetBool("RenUke01", false);
             //Enemy01_Animator.SetBool("RenUke01", false);
             //Check_Current_Time = 0;
@@ -456,9 +463,11 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
         //˜AŒ‚2U‚èã‚°
         if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren02"))
         {
+            Check_Current_Time += Time.deltaTime;
             if (Miburo_State._Uke_Input)
             {
-                Debug.Log("uuuuuuuu" + Check_Current_Time);
+                
+                Debug.Log("ƒeƒXƒg—p" + Check_Current_Time);
                 //UnityEditor.EditorApplication.isPaused = true;
                 if (Check_Current_Time > 0.0f && Check_Time2 >= Check_Current_Time)
                 {
@@ -469,18 +478,21 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
                     //UnityEditor.EditorApplication.isPaused = true;
                     UKe__Ren02 = true;
                 }
+                else
+                {
+                    //UnityEditor.EditorApplication.isPaused = true;
+                }
             }
-            else
-            {
-                UKe__Ren02 = false;
-                Check_Current_Time += Time.deltaTime;
-            }
+
+               
+               
+            
 
 
         }
         else
         {
-
+            UKe__Ren02 = false;
             E01Anim.SetBool("RenUke02", false);
             //Check_Current_Time = 0;
         }
@@ -504,7 +516,16 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
         if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Hirumi"))
         {
             SetState(Enemy_State_.Stagger);
-           
+
+        }
+
+        if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("RtoNagasare") || E01Anim.GetCurrentAnimatorStateInfo(0).IsName("RtoLtoNagasare") || E01Anim.GetCurrentAnimatorStateInfo(0).IsName("NagasereR") || E01Anim.GetCurrentAnimatorStateInfo(0).IsName("NagasereL"))
+        {
+            Clone_Effect = GameObject.Find("Slash_Effect(Clone)");
+            if (Clone_Effect == null)
+            {
+                Instantiate(S_Effect);
+            }
         }
     }
 
