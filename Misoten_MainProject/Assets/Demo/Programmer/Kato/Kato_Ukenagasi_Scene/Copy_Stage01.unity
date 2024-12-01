@@ -1458,6 +1458,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3965139916692988938, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
+      propertyPath: S_Effect
+      value: 
+      objectReference: {fileID: 9060970370165693562, guid: 9eef12dc538892048b21bbc76811f6c8,
+        type: 3}
+    - target: {fileID: 3965139916692988938, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
       propertyPath: Target_P
       value: 
       objectReference: {fileID: 1322884133}
@@ -1759,7 +1765,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11436e7c1365ec745b37ec7c39a80ce9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TagName: 0
 --- !u!1 &777521274
 GameObject:
   m_ObjectHideFlags: 0
@@ -2004,8 +2009,8 @@ MonoBehaviour:
   m_DeadZoneHeight: 0
   m_DeadZoneDepth: 0
   m_UnlimitedSoftZone: 0
-  m_SoftZoneWidth: 0.8
-  m_SoftZoneHeight: 0.8
+  m_SoftZoneWidth: 0
+  m_SoftZoneHeight: 0
   m_BiasX: 0
   m_BiasY: 0
   m_CenterOnActivate: 1
@@ -2044,7 +2049,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c9beda531928fc40968802117a5d256, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_RecenterTarget: 2
+  m_RecenterTarget: 0
   m_VerticalAxis:
     Value: 0
     m_SpeedMode: 0
@@ -2639,7 +2644,7 @@ PrefabInstance:
     - target: {fileID: 620450170263208881, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}
       propertyPath: m_Constraints
-      value: 84
+      value: 126
       objectReference: {fileID: 0}
     - target: {fileID: 911090270459495019, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}
