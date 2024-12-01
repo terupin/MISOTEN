@@ -445,6 +445,7 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
                     Debug.Log(Check_Current_Time1);                 
                     E01Anim.SetBool("RenUke01", true);
                     UKe__Ren01 = true;
+                    //UnityEditor.EditorApplication.isPaused = true;
                 }
             }
                 Check_Current_Time1 += Time.deltaTime;
