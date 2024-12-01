@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+//¼‰iŒN‚Ìˆ—‚ğƒRƒs[
 public class Kato_Matsunaga_Enemy_State : MonoBehaviour
 {
     //cØ‚è Å‘å“ü—Í—P—\ 1.7•b
@@ -543,10 +544,7 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
             Attack = false;
         }
 
-        //if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Tategiri 0"))
-        //{
-        //    UnityEditor.EditorApplication.isPaused = true;
-        //}
+
     }
 
     //ƒQ[ƒ€ƒNƒŠƒA
