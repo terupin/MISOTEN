@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+//¼‰iŒN‚Ìˆ—‚ğƒRƒs[
 public class Kato_Matsunaga_Enemy_State : MonoBehaviour
 {
     //cØ‚è Å‘å“ü—Í—P—\ 1.7•b
@@ -25,6 +26,7 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
 
     static public bool UKe__Ren01;
     static public bool UKe__Ren02;
+    static public bool Attack;//UŒ‚@“–‚½‚è”»’è‚Ég‚¤
 
     // “G‚Ìó‘Ô‚ğ•\‚·—ñ‹“Œ^
     public enum Enemy_State_
@@ -95,7 +97,7 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
 
     private void Start()
     {
-        Clone_Effect = GameObject.Find("Slash_Effect(Clone)");
+        Clone_Effect = null;
         // ‰Šúó‘Ô‚ğİ’è
         E_State = Enemy_State_.Idle;
         StateCurrentTime = 0.0f; // Œo‰ßŠÔ‚ğ‰Šú‰»
@@ -386,12 +388,14 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
                     {
                         UkeL = true;
                         E01Anim.SetBool("UkeL", true);
+
                         //UnityEditor.EditorApplication.isPaused = true;
                     }
                     else if (Miburo_State._Katana_Direction == 3 || Miburo_State._Katana_Direction == 4 || Miburo_State._Katana_Direction == 5 || Miburo_State._Katana_Direction == 6)
                     {
                         UkeR = true;
                         E01Anim.SetBool("UkeR", true);
+ 
                         //UnityEditor.EditorApplication.isPaused = true;
                     }
                 }
@@ -436,6 +440,7 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
                   
                     E01Anim.SetBool("RenUke01", true);
                     UKe__Ren01 = true;
+
                 }
             }
 
@@ -458,6 +463,7 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
             Debug.Log(Check_Current_Time);
             //UnityEditor.EditorApplication.isPaused = true;
             Check_Current_Time = 0;
+          
         }
 
         //˜AŒ‚2U‚èã‚°
@@ -477,6 +483,7 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
                     Debug.Log(Check_Current_Time);
                     //UnityEditor.EditorApplication.isPaused = true;
                     UKe__Ren02 = true;
+
                 }
                 else
                 {
@@ -527,6 +534,17 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
                 Instantiate(S_Effect);
             }
         }
+
+        if(E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren1")|| E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren2") || E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Tategiri 0"))
+        {
+            Attack = true;
+        }
+        else
+        {
+            Attack = false;
+        }
+
+
     }
 
     //ƒQ[ƒ€ƒNƒŠƒA
