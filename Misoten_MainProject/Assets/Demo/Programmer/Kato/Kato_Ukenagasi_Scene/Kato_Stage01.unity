@@ -1495,12 +1495,12 @@ PrefabInstance:
     - target: {fileID: 3965139916692988938, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
       propertyPath: RenGekiChance
-      value: 40
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 3965139916692988938, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
       propertyPath: TategiriChance
-      value: 60
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4030540995310200053, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
@@ -2644,7 +2644,7 @@ PrefabInstance:
     - target: {fileID: 620450170263208881, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}
       propertyPath: m_Constraints
-      value: 84
+      value: 126
       objectReference: {fileID: 0}
     - target: {fileID: 911090270459495019, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}
