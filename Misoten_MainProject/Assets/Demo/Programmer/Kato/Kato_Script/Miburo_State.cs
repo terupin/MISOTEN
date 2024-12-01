@@ -18,12 +18,10 @@ public class Miburo_State : MonoBehaviour
     static public bool _Uke_Input;//受け流し入力
 
     //刀の方向
-    //private int _Katana_Direction;
     static public int _Katana_Direction;
 
     [SerializeField, Header("移動スピード")]
-    public float Move_Speed;
-    
+    public float Move_Speed;    
 
     [SerializeField, Header("敵プレハブ")]
     public GameObject Target;
@@ -68,8 +66,6 @@ public class Miburo_State : MonoBehaviour
         if (Kato_Status_P.NowHP <= 0)
         {
             Miburo_Animator.SetBool("GameOver", true);
-            //StartCoroutine(Gameover());
-
             return;
         }
         if (Miburo_Animator.GetCurrentAnimatorStateInfo(0).IsName("Battou"))
@@ -78,7 +74,7 @@ public class Miburo_State : MonoBehaviour
         }
 
             //R1ボタン押下
-            if (UnityEngine.Input.GetKeyDown("joystick button 5"))
+        if (UnityEngine.Input.GetKeyDown("joystick button 5"))
         {
             if (_Attack01)
             {
@@ -89,7 +85,6 @@ public class Miburo_State : MonoBehaviour
             {
                 StartCoroutine(Miburo_Attack01());
             }
-
         }
         //L1ボタン押下
         if (UnityEngine.Input.GetKeyDown("joystick button 4"))
@@ -111,12 +106,8 @@ public class Miburo_State : MonoBehaviour
             }
             else
             {
-
-
                 Debug.Log("入力完了\n入力方向　" + _Katana_Direction);
                 StartCoroutine(Counter_Timing_Input());
-
-                //UnityEditor.EditorApplication.isPaused = true;
             }
         }
         else
@@ -167,50 +158,34 @@ public class Miburo_State : MonoBehaviour
             Miburo_Animator.SetBool("UkenagashiR", false);
         }
 
-
-
-
-        //以下テスト用
-
-        //ダメージ
-        if (UnityEngine.Input.GetKeyDown(KeyCode.L))
+        if(Kato_Matsunaga_Enemy_State.UkeL)
         {
-            Miburo_Animator.SetTrigger("Damage");
+            Miburo_Animator.SetBool("UkenagashiL", true);
+        }
+        else
+        {
+            Miburo_Animator.SetBool("UkenagashiL", false);
         }
 
-        //縦切り受け流し左(みぶろポジション前３右0.5)
-        if (UnityEngine.Input.GetKeyDown(KeyCode.J))
+        if (Kato_Matsunaga_Enemy_State.UkeR)
         {
-            Miburo_Animator.SetTrigger("UkenagashiL");
+            Miburo_Animator.SetBool("UkenagashiR", true);
+        }
+        else
+        {
+            Miburo_Animator.SetBool("UkenagashiR", false);
         }
 
-        if (UnityEngine.Input.GetKeyDown(KeyCode.V))
-        {
-            Instantiate(S_Effect);
-        }
+        Miburo_Animator.SetBool("Ren01", Kato_Matsunaga_Enemy_State.UKe__Ren01);
+        Miburo_Animator.SetBool("Ren02", Kato_Matsunaga_Enemy_State.UKe__Ren02);  
 
-        //縦切り受け流し左(みぶろポジション前３右1)
-        if (UnityEngine.Input.GetKeyDown(KeyCode.K))
-        {
-            Miburo_Animator.SetTrigger("UkenagashiR");
-        }
+        ////縦切り受け流し左(みぶろポジション前３右0.5)
+        //if (UnityEngine.Input.GetKeyDown(KeyCode.J))
+        //{
+        //    Miburo_Animator.SetTrigger("UkenagashiL");
+        //}
 
-        //連撃受け流し1回目(みぶろポジション前３右0.5)
-        if (UnityEngine.Input.GetKeyDown(KeyCode.M))
-        {
-            Miburo_Animator.SetTrigger("UkenagashiR");
-        }
-
-        //連撃受け流し2回目(みぶろポジション前３右0.5)
-        if (UnityEngine.Input.GetKeyDown(KeyCode.N))
-        {
-            Miburo_Animator.SetTrigger("Rengeki02");
-            Miburo_Animator.SetBool("Counter",true);
-        }
-        Vector3 a = gameObject.transform.position;
-
-        //gameObject.transform.position =  new Vector3(a.x+_Born.transform.position.x, 0, a.z+ _Born.transform.position.z);
-        GetCurrentAnimationStateName();
+        GetCurrentAnimationStateName();//ステート取得して
     }
 
     //コルーチン(攻撃1)
@@ -384,22 +359,16 @@ public class Miburo_State : MonoBehaviour
         if (Miburo_Animator.GetCurrentAnimatorStateInfo(0).IsName("UKE"))
         {
             gameObject.transform.position += gameObject.transform.forward * Time.deltaTime*5.5f;
-            //UnityEditor.EditorApplication.isPaused = true;
-            //currentStateName = "Idle";
             gameObject.transform.position = new Vector3(Player.transform.position.x, 0, Player.transform.position.z);
         }
         if (Miburo_Animator.GetCurrentAnimatorStateInfo(0).IsName("UKE2"))
         {
             gameObject.transform.position += gameObject.transform.forward * Time.deltaTime * 2.5f;
-            //UnityEditor.EditorApplication.isPaused = true;
-            //currentStateName = "Idle";
             gameObject.transform.position = new Vector3(Player.transform.position.x, 0, Player.transform.position.z);
         }
         if (Miburo_Animator.GetCurrentAnimatorStateInfo(0).IsName("UKE3"))
         {
             gameObject.transform.position -= gameObject.transform.forward * Time.deltaTime * 0.1f;
-            //UnityEditor.EditorApplication.isPaused = true;
-            //currentStateName = "Idle";
             gameObject.transform.position = new Vector3(Player.transform.position.x, 0, Player.transform.position.z);
         }
   
@@ -418,5 +387,18 @@ public class Miburo_State : MonoBehaviour
         yield return new WaitForSeconds(5);
         SceneManager.LoadScene("OverScene");
 
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "EWeapon")
+        {
+            GameObject Miburo_Box = GameObject.Find("Player");
+            if (Miburo_Box && Kato_Matsunaga_Enemy_State.Attack)
+            {
+                gameObject.AddComponent<Damage_Flash>();
+                Miburo_Animator.SetTrigger("Damage");
+            }
+        }
     }
 }

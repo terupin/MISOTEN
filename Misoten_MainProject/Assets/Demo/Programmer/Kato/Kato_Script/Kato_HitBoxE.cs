@@ -36,7 +36,7 @@ public class Kato_HitBoxE : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        P_G_flg = Kato_a_Player_Anim.G_Flg;
+        //P_G_flg = Kato_a_Player_Anim.G_Flg;
 
         gameObject.transform.position = WeponPoint.transform.position;
         gameObject.transform.rotation = WeponPoint.transform.rotation;
@@ -46,17 +46,17 @@ public class Kato_HitBoxE : MonoBehaviour
     {
         //Debug.LogFormat("{1}は {0}に当たった", collision.gameObject.name, gameObject.name); // ぶつかった相手の名前を取得
 
-        if (collision.gameObject.name == "Player" && Enemy_State.E_AttackFlg)
-        {
-            //Debug.LogFormat("{1}は {0}にダメージを与えた！", collision.gameObject.name, gameObject.name);
+        //if (collision.gameObject.name == "Player" && Enemy_State.E_AttackFlg)
+        //{
+        //    //Debug.LogFormat("{1}は {0}にダメージを与えた！", collision.gameObject.name, gameObject.name);
 
    
             
            
-            Player_Model.AddComponent<Damage_Flash>();
-            Damage_Flg = true;
-            //UnityEditor.EditorApplication.isPaused = true;
-        }
+        //    //Player_Model.AddComponent<Damage_Flash>();
+        //    //Damage_Flg = true;
+        //    //UnityEditor.EditorApplication.isPaused = true;
+        //}
         //else
         //{
         //    Damage_Flg = false;
