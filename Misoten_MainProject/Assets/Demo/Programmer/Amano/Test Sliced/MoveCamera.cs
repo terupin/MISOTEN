@@ -13,7 +13,7 @@ public class MoveCamera : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Player_pos = transform.position;
+        Player_pos = this.transform.position;
     }
 
     // Update is called once per frame

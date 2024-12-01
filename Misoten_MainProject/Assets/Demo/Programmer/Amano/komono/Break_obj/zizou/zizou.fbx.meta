@@ -7,23 +7,23 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: zizou
-    second: {fileID: 2100000, guid: 53e2fc64c672aa34e9a97786913f4e77, type: 2}
+      name: aiStandardSurface11
+    second: {fileID: 2100000, guid: f5bdf00e55f9bc2448178f3c9cfc1d47, type: 2}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: standardSurface1_Base_color
-    second: {fileID: 2800000, guid: 430290992e7b4e141b21fcf88696da5e, type: 3}
+    second: {fileID: 2800000, guid: e785a96d1db48814888264da842e3ba2, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: standardSurface1_Normal_OpenGL
-    second: {fileID: 2800000, guid: 71023571cf6463f4781d01261f541c57, type: 3}
+    second: {fileID: 2800000, guid: 3db0be9fa6a68da48b0ab0ef5a4f47d8, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: standardSurface1_Roughness
-    second: {fileID: 2800000, guid: a63e67b98e76bb44c88d60d92b8c7f41, type: 3}
+    second: {fileID: 2800000, guid: 4a7abd1e630c0bb408443956979616e3, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -52,7 +52,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 0
+    isReadable: 1
   meshes:
     lODScreenPercentages: []
     globalScale: 1

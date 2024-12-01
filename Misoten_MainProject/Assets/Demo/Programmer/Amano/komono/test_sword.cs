@@ -7,25 +7,21 @@ using System.Net.Sockets;
 
 public class test_sword : MonoBehaviour
 {
-    //切断面のマテリアル
-    [SerializeField,Header("切断面　木のマテリアル")]
-    public Material wood_Mtl;
-    [SerializeField, Header("切断面　石のマテリアル")]
-    public Material storn_Mtl;
-    [SerializeField, Header("切断面　自販機のマテリアル")]
-    public Material neon_Mtl;
-
     //切断するオブジェクトのタグ名
     [SerializeField, Header("切れるオブジェクトのタグ")]
     public string cut_tag = "Cut";
 
     //刀の先端を示す空オブジェクト
-    [SerializeField,Header("刀の先端")]
+    [SerializeField, Header("刀の先端")]
     public Transform swordTop;
 
     //刀の柄を示す空オブジェクト
     [SerializeField, Header("刀の柄")]
     public Transform swordHit;
+
+    //切れた破片の存在する秒数
+    [SerializeField, Header("破片が消えるまでの秒数")]
+    public float lifetime = 5.0f;
 
     private Vector3 startPos;  //切り始めの刀の位置
     private Vector3 endPos;  //霧終わりの刀の位置
@@ -44,7 +40,7 @@ public class test_sword : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if(other.tag == cut_tag)
+        if (other.tag == cut_tag)
         {
             Debug.Log("出たよ");
 
@@ -61,12 +57,12 @@ public class test_sword : MonoBehaviour
             Vector3 swordDirection = (swordTop.position - swordHit.position).normalized;
 
             //剣の軌道に垂直な平面を作成
-            Vector3 cutNormal =Vector3.Cross(swordMovement, swordDirection); //外積の計算
+            Vector3 cutNormal = Vector3.Cross(swordMovement, swordDirection); //外積の計算
             cutNormal = other.transform.InverseTransformDirection(cutNormal); //ローカル座標に変換
 
             //切れる場所の計算
-            Vector3 slice_pos = other.transform.InverseTransformDirection(endPos-cut_ObjPos); 
-            EzySlice.Plane cutPlane = new EzySlice.Plane(slice_pos, cutNormal);  
+            Vector3 slice_pos = other.transform.InverseTransformDirection(endPos - cut_ObjPos);
+            EzySlice.Plane cutPlane = new EzySlice.Plane(slice_pos, cutNormal);
 
             //EzySliceで相手をスライスする
             GameObject targetObject = other.gameObject;
@@ -82,8 +78,6 @@ public class test_sword : MonoBehaviour
                 //新しい部分物理コンポーネントを追加
                 MakeItPhysical(upperHull);
                 MakeItPhysical(lowerHull);
-
-
 
                 //元のオブジェクトを削除
                 Destroy(targetObject);
@@ -102,8 +96,10 @@ public class test_sword : MonoBehaviour
         Rigidbody rb = obj.AddComponent<Rigidbody>();
         rb.useGravity = true;
 
+        Destroy(obj, lifetime);
+
         //切れたものをもう一度切れるようにするためのタグ付け
-        obj.gameObject.tag = cut_tag;
+        //obj.gameObject.tag = cut_tag;
     }
 
 }
