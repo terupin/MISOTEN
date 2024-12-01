@@ -269,10 +269,16 @@ public class Matsunaga_Enemy_State : MonoBehaviour
         }
     }
 
-    // 待機または移動状態での処理
     private void HandleMovementAndState()
     {
-        // デバッグモード中は移動しない
+        // Kaihou状態中は移動処理を無効化
+        if (E_State == Enemy_State_.Kaihou)
+        {
+            Debug.Log("解放中のため移動処理をスキップします。");
+            return;
+        }
+
+        // それ以外の通常の移動処理
         if (debug_switch)
         {
             Debug.Log("デバッグモード中のため移動処理は実行されません。");
@@ -281,49 +287,43 @@ public class Matsunaga_Enemy_State : MonoBehaviour
 
         if (StateCurrentTime >= StateTime)
         {
-            // 状態遷移タイミングをリセット
             StateCurrentTime = 0.0f;
 
             if (P_E_Length < AttackLength)
             {
-                // 攻撃範囲内にプレイヤーがいる場合、攻撃を開始
                 Debug.Log("攻撃範囲に入ったので攻撃を開始！");
                 DecideAttackType();
             }
             else if (P_E_Length < SearchLength)
             {
-                // サーチ範囲内にプレイヤーがいる場合、移動を開始
                 Debug.Log("プレイヤーがサーチ範囲内にいますが攻撃範囲外です。移動を開始します。");
                 SetState(Enemy_State_.Walk);
             }
             else
             {
-                // プレイヤーが範囲外の場合、待機状態に戻る
                 Debug.Log("プレイヤーが範囲外です。待機状態に戻ります。");
                 SetState(Enemy_State_.Idle);
             }
         }
 
-        // Idle状態の場合でもプレイヤーの方向を向く
         if (E_State == Enemy_State_.Idle && P_E_Length < SearchLength)
         {
-            Vector3 direction = (Target_P.transform.position - transform.position).normalized; // プレイヤー方向
-            direction.y = 0; // Y軸回転を抑制
-            Quaternion targetRotation = Quaternion.LookRotation(direction); // プレイヤー方向を向く回転
-            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * MoveSpeed); // スムーズな回転
+            Vector3 direction = (Target_P.transform.position - transform.position).normalized;
+            direction.y = 0;
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * MoveSpeed);
         }
 
-        // Walk状態の場合、プレイヤーに向かって移動
         if (E_State == Enemy_State_.Walk)
         {
             if (P_E_Length > AttackLength && P_E_Length < SearchLength)
             {
-                Vector3 direction = (Target_P.transform.position - transform.position).normalized; // プレイヤー方向
-                direction.y = 0; // Y軸回転を抑制
-                Quaternion targetRotation = Quaternion.LookRotation(direction); // プレイヤー方向を向く回転
-                transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * MoveSpeed); // スムーズな回転
+                Vector3 direction = (Target_P.transform.position - transform.position).normalized;
+                direction.y = 0;
+                Quaternion targetRotation = Quaternion.LookRotation(direction);
+                transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * MoveSpeed);
 
-                transform.position += direction * MoveSpeed * Time.deltaTime; // プレイヤーに向かって移動
+                transform.position += direction * MoveSpeed * Time.deltaTime;
             }
         }
     }
@@ -386,9 +386,9 @@ public class Matsunaga_Enemy_State : MonoBehaviour
         }
     }
 
-    // 解放の処理
     private void HandleKaihou()
     {
+        // Kaihou状態では移動を禁止
         if (IsAnimationFinished("Enemy01_Kaihou"))
         {
             Debug.Log("解放アニメーションが完了しました。Idle 状態に遷移します。");
@@ -396,6 +396,7 @@ public class Matsunaga_Enemy_State : MonoBehaviour
             SetState(Enemy_State_.Idle);
         }
     }
+
 
     // クールダウン状態の処理
     private void HandleCooldown()
@@ -414,41 +415,33 @@ public class Matsunaga_Enemy_State : MonoBehaviour
         if (currentHP <= 0.75f && !hasUsedDurabilityField75)
         {
             SpawnDurabilityField();
-            SpawnBarrier();
+            StartCoroutine(DelayedBarrierSpawn());
             hasUsedDurabilityField75 = true;
-
-            E01Anim.SetBool("Kaihou", true); // アニメーションをリセット
             SetState(Enemy_State_.Kaihou);
-
-            //StartCoroutine(WaitForKaihouAnimation());
-            Debug.Log("Kaihou アニメーションを再生開始しました。");
         }
 
         if (currentHP <= 0.50f && !hasUsedDurabilityField50)
         {
             SpawnDurabilityField();
-            SpawnBarrier();
+            StartCoroutine(DelayedBarrierSpawn());
             hasUsedDurabilityField50 = true;
-
-            E01Anim.SetBool("Kaihou", true); // アニメーションをリセット
             SetState(Enemy_State_.Kaihou);
-
-            //StartCoroutine(WaitForKaihouAnimation());
-            Debug.Log("Kaihou アニメーションを再生開始しました。");
         }
 
         if (currentHP <= 0.25f && !hasUsedDurabilityField25)
         {
             SpawnDurabilityField();
-            SpawnBarrier();
+            StartCoroutine(DelayedBarrierSpawn());
             hasUsedDurabilityField25 = true;
-
-            E01Anim.SetBool("Kaihou", true); // アニメーションをリセット
             SetState(Enemy_State_.Kaihou);
-
-            //StartCoroutine(WaitForKaihouAnimation());
-            Debug.Log("Kaihou アニメーションを再生開始しました。");
         }
+    }
+
+    // バリア生成を遅延するコルーチン
+    private IEnumerator DelayedBarrierSpawn()
+    {
+        yield return new WaitForSeconds(2f); // 2秒待機
+        SpawnBarrier();
     }
 
     private IEnumerator WaitForKaihouAnimation()
