@@ -26,7 +26,7 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
     [SerializeField, Header("斬撃エフェクト")]
     public GameObject S_Effect;
 
-    private GameObject Clone_Effect = GameObject.Find("Slash_Effect(Clone)");
+    private GameObject Clone_Effect ;
 
     static public bool UkeL;
     static public bool UkeR;
@@ -46,7 +46,8 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
         Tategiri,   // 縦切り攻撃状態
         RenGeki,    // 連撃攻撃状態
         Stagger,    // ひるみ状態
-        Cooldown    // クールダウン状態
+        Cooldown,    // クールダウン状態
+                Kaihou      // 耐久フィールド展開状態
     };
 
     private Enemy_State_ E_State; // 現在の敵の状態を格納
@@ -103,6 +104,9 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
     [Header("バリアを生成する座標")]
     public Vector3[] barrierPosition; // バリアを生成する座標の配列
 
+
+    [Header("バリアのスケール")]
+    public Vector3 barrierScale = new Vector3(1, 1, 1); // バリアのスケール（デフォルト値: 1, 1, 1）
     private float elapsedTime = 0f; // 経過時間を記録
 
     private void Start()
@@ -111,7 +115,7 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
         // 初期状態を設定
         E_State = Enemy_State_.Idle;
         StateCurrentTime = 0.0f; // 経過時間を初期化
-        currentHP = Kato_Status_E.NowHP / Kato_Status_E.MaxHP; // 初期HPを設定
+        currentHP = (float)Kato_Status_E.NowHP / (float)Kato_Status_E.MaxHP; // 初期HPを設定
         elapsedTime = 0f; // 経過時間を初期化
         E01Anim.SetBool("Idle", true); // Idleアニメーションを初期状態に設定
     }
@@ -119,9 +123,7 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
     private void Update()
     {
         if(Kato_Status_E.NowHP<=0)
-        {
-            //StartCoroutine(GameClear());
-            
+        {          
             return;
         }
 
@@ -135,12 +137,18 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
         }
 
 
-        currentHP = Kato_Status_E.NowHP / Kato_Status_E.MaxHP;
+        currentHP = (float)Kato_Status_E.NowHP / (float)Kato_Status_E.MaxHP;
         // ターゲットが設定されていない場合は警告を表示し処理を中断
         if (Target_P == null)
         {
             Debug.LogWarning("Target_P が設定されていません！");
             return;
+        }
+
+        // プレイヤーが設定されている場合のみ方向を向く処理を実行
+        if (Target_P != null)
+        {
+            LookAtPlayer(); // プレイヤーを向く処理を呼び出し
         }
 
         // プレイヤーと敵の距離を計算
@@ -172,6 +180,10 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
         {
             HandleStagger();
         }
+        else if (E_State == Enemy_State_.Kaihou)
+        {
+            HandleKaihou();
+        }
 
         // HPに応じて耐久フィールドを生成
         HandleDurabilityField();
@@ -190,8 +202,16 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
     // バリアを生成する
     private void SpawnBarrier()
     {
-        Instantiate(barrierPrefab, barrierPosition[0], Quaternion.identity); // 現在の位置にバリアを生成
-        Debug.Log("バリアを生成しました");
+        foreach (var position in barrierPosition)
+        {
+            // バリアを生成
+            GameObject barrier = Instantiate(barrierPrefab, position, Quaternion.identity);
+
+            // スケールを適用
+            barrier.transform.localScale = barrierScale;
+
+            Debug.Log($"バリアを生成: {position}, スケール: {barrierScale}");
+        }
     }
 
     // 耐久フィールドを生成する
@@ -212,52 +232,53 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
     // 待機または移動状態での処理
     private void HandleMovementAndState()
     {
+        // Kaihou状態中は移動処理を無効化
+        if (E_State == Enemy_State_.Kaihou)
+        {
+            Debug.Log("解放中のため移動処理をスキップします。");
+            return;
+        }
+
+
         if (StateCurrentTime >= StateTime)
         {
-            // 状態遷移タイミングをリセット
             StateCurrentTime = 0.0f;
 
             if (P_E_Length < AttackLength)
             {
-                // 攻撃範囲内にプレイヤーがいる場合、攻撃を開始
                 Debug.Log("攻撃範囲に入ったので攻撃を開始！");
                 DecideAttackType();
-                //UnityEditor.EditorApplication.isPaused = true;
             }
             else if (P_E_Length < SearchLength)
             {
-                // サーチ範囲内にプレイヤーがいる場合、移動を開始
                 Debug.Log("プレイヤーがサーチ範囲内にいますが攻撃範囲外です。移動を開始します。");
                 SetState(Enemy_State_.Walk);
             }
             else
             {
-                // プレイヤーが範囲外の場合、待機状態に戻る
                 Debug.Log("プレイヤーが範囲外です。待機状態に戻ります。");
                 SetState(Enemy_State_.Idle);
             }
         }
 
-        // Idle状態の場合でもプレイヤーの方向を向く
         if (E_State == Enemy_State_.Idle && P_E_Length < SearchLength)
         {
-            Vector3 direction = (Target_P.transform.position - transform.position).normalized; // プレイヤー方向
-            direction.y = 0; // Y軸回転を抑制
-            Quaternion targetRotation = Quaternion.LookRotation(direction); // プレイヤー方向を向く回転
-            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * MoveSpeed); // スムーズな回転
+            Vector3 direction = (Target_P.transform.position - transform.position).normalized;
+            direction.y = 0;
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * MoveSpeed);
         }
 
-        // Walk状態の場合、プレイヤーに向かって移動
         if (E_State == Enemy_State_.Walk)
         {
             if (P_E_Length > AttackLength && P_E_Length < SearchLength)
             {
-                Vector3 direction = (Target_P.transform.position - transform.position).normalized; // プレイヤー方向
-                direction.y = 0; // Y軸回転を抑制
-                Quaternion targetRotation = Quaternion.LookRotation(direction); // プレイヤー方向を向く回転
-                transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * MoveSpeed); // スムーズな回転
+                Vector3 direction = (Target_P.transform.position - transform.position).normalized;
+                direction.y = 0;
+                Quaternion targetRotation = Quaternion.LookRotation(direction);
+                transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * MoveSpeed);
 
-                transform.position += direction * MoveSpeed * Time.deltaTime; // プレイヤーに向かって移動
+                transform.position += direction * MoveSpeed * Time.deltaTime;
             }
         }
     }
@@ -313,6 +334,17 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
         }
     }
 
+    private void HandleKaihou()
+    {
+        // Kaihou状態では移動を禁止
+        if (IsAnimationFinished("Enemy01_Kaihou"))
+        {
+            Debug.Log("解放アニメーションが完了しました。Idle 状態に遷移します。");
+            E01Anim.SetBool("Kaihou", false); // アニメーションをリセット
+            SetState(Enemy_State_.Idle);
+        }
+    }
+
     // ひるみ状態の処理
     private void HandleStagger()
     {
@@ -341,21 +373,31 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
         if (currentHP <= 0.75f && !hasUsedDurabilityField75)
         {
             SpawnDurabilityField();
-            E01Anim.SetTrigger("Kaihou");
+            StartCoroutine(DelayedBarrierSpawn());
             hasUsedDurabilityField75 = true;
+            E01Anim.SetTrigger("Kaihou");
         }
-        if (currentHP <= 0.50f && !hasUsedDurabilityField50)
+        else if (currentHP <= 0.50f && !hasUsedDurabilityField50)
         {
             SpawnDurabilityField();
-            E01Anim.SetTrigger("Kaihou");
+            StartCoroutine(DelayedBarrierSpawn());
             hasUsedDurabilityField50 = true;
+            E01Anim.SetTrigger("Kaihou");
         }
-        if (currentHP <= 0.25f && !hasUsedDurabilityField25)
+        else if (currentHP <= 0.25f && !hasUsedDurabilityField25)
         {
             SpawnDurabilityField();
-            E01Anim.SetTrigger("Kaihou");
+            StartCoroutine(DelayedBarrierSpawn());
             hasUsedDurabilityField25 = true;
+            E01Anim.SetTrigger("Kaihou");
         }
+    }
+
+    // バリア生成を遅延するコルーチン
+    private IEnumerator DelayedBarrierSpawn()
+    {
+        yield return new WaitForSeconds(2f); // 2秒待機
+        SpawnBarrier();
     }
 
     // 指定アニメーションが終了しているかを判定
@@ -474,7 +516,7 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
             if (Miburo_State._Uke_Input)
             {
                 
-                Debug.Log("テスト用" + Check_Current_Time0);
+                Debug.Log("テスト用" + Check_Current_Time2);
                 //UnityEditor.EditorApplication.isPaused = true;
                 if (Check_Current_Time2 > 0.0f && Check_Time2 >= Check_Current_Time2)
                 {
@@ -504,12 +546,21 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
         }
 
         //連撃2振りおろし         
+        if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren1"))
+        {
+
+            Debug.Log(Check_Current_Time1);
+            //UnityEditor.EditorApplication.isPaused = true;
+            Check_Current_Time1 = 0;
+        }
+
+        //連撃2振りおろし         
         if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren2"))
         {
 
-            Debug.Log(Check_Current_Time0);
+            Debug.Log(Check_Current_Time2);
             //UnityEditor.EditorApplication.isPaused = true;
-            Check_Current_Time0 = 0;
+            Check_Current_Time2 = 0;
         }
 
         if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Hirumi"))
@@ -553,5 +604,21 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
         yield return new WaitForSeconds(5);
         SceneManager.LoadScene("ClearScene");
 
+    }
+
+    // プレイヤーを向く処理
+    private void LookAtPlayer()
+    {
+        // プレイヤーの方向を計算
+        Vector3 direction = (Target_P.transform.position - transform.position).normalized;
+
+        // Y軸方向の回転のみ適用
+        direction.y = 0;
+
+        // プレイヤー方向を向く回転を計算
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+
+        // スムーズに回転させる
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * MoveSpeed);
     }
 }
