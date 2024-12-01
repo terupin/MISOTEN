@@ -185,6 +185,11 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
             HandleKaihou();
         }
 
+        if(Input.GetKeyDown(KeyCode.Z))
+        {
+            Kato_Status_E.NowHP = 6000;
+        }
+
         // HPに応じて耐久フィールドを生成
         HandleDurabilityField();
 
