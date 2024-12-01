@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Enemy01_Box : MonoBehaviour
 {
-    public TagValueType TagName;
+    //public TagValueType TagName;
 
     // Start is called before the first frame update
     void Start()

@@ -14,17 +14,16 @@ public class Miburo_Box : MonoBehaviour
     {
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "EWeapon")
-        {
-            GameObject Miburo_Box = GameObject.Find("Player");
-            if (Miburo_Box)
-            {
-                gameObject.AddComponent<Damage_Flash>();
-            }
-            //UnityEditor.EditorApplication.isPaused = true;
-            Debug.LogFormat("‚ ‚ ‚ ‚ ‚ ");
-        }
-    }
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.tag == "EWeapon")
+    //    {
+    //        GameObject Miburo_Box = GameObject.Find("Player");
+    //        if (Miburo_Box &&Kato_Matsunaga_Enemy_State.Attack)
+    //        {
+    //            gameObject.AddComponent<Damage_Flash>();
+    //        }
+    //        //UnityEditor.EditorApplication.isPaused = true;
+    //    }
+    //}
 }

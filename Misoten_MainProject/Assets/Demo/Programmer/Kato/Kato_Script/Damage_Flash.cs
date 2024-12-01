@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Damage_Flash : MonoBehaviour
 {
-   private float MaxTime = 1;   // “_–ÅŽüŠú
+   private float MaxTime = 5;   // “_–ÅŽüŠú
     private GameObject ChildObj ;
     private GameObject Miburo_Box;
 

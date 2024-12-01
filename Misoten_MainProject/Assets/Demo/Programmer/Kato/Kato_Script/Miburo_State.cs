@@ -453,4 +453,18 @@ public class Miburo_State : MonoBehaviour
         SceneManager.LoadScene("OverScene");
 
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "EWeapon")
+        {
+            GameObject Miburo_Box = GameObject.Find("Player");
+            if (Miburo_Box && Kato_Matsunaga_Enemy_State.Attack)
+            {
+                gameObject.AddComponent<Damage_Flash>();
+                Miburo_Animator.SetTrigger("Damage");
+            }
+            //UnityEditor.EditorApplication.isPaused = true;
+        }
+    }
 }
