@@ -41,7 +41,7 @@ public class Enemy_Damage : MonoBehaviour
         //    ChildObj.SetActive(false);
         //}
 
-        if (FlashTime > 0.5)
+        if (FlashTime > 0.2)
         {
 
             Enemy_Box.SetActive(true);

@@ -17,15 +17,7 @@ public class Enemy01_Box : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ////R‚ğ‰Ÿ‚µ‚½‚É‰Ÿ‚µ‚İƒtƒ‰ƒO‚ğTRUE‚É‚·‚é
-        //if (UnityEngine.Input.GetKeyDown("joystick button 5"))
-        //{
-        //    GameObject Enemy_Box = GameObject.Find("Enemy");
-        //    if (Enemy_Box)
-        //    {
-        //        gameObject.AddComponent<Enemy_Damage>();
-        //    }          
-        //}
+
     }
 
     private void OnTriggerEnter(Collider other)

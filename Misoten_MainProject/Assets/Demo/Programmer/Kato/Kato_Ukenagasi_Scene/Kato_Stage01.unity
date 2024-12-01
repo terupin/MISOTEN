@@ -1346,6 +1346,11 @@ PrefabInstance:
       propertyPath: m_RenderingLayerMask
       value: 385
       objectReference: {fileID: 0}
+    - target: {fileID: 1943494453652601939, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1989931337404308379, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -1458,6 +1463,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3965139916692988938, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
+      propertyPath: Testobj
+      value: 
+      objectReference: {fileID: 1832229556}
+    - target: {fileID: 3965139916692988938, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
       propertyPath: S_Effect
       value: 
       objectReference: {fileID: 9060970370165693562, guid: 9eef12dc538892048b21bbc76811f6c8,
@@ -1495,12 +1505,12 @@ PrefabInstance:
     - target: {fileID: 3965139916692988938, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
       propertyPath: RenGekiChance
-      value: 40
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3965139916692988938, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
       propertyPath: TategiriChance
-      value: 60
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4030540995310200053, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
@@ -1656,6 +1666,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 7414391282770468348, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7453999360953214490, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
@@ -4068,6 +4083,12 @@ Skybox:
   m_GameObject: {fileID: 1823688464}
   m_Enabled: 0
   m_CustomSkybox: {fileID: 0}
+--- !u!1 &1832229556 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1549096205295157176, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+    type: 3}
+  m_PrefabInstance: {fileID: 723284140}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1873599052
 PrefabInstance:
   m_ObjectHideFlags: 0
