@@ -59,8 +59,8 @@ AnimatorStateTransition:
   m_IsExit: 0
   serializedVersion: 3
   m_TransitionDuration: 0
-  m_TransitionOffset: 0.55
-  m_ExitTime: 0.55
+  m_TransitionOffset: 0.6076298
+  m_ExitTime: 0.6076298
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -230,7 +230,7 @@ AnimatorStateMachine:
     m_Position: {x: 400, y: -150, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6101914934285657807}
-    m_Position: {x: 970, y: 70, z: 0}
+    m_Position: {x: 960, y: 50, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2832029002706769432}
     m_Position: {x: 1260, y: 90, z: 0}
@@ -437,7 +437,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: RtoLtoNagasare
-  m_Speed: 1
+  m_Speed: 1.2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -6625865887515532968}
@@ -614,9 +614,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.15
-  m_TransitionOffset: 0.325
-  m_ExitTime: 0.5
+  m_TransitionDuration: 0.2209909
+  m_TransitionOffset: 0.3631887
+  m_ExitTime: 0.5579138
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
