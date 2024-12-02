@@ -147,7 +147,7 @@ public class Slash_Homing : MonoBehaviour
                 DistanceCount++;
             }
 
-            Debug.LogFormat("一番近いオブジェクト名　{0}\n距離　{1}", Target.name, Vector3.Distance(Target.transform.position, gameObject.transform.position));
+            //Debug.LogFormat("一番近いオブジェクト名　{0}\n距離　{1}", Target.name, Vector3.Distance(Target.transform.position, gameObject.transform.position));
 
         }
         else
@@ -160,7 +160,7 @@ public class Slash_Homing : MonoBehaviour
                 }
                 DistanceCount++;
             }
-            Debug.LogFormat("一番遠いオブジェクト名　{0}\n距離　{1}", Target.name, Vector3.Distance(Target.transform.position, gameObject.transform.position));
+            //Debug.LogFormat("一番遠いオブジェクト名　{0}\n距離　{1}", Target.name, Vector3.Distance(Target.transform.position, gameObject.transform.position));
 
         }
 

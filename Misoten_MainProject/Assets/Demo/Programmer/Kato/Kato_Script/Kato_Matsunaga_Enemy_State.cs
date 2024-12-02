@@ -16,7 +16,7 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
     public float Check_Time0;
     [SerializeField, Header("òAåÇ1 ç≈ëÂì¸óÕóPó\ 1.2ïb")]
     public float Check_Time1;
-    [SerializeField, Header("òAåÇ2 ç≈ëÂì¸óÕóPó\ 0.5ïb")]
+    [SerializeField, Header("òAåÇ2 ç≈ëÂì¸óÕóPó\ 0.75ïb")]
     public float Check_Time2;
 
     private float Check_Current_Time0;//ì¸óÕäJénÇ©ÇÁåoâﬂÇµÇΩéûä‘
@@ -506,9 +506,7 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
         }
         else
         {
-            UKe__Ren01 = false;
-            Check_Current_Time1 = 0;
-            E01Anim.SetBool("RenUke01", false);
+
         }
 
         //òAåÇ1êUÇËÇ®ÇÎÇµ
@@ -517,24 +515,27 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
             Debug.Log(Check_Current_Time1);
             //UnityEditor.EditorApplication.isPaused = true;
             Check_Current_Time1 = 0;
-          
+
+
         }
 
         //òAåÇ2êUÇËè„Ç∞
         if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren02"))
         {
             Check_Current_Time2 += Time.deltaTime;
-            if (Miburo_State._Uke_Input)
-            {
-                
-                Debug.Log("ÉeÉXÉgóp" + Check_Current_Time2);
+            if (Miburo_State._Uke_Input )
+            {                
                 //UnityEditor.EditorApplication.isPaused = true;
+                Debug.Log("Ç´Ç´Ç´Å@" + Check_Current_Time2);
+                Debug.Log("Ç´Ç´Ç´Å@" + Miburo_State._Katana_Direction);
+
                 if (Check_Current_Time2 > 0.0f && Check_Time2 >= Check_Current_Time2)
                 {
-                    //éÛÇØó¨Çµê¨å˜
+
                     if (Miburo_State._Katana_Direction == 3 || Miburo_State._Katana_Direction == 4 || Miburo_State._Katana_Direction == 5 || Miburo_State._Katana_Direction == 6)
                     {
                         E01Anim.SetBool("RenUke02", true);
+
                         Debug.Log(Check_Current_Time2);
                         //UnityEditor.EditorApplication.isPaused = true;
                         UKe__Ren02 = true;
@@ -544,9 +545,7 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
         }
         else
         {
-            UKe__Ren02 = false;
-            E01Anim.SetBool("RenUke02", false);
-            Check_Current_Time2 = 0;
+
         }
 
         if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("NagasereL") || E01Anim.GetCurrentAnimatorStateInfo(0).IsName("NagasereR"))
@@ -581,7 +580,8 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
 
         if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
         {
-            Effectflg = false;
+            UKe__Ren02 = false;
+
         }
 
         if ( E01Anim.GetCurrentAnimatorStateInfo(0).IsName("NagasereR") || E01Anim.GetCurrentAnimatorStateInfo(0).IsName("NagasereL"))
@@ -603,6 +603,9 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
 
                 Effectflg =true;
             }
+            UKe__Ren01 = false;
+            Check_Current_Time1 = 0;
+            E01Anim.SetBool("RenUke01", false);
         }
 
         if ( E01Anim.GetCurrentAnimatorStateInfo(0).IsName("RtoLtoNagasare"))
@@ -612,10 +615,13 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
             {
                 Instantiate(S_Effect);
                 Effectflg = true;
-                UnityEditor.EditorApplication.isPaused = true;
+                //UnityEditor.EditorApplication.isPaused = true;
             }
-        }
 
+            E01Anim.SetBool("RenUke02", false);
+            Effectflg = false;
+            Check_Current_Time2 = 0;
+        }
 
         if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren1")|| E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren2") || E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Tategiri 0"))
         {
