@@ -594,13 +594,25 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
             }
         }
 
-        if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("RtoNagasare") || E01Anim.GetCurrentAnimatorStateInfo(0).IsName("RtoLtoNagasare") )
+        if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("RtoNagasare"))
         {
             Clone_Effect = GameObject.Find("Slash_Effect(Clone)");
             if (Clone_Effect == null &&! Effectflg)
             {
                 Instantiate(S_Effect);
-                Effectflg=true;
+
+                Effectflg =true;
+            }
+        }
+
+        if ( E01Anim.GetCurrentAnimatorStateInfo(0).IsName("RtoLtoNagasare"))
+        {
+            Clone_Effect = GameObject.Find("Slash_Effect(Clone)");
+            if (Clone_Effect == null && !Effectflg)
+            {
+                Instantiate(S_Effect);
+                Effectflg = true;
+                UnityEditor.EditorApplication.isPaused = true;
             }
         }
 
