@@ -30,7 +30,7 @@ public class test_sword : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //切れるオブジェクトか？
-        if (other.tag == cut_tag)
+        if (other.tag == cut_tag || other.tag == "Denchiku")
         {
             //当たった時に存在する刀の場所
             startPos = this.transform.position;
