@@ -388,11 +388,17 @@ public class Matsunaga_Enemy_State : MonoBehaviour
 
     private void HandleKaihou()
     {
-        // Kaihou状態では移動を禁止
+        // 全アニメーションを強制終了して解放アニメーションに遷移
+        //E01Anim.CrossFade("Enemy01_Idling", 0.01f);
+        //E01Anim.CrossFade("Enemy01_Kaihou", 0.1f); // "Enemy01_Kaihou" は解放アニメーションの状態名
+
+        E01Anim.Play("Enemy01_Kaihou", 0, 0f);
+        // 必要なら他の状態処理も実行
+        SetState(Enemy_State_.Kaihou);
+
         if (IsAnimationFinished("Enemy01_Kaihou"))
         {
             Debug.Log("解放アニメーションが完了しました。Idle 状態に遷移します。");
-            E01Anim.SetBool("Kaihou", false); // アニメーションをリセット
             SetState(Enemy_State_.Idle);
         }
     }
@@ -491,4 +497,7 @@ public class Matsunaga_Enemy_State : MonoBehaviour
         E01Anim.SetBool("Hirumi", E_State == Enemy_State_.Stagger);
         E01Anim.SetBool("Kaihou", E_State == Enemy_State_.Kaihou);
     }
+
+    
+
 }
