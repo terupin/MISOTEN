@@ -580,7 +580,7 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
 
         if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
         {
-            UKe__Ren02 = false;
+            Effectflg = false;
 
         }
 
@@ -619,7 +619,7 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
             }
 
             E01Anim.SetBool("RenUke02", false);
-            Effectflg = false;
+            UKe__Ren02 = false;
             Check_Current_Time2 = 0;
         }
 
