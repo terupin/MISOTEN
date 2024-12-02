@@ -14,6 +14,8 @@ public class Miburo_State : MonoBehaviour
     static public bool _Attack01;
     static public bool _Attack02;
     private bool _Run;
+    private bool _Ren11;
+    private bool _Ren22;
 
     static public bool _Uke_Input;//受け流し入力
 
@@ -176,8 +178,35 @@ public class Miburo_State : MonoBehaviour
             Miburo_Animator.SetBool("UkenagashiR", false);
         }
 
-        Miburo_Animator.SetBool("Ren01", Kato_Matsunaga_Enemy_State.UKe__Ren01);
-        Miburo_Animator.SetBool("Ren02", Kato_Matsunaga_Enemy_State.UKe__Ren02);  
+
+        if(Kato_Matsunaga_Enemy_State.UKe__Ren01)
+        {
+            if(!_Ren11)
+            {
+                Miburo_Animator.SetTrigger("Ren11");
+                _Ren11= true;        
+            }  
+        }
+        else
+        {
+            _Ren11 = false;
+        }
+        if (Kato_Matsunaga_Enemy_State.UKe__Ren02)
+        {
+            if(!_Ren22)
+            {
+                Miburo_Animator.SetTrigger("Ren22");
+                _Ren22= true;
+            }
+        
+        }
+        else
+        {
+            _Ren22 = false;
+        }
+
+        //Miburo_Animator.SetBool("Ren01", Kato_Matsunaga_Enemy_State.UKe__Ren01);
+        //Miburo_Animator.SetBool("Ren02", Kato_Matsunaga_Enemy_State.UKe__Ren02);  
 
         ////縦切り受け流し左(みぶろポジション前３右0.5)
         //if (UnityEngine.Input.GetKeyDown(KeyCode.J))
