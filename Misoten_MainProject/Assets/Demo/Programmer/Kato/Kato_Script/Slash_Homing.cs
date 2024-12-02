@@ -38,6 +38,8 @@ public class Slash_Homing : MonoBehaviour
 
     private bool Seach_Flg;
 
+    private bool Seach_END_Flg;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -94,9 +96,10 @@ public class Slash_Homing : MonoBehaviour
 
             }
 
-            if (HomingDistance <= Homing_End_Dis)
+            if (HomingDistance <= Homing_End_Dis && !Seach_END_Flg)
             {
                 gameObject.transform.LookAt(new Vector3(Target.transform.position.x,gameObject.transform.position.y, Target.transform.position.z));
+                Seach_END_Flg = true;
             }
 
 
@@ -104,7 +107,7 @@ public class Slash_Homing : MonoBehaviour
 
 
 
-        if (CurrentTime >= MoveTime)
+        if (CurrentTime >= MoveTime )
         {
             //UnityEditor.EditorApplication.isPaused = true;
             Destroy(gameObject);

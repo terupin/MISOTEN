@@ -40,7 +40,7 @@ public class test_sword : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if(other.tag == cut_tag)
+        if(other.tag == cut_tag || other.tag == "Denchiku")
         {
             Debug.Log("èoÇΩÇÊ");
 

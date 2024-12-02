@@ -580,8 +580,8 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
 
         if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
         {
-            Effectflg = false;
 
+            Effectflg = false;
         }
 
         if ( E01Anim.GetCurrentAnimatorStateInfo(0).IsName("NagasereR") || E01Anim.GetCurrentAnimatorStateInfo(0).IsName("NagasereL"))
@@ -603,6 +603,7 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
 
                 Effectflg =true;
             }
+
             UKe__Ren01 = false;
             Check_Current_Time1 = 0;
             E01Anim.SetBool("RenUke01", false);
@@ -626,6 +627,7 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
         if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren1")|| E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren2") || E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Tategiri 0"))
         {
             Attack = true;
+            Effectflg = false;
         }
         else
         {
