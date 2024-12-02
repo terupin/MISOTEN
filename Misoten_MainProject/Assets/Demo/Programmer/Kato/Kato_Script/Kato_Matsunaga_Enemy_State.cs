@@ -25,6 +25,7 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
 
     [SerializeField, Header("斬撃エフェクト")]
     public GameObject S_Effect;
+    public bool Effectflg;//無駄なエフェクトが出ないようにする
 
     private GameObject Clone_Effect ;
 
@@ -34,6 +35,8 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
     static public bool UKe__Ren01;
     static public bool UKe__Ren02;
     static public bool Attack;//攻撃　当たり判定に使う
+
+
 
 
 
@@ -488,11 +491,14 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
                 Debug.Log("iiiiiiiii" + Check_Current_Time1);
                 if (Check_Current_Time1 > 0.0f && Check_Time1 >= Check_Current_Time1)
                 {
-                    //受け流し成功
-                    Debug.Log(Check_Current_Time1);                 
-                    E01Anim.SetBool("RenUke01", true);
-                    UKe__Ren01 = true;
-                    //UnityEditor.EditorApplication.isPaused = true;
+                    if (Miburo_State._Katana_Direction == 0 || Miburo_State._Katana_Direction == 1 || Miburo_State._Katana_Direction == 2 || Miburo_State._Katana_Direction == 7)
+                    {
+                        //受け流し成功
+                        Debug.Log(Check_Current_Time1);
+                        E01Anim.SetBool("RenUke01", true);
+                        UKe__Ren01 = true;
+                    }
+
                 }
             }
                 Check_Current_Time1 += Time.deltaTime;
@@ -526,15 +532,15 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
                 if (Check_Current_Time2 > 0.0f && Check_Time2 >= Check_Current_Time2)
                 {
                     //受け流し成功
-
-                    E01Anim.SetBool("RenUke02", true);
-                    Debug.Log(Check_Current_Time2);
-                    //UnityEditor.EditorApplication.isPaused = true;
-                    UKe__Ren02 = true;
-
+                    if (Miburo_State._Katana_Direction == 3 || Miburo_State._Katana_Direction == 4 || Miburo_State._Katana_Direction == 5 || Miburo_State._Katana_Direction == 6)
+                    {
+                        E01Anim.SetBool("RenUke02", true);
+                        Debug.Log(Check_Current_Time2);
+                        //UnityEditor.EditorApplication.isPaused = true;
+                        UKe__Ren02 = true;
+                    }
                 }
-            }               
-             
+            }                           
         }
         else
         {
@@ -571,19 +577,35 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
         if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Hirumi"))
         {
             SetState(Enemy_State_.Stagger);
-
         }
 
-        if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("RtoNagasare") || E01Anim.GetCurrentAnimatorStateInfo(0).IsName("RtoLtoNagasare") || E01Anim.GetCurrentAnimatorStateInfo(0).IsName("NagasereR") || E01Anim.GetCurrentAnimatorStateInfo(0).IsName("NagasereL"))
+        if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        {
+            Effectflg = false;
+        }
+
+        if ( E01Anim.GetCurrentAnimatorStateInfo(0).IsName("NagasereR") || E01Anim.GetCurrentAnimatorStateInfo(0).IsName("NagasereL"))
         {
             Clone_Effect = GameObject.Find("Slash_Effect(Clone)");
-            if (Clone_Effect == null)
+            if (Clone_Effect == null&&!Effectflg)
             {
                 Instantiate(S_Effect);
+                Effectflg = true;
             }
         }
 
-        if(E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren1")|| E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren2") || E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Tategiri 0"))
+        if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("RtoNagasare") || E01Anim.GetCurrentAnimatorStateInfo(0).IsName("RtoLtoNagasare") )
+        {
+            Clone_Effect = GameObject.Find("Slash_Effect(Clone)");
+            if (Clone_Effect == null &&! Effectflg)
+            {
+                Instantiate(S_Effect);
+                Effectflg=true;
+            }
+        }
+
+
+        if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren1")|| E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren2") || E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Tategiri 0"))
         {
             Attack = true;
         }
