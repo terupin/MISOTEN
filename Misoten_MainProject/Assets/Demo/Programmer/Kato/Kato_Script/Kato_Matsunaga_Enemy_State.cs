@@ -486,20 +486,26 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
         //連撃1振り上げ
         if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren01"))
         {
-            if (Miburo_State._Uke_Input)
+            if (Miburo_State._Parry)
             {
-                Debug.Log("iiiiiiiii" + Check_Current_Time1);
-                if (Check_Current_Time1 > 0.0f && Check_Time1 >= Check_Current_Time1)
+                if(Check_Current_Time1 > 0.0f && Check_Time1 >= Check_Current_Time1)
                 {
-                    if (Miburo_State._Katana_Direction == 0 || Miburo_State._Katana_Direction == 1 || Miburo_State._Katana_Direction == 2 || Miburo_State._Katana_Direction == 7)
-                    {
-                        //受け流し成功
-                        Debug.Log(Check_Current_Time1);
-                        E01Anim.SetBool("RenUke01", true);
-                        UKe__Ren01 = true;
-                    }
-
+                    Debug.Log("iiiiiiiii" + Check_Current_Time1);
+                    UnityEditor.EditorApplication.isPaused = true;
                 }
+
+
+                //if (Check_Current_Time1 > 0.0f && Check_Time1 >= Check_Current_Time1)
+                //{
+                //    if (Miburo_State._Katana_Direction == 0 || Miburo_State._Katana_Direction == 1 || Miburo_State._Katana_Direction == 2 || Miburo_State._Katana_Direction == 7)
+                //    {
+                //        //受け流し成功
+                //        Debug.Log(Check_Current_Time1);
+                //        E01Anim.SetBool("RenUke01", true);
+                //        UKe__Ren01 = true;
+                //    }
+
+                //}
             }
                 Check_Current_Time1 += Time.deltaTime;
             
@@ -523,24 +529,28 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
         if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren02"))
         {
             Check_Current_Time2 += Time.deltaTime;
-            if (Miburo_State._Uke_Input )
-            {                
-                //UnityEditor.EditorApplication.isPaused = true;
-                Debug.Log("ききき　" + Check_Current_Time2);
-                Debug.Log("ききき　" + Miburo_State._Katana_Direction);
-
+            if (Miburo_State._Parry)
+            {
                 if (Check_Current_Time2 > 0.0f && Check_Time2 >= Check_Current_Time2)
                 {
-
-                    if (Miburo_State._Katana_Direction == 3 || Miburo_State._Katana_Direction == 4 || Miburo_State._Katana_Direction == 5 || Miburo_State._Katana_Direction == 6)
-                    {
-                        E01Anim.SetBool("RenUke02", true);
-
-                        Debug.Log(Check_Current_Time2);
-                        //UnityEditor.EditorApplication.isPaused = true;
-                        UKe__Ren02 = true;
-                    }
+                    UnityEditor.EditorApplication.isPaused = true;
+                    Debug.Log("ききき　" + Check_Current_Time2);
+                    Debug.Log("ききき　" + Miburo_State._Katana_Direction);
                 }
+
+
+                //if (Check_Current_Time2 > 0.0f && Check_Time2 >= Check_Current_Time2)
+                //{
+
+                //    if (Miburo_State._Katana_Direction == 3 || Miburo_State._Katana_Direction == 4 || Miburo_State._Katana_Direction == 5 || Miburo_State._Katana_Direction == 6)
+                //    {
+                //        E01Anim.SetBool("RenUke02", true);
+
+                //        Debug.Log(Check_Current_Time2);
+                //        //UnityEditor.EditorApplication.isPaused = true;
+                //        UKe__Ren02 = true;
+                //    }
+                //}
             }                           
         }
         else

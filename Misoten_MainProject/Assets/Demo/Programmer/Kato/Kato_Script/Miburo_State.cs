@@ -10,7 +10,7 @@ public class Miburo_State : MonoBehaviour
 {
     //フラグ
     private bool _Step;
-    private bool _Parry;
+    static public bool _Parry;
     static public bool _Attack01;
     static public bool _Attack02;
     private bool _Run;
@@ -58,7 +58,7 @@ public class Miburo_State : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        Application.targetFrameRate = 60;
     }
 
     // Update is called once per frame
@@ -91,7 +91,12 @@ public class Miburo_State : MonoBehaviour
         //L1ボタン押下
         if (UnityEngine.Input.GetKeyDown("joystick button 4"))
         {
-            StartCoroutine(Miburo_Parry());
+            //StartCoroutine(Miburo_Parry());
+            _Parry = true;
+        }
+        else
+        {
+            _Parry = false;
         }
 
         //Aボタン押下
@@ -102,20 +107,11 @@ public class Miburo_State : MonoBehaviour
 
         if (_Parry)//受け流し入力可能時に受け流し入力
         {
-            if (_Katana_Direction == -1)
-            {
-                _Katana_Direction = GetKatana_Direction();
-            }
-            else
-            {
-                Debug.Log("入力完了\n入力方向　" + _Katana_Direction);
-                StartCoroutine(Counter_Timing_Input());
-            }
+
+            _Katana_Direction = GetKatana_Direction();
+
         }
-        else
-        {
-            _Katana_Direction = -1;
-        }
+
 
         Player_Run_Input();//走行入力がされているかのフラグ
 
@@ -178,8 +174,19 @@ public class Miburo_State : MonoBehaviour
             Miburo_Animator.SetBool("UkenagashiR", false);
         }
 
+        //if (_Katana_Direction == -1)
+        //{
+        //    StartCoroutine(Miburo_Parry_Wait());
+        //}
+        //else
+        //{
+        //    _Parry = false;
+        //    Debug.Log("このむき　" + _Katana_Direction);
+        //    UnityEditor.EditorApplication.isPaused = true;
+        //}
 
-        if(Kato_Matsunaga_Enemy_State.UKe__Ren01)
+
+        if (Kato_Matsunaga_Enemy_State.UKe__Ren01)
         {
             if(!_Ren11)
             {
@@ -265,7 +272,9 @@ public class Miburo_State : MonoBehaviour
             Debug.Log("パリイ開始");
             yield return new WaitForSeconds(Parry_WaitTime);
             Debug.Log("パリイ待ち時間終了");
-            _Parry = false;
+          
+
+           
         }
         else
         {
@@ -274,13 +283,24 @@ public class Miburo_State : MonoBehaviour
 
     }
 
+    //コルーチン(構えウェイト)
+    private IEnumerator Miburo_Parry_Wait()
+    {
+        gameObject.GetComponent<Renderer>().material.color = Color.red;//赤色
+        //UnityEditor.EditorApplication.isPaused = true;
+        yield return new WaitForSeconds(0.4f);//24フレーム
+
+
+        _Parry = false;
+    }
+
     private IEnumerator Counter_Timing_Input()
     {
         if (!_Uke_Input)
         {
             _Uke_Input = true;
             Debug.Log("受け開始");
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(1);
             Debug.Log("受け待ち時間終了");
             _Uke_Input = false;
         }
@@ -328,7 +348,7 @@ public class Miburo_State : MonoBehaviour
             degree += 360;
         }
 
-        if (Katana_Direction == -1)
+        //if (Katana_Direction == -1)
         {
 
             if (MathF.Abs(v) <= 0.15f || MathF.Abs(h) <= 0.15f)
@@ -427,6 +447,7 @@ public class Miburo_State : MonoBehaviour
             {
                 gameObject.AddComponent<Damage_Flash>();
                 Miburo_Animator.SetTrigger("Damage");
+                gameObject.transform.position -= gameObject.transform.forward*2.5f;
             }
         }
     }

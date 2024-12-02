@@ -87,7 +87,7 @@ public class Kato_a_Player_Anim : MonoBehaviour
             PushFlg_R = false;
         }
 
-        Player_Animator.SetBool(RUN_bool, Player_Move.RUN_FLG);
+        //Player_Animator.SetBool(RUN_bool, Player_Move.RUN_FLG);
 
 
         AnimatorStateInfo animatorStateInfo = Player_Animator.GetCurrentAnimatorStateInfo(0);
