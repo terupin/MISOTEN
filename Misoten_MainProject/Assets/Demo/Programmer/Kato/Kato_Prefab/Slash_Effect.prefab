@@ -141,8 +141,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RotateSpeed: 1.5
   MoveSpeed: 10
-  Homing_Start_Dis: 30
-  Homing_End_Dis: 10
+  Homing_Start_Dis: 15
+  Homing_End_Dis: 5
   SearchPriority: 1
   MoveTime: 5
 --- !u!65 &205618945350092926
