@@ -242,7 +242,7 @@ public class Miburo_State : MonoBehaviour
             {
                 _Ren11 = true;
                 StartCoroutine(Miburo_Stick());
-               UnityEditor.EditorApplication.isPaused = true;
+               //UnityEditor.EditorApplication.isPaused = true;
             }
 
         }

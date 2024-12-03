@@ -471,7 +471,7 @@ public class Miburo_StateL : MonoBehaviour
         {
             Debug.Log("îªíËÅ@é∏îs");
             StartCoroutine(Miburo_Parry_Wait());
-            UnityEditor.EditorApplication.isPaused = true;
+            //UnityEditor.EditorApplication.isPaused = true;
         }
         else
         {
