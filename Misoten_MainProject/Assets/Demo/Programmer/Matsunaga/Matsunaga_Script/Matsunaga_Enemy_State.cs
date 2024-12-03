@@ -43,7 +43,7 @@ public class Matsunaga_Enemy_State : MonoBehaviour
 
     public Animator E01Anim; // 敵のアニメーションを制御するAnimator
 
-    private float StateTime = 2.5f; // 状態ごとの持続時間
+    public float StateTime = 2.5f; // 状態ごとの持続時間
     private float StateCurrentTime; // 現在の状態が開始してからの経過時間
 
     [SerializeField, Header("クールダウン時間")]
@@ -292,7 +292,7 @@ public class Matsunaga_Enemy_State : MonoBehaviour
         {
             StateCurrentTime = 0.0f;
 
-            if (P_E_Length < AttackLength)
+            if (P_E_Length <= AttackLength)
             {
                 Debug.Log("攻撃範囲に入ったので攻撃を開始！");
                 DecideAttackType();
@@ -336,6 +336,9 @@ public class Matsunaga_Enemy_State : MonoBehaviour
     {
         int randomValue = Random.Range(0, 100); // 0～100のランダム値を生成
         Debug.Log($"DecideAttackType: Random Value = {randomValue}, TategiriChance = {TategiriChance}");
+
+        E01Anim.SetBool("Walk", false); // アニメーションをリセット
+        Debug.Log($"穂{E01Anim.GetBool("Walk")}");
 
         if (randomValue < TategiriChance)
         {

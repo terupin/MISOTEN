@@ -999,6 +999,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 713036022588363082, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 771958832176661926, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -2011,7 +2016,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30f9519c76ef751448dce0b0472d5a9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug_switch: 1
+  debug_switch: 0
   Target_P: {fileID: 1322884133}
   SearchLength: 100
   AttackLength: 3.5
@@ -2019,6 +2024,7 @@ MonoBehaviour:
   TategiriChance: 100
   RenGekiChance: 0
   E01Anim: {fileID: 531520669}
+  StateTime: 1
   CooldownTime: 2.5
   StaggerTime: 1
   durabilityFieldPrefab: {fileID: 5976777111638295936, guid: ba6f924de61fb164cb25456e3a9d4b85,
