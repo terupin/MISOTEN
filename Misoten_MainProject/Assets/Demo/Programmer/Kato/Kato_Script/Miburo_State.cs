@@ -17,6 +17,7 @@ public class Miburo_State : MonoBehaviour
     private bool _Ren11;
     private bool _Ren22;
 
+
     static public bool _Stick_Input;
 
     static public bool _Uke_Input;//受け流し入力
@@ -61,6 +62,7 @@ public class Miburo_State : MonoBehaviour
     void Start()
     {
         Application.targetFrameRate = 60;
+        _Katana_Direction = -1;
     }
 
     // Update is called once per frame
@@ -108,17 +110,14 @@ public class Miburo_State : MonoBehaviour
             StartCoroutine(Miburo_Step());
         }
 
-        if (_Parry)//受け流し入力可能時に受け流し入力
-        {
+        //if (_Parry)//受け流し入力可能時に受け流し入力
+        //{
 
-            StartCoroutine(Miburo_Stick());
+        //    StartCoroutine(Miburo_Stick());
 
-        }
+        //}
 
-        if (_Stick_Input)
-        {
-            _Katana_Direction = GetKatana_Direction();
-        }
+
 
 
 
@@ -137,52 +136,52 @@ public class Miburo_State : MonoBehaviour
         }
 
 
-        //判定をアニメーターへ
-        Miburo_Animator.SetBool("Gurd", _Parry);
-        Miburo_Animator.SetBool("Run", _Run);
-        Miburo_Animator.SetInteger("KatanaD", _Katana_Direction);
+        ////判定をアニメーターへ
+        //Miburo_Animator.SetBool("Gurd", _Parry);
+        //Miburo_Animator.SetBool("Run", _Run);
+        //Miburo_Animator.SetInteger("KatanaD", _Katana_Direction);
 
 
-        if (_Uke_Input)
-        {
-            if (_Katana_Direction == 0 || _Katana_Direction == 1 || _Katana_Direction == 2 || _Katana_Direction == 7)
-            {
-                Miburo_Animator.SetBool("UkenagashiL", true);
-            }
-            else if (_Katana_Direction == 3 || _Katana_Direction == 4 || _Katana_Direction == 5 || _Katana_Direction == 6)
-            {
-                Miburo_Animator.SetBool("UkenagashiR", true);
-            }
-            else
-            {
-                Miburo_Animator.SetBool("UkenagashiL", false);
-                Miburo_Animator.SetBool("UkenagashiR", false);
-            }
+        //if (_Uke_Input)
+        //{
+        //    if (_Katana_Direction == 0 || _Katana_Direction == 1 || _Katana_Direction == 2 || _Katana_Direction == 7)
+        //    {
+        //        Miburo_Animator.SetBool("UkenagashiL", true);
+        //    }
+        //    else if (_Katana_Direction == 3 || _Katana_Direction == 4 || _Katana_Direction == 5 || _Katana_Direction == 6)
+        //    {
+        //        Miburo_Animator.SetBool("UkenagashiR", true);
+        //    }
+        //    else
+        //    {
+        //        Miburo_Animator.SetBool("UkenagashiL", false);
+        //        Miburo_Animator.SetBool("UkenagashiR", false);
+        //    }
 
-        }
-        else
-        {
-            Miburo_Animator.SetBool("UkenagashiL", false);
-            Miburo_Animator.SetBool("UkenagashiR", false);
-        }
+        //}
+        //else
+        //{
+        //    Miburo_Animator.SetBool("UkenagashiL", false);
+        //    Miburo_Animator.SetBool("UkenagashiR", false);
+        //}
 
-        if(Kato_Matsunaga_Enemy_State.UkeL)
-        {
-            Miburo_Animator.SetBool("UkenagashiL", true);
-        }
-        else
-        {
-            Miburo_Animator.SetBool("UkenagashiL", false);
-        }
+        //if(Kato_Matsunaga_Enemy_State.UkeL)
+        //{
+        //    Miburo_Animator.SetBool("UkenagashiL", true);
+        //}
+        //else
+        //{
+        //    Miburo_Animator.SetBool("UkenagashiL", false);
+        //}
 
-        if (Kato_Matsunaga_Enemy_State.UkeR)
-        {
-            Miburo_Animator.SetBool("UkenagashiR", true);
-        }
-        else
-        {
-            Miburo_Animator.SetBool("UkenagashiR", false);
-        }
+        //if (Kato_Matsunaga_Enemy_State.UkeR)
+        //{
+        //    Miburo_Animator.SetBool("UkenagashiR", true);
+        //}
+        //else
+        //{
+        //    Miburo_Animator.SetBool("UkenagashiR", false);
+        //}
 
         //if (_Katana_Direction == -1)
         //{
@@ -196,30 +195,58 @@ public class Miburo_State : MonoBehaviour
         //}
 
 
+        //if (Kato_Matsunaga_Enemy_State.UKe__Ren01)
+        //{
+        //    if(!_Ren11)
+        //    {
+        //        Miburo_Animator.SetTrigger("Ren11");
+        //        _Ren11= true;        
+        //    }  
+        //}
+        //else
+        //{
+        //    _Ren11 = false;
+        //}
+        //if (Kato_Matsunaga_Enemy_State.UKe__Ren02)
+        //{
+        //    if(!_Ren22)
+        //    {
+        //        Miburo_Animator.SetTrigger("Ren22");
+        //        _Ren22= true;
+        //    }
+
+        //}
+        //else
+        //{
+        //    _Ren22 = false;
+        //}
+
+
+
         if (Kato_Matsunaga_Enemy_State.UKe__Ren01)
         {
-            if(!_Ren11)
+            if (!_Ren11)
             {
-                Miburo_Animator.SetTrigger("Ren11");
-                _Ren11= true;        
-            }  
+                _Ren11 = true;
+                StartCoroutine(Miburo_Stick());
+                //UnityEditor.EditorApplication.isPaused = true;
+            }
+
         }
-        else
-        {
-            _Ren11 = false;
-        }
+
         if (Kato_Matsunaga_Enemy_State.UKe__Ren02)
         {
-            if(!_Ren22)
+            if (!_Ren22)
             {
-                Miburo_Animator.SetTrigger("Ren22");
-                _Ren22= true;
+                _Ren22 = true;
+                StartCoroutine(Miburo_Stick());
+                //UnityEditor.EditorApplication.isPaused = true;
             }
-        
         }
-        else
+
+        if (_Stick_Input)
         {
-            _Ren22 = false;
+             GetKatana_Direction();
         }
 
         //Miburo_Animator.SetBool("Ren01", Kato_Matsunaga_Enemy_State.UKe__Ren01);
@@ -291,7 +318,7 @@ public class Miburo_State : MonoBehaviour
 
     }
 
-    //コルーチン(受け流し構え)
+    //コルーチン(Stick)
     private IEnumerator Miburo_Stick()
     {
         if (!_Stick_Input)
@@ -300,7 +327,9 @@ public class Miburo_State : MonoBehaviour
             Debug.Log("スティック");
             yield return new WaitForSeconds(Parry_WaitTime);
             Debug.Log("スティック待ち時間終了");
+            Input_Check();
             _Stick_Input = false;
+           
 
         }
         else
@@ -319,6 +348,8 @@ public class Miburo_State : MonoBehaviour
 
 
         _Parry = false;
+        _Ren11 = false;
+        _Ren22 = false;
     }
 
     private IEnumerator Counter_Timing_Input()
@@ -362,14 +393,16 @@ public class Miburo_State : MonoBehaviour
     }
 
     //コントローラーから斬撃の方向を取得
-    int GetKatana_Direction()
+    void GetKatana_Direction()
     {
-        int Katana_Direction = -1;
+
         float h = UnityEngine.Input.GetAxis("Horizontal2");
         float v = UnityEngine.Input.GetAxis("Vertical2");
 
         float degree = Mathf.Atan2(v, h) * Mathf.Rad2Deg;
 
+        Debug.Log("判定　スティック");
+        //UnityEditor.EditorApplication.isPaused = true;
         if (degree < 0)
         {
             degree += 360;
@@ -380,23 +413,25 @@ public class Miburo_State : MonoBehaviour
 
             if (MathF.Abs(v) <= 0.15f || MathF.Abs(h) <= 0.15f)
             {
-                Katana_Direction = -1;
+                _Katana_Direction = -1;
             }
             else
             {
-                if (degree < 22.5f) { Katana_Direction = 0; }
-                else if (degree < 67.5f) { Katana_Direction = 1; }
-                else if (degree < 112.5f) { Katana_Direction = 2; }
-                else if (degree < 157.5f) { Katana_Direction = 3; }
-                else if (degree < 202.5f) { Katana_Direction = 4; }
-                else if (degree < 247.5f) { Katana_Direction = 5; }
-                else if (degree < 292.5f) { Katana_Direction = 6; }
-                else if (degree < 337.5f) { Katana_Direction = 7; }
-                else { Katana_Direction = 0; }
+                if (degree < 22.5f) { _Katana_Direction = 0; }
+                else if (degree < 67.5f) { _Katana_Direction = 1; }
+                else if (degree < 112.5f) { _Katana_Direction = 2; }
+                else if (degree < 157.5f) { _Katana_Direction = 3; }
+                else if (degree < 202.5f) { _Katana_Direction = 4; }
+                else if (degree < 247.5f) { _Katana_Direction = 5; }
+                else if (degree < 292.5f) { _Katana_Direction = 6; }
+                else if (degree < 337.5f) { _Katana_Direction = 7; }
+                else { _Katana_Direction = 0; }
             }
+
+          
         }
 
-        return Katana_Direction;
+
     }
 
     //移動
@@ -429,16 +464,27 @@ public class Miburo_State : MonoBehaviour
         }
     }
 
-    //移動入力
+    //入力成功確認
     public void Input_Check()
     {
         if(_Katana_Direction==-1)
         {
+            Debug.Log("判定　失敗");
             StartCoroutine(Miburo_Parry_Wait());
+            UnityEditor.EditorApplication.isPaused = true;
         }
         else
         {
-            UnityEditor.EditorApplication.isPaused = true;
+            Debug.Log("判定　成功");
+            //UnityEditor.EditorApplication.isPaused = true;
+            if(_Katana_Direction==0|| _Katana_Direction == 1 || _Katana_Direction == 2 || _Katana_Direction == 7 )
+            {
+                //ここに受け流し
+            }
+            else if(_Katana_Direction == 3 || _Katana_Direction == 4 || _Katana_Direction == 5 || _Katana_Direction == 6)
+            {
+                //ここに受け流し
+            }
         }
 
     
@@ -480,6 +526,7 @@ public class Miburo_State : MonoBehaviour
 
     }
 
+    //当たり判定
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "EWeapon")
