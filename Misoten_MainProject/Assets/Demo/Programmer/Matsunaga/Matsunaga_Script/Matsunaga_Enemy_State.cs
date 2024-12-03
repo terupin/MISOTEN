@@ -43,7 +43,7 @@ public class Matsunaga_Enemy_State : MonoBehaviour
 
     public Animator E01Anim; // 敵のアニメーションを制御するAnimator
 
-    private float StateTime = 2.5f; // 状態ごとの持続時間
+    public float StateTime = 2.5f; // 状態ごとの持続時間
     private float StateCurrentTime; // 現在の状態が開始してからの経過時間
 
     [SerializeField, Header("クールダウン時間")]
@@ -235,9 +235,12 @@ public class Matsunaga_Enemy_State : MonoBehaviour
     // 新しい状態を設定し経過時間をリセット
     private void SetState(Enemy_State_ newState)
     {
+        if (E_State == newState) return; // 同じ状態への遷移を防ぐ
         E_State = newState;
         StateCurrentTime = 0.0f;
+        Debug.Log($"状態が {newState} に変更されました");
     }
+
 
     // バリアを生成する
     private void SpawnBarrier()
@@ -289,7 +292,7 @@ public class Matsunaga_Enemy_State : MonoBehaviour
         {
             StateCurrentTime = 0.0f;
 
-            if (P_E_Length < AttackLength)
+            if (P_E_Length <= AttackLength)
             {
                 Debug.Log("攻撃範囲に入ったので攻撃を開始！");
                 DecideAttackType();
@@ -333,6 +336,9 @@ public class Matsunaga_Enemy_State : MonoBehaviour
     {
         int randomValue = Random.Range(0, 100); // 0～100のランダム値を生成
         Debug.Log($"DecideAttackType: Random Value = {randomValue}, TategiriChance = {TategiriChance}");
+
+        E01Anim.SetBool("Walk", false); // アニメーションをリセット
+        Debug.Log($"穂{E01Anim.GetBool("Walk")}");
 
         if (randomValue < TategiriChance)
         {
@@ -388,11 +394,17 @@ public class Matsunaga_Enemy_State : MonoBehaviour
 
     private void HandleKaihou()
     {
-        // Kaihou状態では移動を禁止
+        // 全アニメーションを強制終了して解放アニメーションに遷移
+        //E01Anim.CrossFade("Enemy01_Idling", 0.01f);
+        //E01Anim.CrossFade("Enemy01_Kaihou", 0.1f); // "Enemy01_Kaihou" は解放アニメーションの状態名
+
+        E01Anim.Play("Enemy01_Kaihou", 0, 0f);
+        // 必要なら他の状態処理も実行
+        SetState(Enemy_State_.Kaihou);
+
         if (IsAnimationFinished("Enemy01_Kaihou"))
         {
             Debug.Log("解放アニメーションが完了しました。Idle 状態に遷移します。");
-            E01Anim.SetBool("Kaihou", false); // アニメーションをリセット
             SetState(Enemy_State_.Idle);
         }
     }
@@ -473,12 +485,9 @@ public class Matsunaga_Enemy_State : MonoBehaviour
     // 指定アニメーションが終了しているかを判定
     private bool IsAnimationFinished(string animationName)
     {
-        var stateInfo = E01Anim.GetCurrentAnimatorStateInfo(0);
-
-        // アニメーションが現在再生中で、かつnormalizedTimeが1.0以上なら終了している
+        AnimatorStateInfo stateInfo = E01Anim.GetCurrentAnimatorStateInfo(0);
         return stateInfo.IsName(animationName) && stateInfo.normalizedTime >= 1.0f;
     }
-
 
     // 状態に応じてアニメーションを更新
     private void UpdateAnimations()
