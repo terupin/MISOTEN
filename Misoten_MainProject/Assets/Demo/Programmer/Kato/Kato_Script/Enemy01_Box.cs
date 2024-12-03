@@ -20,6 +20,11 @@ public class Enemy01_Box : MonoBehaviour
 
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "PWeapon")
@@ -30,18 +35,22 @@ public class Enemy01_Box : MonoBehaviour
                 if (Miburo_State._Attack02)
                 {
                     gameObject.AddComponent<Enemy_Damage2>();
+                    gameObject.transform.position -= gameObject.transform.forward * 1.5f;
                 }
                 else if (Miburo_State._Attack01)
                 {
                     gameObject.AddComponent<Enemy_Damage>();
+                    gameObject.transform.position -= gameObject.transform.forward * 1.5f;
                 }
                 else if (Miburo_State._Attack01&& Kato_Matsunaga_Enemy_State.UKe__Ren02/*&& Miburo_State._Attack01*/)
                 {
                     gameObject.AddComponent<Enemy_Damage3>();
+                    gameObject.transform.position -= gameObject.transform.forward * 1.5f;
                 }
                 else if (Miburo_State._Attack01&& Kato_Matsunaga_Enemy_State.UKe__Ren02/* && Miburo_State._Attack02*/)
                 {
                     gameObject.AddComponent<Enemy_Damage4>();
+                    gameObject.transform.position -= gameObject.transform.forward * 1.5f;
                 }
             }
         }

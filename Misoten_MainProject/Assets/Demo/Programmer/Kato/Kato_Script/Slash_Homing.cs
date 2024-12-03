@@ -36,6 +36,10 @@ public class Slash_Homing : MonoBehaviour
     private GameObject EnemyObj;
     private GameObject EnemyKatanaBox;
 
+    private bool Seach_Flg;
+
+    private bool Seach_END_Flg;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -56,18 +60,29 @@ public class Slash_Homing : MonoBehaviour
         //gameObject.transform.rotation = Quaternion.Euler(0.0f, EnemyObj.transform.localEulerAngles.y , 0.0f);
 
         ////オブジェクト生成時に探索
-        StartCoroutine(Homing_Search());
+       
     }
 
     // Update is called once per frame
     void Update()
     {
+        //  衝撃波はホーミング時以外は直進します。
+        gameObject.transform.position += gameObject.transform.forward * MoveSpeed * Time.deltaTime;
+
+        if (!Seach_Flg)
+        {
+            StartCoroutine(Homing_Search());
+            Seach_Flg = true;
+        }
+
         if (Target != null)
         {
             float HomingDistance= Vector3.Distance(Target.transform.position, gameObject.transform.position);
 
 
-            if(HomingDistance<=Homing_Start_Dis && HomingDistance >=Homing_End_Dis)
+
+
+            if (HomingDistance<=Homing_Start_Dis && HomingDistance >=Homing_End_Dis)
             {
                 // 対象物と自分自身の座標からベクトルを算出してQuaternion(回転値)を取得
                 Vector3 HomingVector = Target.transform.position - this.transform.position;
@@ -81,18 +96,18 @@ public class Slash_Homing : MonoBehaviour
 
             }
 
-            if (HomingDistance <= Homing_End_Dis)
+            if (HomingDistance <= Homing_End_Dis && !Seach_END_Flg)
             {
                 gameObject.transform.LookAt(new Vector3(Target.transform.position.x,gameObject.transform.position.y, Target.transform.position.z));
+                Seach_END_Flg = true;
             }
 
 
         }
 
-        //  衝撃波はホーミング時以外は直進します。
-        gameObject.transform.position += gameObject.transform.forward * MoveSpeed * Time.deltaTime;
 
-        if (CurrentTime >= MoveTime)
+
+        if (CurrentTime >= MoveTime )
         {
             //UnityEditor.EditorApplication.isPaused = true;
             Destroy(gameObject);

@@ -142,9 +142,9 @@ MonoBehaviour:
   RotateSpeed: 1.5
   MoveSpeed: 10
   Homing_Start_Dis: 30
-  Homing_End_Dis: 10
+  Homing_End_Dis: 7.5
   SearchPriority: 1
-  MoveTime: 5
+  MoveTime: 3
 --- !u!65 &205618945350092926
 BoxCollider:
   m_ObjectHideFlags: 0
