@@ -438,6 +438,7 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
             if (Miburo_State._Uke_Input)
             {
 
+
                 if (Check_Current_Time0 > 0.0f && Check_Time0 >= Check_Current_Time0)
                 {
                     Debug.Log("aaaaaaaa" + Check_Current_Time0);
@@ -492,6 +493,7 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
                 {
                     Debug.Log("iiiiiiiii" + Check_Current_Time1);
                     UnityEditor.EditorApplication.isPaused = true;
+                    UKe__Ren01 = true;
                 }
 
 
@@ -533,6 +535,7 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
             {
                 if (Check_Current_Time2 > 0.0f && Check_Time2 >= Check_Current_Time2)
                 {
+                    UKe__Ren02 = true;
                     UnityEditor.EditorApplication.isPaused = true;
                     Debug.Log("‚«‚«‚«@" + Check_Current_Time2);
                     Debug.Log("‚«‚«‚«@" + Miburo_State._Katana_Direction);

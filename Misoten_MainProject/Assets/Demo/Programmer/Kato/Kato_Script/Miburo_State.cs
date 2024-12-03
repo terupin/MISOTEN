@@ -17,6 +17,8 @@ public class Miburo_State : MonoBehaviour
     private bool _Ren11;
     private bool _Ren22;
 
+    static public bool _Stick_Input;
+
     static public bool _Uke_Input;//受け流し入力
 
     //刀の方向
@@ -93,6 +95,7 @@ public class Miburo_State : MonoBehaviour
         {
             //StartCoroutine(Miburo_Parry());
             _Parry = true;
+            return;
         }
         else
         {
@@ -108,9 +111,16 @@ public class Miburo_State : MonoBehaviour
         if (_Parry)//受け流し入力可能時に受け流し入力
         {
 
-            _Katana_Direction = GetKatana_Direction();
+            StartCoroutine(Miburo_Stick());
 
         }
+
+        if (_Stick_Input)
+        {
+            _Katana_Direction = GetKatana_Direction();
+        }
+
+
 
 
         Player_Run_Input();//走行入力がされているかのフラグ
@@ -133,7 +143,7 @@ public class Miburo_State : MonoBehaviour
         Miburo_Animator.SetInteger("KatanaD", _Katana_Direction);
 
 
-        if(_Uke_Input)
+        if (_Uke_Input)
         {
             if (_Katana_Direction == 0 || _Katana_Direction == 1 || _Katana_Direction == 2 || _Katana_Direction == 7)
             {
@@ -272,9 +282,26 @@ public class Miburo_State : MonoBehaviour
             Debug.Log("パリイ開始");
             yield return new WaitForSeconds(Parry_WaitTime);
             Debug.Log("パリイ待ち時間終了");
-          
 
-           
+        }
+        else
+        {
+            Debug.Log("待ち時間です。入力は反映されません。");
+        }
+
+    }
+
+    //コルーチン(受け流し構え)
+    private IEnumerator Miburo_Stick()
+    {
+        if (!_Stick_Input)
+        {
+            _Stick_Input = true;
+            Debug.Log("スティック");
+            yield return new WaitForSeconds(Parry_WaitTime);
+            Debug.Log("スティック待ち時間終了");
+            _Stick_Input = false;
+
         }
         else
         {
@@ -400,6 +427,21 @@ public class Miburo_State : MonoBehaviour
         {
             _Run = false;
         }
+    }
+
+    //移動入力
+    public void Input_Check()
+    {
+        if(_Katana_Direction==-1)
+        {
+            StartCoroutine(Miburo_Parry_Wait());
+        }
+        else
+        {
+            UnityEditor.EditorApplication.isPaused = true;
+        }
+
+    
     }
 
     //アニメーターからステート名を取得

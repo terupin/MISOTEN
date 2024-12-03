@@ -3098,6 +3098,11 @@ PrefabInstance:
       propertyPath: m_RenderingLayerMask
       value: 385
       objectReference: {fileID: 0}
+    - target: {fileID: 6346175220718111584, guid: 8eb4fdc726e23774da71f86d9d295d96,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6696693179243410524, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}
       propertyPath: m_IsActive
