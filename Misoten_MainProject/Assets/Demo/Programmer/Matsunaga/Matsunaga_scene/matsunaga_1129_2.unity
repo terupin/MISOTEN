@@ -2024,7 +2024,7 @@ MonoBehaviour:
   TategiriChance: 0
   RenGekiChance: 100
   E01Anim: {fileID: 531520669}
-  StateTime: 1
+  StateTime: 0
   CooldownTime: 2.5
   StaggerTime: 1
   durabilityFieldPrefab: {fileID: 5976777111638295936, guid: ba6f924de61fb164cb25456e3a9d4b85,
