@@ -114,6 +114,7 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
 
     private void Start()
     {
+        Application.targetFrameRate = 60;
         Clone_Effect = null;
         // 初期状態を設定
         E_State = Enemy_State_.Idle;
@@ -489,11 +490,21 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
         {
             if (Miburo_State._Parry)
             {
+                
                 if(Check_Current_Time1 > 0.0f && Check_Time1 >= Check_Current_Time1)
                 {
-                    Debug.Log("iiiiiiiii" + Check_Current_Time1);
-                    //UnityEditor.EditorApplication.isPaused = true;
-                    UKe__Ren01 = true;
+                    if(!UKe__Ren01)
+                    {
+                        Debug.Log("iiiiiiiii" + Check_Current_Time1);
+                        //UnityEditor.EditorApplication.isPaused = true;
+                        UKe__Ren01 = true;
+                    }
+                    else
+                    {
+                        UKe__Ren01 = false;
+                        Check_Current_Time1 = 0;
+                    }
+
                 }
                 else
                 {
@@ -539,10 +550,19 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
             {
                 if (Check_Current_Time2 > 0.0f && Check_Time2 >= Check_Current_Time2)
                 {
-                    UKe__Ren02 = true;
-                    //UnityEditor.EditorApplication.isPaused = true;
-                    Debug.Log("ききき　" + Check_Current_Time2);
-                    Debug.Log("ききき　" + Miburo_State._Katana_Direction);
+                    if(!UKe__Ren02)
+                    {
+                        UKe__Ren02 = true;
+                        //UnityEditor.EditorApplication.isPaused = true;
+                        Debug.Log("ききき　" + Check_Current_Time2);
+                        Debug.Log("ききき　" + Miburo_State._Katana_Direction);
+                    }
+                    else
+                    {
+                        UKe__Ren02 = false;
+                        Check_Current_Time2 = 0;
+                    }
+
                 }
                 else
                 {

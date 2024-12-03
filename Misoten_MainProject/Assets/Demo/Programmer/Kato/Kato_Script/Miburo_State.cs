@@ -114,7 +114,7 @@ public class Miburo_State : MonoBehaviour
         }
         else
         {
-            _Parry = false;
+          
         }
 
         //Aボタン押下
@@ -150,7 +150,7 @@ public class Miburo_State : MonoBehaviour
 
 
         ////判定をアニメーターへ
-        //Miburo_Animator.SetBool("Gurd", _Parry);
+
         Miburo_Animator.SetBool("Run", _Run);
         //Miburo_Animator.SetInteger("KatanaD", _Katana_Direction);
 
@@ -236,18 +236,22 @@ public class Miburo_State : MonoBehaviour
 
 
 
-        if (Kato_Matsunaga_Enemy_State.UKe__Ren01)
+        if (Kato_Matsunaga_Enemy_State.UKe__Ren01 &&_Parry)
         {
             if (!_Ren11)
             {
                 _Ren11 = true;
                 StartCoroutine(Miburo_Stick());
-                //UnityEditor.EditorApplication.isPaused = true;
+               UnityEditor.EditorApplication.isPaused = true;
             }
 
         }
+        else if(!Kato_Matsunaga_Enemy_State.UKe__Ren01 && _Parry)
+        {
+            StartCoroutine(Miburo_Parry_Wait());
+        }
 
-        if (Kato_Matsunaga_Enemy_State.UKe__Ren02)
+        if (Kato_Matsunaga_Enemy_State.UKe__Ren02 && _Parry)
         {
             if (!_Ren22)
             {
@@ -255,6 +259,10 @@ public class Miburo_State : MonoBehaviour
                 StartCoroutine(Miburo_Stick());
                 //UnityEditor.EditorApplication.isPaused = true;
             }
+        }
+        else if (!Kato_Matsunaga_Enemy_State.UKe__Ren02 && _Parry)
+        {
+            StartCoroutine(Miburo_Parry_Wait());
         }
 
         if (_Stick_Input)
@@ -338,11 +346,13 @@ public class Miburo_State : MonoBehaviour
         {
             _Stick_Input = true;
             Debug.Log("スティック");
+            Miburo_Animator.SetBool("Gurd", _Stick_Input);
             yield return new WaitForSeconds(Parry_WaitTime);
             Debug.Log("スティック待ち時間終了");
             Input_Check();
             _Stick_Input = false;
-           
+            Miburo_Animator.SetBool("Gurd", _Stick_Input);
+            //UnityEditor.EditorApplication.isPaused = true;
 
         }
         else
@@ -363,6 +373,7 @@ public class Miburo_State : MonoBehaviour
         _Parry = false;
         _Ren11 = false;
         _Ren22 = false;
+        _Parry = false;
     }
 
     private IEnumerator Counter_Timing_Input()
