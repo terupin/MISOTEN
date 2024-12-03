@@ -242,13 +242,15 @@ public class Miburo_State : MonoBehaviour
             {
                 _Ren11 = true;
                 StartCoroutine(Miburo_Stick());
-               UnityEditor.EditorApplication.isPaused = true;
+               //UnityEditor.EditorApplication.isPaused = true;
             }
 
         }
         else if(!Kato_Matsunaga_Enemy_State.UKe__Ren01 && _Parry)
         {
+            //Debug.Log("判定　タイムオーバー2");
             StartCoroutine(Miburo_Parry_Wait());
+            //UnityEditor.EditorApplication.isPaused = true;
         }
 
         if (Kato_Matsunaga_Enemy_State.UKe__Ren02 && _Parry)
@@ -257,11 +259,12 @@ public class Miburo_State : MonoBehaviour
             {
                 _Ren22 = true;
                 StartCoroutine(Miburo_Stick());
-                UnityEditor.EditorApplication.isPaused = true;
+                //UnityEditor.EditorApplication.isPaused = true;
             }
         }
         else if (!Kato_Matsunaga_Enemy_State.UKe__Ren02 && _Parry)
         {
+            Debug.Log("判定　タイムオーバー2");
             StartCoroutine(Miburo_Parry_Wait());
         }
 
@@ -509,13 +512,13 @@ public class Miburo_State : MonoBehaviour
             {
                 //ここに受け流し
                 Debug.Log("判定　右");
-                UnityEditor.EditorApplication.isPaused = true;
+                //UnityEditor.EditorApplication.isPaused = true;
             }
             else if(_Katana_Direction == 3 || _Katana_Direction == 4 || _Katana_Direction == 5 || _Katana_Direction == 6)
             {
                 //ここに受け流し
                 Debug.Log("判定　左");
-                UnityEditor.EditorApplication.isPaused = true;
+                //UnityEditor.EditorApplication.isPaused = true;
             }
         }
 

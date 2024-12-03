@@ -481,13 +481,13 @@ public class Miburo_StateL : MonoBehaviour
             {
                 //Ç±Ç±Ç…éÛÇØó¨Çµ
                 Debug.Log("îªíËÅ@âE");
-                UnityEditor.EditorApplication.isPaused = true;
+                //UnityEditor.EditorApplication.isPaused = true;
             }
             else if(_Katana_Direction == 3 || _Katana_Direction == 4 || _Katana_Direction == 5 || _Katana_Direction == 6)
             {
                 //Ç±Ç±Ç…éÛÇØó¨Çµ
                 Debug.Log("îªíËÅ@ç∂");
-                UnityEditor.EditorApplication.isPaused = true;
+                //UnityEditor.EditorApplication.isPaused = true;
             }
         }
 

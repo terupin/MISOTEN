@@ -491,20 +491,20 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
             if (Miburo_State._Parry)
             {
                 
-                if(Check_Current_Time1 > 0.0f && Check_Time1 >= Check_Current_Time1)
+                if(Check_Current_Time1 > 0.0f && Check_Time1 > Check_Current_Time1)
                 {
                     if(!UKe__Ren01)
                     {
                         Debug.Log("iiiiiiiii" + Check_Current_Time1);
                         //UnityEditor.EditorApplication.isPaused = true;
-                        UKe__Ren01 = true;
+                        StartCoroutine(WaitUKe__Ren01());
                     }
-                    else
-                    {
-                        UnityEditor.EditorApplication.isPaused = true;
-                        UKe__Ren01 = false;
-                        //Check_Current_Time1 = 0;
-                    }
+                    //else
+                    //{
+                    //    UnityEditor.EditorApplication.isPaused = true;
+                    //    UKe__Ren01 = false;
+                    //    //Check_Current_Time1 = 0;
+                    //}
 
                 }
                 else
@@ -549,20 +549,20 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
             Check_Current_Time2 += Time.deltaTime;
             if (Miburo_State._Parry)
             {
-                if (Check_Current_Time2 > 0.0f && Check_Time2 >= Check_Current_Time2)
+                if (Check_Current_Time2 > 0.0f && Check_Time2 > Check_Current_Time2)
                 {
                     if(!UKe__Ren02)
                     {
-                        UKe__Ren02 = true;
+                        StartCoroutine(WaitUKe__Ren02());
                         //UnityEditor.EditorApplication.isPaused = true;
                         Debug.Log("ききき　" + Check_Current_Time2);
                         Debug.Log("ききき　" + Miburo_State._Katana_Direction);
                     }
-                    else
-                    {
-                        UKe__Ren02 = false;
-                        Check_Current_Time2 = 0;
-                    }
+                    //else
+                    //{
+                    //    UKe__Ren02 = false;
+                    //    Check_Current_Time2 = 0;
+                    //}
 
                 }
                 else
@@ -709,5 +709,23 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
 
         // スムーズに回転させる
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * MoveSpeed);
+    }
+
+    private IEnumerator WaitUKe__Ren02()
+    {
+
+        UKe__Ren02 = true;
+        yield return null;
+        UKe__Ren02 = false;
+
+    }
+
+    private IEnumerator WaitUKe__Ren01()
+    {
+
+        UKe__Ren01 = true;
+        yield return null;
+        UKe__Ren01 = false;
+
     }
 }
