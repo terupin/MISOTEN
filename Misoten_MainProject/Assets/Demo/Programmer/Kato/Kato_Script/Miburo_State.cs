@@ -17,6 +17,8 @@ public class Miburo_State : MonoBehaviour
     private bool _Ren11;
     private bool _Ren22;
 
+    private bool _wait;
+
 
     static public bool _Stick_Input;
 
@@ -61,11 +63,19 @@ public class Miburo_State : MonoBehaviour
     [SerializeField, Header("モデル(debugテスト用)")]
     public GameObject Test;
 
+    [SerializeField, Header("マテリアル(debugテスト用)")]
+    public Material TestMat;
+
+    public Material Reset;
+
     // Start is called before the first frame update
     void Start()
     {
         Application.targetFrameRate = 60;
         _Katana_Direction = -1;
+
+         Test.AddComponent<MeshRenderer>();
+        
     }
 
     // Update is called once per frame
@@ -127,7 +137,7 @@ public class Miburo_State : MonoBehaviour
 
         Player_Run_Input();//走行入力がされているかのフラグ
 
-        if (_Attack01 ||_Attack02)
+        if (_Attack01 ||_Attack02|| _Stick_Input)
         {         
         }
         else
@@ -141,7 +151,7 @@ public class Miburo_State : MonoBehaviour
 
         ////判定をアニメーターへ
         //Miburo_Animator.SetBool("Gurd", _Parry);
-        //Miburo_Animator.SetBool("Run", _Run);
+        Miburo_Animator.SetBool("Run", _Run);
         //Miburo_Animator.SetInteger("KatanaD", _Katana_Direction);
 
 
@@ -345,10 +355,10 @@ public class Miburo_State : MonoBehaviour
     //コルーチン(構えウェイト)
     private IEnumerator Miburo_Parry_Wait()
     {
-        gameObject.GetComponent<Renderer>().material.color = Color.red;//赤色
+        Test.GetComponent<MeshRenderer>().material = TestMat;
         //UnityEditor.EditorApplication.isPaused = true;
-        yield return new WaitForSeconds(0.4f);//24フレーム
-
+        yield return new WaitForSeconds(0.4f);//24フレーム(.4秒)
+        Test.GetComponent<MeshRenderer>().material = Reset;
 
         _Parry = false;
         _Ren11 = false;
@@ -469,8 +479,13 @@ public class Miburo_State : MonoBehaviour
         if(_Katana_Direction==-1)
         {
             Debug.Log("判定　失敗");
-            StartCoroutine(Miburo_Parry_Wait());
-            UnityEditor.EditorApplication.isPaused = true;
+            if(!_wait)
+            {
+                StartCoroutine(Miburo_Parry_Wait());
+                _wait = true;
+            }
+           
+            //UnityEditor.EditorApplication.isPaused = true;
         }
         else
         {
