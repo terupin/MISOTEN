@@ -6,7 +6,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
-public class Miburo_State : MonoBehaviour
+//入力左スティック
+public class Miburo_StateL : MonoBehaviour
 {
     //フラグ
     private bool _Step;
@@ -127,7 +128,7 @@ public class Miburo_State : MonoBehaviour
 
         Player_Run_Input();//走行入力がされているかのフラグ
 
-        if (_Attack01 ||_Attack02)
+        if (_Attack01 ||_Attack02|| _Stick_Input)
         {         
         }
         else
@@ -303,23 +304,23 @@ public class Miburo_State : MonoBehaviour
         }
     }
 
-    //コルーチン(受け流し構え)
-    private IEnumerator Miburo_Parry()
-    {
-        if (!_Parry)
-        {
-            _Parry = true;
-            Debug.Log("パリイ開始");
-            yield return new WaitForSeconds(Parry_WaitTime);
-            Debug.Log("パリイ待ち時間終了");
+    ////コルーチン(受け流し構え)
+    //private IEnumerator Miburo_Parry()
+    //{
+    //    if (!_Parry)
+    //    {
+    //        _Parry = true;
+    //        Debug.Log("パリイ開始");
+    //        yield return new WaitForSeconds(Parry_WaitTime);
+    //        Debug.Log("パリイ待ち時間終了");
 
-        }
-        else
-        {
-            Debug.Log("待ち時間です。入力は反映されません。");
-        }
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("待ち時間です。入力は反映されません。");
+    //    }
 
-    }
+    //}
 
     //コルーチン(Stick)
     private IEnumerator Miburo_Stick()
@@ -399,8 +400,8 @@ public class Miburo_State : MonoBehaviour
     void GetKatana_Direction()
     {
 
-        float h = UnityEngine.Input.GetAxis("Horizontal2");
-        float v = UnityEngine.Input.GetAxis("Vertical2");
+        float h = UnityEngine.Input.GetAxis("Horizontal");
+        float v = UnityEngine.Input.GetAxis("Vertical");
 
         float degree = Mathf.Atan2(v, h) * Mathf.Rad2Deg;
 
