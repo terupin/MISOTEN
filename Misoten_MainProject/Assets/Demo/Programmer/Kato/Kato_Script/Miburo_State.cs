@@ -242,7 +242,7 @@ public class Miburo_State : MonoBehaviour
             {
                 _Ren11 = true;
                 StartCoroutine(Miburo_Stick());
-               //UnityEditor.EditorApplication.isPaused = true;
+               UnityEditor.EditorApplication.isPaused = true;
             }
 
         }
@@ -257,7 +257,7 @@ public class Miburo_State : MonoBehaviour
             {
                 _Ren22 = true;
                 StartCoroutine(Miburo_Stick());
-                //UnityEditor.EditorApplication.isPaused = true;
+                UnityEditor.EditorApplication.isPaused = true;
             }
         }
         else if (!Kato_Matsunaga_Enemy_State.UKe__Ren02 && _Parry)
@@ -461,8 +461,11 @@ public class Miburo_State : MonoBehaviour
         float RotateY = Input.GetAxis("Horizontal");
         float degree = Mathf.Atan2(RotateY, moveX) * Mathf.Rad2Deg;//コントローラー角度取得
 
+        Rigidbody rb = GetComponent<Rigidbody>();
+
         gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, Camera_o.transform.localEulerAngles.y + degree, 0));
-        gameObject.transform.position += gameObject.transform.forward * Move_Speed * Time.deltaTime;
+        rb.position+=gameObject.transform.forward * Move_Speed * Time.deltaTime;
+        //gameObject.transform.position += gameObject.transform.forward * Move_Speed * Time.deltaTime;
     }
 
     //移動入力

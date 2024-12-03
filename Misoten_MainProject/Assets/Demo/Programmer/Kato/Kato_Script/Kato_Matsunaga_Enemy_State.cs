@@ -501,8 +501,9 @@ public class Kato_Matsunaga_Enemy_State : MonoBehaviour
                     }
                     else
                     {
+                        UnityEditor.EditorApplication.isPaused = true;
                         UKe__Ren01 = false;
-                        Check_Current_Time1 = 0;
+                        //Check_Current_Time1 = 0;
                     }
 
                 }
