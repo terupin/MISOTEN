@@ -122,6 +122,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &29309850 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6613062781687376707, guid: 8eb4fdc726e23774da71f86d9d295d96,
+    type: 3}
+  m_PrefabInstance: {fileID: 1322884129}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &62222489
 GameObject:
   m_ObjectHideFlags: 0
@@ -386,7 +392,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 221206121}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.01410367, y: -0.00000001869912, z: -2.6375244e-10, w: 0.9999006}
+  m_LocalRotation: {x: -0.014103669, y: 0.000000029799583, z: 4.2032522e-10, w: 0.9999006}
   m_LocalPosition: {x: 1.8671056, y: -5.4471493, z: 0.66226625}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1203,6 +1209,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 551733924060758287, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 551733924060758287, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
@@ -1268,6 +1279,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1376716437394767396, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1376716437394767396, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1376716437394767396, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1376716437394767396, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -1315,6 +1341,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1376716437394767396, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1620035096321009369, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
@@ -1436,6 +1467,26 @@ PrefabInstance:
       propertyPath: m_RenderingLayerMask
       value: 385
       objectReference: {fileID: 0}
+    - target: {fileID: 3148915597662609761, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3148915597662609761, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3148915597662609761, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
+      propertyPath: m_ProvidesContacts
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3276984044804772196, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3391057374781906834, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -1479,13 +1530,18 @@ PrefabInstance:
       objectReference: {fileID: 1322884133}
     - target: {fileID: 3965139916692988938, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3965139916692988938, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
       propertyPath: Check_Time0
-      value: 1.7
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 3965139916692988938, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
       propertyPath: Check_Time1
-      value: 1.2
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 3965139916692988938, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
@@ -1749,6 +1805,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 6580529486785744823, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6632373116775174972, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -1873,6 +1934,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RenderingLayerMask
       value: 385
+      objectReference: {fileID: 0}
+    - target: {fileID: 9042596788897829424, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9042596788897829424, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 126
+      objectReference: {fileID: 0}
+    - target: {fileID: 9042596788897829424, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9042596788897829424, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
+      propertyPath: m_CollisionDetection
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9072479925013500716, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
@@ -2776,7 +2857,12 @@ PrefabInstance:
     - target: {fileID: 126546910121383811, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}
       propertyPath: m_IsTrigger
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 126546910121383811, guid: 8eb4fdc726e23774da71f86d9d295d96,
+        type: 3}
+      propertyPath: m_ProvidesContacts
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 180414970915545063, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}
@@ -2803,11 +2889,46 @@ PrefabInstance:
       propertyPath: m_Constraints
       value: 126
       objectReference: {fileID: 0}
+    - target: {fileID: 788636680117603469, guid: 8eb4fdc726e23774da71f86d9d295d96,
+        type: 3}
+      propertyPath: m_Drag
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 788636680117603469, guid: 8eb4fdc726e23774da71f86d9d295d96,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 788636680117603469, guid: 8eb4fdc726e23774da71f86d9d295d96,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 116
+      objectReference: {fileID: 0}
+    - target: {fileID: 788636680117603469, guid: 8eb4fdc726e23774da71f86d9d295d96,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 788636680117603469, guid: 8eb4fdc726e23774da71f86d9d295d96,
+        type: 3}
+      propertyPath: m_CollisionDetection
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 911090270459495019, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}
       propertyPath: m_RenderingLayerMask
       value: 385
       objectReference: {fileID: 0}
+    - target: {fileID: 1243681727059629837, guid: 8eb4fdc726e23774da71f86d9d295d96,
+        type: 3}
+      propertyPath: Test
+      value: 
+      objectReference: {fileID: 1322884130}
+    - target: {fileID: 1243681727059629837, guid: 8eb4fdc726e23774da71f86d9d295d96,
+        type: 3}
+      propertyPath: Reset
+      value: 
+      objectReference: {fileID: 2100000, guid: 21c149a9020bba3479e3227db14c8480, type: 2}
     - target: {fileID: 1243681727059629837, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}
       propertyPath: _Born
@@ -2825,9 +2946,29 @@ PrefabInstance:
       objectReference: {fileID: 723284144}
     - target: {fileID: 1243681727059629837, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}
+      propertyPath: TestMat
+      value: 
+      objectReference: {fileID: 2100000, guid: 08ca2729e64407544902d7996209505b, type: 2}
+    - target: {fileID: 1243681727059629837, guid: 8eb4fdc726e23774da71f86d9d295d96,
+        type: 3}
       propertyPath: Camera_o
       value: 
       objectReference: {fileID: 1498831290}
+    - target: {fileID: 1243681727059629837, guid: 8eb4fdc726e23774da71f86d9d295d96,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1243681727059629837, guid: 8eb4fdc726e23774da71f86d9d295d96,
+        type: 3}
+      propertyPath: Move_Speed
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1243681727059629837, guid: 8eb4fdc726e23774da71f86d9d295d96,
+        type: 3}
+      propertyPath: Parry_WaitTime
+      value: 0.35
+      objectReference: {fileID: 0}
     - target: {fileID: 1794119793786185270, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}
       propertyPath: m_RenderingLayerMask
@@ -2898,6 +3039,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player_Miburo
       objectReference: {fileID: 0}
+    - target: {fileID: 3669612430873067828, guid: 8eb4fdc726e23774da71f86d9d295d96,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3775018556304385732, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}
       propertyPath: m_RenderingLayerMask
@@ -2963,6 +3109,16 @@ PrefabInstance:
       propertyPath: m_RenderingLayerMask
       value: 385
       objectReference: {fileID: 0}
+    - target: {fileID: 5152649217762533704, guid: 8eb4fdc726e23774da71f86d9d295d96,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5189402270342433476, guid: 8eb4fdc726e23774da71f86d9d295d96,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 21c149a9020bba3479e3227db14c8480, type: 2}
     - target: {fileID: 5559175423462806870, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}
       propertyPath: MainCamLock
@@ -2998,7 +3154,22 @@ PrefabInstance:
       propertyPath: m_RenderingLayerMask
       value: 385
       objectReference: {fileID: 0}
+    - target: {fileID: 6346175220718111584, guid: 8eb4fdc726e23774da71f86d9d295d96,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6613062781687376707, guid: 8eb4fdc726e23774da71f86d9d295d96,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6696693179243410524, guid: 8eb4fdc726e23774da71f86d9d295d96,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7287183770792060896, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -3095,8 +3266,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8499532041928091207, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8499532041928091207, guid: 8eb4fdc726e23774da71f86d9d295d96,
+        type: 3}
       propertyPath: m_IsTrigger
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8625731900359026378, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}
@@ -3109,15 +3285,21 @@ PrefabInstance:
       value: 385
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 180414970915545063, guid: 8eb4fdc726e23774da71f86d9d295d96, type: 3}
+    - {fileID: 0}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3669612430873067828, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1322884143}
+      addedObject: {fileID: 1322884153}
   m_SourcePrefab: {fileID: 100100000, guid: 8eb4fdc726e23774da71f86d9d295d96, type: 3}
+--- !u!1 &1322884130 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4362703999566851964, guid: 8eb4fdc726e23774da71f86d9d295d96,
+    type: 3}
+  m_PrefabInstance: {fileID: 1322884129}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1322884131 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4107478772556514997, guid: 8eb4fdc726e23774da71f86d9d295d96,
@@ -3130,18 +3312,31 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1322884129}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1322884143
+--- !u!114 &1322884153
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1322884133}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd559b9e1cff21446bf560be1f976fe6, type: 3}
+  m_Script: {fileID: 11500000, guid: 0bdbfec5025788944a9b34998ea1ab77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Move_Speed: 10
+  Target: {fileID: 723284144}
+  Player: {fileID: 1322884133}
+  Camera_o: {fileID: 1498831290}
+  Miburo_Animator: {fileID: 1537864872}
+  Step_WaitTime: 1
+  Parry_WaitTime: 0.35
+  Attack01_WaitTime: 1
+  Attack02_WaitTime: 1
+  Katana_DirectionSet_WaitTime: 1
+  S_Effect: {fileID: 9060970370165693562, guid: 9eef12dc538892048b21bbc76811f6c8,
+    type: 3}
+  Test: {fileID: 29309850}
 --- !u!1001 &1405806334
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4327,7 +4522,7 @@ PrefabInstance:
     - target: {fileID: 7395689648158696547, guid: 4dd33527dbc82c042a136a42eb7fa2ae,
         type: 3}
       propertyPath: m_IsTrigger
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8355975918904200834, guid: 4dd33527dbc82c042a136a42eb7fa2ae,
         type: 3}

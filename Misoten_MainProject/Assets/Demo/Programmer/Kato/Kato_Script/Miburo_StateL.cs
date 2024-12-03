@@ -6,7 +6,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
-public class Miburo_State : MonoBehaviour
+//入力左スティック
+public class Miburo_StateL : MonoBehaviour
 {
     //フラグ
     private bool _Step;
@@ -16,8 +17,6 @@ public class Miburo_State : MonoBehaviour
     private bool _Run;
     private bool _Ren11;
     private bool _Ren22;
-
-    private bool _wait;
 
 
     static public bool _Stick_Input;
@@ -63,19 +62,11 @@ public class Miburo_State : MonoBehaviour
     [SerializeField, Header("モデル(debugテスト用)")]
     public GameObject Test;
 
-    [SerializeField, Header("マテリアル(debugテスト用)")]
-    public Material TestMat;
-
-    public Material Reset;
-
     // Start is called before the first frame update
     void Start()
     {
         Application.targetFrameRate = 60;
         _Katana_Direction = -1;
-
-         Test.AddComponent<MeshRenderer>();
-        
     }
 
     // Update is called once per frame
@@ -114,7 +105,7 @@ public class Miburo_State : MonoBehaviour
         }
         else
         {
-          
+            _Parry = false;
         }
 
         //Aボタン押下
@@ -150,8 +141,8 @@ public class Miburo_State : MonoBehaviour
 
 
         ////判定をアニメーターへ
-
-        Miburo_Animator.SetBool("Run", _Run);
+        //Miburo_Animator.SetBool("Gurd", _Parry);
+        //Miburo_Animator.SetBool("Run", _Run);
         //Miburo_Animator.SetInteger("KatanaD", _Katana_Direction);
 
 
@@ -236,24 +227,18 @@ public class Miburo_State : MonoBehaviour
 
 
 
-        if (Kato_Matsunaga_Enemy_State.UKe__Ren01 &&_Parry)
+        if (Kato_Matsunaga_Enemy_State.UKe__Ren01)
         {
             if (!_Ren11)
             {
                 _Ren11 = true;
                 StartCoroutine(Miburo_Stick());
-               //UnityEditor.EditorApplication.isPaused = true;
+                //UnityEditor.EditorApplication.isPaused = true;
             }
 
         }
-        else if(!Kato_Matsunaga_Enemy_State.UKe__Ren01 && _Parry)
-        {
-            //Debug.Log("判定　タイムオーバー2");
-            StartCoroutine(Miburo_Parry_Wait());
-            //UnityEditor.EditorApplication.isPaused = true;
-        }
 
-        if (Kato_Matsunaga_Enemy_State.UKe__Ren02 && _Parry)
+        if (Kato_Matsunaga_Enemy_State.UKe__Ren02)
         {
             if (!_Ren22)
             {
@@ -261,11 +246,6 @@ public class Miburo_State : MonoBehaviour
                 StartCoroutine(Miburo_Stick());
                 //UnityEditor.EditorApplication.isPaused = true;
             }
-        }
-        else if (!Kato_Matsunaga_Enemy_State.UKe__Ren02 && _Parry)
-        {
-            Debug.Log("判定　タイムオーバー2");
-            StartCoroutine(Miburo_Parry_Wait());
         }
 
         if (_Stick_Input)
@@ -324,23 +304,23 @@ public class Miburo_State : MonoBehaviour
         }
     }
 
-    //コルーチン(受け流し構え)
-    private IEnumerator Miburo_Parry()
-    {
-        if (!_Parry)
-        {
-            _Parry = true;
-            Debug.Log("パリイ開始");
-            yield return new WaitForSeconds(Parry_WaitTime);
-            Debug.Log("パリイ待ち時間終了");
+    ////コルーチン(受け流し構え)
+    //private IEnumerator Miburo_Parry()
+    //{
+    //    if (!_Parry)
+    //    {
+    //        _Parry = true;
+    //        Debug.Log("パリイ開始");
+    //        yield return new WaitForSeconds(Parry_WaitTime);
+    //        Debug.Log("パリイ待ち時間終了");
 
-        }
-        else
-        {
-            Debug.Log("待ち時間です。入力は反映されません。");
-        }
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("待ち時間です。入力は反映されません。");
+    //    }
 
-    }
+    //}
 
     //コルーチン(Stick)
     private IEnumerator Miburo_Stick()
@@ -349,13 +329,11 @@ public class Miburo_State : MonoBehaviour
         {
             _Stick_Input = true;
             Debug.Log("スティック");
-            Miburo_Animator.SetBool("Gurd", _Stick_Input);
             yield return new WaitForSeconds(Parry_WaitTime);
             Debug.Log("スティック待ち時間終了");
             Input_Check();
             _Stick_Input = false;
-            Miburo_Animator.SetBool("Gurd", _Stick_Input);
-            //UnityEditor.EditorApplication.isPaused = true;
+           
 
         }
         else
@@ -368,15 +346,14 @@ public class Miburo_State : MonoBehaviour
     //コルーチン(構えウェイト)
     private IEnumerator Miburo_Parry_Wait()
     {
-        Test.GetComponent<MeshRenderer>().material = TestMat;
+        gameObject.GetComponent<Renderer>().material.color = Color.red;//赤色
         //UnityEditor.EditorApplication.isPaused = true;
-        yield return new WaitForSeconds(0.4f);//24フレーム(.4秒)
-        Test.GetComponent<MeshRenderer>().material = Reset;
+        yield return new WaitForSeconds(0.4f);//24フレーム
+
 
         _Parry = false;
         _Ren11 = false;
         _Ren22 = false;
-        _Parry = false;
     }
 
     private IEnumerator Counter_Timing_Input()
@@ -423,8 +400,8 @@ public class Miburo_State : MonoBehaviour
     void GetKatana_Direction()
     {
 
-        float h = UnityEngine.Input.GetAxis("Horizontal2");
-        float v = UnityEngine.Input.GetAxis("Vertical2");
+        float h = UnityEngine.Input.GetAxis("Horizontal");
+        float v = UnityEngine.Input.GetAxis("Vertical");
 
         float degree = Mathf.Atan2(v, h) * Mathf.Rad2Deg;
 
@@ -464,11 +441,8 @@ public class Miburo_State : MonoBehaviour
         float RotateY = Input.GetAxis("Horizontal");
         float degree = Mathf.Atan2(RotateY, moveX) * Mathf.Rad2Deg;//コントローラー角度取得
 
-        Rigidbody rb = GetComponent<Rigidbody>();
-
         gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, Camera_o.transform.localEulerAngles.y + degree, 0));
-        rb.position+=gameObject.transform.forward * Move_Speed * Time.deltaTime;
-        //gameObject.transform.position += gameObject.transform.forward * Move_Speed * Time.deltaTime;
+        gameObject.transform.position += gameObject.transform.forward * Move_Speed * Time.deltaTime;
     }
 
     //移動入力
@@ -496,12 +470,7 @@ public class Miburo_State : MonoBehaviour
         if(_Katana_Direction==-1)
         {
             Debug.Log("判定　失敗");
-            if(!_wait)
-            {
-                StartCoroutine(Miburo_Parry_Wait());
-                _wait = true;
-            }
-           
+            StartCoroutine(Miburo_Parry_Wait());
             //UnityEditor.EditorApplication.isPaused = true;
         }
         else

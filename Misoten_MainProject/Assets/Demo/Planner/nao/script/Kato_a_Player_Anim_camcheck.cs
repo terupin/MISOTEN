@@ -86,7 +86,7 @@ public class Kato_a_Player_Anim_camcheck : MonoBehaviour
         
 
 
-        Player_Animator.SetBool(RUN_bool, Player_Move.RUN_FLG);
+        //Player_Animator.SetBool(RUN_bool, Player_Move.RUN_FLG);
 
 
         AnimatorStateInfo animatorStateInfo = Player_Animator.GetCurrentAnimatorStateInfo(0);
