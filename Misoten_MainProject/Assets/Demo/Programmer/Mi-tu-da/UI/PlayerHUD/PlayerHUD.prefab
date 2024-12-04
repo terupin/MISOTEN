@@ -162,8 +162,8 @@ GameObject:
   - component: {fileID: 8087320237591057139}
   - component: {fileID: 4012159599582697211}
   - component: {fileID: 3219850345821310328}
-  - component: {fileID: 4296432055371242678}
-  - component: {fileID: 855009064203822328}
+  - component: {fileID: 987565490470925617}
+  - component: {fileID: 1836280282230989879}
   m_Layer: 5
   m_Name: PlayerHUD
   m_TagString: Untagged
@@ -258,7 +258,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &4296432055371242678
+--- !u!114 &987565490470925617
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -267,25 +267,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8231414905471148750}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7483e51796fd54b438b0f6da8fd9bf06, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  image: {fileID: 4111139294719826957}
-  ArmorSprites:
-  - {fileID: 0}
-  - {fileID: 21300000, guid: 530a714747534c1429c162712502f9d2, type: 3}
-  - {fileID: 21300000, guid: ba8e180c9bbd5624a9f52f476b86b7ff, type: 3}
-  - {fileID: 21300000, guid: a9d5b377fdcaaf94f82a80f75de06318, type: 3}
---- !u!114 &855009064203822328
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8231414905471148750}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fab5321a178334647b6961063f70afa8, type: 3}
+  m_Script: {fileID: 11500000, guid: 94a874abf578c3b4494634b70de7638f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SceneName: 
@@ -298,6 +280,24 @@ MonoBehaviour:
   - {fileID: 21300000, guid: ad9638e6f993a89429ec6526d8eda5b4, type: 3}
   - {fileID: 21300000, guid: 6065e9ef34a8f694894c9d047848e1b3, type: 3}
   - {fileID: 21300000, guid: c9353b7aa20fe3a408074a53ed147774, type: 3}
+--- !u!114 &1836280282230989879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8231414905471148750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbc02f08fa823ac4695860565bc6ca3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  image: {fileID: 4111139294719826957}
+  ArmorSprites:
+  - {fileID: 0}
+  - {fileID: 21300000, guid: 530a714747534c1429c162712502f9d2, type: 3}
+  - {fileID: 21300000, guid: ba8e180c9bbd5624a9f52f476b86b7ff, type: 3}
+  - {fileID: 21300000, guid: a9d5b377fdcaaf94f82a80f75de06318, type: 3}
 --- !u!1 &8584139115664688541
 GameObject:
   m_ObjectHideFlags: 0
