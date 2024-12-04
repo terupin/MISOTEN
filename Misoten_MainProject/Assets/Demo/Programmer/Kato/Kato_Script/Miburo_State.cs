@@ -97,6 +97,7 @@ public class Miburo_State : MonoBehaviour
             Miburo_Animator.SetBool("GameOver", true);
             return;
         }
+
         if (Miburo_Animator.GetCurrentAnimatorStateInfo(0).IsName("Battou"))
         {
             return;
