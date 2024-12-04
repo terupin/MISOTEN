@@ -15,6 +15,8 @@ public class Miburo_State : MonoBehaviour
     static public bool _Parry_Timing;//ÉpÉäÉCì¸óÕÇµÇΩèuä‘
     static public bool _Attack01;
     static public bool _Attack02;
+    static public bool _Counter01;
+    static public bool _Counter02;
     private bool _Run;
     private bool _Ren11;
     private bool _Ren22;
@@ -239,6 +241,7 @@ public class Miburo_State : MonoBehaviour
             {
                 Miburo_Animator.SetTrigger("Ren11");
                 _Ren11 = true;
+                _Counter01 = true;
             }
         }
         else
@@ -252,6 +255,7 @@ public class Miburo_State : MonoBehaviour
             {
                 Miburo_Animator.SetTrigger("Ren22");
                 _Ren22 = true;
+                _Counter02 = true;
             }
 
         }
@@ -528,7 +532,13 @@ public class Miburo_State : MonoBehaviour
         //    gameObject.transform.position -= gameObject.transform.forward * Time.deltaTime * 0.1f;
         //    gameObject.transform.position = new Vector3(Player.transform.position.x, 0, Player.transform.position.z);
         //}
-  
+
+        if (Miburo_Animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        {
+            _Counter01 = false;
+            _Counter02 = false;
+        }
+
     }
 
     //éÛÇØó¨Çµê¨å˜éûÇÃà íuí≤êÆ
@@ -552,7 +562,7 @@ public class Miburo_State : MonoBehaviour
         if (other.tag == "EWeapon")
         {
             GameObject Miburo_Box = GameObject.Find("Player");
-            if (Miburo_Box && K_Matsunaga_Enemy_State.Attack)
+            if (Miburo_Box && Enemy01_State.Attack)
             {
                 Rigidbody rb = GetComponent<Rigidbody>();
                 dir =(Target.transform.position- rb.position).normalized;

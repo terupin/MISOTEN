@@ -766,11 +766,6 @@ public class Enemy01_State : MonoBehaviour
             else
             {
                 Check_Current_Time2 += Time.deltaTime;
-                if (Check_Current_Time2 > Check_Time2)
-                {
-                    UnityEditor.EditorApplication.isPaused = true;
-
-                }
             }
         }
         else
