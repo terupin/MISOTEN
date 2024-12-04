@@ -35,7 +35,7 @@ public class K_Matsunaga_Enemy_State : MonoBehaviour
     static public bool UKe__Ren02;
     static public bool Attack;//攻撃　当たり判定に使う
 
-    public bool P_Input;//パリイ入力されたかどうか
+    private bool P_Input;//パリイ入力されたかどうか
 
     // 敵の状態を表す列挙型
     public enum Enemy_State_
@@ -128,6 +128,16 @@ public class K_Matsunaga_Enemy_State : MonoBehaviour
         {
 
             return;
+        }
+
+        if (Miburo_State._Parry_Timing)
+        {
+            if (!P_Input)
+            {
+                //UnityEditor.EditorApplication.isPaused = true;
+                P_Input = true;
+            }
+
         }
 
         // プレイヤーが設定されている場合のみ方向を向く処理を実行
@@ -539,10 +549,7 @@ public class K_Matsunaga_Enemy_State : MonoBehaviour
 
     private void KatoUpdateAnim()
     {
-        if (Miburo_State._Parry_Timing)
-        {
-            P_Input = true;
-        }
+
 
         //縦切り振り上げ
         if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Tategiri"))
@@ -550,6 +557,7 @@ public class K_Matsunaga_Enemy_State : MonoBehaviour
             //UnityEditor.EditorApplication.isPaused = true;
             if (P_Input)
             {
+                UnityEditor.EditorApplication.isPaused = true;
                 if (Check_Current_Time0 > 0.0f && Check_Time0 >= Check_Current_Time0)
                 {
                     Debug.Log("aaaaaaaa" + Check_Current_Time0);
@@ -559,16 +567,20 @@ public class K_Matsunaga_Enemy_State : MonoBehaviour
                     {
                         UkeL = true;
                         E01Anim.SetBool("UkeL", true);
-
-                        //UnityEditor.EditorApplication.isPaused = true;
+                        Debug.Log("判定　成功0L");
+                        UnityEditor.EditorApplication.isPaused = true;
                     }
                     else if (Miburo_State._Katana_Direction == 3 || Miburo_State._Katana_Direction == 4 || Miburo_State._Katana_Direction == 5 || Miburo_State._Katana_Direction == 6)
                     {
                         UkeR = true;
                         E01Anim.SetBool("UkeR", true);
-
-                        //UnityEditor.EditorApplication.isPaused = true;
+                        Debug.Log("判定　成功0R");
+                        UnityEditor.EditorApplication.isPaused = true;
                     }
+                }
+                else
+                {
+                    Debug.Log("判定　時間切れ　" + Check_Current_Time0);
                 }
             }
             else
@@ -597,21 +609,25 @@ public class K_Matsunaga_Enemy_State : MonoBehaviour
         //連撃1振り上げ
         if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren01"))
         {
-            if(P_Input)
+            //UnityEditor.EditorApplication.isPaused = true;
+            if (P_Input)
             {
                 if (Check_Current_Time1 > 0.0f && Check_Time1 > Check_Current_Time1)
                 {
                     if (!UKe__Ren01)
                     {
+                        Debug.Log("判定　成功1");
                         Debug.Log("iiiiiiiii" + Check_Current_Time1);
-                        //UnityEditor.EditorApplication.isPaused = true;
+                        UnityEditor.EditorApplication.isPaused = true;
                         StartCoroutine(WaitUKe__Ren01());
+
                     }
 
                 }
                 else
                 {
                     Debug.Log("判定　時間切れ1　" + Check_Current_Time1);
+                    UnityEditor.EditorApplication.isPaused = true;
                 }
             }
             else
@@ -648,7 +664,7 @@ public class K_Matsunaga_Enemy_State : MonoBehaviour
                     if (!UKe__Ren02)
                     {
                         StartCoroutine(WaitUKe__Ren02());
-                        //UnityEditor.EditorApplication.isPaused = true;
+                        UnityEditor.EditorApplication.isPaused = true;
                         Debug.Log("ききき　" + Check_Current_Time2);
                         Debug.Log("ききき　" + Miburo_State._Katana_Direction);
                     }
@@ -703,7 +719,7 @@ public class K_Matsunaga_Enemy_State : MonoBehaviour
 
         if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
         {
-            P_Input = false;
+            //P_Input = false;
             Effectflg = false;
         }
 

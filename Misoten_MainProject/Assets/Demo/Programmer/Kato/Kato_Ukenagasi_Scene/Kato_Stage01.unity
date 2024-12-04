@@ -2056,14 +2056,13 @@ MonoBehaviour:
   S_Effect: {fileID: 9060970370165693562, guid: 9eef12dc538892048b21bbc76811f6c8,
     type: 3}
   Effectflg: 0
-  P_Input: 0
   debug_switch: 0
   Target_P: {fileID: 1322884133}
   SearchLength: 10
   AttackLength: 3.5
   MoveSpeed: 12
-  TategiriChance: 60
-  RenGekiChance: 40
+  TategiriChance: 0
+  RenGekiChance: 100
   E01Anim: {fileID: 2002034717}
   StateTime: 2.5
   CooldownTime: 2.5
@@ -2716,9 +2715,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   enemy: {fileID: 0}
+  PushFlg_A: 0
+  PushFlg_L: 0
   CameraRot: {x: 30, y: 30, z: 0}
   CameraPos: {x: -3, y: 4, z: -4}
   CamSpd: 200
+  Cam_Spd: 0
   MaxX: 20
   MinX: -20
   cam: {fileID: 1263797134}
@@ -3740,9 +3742,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   enemy: {fileID: 0}
+  PushFlg_A: 0
+  PushFlg_L: 0
   CameraRot: {x: 30, y: 30, z: 0}
   CameraPos: {x: -3, y: 4, z: -4}
   CamSpd: 200
+  Cam_Spd: 0
   MaxX: 20
   MinX: -20
   cam: {fileID: 1641234004}
