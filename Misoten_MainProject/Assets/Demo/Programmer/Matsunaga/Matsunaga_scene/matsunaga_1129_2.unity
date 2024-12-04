@@ -999,6 +999,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 713036022588363082, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 771958832176661926, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -1986,6 +1991,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 723284145}
+    - targetCorrespondingSourceObject: {fileID: 3847602336648284765, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 723284154}
   m_SourcePrefab: {fileID: 100100000, guid: 5a5dfd0327ec98346a40d1796a249e1e, type: 3}
 --- !u!4 &723284142 stripped
 Transform:
@@ -2016,26 +2025,20 @@ MonoBehaviour:
   SearchLength: 100
   AttackLength: 3.5
   MoveSpeed: 12
-  TategiriChance: 100
-  RenGekiChance: 0
+  TategiriChance: 0
+  RenGekiChance: 100
   E01Anim: {fileID: 531520669}
+  StateTime: 0
   CooldownTime: 2.5
   StaggerTime: 1
-  durabilityFieldPrefab: {fileID: 5976777111638295936, guid: ba6f924de61fb164cb25456e3a9d4b85,
+  radius: 25
+  height: 10
+  centerOffset: {x: 0, y: -0.1, z: 0}
+  lineMaterial: {fileID: 2100000, guid: 426ab8c9cf4c37c4e9b6a3713e1697a0, type: 2}
+  faceMaterial: {fileID: 2100000, guid: 426ab8c9cf4c37c4e9b6a3713e1697a0, type: 2}
+  vertexObjectPrefab: {fileID: 5976777111638295936, guid: 22c03e05c035ce84090c721d6e49a560,
     type: 3}
-  fieldPositions:
-  - {x: 9, y: 0, z: 0}
-  - {x: 9, y: 0, z: 4}
-  - {x: 9, y: 0, z: 9}
-  - {x: -9, y: 0, z: 0}
-  - {x: -9, y: 0, z: 4}
-  - {x: -9, y: 0, z: 9}
-  fieldScale: {x: 2.5, y: 2.5, z: 2.5}
-  barrierPrefab: {fileID: 4615949204175965807, guid: 5c581583c6c7dcd4ba6a00633dc5598e,
-    type: 3}
-  barrierPosition:
-  - {x: 0, y: 0, z: 0}
-  barrierScale: {x: 50, y: 50, z: 50}
+  vertexObjectScale: {x: 2.5, y: 2.5, z: 2.5}
 --- !u!114 &723284153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2048,6 +2051,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1605056231a8a6c45894c98bd7f11ca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &723284154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 723284144}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3612083e186b154d962de19e4a8ead3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 25
+  height: 10
+  centerOffset: {x: 0, y: -0.1, z: 0}
+  lineMaterial: {fileID: 2100000, guid: 426ab8c9cf4c37c4e9b6a3713e1697a0, type: 2}
+  faceMaterial: {fileID: 2100000, guid: 426ab8c9cf4c37c4e9b6a3713e1697a0, type: 2}
+  vertexObjectPrefab: {fileID: 5976777111638295936, guid: 22c03e05c035ce84090c721d6e49a560,
+    type: 3}
+  vertexObjectScale: {x: 2.5, y: 2.5, z: 2.5}
 --- !u!1 &777521274
 GameObject:
   m_ObjectHideFlags: 0

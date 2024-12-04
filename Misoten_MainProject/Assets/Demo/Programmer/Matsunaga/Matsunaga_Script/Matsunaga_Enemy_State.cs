@@ -43,7 +43,7 @@ public class Matsunaga_Enemy_State : MonoBehaviour
 
     public Animator E01Anim; // 敵のアニメーションを制御するAnimator
 
-    private float StateTime = 2.5f; // 状態ごとの持続時間
+    public float StateTime = 2.5f; // 状態ごとの持続時間
     private float StateCurrentTime; // 現在の状態が開始してからの経過時間
 
     [SerializeField, Header("クールダウン時間")]
@@ -52,31 +52,42 @@ public class Matsunaga_Enemy_State : MonoBehaviour
     [SerializeField, Header("ひるむ時間")]
     private float StaggerTime = 1.0f; // ひるみ状態の持続時間
 
-    [Header("耐久フィールドのオブジェクト")]
-    public GameObject durabilityFieldPrefab; // 耐久フィールドのプレハブオブジェクト
+    //[Header("耐久フィールドのオブジェクト")]
+    //public GameObject durabilityFieldPrefab; // 耐久フィールドのプレハブオブジェクト
 
-    [Header("耐久フィールドを生成する座標")]
-    public Vector3[] fieldPositions; // 耐久フィールドを生成する座標
+    //[Header("耐久フィールドを生成する座標")]
+    //public Vector3[] fieldPositions; // 耐久フィールドを生成する座標
 
-    [Header("耐久フィールドのスケール")]
-    [SerializeField]
-    public Vector3 fieldScale = new Vector3(1, 1, 1); // 耐久フィールドのスケール（デフォルト値: 1, 1, 1）
+    //[Header("耐久フィールドのスケール")]
+    //[SerializeField]
+    //public Vector3 fieldScale = new Vector3(1, 1, 1); // 耐久フィールドのスケール（デフォルト値: 1, 1, 1）
 
     private float currentHP; // 敵の現在のHP
     private bool hasUsedDurabilityField75 = false; // HP75%で耐久フィールドを生成済みかを管理
     private bool hasUsedDurabilityField50 = false; // HP50%で耐久フィールドを生成済みかを管理
     private bool hasUsedDurabilityField25 = false; // HP25%で耐久フィールドを生成済みかを管理
 
-    [Header("バリアオブジェクト")]
-    public GameObject barrierPrefab; // バリアのプレハブオブジェクト
+    //[Header("バリアオブジェクト")]
+    //public GameObject barrierPrefab; // バリアのプレハブオブジェクト
 
-    [Header("バリアを生成する座標")]
-    public Vector3[] barrierPosition; // バリアを生成する座標の配列
+    //[Header("バリアを生成する座標")]
+    //public Vector3[] barrierPosition; // バリアを生成する座標の配列
 
-    [Header("バリアのスケール")]
-    public Vector3 barrierScale = new Vector3(1, 1, 1); // バリアのスケール（デフォルト値: 1, 1, 1）
+    //[Header("バリアのスケール")]
+    //public Vector3 barrierScale = new Vector3(1, 1, 1); // バリアのスケール（デフォルト値: 1, 1, 1）
 
     private float elapsedTime = 0f; // 経過時間を記録
+
+    public float radius = 1.0f; // 六角形の半径
+    public float height = 2.0f; // 六角柱の高さ
+    public Vector3 centerOffset = Vector3.zero; // 中央座標のオフセット
+    public Material lineMaterial; // 線用のマテリアル
+    public Material faceMaterial; // 面用のマテリアル
+    public GameObject vertexObjectPrefab; // 頂点に生成するオブジェクト
+    public Vector3 vertexObjectScale = Vector3.one; // 頂点オブジェクトのスケール
+
+    Vector3[] lowerVertices = new Vector3[6];
+    Vector3[] upperVertices = new Vector3[6];
 
     private void Start()
     {
@@ -86,6 +97,17 @@ public class Matsunaga_Enemy_State : MonoBehaviour
         currentHP = Matsunaga_Status_E.NowHP / Matsunaga_Status_E.MaxHP; // 初期HPを設定
         elapsedTime = 0f; // 経過時間を初期化
         E01Anim.SetBool("Idle", true); // Idleアニメーションを初期状態に設定
+        
+        // 頂点を計算
+        for (int i = 0; i < 6; i++)
+        {
+            float angle = Mathf.Deg2Rad * (60 * i);
+            float x = Mathf.Cos(angle) * radius;
+            float z = Mathf.Sin(angle) * radius;
+
+            lowerVertices[i] = new Vector3(x, 0, z) + centerOffset;
+            upperVertices[i] = new Vector3(x, height, z) + centerOffset;
+        }
     }
 
     private void Update()
@@ -235,11 +257,15 @@ public class Matsunaga_Enemy_State : MonoBehaviour
     // 新しい状態を設定し経過時間をリセット
     private void SetState(Enemy_State_ newState)
     {
+        if (E_State == newState) return; // 同じ状態への遷移を防ぐ
         E_State = newState;
         StateCurrentTime = 0.0f;
+        Debug.Log($"状態が {newState} に変更されました");
     }
 
+
     // バリアを生成する
+    /*
     private void SpawnBarrier()
     {
         foreach (var position in barrierPosition)
@@ -253,8 +279,10 @@ public class Matsunaga_Enemy_State : MonoBehaviour
             Debug.Log($"バリアを生成: {position}, スケール: {barrierScale}");
         }
     }
+    */
 
     // 耐久フィールドを生成する
+    /*
     private void SpawnDurabilityField()
     {
         foreach (var position in fieldPositions)
@@ -268,6 +296,7 @@ public class Matsunaga_Enemy_State : MonoBehaviour
             Debug.Log($"耐久フィールドを生成: {position}, スケール: {fieldScale}");
         }
     }
+    */
 
     private void HandleMovementAndState()
     {
@@ -289,7 +318,7 @@ public class Matsunaga_Enemy_State : MonoBehaviour
         {
             StateCurrentTime = 0.0f;
 
-            if (P_E_Length < AttackLength)
+            if (P_E_Length <= AttackLength)
             {
                 Debug.Log("攻撃範囲に入ったので攻撃を開始！");
                 DecideAttackType();
@@ -333,6 +362,9 @@ public class Matsunaga_Enemy_State : MonoBehaviour
     {
         int randomValue = Random.Range(0, 100); // 0～100のランダム値を生成
         Debug.Log($"DecideAttackType: Random Value = {randomValue}, TategiriChance = {TategiriChance}");
+
+        E01Anim.SetBool("Walk", false); // アニメーションをリセット
+        Debug.Log($"穂{E01Anim.GetBool("Walk")}");
 
         if (randomValue < TategiriChance)
         {
@@ -388,11 +420,17 @@ public class Matsunaga_Enemy_State : MonoBehaviour
 
     private void HandleKaihou()
     {
-        // Kaihou状態では移動を禁止
+        // 全アニメーションを強制終了して解放アニメーションに遷移
+        //E01Anim.CrossFade("Enemy01_Idling", 0.01f);
+        //E01Anim.CrossFade("Enemy01_Kaihou", 0.1f); // "Enemy01_Kaihou" は解放アニメーションの状態名
+
+        E01Anim.Play("Enemy01_Kaihou", 0, 0f);
+        // 必要なら他の状態処理も実行
+        SetState(Enemy_State_.Kaihou);
+
         if (IsAnimationFinished("Enemy01_Kaihou"))
         {
             Debug.Log("解放アニメーションが完了しました。Idle 状態に遷移します。");
-            E01Anim.SetBool("Kaihou", false); // アニメーションをリセット
             SetState(Enemy_State_.Idle);
         }
     }
@@ -414,7 +452,9 @@ public class Matsunaga_Enemy_State : MonoBehaviour
     {
         if (currentHP <= 0.75f && !hasUsedDurabilityField75)
         {
-            SpawnDurabilityField();
+            //SpawnDurabilityField();
+            // 底面の頂点にオブジェクトを生成
+            GenerateObjectsAtVertices(lowerVertices);
             StartCoroutine(DelayedBarrierSpawn());
             hasUsedDurabilityField75 = true;
             SetState(Enemy_State_.Kaihou);
@@ -422,7 +462,8 @@ public class Matsunaga_Enemy_State : MonoBehaviour
 
         if (currentHP <= 0.50f && !hasUsedDurabilityField50)
         {
-            SpawnDurabilityField();
+            //SpawnDurabilityField();
+            GenerateObjectsAtVertices(lowerVertices);
             StartCoroutine(DelayedBarrierSpawn());
             hasUsedDurabilityField50 = true;
             SetState(Enemy_State_.Kaihou);
@@ -430,7 +471,8 @@ public class Matsunaga_Enemy_State : MonoBehaviour
 
         if (currentHP <= 0.25f && !hasUsedDurabilityField25)
         {
-            SpawnDurabilityField();
+            //SpawnDurabilityField();
+            GenerateObjectsAtVertices(lowerVertices);
             StartCoroutine(DelayedBarrierSpawn());
             hasUsedDurabilityField25 = true;
             SetState(Enemy_State_.Kaihou);
@@ -441,7 +483,21 @@ public class Matsunaga_Enemy_State : MonoBehaviour
     private IEnumerator DelayedBarrierSpawn()
     {
         yield return new WaitForSeconds(2f); // 2秒待機
-        SpawnBarrier();
+        //SpawnBarrier();
+
+        // 辺を描画
+        for (int i = 0; i < 6; i++)
+        {
+            // 水平辺 (下)
+            DrawLine(lowerVertices[i], lowerVertices[(i + 1) % 6]);
+            // 水平辺 (上)
+            DrawLine(upperVertices[i], upperVertices[(i + 1) % 6]);
+            // 垂直辺
+            DrawLine(lowerVertices[i], upperVertices[i]);
+        }
+
+        // 面を描画
+        CreateMesh(lowerVertices, upperVertices);
     }
 
     private IEnumerator WaitForKaihouAnimation()
@@ -473,12 +529,9 @@ public class Matsunaga_Enemy_State : MonoBehaviour
     // 指定アニメーションが終了しているかを判定
     private bool IsAnimationFinished(string animationName)
     {
-        var stateInfo = E01Anim.GetCurrentAnimatorStateInfo(0);
-
-        // アニメーションが現在再生中で、かつnormalizedTimeが1.0以上なら終了している
+        AnimatorStateInfo stateInfo = E01Anim.GetCurrentAnimatorStateInfo(0);
         return stateInfo.IsName(animationName) && stateInfo.normalizedTime >= 1.0f;
     }
-
 
     // 状態に応じてアニメーションを更新
     private void UpdateAnimations()
@@ -490,5 +543,95 @@ public class Matsunaga_Enemy_State : MonoBehaviour
         E01Anim.SetBool("RenGeki", E_State == Enemy_State_.RenGeki);
         E01Anim.SetBool("Hirumi", E_State == Enemy_State_.Stagger);
         E01Anim.SetBool("Kaihou", E_State == Enemy_State_.Kaihou);
+    }
+
+    void DrawLine(Vector3 start, Vector3 end)
+    {
+        GameObject lineObject = new GameObject("Line");
+        LineRenderer lineRenderer = lineObject.AddComponent<LineRenderer>();
+        lineRenderer.material = lineMaterial;
+        lineRenderer.positionCount = 2;
+        lineRenderer.SetPositions(new Vector3[] { start, end });
+        lineRenderer.startWidth = 0.05f;
+        lineRenderer.endWidth = 0.05f;
+    }
+
+    void CreateMesh(Vector3[] lowerVertices, Vector3[] upperVertices)
+    {
+        GameObject meshObject = new GameObject("HexagonalPrism");
+        MeshFilter meshFilter = meshObject.AddComponent<MeshFilter>();
+        MeshRenderer meshRenderer = meshObject.AddComponent<MeshRenderer>();
+        Mesh mesh = new Mesh();
+
+        List<Vector3> vertices = new List<Vector3>();
+        List<int> triangles = new List<int>();
+
+        // 下面
+        for (int i = 1; i < 5; i++)
+        {
+            vertices.Add(lowerVertices[0]);
+            vertices.Add(lowerVertices[i]);
+            vertices.Add(lowerVertices[i + 1]);
+
+            triangles.Add(vertices.Count - 3);
+            triangles.Add(vertices.Count - 2);
+            triangles.Add(vertices.Count - 1);
+        }
+
+        // 上面
+        for (int i = 1; i < 5; i++)
+        {
+            vertices.Add(upperVertices[0]);
+            vertices.Add(upperVertices[i + 1]);
+            vertices.Add(upperVertices[i]);
+
+            triangles.Add(vertices.Count - 3);
+            triangles.Add(vertices.Count - 2);
+            triangles.Add(vertices.Count - 1);
+        }
+
+        // 側面
+        for (int i = 0; i < 6; i++)
+        {
+            int next = (i + 1) % 6;
+
+            vertices.Add(lowerVertices[i]);
+            vertices.Add(upperVertices[i]);
+            vertices.Add(upperVertices[next]);
+            vertices.Add(lowerVertices[next]);
+
+            triangles.Add(vertices.Count - 4);
+            triangles.Add(vertices.Count - 3);
+            triangles.Add(vertices.Count - 2);
+
+            triangles.Add(vertices.Count - 4);
+            triangles.Add(vertices.Count - 2);
+            triangles.Add(vertices.Count - 1);
+        }
+
+        // 頂点と三角形をメッシュに設定
+        mesh.vertices = vertices.ToArray();
+        mesh.triangles = triangles.ToArray();
+        mesh.RecalculateNormals();
+
+        // メッシュを設定
+        meshFilter.mesh = mesh;
+        meshRenderer.material = faceMaterial;
+    }
+
+    void GenerateObjectsAtVertices(Vector3[] lowerVertices)
+    {
+        if (vertexObjectPrefab == null)
+        {
+            Debug.LogWarning("Vertex object prefab is not assigned.");
+            return;
+        }
+
+        // 底面の頂点にオブジェクトを生成
+        for (int i = 0; i < lowerVertices.Length; i++)
+        {
+            GameObject vertexObject = Instantiate(vertexObjectPrefab, lowerVertices[i], Quaternion.identity, transform);
+            vertexObject.transform.localScale = vertexObjectScale;
+        }
     }
 }
