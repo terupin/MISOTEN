@@ -20,6 +20,7 @@ public class Miburo_State : MonoBehaviour
     private bool _wait;
 
     private bool _KnockBack;
+    Vector3 dir;
 
 
     [SerializeField, Header("ノックバックスピード")]
@@ -142,7 +143,9 @@ public class Miburo_State : MonoBehaviour
         if(_KnockBack)
         {
             Rigidbody rb = GetComponent<Rigidbody>();
-            rb.position -= gameObject.transform.forward * KnockBack_Speed*Time.deltaTime;
+
+             
+            rb.position += (gameObject.transform.position+dir) * KnockBack_Speed*Time.deltaTime;
         }
 
 
@@ -583,6 +586,7 @@ public class Miburo_State : MonoBehaviour
             GameObject Miburo_Box = GameObject.Find("Player");
             if (Miburo_Box && K_Matsunaga_Enemy_State.Attack)
             {
+                dir = Target.transform.position - gameObject.transform.position;
                 Miburo_Animator.SetTrigger("Damage");
                 gameObject.AddComponent<Damage_Flash>();
                 StartCoroutine(KnockBack());
