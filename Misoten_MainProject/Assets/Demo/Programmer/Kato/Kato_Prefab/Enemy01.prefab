@@ -280,10 +280,10 @@ GameObject:
   - component: {fileID: 1376716437394767396}
   - component: {fileID: 9042596788897829424}
   - component: {fileID: 3148915597662609761}
-  - component: {fileID: 4897045886958965061}
   - component: {fileID: 1770043382980743518}
   - component: {fileID: 3965139916692988938}
-  - component: {fileID: 713036022588363082}
+  - component: {fileID: 7930574039795249098}
+  - component: {fileID: 6895063022661530804}
   m_Layer: 0
   m_Name: Enemy01
   m_TagString: Enemy
@@ -358,24 +358,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2, y: 3, z: 1}
   m_Center: {x: 0, y: 1.5, z: 0}
---- !u!114 &4897045886958965061
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3847602336648284765}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e042fb6f4e4fcc944a42f5c3c4b481a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Target_P: {fileID: 3669612430873067828, guid: 8eb4fdc726e23774da71f86d9d295d96,
-    type: 3}
-  SearchLength: 8
-  AttackLength: 2
-  MoveSpeed: 12
-  E01Anim: {fileID: 0}
 --- !u!114 &1770043382980743518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -429,7 +411,7 @@ MonoBehaviour:
   - {x: 16, y: 0, z: 0}
   - {x: 16, y: 0, z: 16}
   barrierScale: {x: 1, y: 1, z: 1}
---- !u!114 &713036022588363082
+--- !u!114 &7930574039795249098
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -438,9 +420,53 @@ MonoBehaviour:
   m_GameObject: {fileID: 3847602336648284765}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1605056231a8a6c45894c98bd7f11ca9, type: 3}
+  m_Script: {fileID: 11500000, guid: 11436e7c1365ec745b37ec7c39a80ce9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6895063022661530804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3847602336648284765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73509ccc2154a3c4fbd03d5ba477dae2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Testobj: {fileID: 0}
+  Check_Time0: 0.5
+  Check_Time1: 0.5
+  Check_Time2: 0.5
+  S_Effect: {fileID: 9060970370165693562, guid: 9eef12dc538892048b21bbc76811f6c8,
+    type: 3}
+  Effectflg: 0
+  debug_switch: 0
+  Target_P: {fileID: 0}
+  SearchLength: 10
+  AttackLength: 3.5
+  MoveSpeed: 12
+  TategiriChance: 0
+  RenGekiChance: 100
+  E01Anim: {fileID: 0}
+  StateTime: 2.5
+  CooldownTime: 2.5
+  StaggerTime: 1
+  durabilityFieldPrefab: {fileID: 9219549096807305038, guid: ba6f924de61fb164cb25456e3a9d4b85,
+    type: 3}
+  fieldPositions:
+  - {x: 9, y: 0, z: 0}
+  - {x: 9, y: 0, z: 4}
+  - {x: 9, y: 0, z: 9}
+  - {x: -9, y: 0, z: 9}
+  - {x: -9, y: 0, z: 4}
+  - {x: -9, y: 0, z: 9}
+  fieldScale: {x: 2.5, y: 2.5, z: 2.5}
+  barrierPrefab: {fileID: 4615949204175965807, guid: 5c581583c6c7dcd4ba6a00633dc5598e,
+    type: 3}
+  barrierPosition: []
+  barrierScale: {x: 50, y: 50, z: 50}
 --- !u!1001 &4859386567887339926
 PrefabInstance:
   m_ObjectHideFlags: 0

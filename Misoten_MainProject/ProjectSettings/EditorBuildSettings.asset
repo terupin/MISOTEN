@@ -5,17 +5,16 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Demo/Programmer/Kato/Kato_Ukenagasi_Scene/Kato_a.unity
-    guid: 2820dd49d69873f4398acac03c51221e
   - enabled: 1
-
-    path: Assets/Demo/Programmer/Mi-tu-da/Scene/Test_Scene.unity
-    guid: 09bf64f329bbc1543a5301203133a3ab
+    path: Assets/Scene/Main/Main_TitleScene.unity
+    guid: c645c9590bb69e04595596d65ea0b991
   - enabled: 1
-    path: Assets/Demo/Programmer/Mi-tu-da/Scene/Over/OverScene.unity
-    guid: a54768545d7a8c1408e92a6462b4322d
+    path: Assets/Scene/Main/Main_Stage01.unity
+    guid: 19baf5748fa32ff488cac82e7877b52c
   - enabled: 1
-    path: Assets/Demo/Programmer/Mi-tu-da/Scene/Clear/ClearScene.unity
-    guid: ec806bd1fe8fe534e997d7313770fd45
+    path: Assets/Scene/Main/Main_ClearScene.unity
+    guid: 597ce3f877e2ebd4e88005fe7c2fe78d
+  - enabled: 1
+    path: Assets/Scene/Main/Main_OverScene.unity
+    guid: 640c2758d2f5d104e846ba69a654a198
   m_configObjects: {}
