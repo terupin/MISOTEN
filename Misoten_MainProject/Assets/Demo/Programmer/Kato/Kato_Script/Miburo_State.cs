@@ -236,7 +236,7 @@ public class Miburo_State : MonoBehaviour
 
 
 
-        if (Kato_Matsunaga_Enemy_State.UKe__Ren01 &&_Parry)
+        if (K_Matsunaga_Enemy_State.UKe__Ren01 &&_Parry)
         {
             if (!_Ren11)
             {
@@ -246,14 +246,14 @@ public class Miburo_State : MonoBehaviour
             }
 
         }
-        else if(!Kato_Matsunaga_Enemy_State.UKe__Ren01 && _Parry)
+        else if(!K_Matsunaga_Enemy_State.UKe__Ren01 && _Parry)
         {
             //Debug.Log("判定　タイムオーバー2");
             StartCoroutine(Miburo_Parry_Wait());
             //UnityEditor.EditorApplication.isPaused = true;
         }
 
-        if (Kato_Matsunaga_Enemy_State.UKe__Ren02 && _Parry)
+        if (K_Matsunaga_Enemy_State.UKe__Ren02 && _Parry)
         {
             if (!_Ren22)
             {
@@ -262,7 +262,7 @@ public class Miburo_State : MonoBehaviour
                 //UnityEditor.EditorApplication.isPaused = true;
             }
         }
-        else if (!Kato_Matsunaga_Enemy_State.UKe__Ren02 && _Parry)
+        else if (!K_Matsunaga_Enemy_State.UKe__Ren02 && _Parry)
         {
             Debug.Log("判定　タイムオーバー2");
             StartCoroutine(Miburo_Parry_Wait());
@@ -567,7 +567,7 @@ public class Miburo_State : MonoBehaviour
         if (other.tag == "EWeapon")
         {
             GameObject Miburo_Box = GameObject.Find("Player");
-            if (Miburo_Box && Kato_Matsunaga_Enemy_State.Attack)
+            if (Miburo_Box && K_Matsunaga_Enemy_State.Attack)
             {
                 gameObject.AddComponent<Damage_Flash>();
                 Miburo_Animator.SetTrigger("Damage");
