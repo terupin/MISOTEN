@@ -10,7 +10,7 @@ public class Enemy_Damage3 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameObject Baria_Obj = GameObject.Find("Baria");
+        GameObject Baria_Obj = GameObject.Find("HexagonalPrism");
         if (Baria_Obj)
         {
             Kato_Status_E.NowHP = Kato_Status_E.NowHP - Random.Range(150, 175) * 3 / 4;

@@ -115,6 +115,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 238dca1c85878de4181b21ba308a6812, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StickL: 0
+  StickR: 0
   KnockBack_Speed: 0
   KnockBack_Time: 0
   Move_Speed: 5.5
@@ -132,6 +134,7 @@ MonoBehaviour:
   Test: {fileID: 0}
   TestMat: {fileID: 0}
   Reset: {fileID: 0}
+  SceneName: 
 --- !u!114 &5559175423462806870
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -497,10 +500,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 2317841817137208221}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0865c428a4caae844b1672a5823b0091,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 228477011065324259}
   m_SourcePrefab: {fileID: 100100000, guid: 0865c428a4caae844b1672a5823b0091, type: 3}
 --- !u!1 &8175099314972187642 stripped
 GameObject:
@@ -556,30 +555,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &228477011065324259
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8175099314972187642}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41b7f5ba51d2ea744bed5b6d0938dc72, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  R_Anim_bool: R_counter
-  L_Anim_bool: L_counter
-  Gard_Anim_bool: Gard
-  R_Anim_name: ukeR04_mcp
-  L_Anim_name: uke06_mcp
-  Grad_Anim_name: uketome07_mcp
-  RUN_bool: Run
-  Player_Animator: {fileID: 0}
-  RengekiTime: 0.5
-  RengekiMaxCount: 2
-  Uke_Time: 0.5
-  Counter_Time: 1
 --- !u!4 &8806816764915908928 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 0865c428a4caae844b1672a5823b0091,

@@ -73,7 +73,7 @@ public class MainCamera : MonoBehaviour
 
         if (C_ukenagashi == 0 || C_ukenagashi == 1 || C_ukenagashi == 2 || C_ukenagashi == 7)
         {
-            if(Kato_Matsunaga_Enemy_State.UkeL)
+            if(Enemy01_State.UkeL)
             {
                 changecamstartR = true;
                 Debug.Log(changecamstartL);
@@ -82,7 +82,7 @@ public class MainCamera : MonoBehaviour
         }
         else if (C_ukenagashi == 3 || C_ukenagashi == 4 || C_ukenagashi == 5 || C_ukenagashi == 6)
         {
-            if (Kato_Matsunaga_Enemy_State.UkeR)
+            if (Enemy01_State.UkeR)
             {
                 changecamstartL = true;
                 Debug.Log(changecamstartR);
