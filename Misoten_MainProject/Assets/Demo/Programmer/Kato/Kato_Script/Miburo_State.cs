@@ -211,31 +211,7 @@ public class Miburo_State : MonoBehaviour
 
         Miburo_Animator.SetBool("Run", _Run);
         Miburo_Animator.SetBool("Gurd", _Parry);
-        //Miburo_Animator.SetInteger("KatanaD", _Katana_Direction);
 
-
-        //if (_Uke_Input)
-        //{
-        //    if (_Katana_Direction == 0 || _Katana_Direction == 1 || _Katana_Direction == 2 || _Katana_Direction == 7)
-        //    {
-        //        Miburo_Animator.SetBool("UkenagashiL", true);
-        //    }
-        //    else if (_Katana_Direction == 3 || _Katana_Direction == 4 || _Katana_Direction == 5 || _Katana_Direction == 6)
-        //    {
-        //        Miburo_Animator.SetBool("UkenagashiR", true);
-        //    }
-        //    else
-        //    {
-        //        Miburo_Animator.SetBool("UkenagashiL", false);
-        //        Miburo_Animator.SetBool("UkenagashiR", false);
-        //    }
-
-        //}
-        //else
-        //{
-        //    Miburo_Animator.SetBool("UkenagashiL", false);
-        //    Miburo_Animator.SetBool("UkenagashiR", false);
-        //}
 
         if (Enemy01_State.UkeL)
         {
@@ -265,10 +241,10 @@ public class Miburo_State : MonoBehaviour
                 _Ren11 = true;
             }
         }
-        //else
-        //{
-        //    _Ren11 = false;
-        //}
+        else
+        {
+            _Ren11 = false;
+        }
         if (Kato_Matsunaga_Enemy_State.UKe__Ren02)
         {
             if (!_Ren22)
@@ -278,10 +254,10 @@ public class Miburo_State : MonoBehaviour
             }
 
         }
-        //else
-        //{
-        //    _Ren22 = false;
-        //}
+        else
+        {
+            _Ren22 = false;
+        }
 
 
         if (_Stick_Input)
@@ -536,21 +512,21 @@ public class Miburo_State : MonoBehaviour
     //アニメーターからステート名を取得
     void GetCurrentAnimationStateName()
     {
-        if (Miburo_Animator.GetCurrentAnimatorStateInfo(0).IsName("UKE"))
-        {
-            gameObject.transform.position += gameObject.transform.forward * Time.deltaTime*5.5f;
-            gameObject.transform.position = new Vector3(Player.transform.position.x, 0, Player.transform.position.z);
-        }
-        if (Miburo_Animator.GetCurrentAnimatorStateInfo(0).IsName("UKE2"))
-        {
-            gameObject.transform.position += gameObject.transform.forward * Time.deltaTime * 2.5f;
-            gameObject.transform.position = new Vector3(Player.transform.position.x, 0, Player.transform.position.z);
-        }
-        if (Miburo_Animator.GetCurrentAnimatorStateInfo(0).IsName("UKE3"))
-        {
-            gameObject.transform.position -= gameObject.transform.forward * Time.deltaTime * 0.1f;
-            gameObject.transform.position = new Vector3(Player.transform.position.x, 0, Player.transform.position.z);
-        }
+        //if (Miburo_Animator.GetCurrentAnimatorStateInfo(0).IsName("UKE"))
+        //{
+        //    gameObject.transform.position += gameObject.transform.forward * Time.deltaTime*5.5f;
+        //    gameObject.transform.position = new Vector3(Player.transform.position.x, 0, Player.transform.position.z);
+        //}
+        //if (Miburo_Animator.GetCurrentAnimatorStateInfo(0).IsName("UKE2"))
+        //{
+        //    gameObject.transform.position += gameObject.transform.forward * Time.deltaTime * 2.5f;
+        //    gameObject.transform.position = new Vector3(Player.transform.position.x, 0, Player.transform.position.z);
+        //}
+        //if (Miburo_Animator.GetCurrentAnimatorStateInfo(0).IsName("UKE3"))
+        //{
+        //    gameObject.transform.position -= gameObject.transform.forward * Time.deltaTime * 0.1f;
+        //    gameObject.transform.position = new Vector3(Player.transform.position.x, 0, Player.transform.position.z);
+        //}
   
     }
 
