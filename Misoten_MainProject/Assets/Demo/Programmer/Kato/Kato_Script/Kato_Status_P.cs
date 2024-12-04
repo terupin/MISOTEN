@@ -15,6 +15,7 @@ public class Kato_Status_P : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        instance = this;
         NowHP = MaxHP;
         Armor= 0;
     }
