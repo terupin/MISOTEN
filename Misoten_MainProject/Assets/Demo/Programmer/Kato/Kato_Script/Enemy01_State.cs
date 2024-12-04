@@ -619,26 +619,31 @@ public class Enemy01_State : MonoBehaviour
         {
             //UnityEditor.EditorApplication.isPaused = true;
             if (P_Input)
-            {
-                UnityEditor.EditorApplication.isPaused = true;
+            {              
                 if (Check_Current_Time0 > 0.0f && Check_Time0 >= Check_Current_Time0)
                 {
                     Debug.Log("aaaaaaaa" + Check_Current_Time0);
                     //受け流し成功
                     Debug.Log(Check_Current_Time0);
+                    //UnityEditor.EditorApplication.isPaused = true;
+                    Debug.Log("判定" + Miburo_State._Katana_Direction);
                     if (Miburo_State._Katana_Direction == 0 || Miburo_State._Katana_Direction == 1 || Miburo_State._Katana_Direction == 2 || Miburo_State._Katana_Direction == 7)
                     {
                         UkeL = true;
                         E01Anim.SetBool("UkeL", true);
+                        UkeR = false;
+                        E01Anim.SetBool("UkeR", false);
                         Debug.Log("判定　成功0L");
-                        UnityEditor.EditorApplication.isPaused = true;
+                        //UnityEditor.EditorApplication.isPaused = true;
                     }
                     else if (Miburo_State._Katana_Direction == 3 || Miburo_State._Katana_Direction == 4 || Miburo_State._Katana_Direction == 5 || Miburo_State._Katana_Direction == 6)
                     {
+                        UkeL = false;
+                        E01Anim.SetBool("UkeL", false);
                         UkeR = true;
                         E01Anim.SetBool("UkeR", true);
                         Debug.Log("判定　成功0R");
-                        UnityEditor.EditorApplication.isPaused = true;
+                        //UnityEditor.EditorApplication.isPaused = true;
                     }
                 }
                 else
@@ -681,8 +686,9 @@ public class Enemy01_State : MonoBehaviour
                     {
                         Debug.Log("判定　成功1");
                         Debug.Log("iiiiiiiii" + Check_Current_Time1);
-                        UnityEditor.EditorApplication.isPaused = true;
-                        StartCoroutine(WaitUKe__Ren01());
+                        //UnityEditor.EditorApplication.isPaused = true;
+                        UKe__Ren01 = true;
+                        E01Anim.SetBool("RenUke01", true);
 
                     }
 
@@ -690,7 +696,7 @@ public class Enemy01_State : MonoBehaviour
                 else
                 {
                     Debug.Log("判定　時間切れ1　" + Check_Current_Time1);
-                    UnityEditor.EditorApplication.isPaused = true;
+                    //UnityEditor.EditorApplication.isPaused = true;
                 }
             }
             else
@@ -719,15 +725,15 @@ public class Enemy01_State : MonoBehaviour
         //連撃2振り上げ
         if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren02"))
         {
-
             if (P_Input)
             {
                 if (Check_Current_Time2 > 0.0f && Check_Time2 > Check_Current_Time2)
                 {
                     if (!UKe__Ren02)
                     {
-                        StartCoroutine(WaitUKe__Ren02());
-                        UnityEditor.EditorApplication.isPaused = true;
+                        UKe__Ren02 = true;
+                        E01Anim.SetBool("RenUke02", true);
+                        //UnityEditor.EditorApplication.isPaused = true;
                         Debug.Log("ききき　" + Check_Current_Time2);
                         Debug.Log("ききき　" + Miburo_State._Katana_Direction);
                     }
@@ -752,6 +758,8 @@ public class Enemy01_State : MonoBehaviour
 
         if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("NagasereL") || E01Anim.GetCurrentAnimatorStateInfo(0).IsName("NagasereR"))
         {
+            UkeL = false;
+            UkeR = false;
             Check_Current_Time0 = 0;
             Debug.Log("asd" + Check_Current_Time0);
             //UnityEditor.EditorApplication.isPaused = true;
@@ -782,12 +790,13 @@ public class Enemy01_State : MonoBehaviour
 
         if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
         {
-            //P_Input = false;
+            P_Input = false;
             Effectflg = false;
         }
 
         if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("NagasereR") || E01Anim.GetCurrentAnimatorStateInfo(0).IsName("NagasereL"))
         {
+ 
             Clone_Effect = GameObject.Find("Slash_Effect(Clone)");
             if (Clone_Effect == null && !Effectflg)
             {

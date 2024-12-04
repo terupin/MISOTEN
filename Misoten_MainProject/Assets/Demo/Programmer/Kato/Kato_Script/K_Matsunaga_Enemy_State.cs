@@ -575,6 +575,7 @@ public class K_Matsunaga_Enemy_State : MonoBehaviour
                     if (Miburo_State._Katana_Direction == 0 || Miburo_State._Katana_Direction == 1 || Miburo_State._Katana_Direction == 2 || Miburo_State._Katana_Direction == 7)
                     {
                         UkeL = true;
+                        UkeR = false;
                         E01Anim.SetBool("UkeL", true);
                         Debug.Log("îªíËÅ@ê¨å˜0L");
                         UnityEditor.EditorApplication.isPaused = true;

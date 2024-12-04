@@ -21,6 +21,9 @@ public class Miburo_State : MonoBehaviour
 
     private bool _wait;
 
+    public bool StickL;
+    public bool StickR;
+
     private bool _KnockBack;
     Vector3 dir;
 
@@ -124,11 +127,8 @@ public class Miburo_State : MonoBehaviour
         //L1ボタン押下
         if (UnityEngine.Input.GetKeyDown("joystick button 4"))
         {
-            //StartCoroutine(Miburo_Parry());
-            //_Parry = true;
             _Parry_Timing = true;
             StartCoroutine(Miburo_Parry());
-            return;
         }
         else
         {
@@ -149,9 +149,36 @@ public class Miburo_State : MonoBehaviour
             rb.position -= dir * KnockBack_Speed*Time.deltaTime;
         }
 
-        if(K_Matsunaga_Enemy_State.UKe__Ren01 || K_Matsunaga_Enemy_State.UKe__Ren02 || K_Matsunaga_Enemy_State.UkeL || K_Matsunaga_Enemy_State.UkeR)
+        if (_Parry)
         {
-            GetKatana_Direction();
+           
+        }
+
+        GetKatana_Direction();
+
+        if (_Katana_Direction == 0 || _Katana_Direction == 1 || _Katana_Direction == 2 || _Katana_Direction == 7)
+        {
+            StickR = true;
+            StickL = false;
+        }
+        else if (_Katana_Direction == 3 || _Katana_Direction == 4 || _Katana_Direction == 5 || _Katana_Direction == 6)
+        {
+            StickL = true;
+            StickR = false;
+        }
+        else
+        {
+            StickR = false;
+            StickL = false;
+        }
+
+        Miburo_Animator.SetBool("StickR", StickR);
+        Miburo_Animator.SetBool("StickL", StickL);
+
+        if (Enemy01_State.UKe__Ren01 || Enemy01_State.UKe__Ren02 || Enemy01_State.UkeL || Enemy01_State.UkeR)
+        {
+
+                
         }
         else
         {
@@ -210,109 +237,58 @@ public class Miburo_State : MonoBehaviour
         //    Miburo_Animator.SetBool("UkenagashiR", false);
         //}
 
-        //if(Kato_Matsunaga_Enemy_State.UkeL)
-        //{
-        //    Miburo_Animator.SetBool("UkenagashiL", true);
-        //}
-        //else
-        //{
-        //    Miburo_Animator.SetBool("UkenagashiL", false);
-        //}
+        if (Enemy01_State.UkeL)
+        {
+            Miburo_Animator.SetBool("UkenagashiL", true);
+        }
+        else
+        {
+            Miburo_Animator.SetBool("UkenagashiL", false);
+        }
 
-        //if (Kato_Matsunaga_Enemy_State.UkeR)
-        //{
-        //    Miburo_Animator.SetBool("UkenagashiR", true);
-        //}
-        //else
-        //{
-        //    Miburo_Animator.SetBool("UkenagashiR", false);
-        //}
+        if (Enemy01_State.UkeR)
+        {
+            Miburo_Animator.SetBool("UkenagashiR", true);
+        }
+        else
+        {
+            Miburo_Animator.SetBool("UkenagashiR", false);
+        }
 
-        //if (_Katana_Direction == -1)
-        //{
-        //    StartCoroutine(Miburo_Parry_Wait());
-        //}
-        //else
-        //{
-        //    _Parry = false;
-        //    Debug.Log("このむき　" + _Katana_Direction);
-        //    UnityEditor.EditorApplication.isPaused = true;
-        //}
+        
 
-
-        //if (Kato_Matsunaga_Enemy_State.UKe__Ren01)
-        //{
-        //    if(!_Ren11)
-        //    {
-        //        Miburo_Animator.SetTrigger("Ren11");
-        //        _Ren11= true;        
-        //    }  
-        //}
+        if (Enemy01_State.UKe__Ren01)
+        {
+            if (!_Ren11)
+            {
+                Miburo_Animator.SetTrigger("Ren11");
+                _Ren11 = true;
+            }
+        }
         //else
         //{
         //    _Ren11 = false;
         //}
-        //if (Kato_Matsunaga_Enemy_State.UKe__Ren02)
-        //{
-        //    if(!_Ren22)
-        //    {
-        //        Miburo_Animator.SetTrigger("Ren22");
-        //        _Ren22= true;
-        //    }
+        if (Kato_Matsunaga_Enemy_State.UKe__Ren02)
+        {
+            if (!_Ren22)
+            {
+                Miburo_Animator.SetTrigger("Ren22");
+                _Ren22 = true;
+            }
 
-        //}
+        }
         //else
         //{
         //    _Ren22 = false;
         //}
 
 
-
-        //if (K_Matsunaga_Enemy_State.UKe__Ren01 &&_Parry)
-        //{
-        //    if (!_Ren11)
-        //    {
-        //        _Ren11 = true;
-        //        StartCoroutine(Miburo_Stick());
-        //       //UnityEditor.EditorApplication.isPaused = true;
-        //    }
-
-        //}
-        //else if(!K_Matsunaga_Enemy_State.UKe__Ren01 && _Parry)
-        //{
-        //    //Debug.Log("判定　タイムオーバー2");
-        //    StartCoroutine(Miburo_Parry_Wait());
-        //    //UnityEditor.EditorApplication.isPaused = true;
-        //}
-
-        //if (K_Matsunaga_Enemy_State.UKe__Ren02 && _Parry)
-        //{
-        //    if (!_Ren22)
-        //    {
-        //        _Ren22 = true;
-        //        StartCoroutine(Miburo_Stick());
-        //        //UnityEditor.EditorApplication.isPaused = true;
-        //    }
-        //}
-        //else if (!K_Matsunaga_Enemy_State.UKe__Ren02 && _Parry)
-        //{
-        //    Debug.Log("判定　タイムオーバー2");
-        //    StartCoroutine(Miburo_Parry_Wait());
-        //}
-
         if (_Stick_Input)
         {
              GetKatana_Direction();
-        }
+        } 
 
-        //Miburo_Animator.SetBool("Ren01", Kato_Matsunaga_Enemy_State.UKe__Ren01);
-        //Miburo_Animator.SetBool("Ren02", Kato_Matsunaga_Enemy_State.UKe__Ren02);  
-
-        ////縦切り受け流し左(みぶろポジション前３右0.5)
-        //if (UnityEngine.Input.GetKeyDown(KeyCode.J))
-        //{
-        //    Miburo_Animator.SetTrigger("UkenagashiL");
-        //}
 
         GetCurrentAnimationStateName();//ステート取得して
     }
@@ -461,7 +437,6 @@ public class Miburo_State : MonoBehaviour
 
         float degree = Mathf.Atan2(v, h) * Mathf.Rad2Deg;
 
-        Debug.Log("判定　スティック");
         //UnityEditor.EditorApplication.isPaused = true;
         if (degree < 0)
         {

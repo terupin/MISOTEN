@@ -9,7 +9,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: Counter
+    m_ConditionEvent: UkenagashiL
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -2768581169471379257}
@@ -17,9 +17,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.021162987
-  m_TransitionOffset: 0.17939326
-  m_ExitTime: 0.17585367
+  m_TransitionDuration: 0
+  m_TransitionOffset: 0.16387548
+  m_ExitTime: 0.1603359
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -32,10 +32,7 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions:
-  - m_ConditionMode: 2
-    m_ConditionEvent: UkenagashiR
-    m_EventTreshold: 0
+  m_Conditions: []
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -5909023764978253608}
   m_Solo: 0
@@ -45,7 +42,7 @@ AnimatorStateTransition:
   m_TransitionDuration: 0.31069946
   m_TransitionOffset: 0.0031456924
   m_ExitTime: 0.18994331
-  m_HasExitTime: 0
+  m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
@@ -88,6 +85,7 @@ AnimatorState:
   m_Transitions:
   - {fileID: 6964771436338720963}
   - {fileID: -8694794408818769451}
+  - {fileID: -6093878915136590764}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -226,6 +224,31 @@ AnimatorStateTransition:
   m_TransitionDuration: 0.15821706
   m_TransitionOffset: 0.021646913
   m_ExitTime: 0.057364255
+  m_HasExitTime: 0
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
+--- !u!1101 &-6093878915136590764
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: StickR
+    m_EventTreshold: 0
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: -922567459618106690}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0.19357401
+  m_TransitionOffset: 0
+  m_ExitTime: 0.10505597
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -372,6 +395,31 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!1101 &-4946908942256716520
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: StickL
+    m_EventTreshold: 0
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: -8448699047170937091}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0.14356118
+  m_TransitionOffset: 0.117271654
+  m_ExitTime: 0.10365309
+  m_HasExitTime: 0
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
 --- !u!1101 &-4610977509053130765
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -381,7 +429,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: UkenagashiL
+    m_ConditionEvent: UkenagashiR
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 4687656084018257949}
@@ -733,6 +781,7 @@ AnimatorState:
   m_Transitions:
   - {fileID: -8849097175970419594}
   - {fileID: 6179588151513606408}
+  - {fileID: -4946908942256716520}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -904,6 +953,18 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
+  - m_Name: StickL
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
+  - m_Name: StickR
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -1069,10 +1130,7 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: Gurd
-    m_EventTreshold: 0
+  m_Conditions: []
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 7108091102569339675}
   m_Solo: 0
@@ -1432,7 +1490,7 @@ AnimatorStateMachine:
     m_Position: {x: 600, y: 780, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2768581169471379257}
-    m_Position: {x: 810, y: 1130, z: 0}
+    m_Position: {x: 700, y: 1170, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4687656084018257949}
     m_Position: {x: 70, y: 920, z: 0}
@@ -1444,7 +1502,7 @@ AnimatorStateMachine:
     m_Position: {x: 50, y: 530, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 3625441621270904910}
-    m_Position: {x: 380, y: 690, z: 0}
+    m_Position: {x: 290, y: 580, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7108091102569339675}
     m_Position: {x: 1060, y: 790, z: 0}
@@ -1725,7 +1783,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: UkenagashiR
+    m_ConditionEvent: UkenagashiL
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -2768581169471379257}
@@ -1770,10 +1828,7 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions:
-  - m_ConditionMode: 2
-    m_ConditionEvent: UkenagashiL
-    m_EventTreshold: 0
+  m_Conditions: []
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -5909023764978253608}
   m_Solo: 0
@@ -1783,7 +1838,7 @@ AnimatorStateTransition:
   m_TransitionDuration: 0.31694412
   m_TransitionOffset: 0.0016847095
   m_ExitTime: 0.16795065
-  m_HasExitTime: 0
+  m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
@@ -1869,7 +1924,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: Counter
+    m_ConditionEvent: UkenagashiR
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 4687656084018257949}
@@ -1877,10 +1932,10 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.36633813
-  m_TransitionOffset: 0.19638376
-  m_ExitTime: 0.18955079
-  m_HasExitTime: 0
+  m_TransitionDuration: 0
+  m_TransitionOffset: 0.18126367
+  m_ExitTime: 0.17443071
+  m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
@@ -1922,7 +1977,10 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: UkenagashiR
+    m_ConditionEvent: Gurd
+    m_EventTreshold: 0
+  - m_ConditionMode: 1
+    m_ConditionEvent: StickL
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -8448699047170937091}
@@ -1930,9 +1988,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 1.1416361
-  m_TransitionOffset: 0.00025401986
-  m_ExitTime: 0.000000051258368
+  m_TransitionDuration: 0
+  m_TransitionOffset: 0.000254019
+  m_ExitTime: 0.000000049004043
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -2002,7 +2060,10 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: UkenagashiL
+    m_ConditionEvent: Gurd
+    m_EventTreshold: 0
+  - m_ConditionMode: 1
+    m_ConditionEvent: StickR
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -922567459618106690}
@@ -2025,10 +2086,7 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: Gurd
-    m_EventTreshold: 0
+  m_Conditions: []
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -2378319226415325972}
   m_Solo: 0

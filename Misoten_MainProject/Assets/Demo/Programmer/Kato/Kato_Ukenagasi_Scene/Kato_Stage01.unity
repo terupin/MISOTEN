@@ -1857,6 +1857,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6111667495423680248, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
+      propertyPath: SearchLength
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6111667495423680248, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
       propertyPath: debug_switch
       value: 0
       objectReference: {fileID: 0}
@@ -1870,6 +1875,16 @@ PrefabInstance:
       propertyPath: lineMaterial
       value: 
       objectReference: {fileID: 2100000, guid: 426ab8c9cf4c37c4e9b6a3713e1697a0, type: 2}
+    - target: {fileID: 6111667495423680248, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
+      propertyPath: RenGekiChance
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6111667495423680248, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
+      propertyPath: TategiriChance
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 6111667495423680248, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
       propertyPath: centerOffset.y
