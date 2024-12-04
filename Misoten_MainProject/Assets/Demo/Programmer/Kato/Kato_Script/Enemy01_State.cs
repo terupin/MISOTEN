@@ -238,7 +238,7 @@ public class Enemy01_State : MonoBehaviour
         }
         else
         {
-            currentHP = Kato_Status_E.NowHP / Kato_Status_E.MaxHP;
+            currentHP = (float)Kato_Status_E.NowHP / (float)Kato_Status_E.MaxHP;
         }
 
         if (Target_P == null)
@@ -645,6 +645,11 @@ public class Enemy01_State : MonoBehaviour
                         Debug.Log("îªíËÅ@ê¨å˜0R");
                         //UnityEditor.EditorApplication.isPaused = true;
                     }
+                    else
+                    {
+                        UkeL = false;
+                        UkeR = false;
+                    }
                 }
                 else
                 {
@@ -807,6 +812,8 @@ public class Enemy01_State : MonoBehaviour
 
         if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
         {
+            UkeL = false;
+            UkeR = false;
             P_Input = false;
             Effectflg = false;
         }
