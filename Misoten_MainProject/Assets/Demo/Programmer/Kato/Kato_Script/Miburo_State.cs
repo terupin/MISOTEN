@@ -91,7 +91,7 @@ public class Miburo_State : MonoBehaviour
     void Update()
     {
         //HP0以下ならゲームオーバー
-        if (Kato_Status_P.NowHP <= 0)
+        if (Kato_Status_P.instance.NowHP <= 0)
         {
             Miburo_Animator.SetBool("GameOver", true);
             return;
@@ -496,7 +496,7 @@ public class Miburo_State : MonoBehaviour
 
         if (MathF.Abs(moveX) >= 0.05f || MathF.Abs(RotateY) >= 0.05f)
         {
-            if (Kato_Status_P.NowHP > 0)
+            if (Kato_Status_P.instance.NowHP > 0)
             {
                 _Run = true;
             }

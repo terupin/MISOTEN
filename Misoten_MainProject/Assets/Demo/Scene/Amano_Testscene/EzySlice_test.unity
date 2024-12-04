@@ -1122,6 +1122,38 @@ MonoBehaviour:
   cut_materal: {fileID: 2100000, guid: 8e5a4c17787272e41a45391ac3ed1378, type: 2}
   droping_item: {fileID: 9085198610253395286, guid: 9cca41b8822d9df4bb4b08caeec9b258,
     type: 3}
+--- !u!1 &1181058743
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1181058744}
+  m_Layer: 0
+  m_Name: Kibako
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1181058744
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1181058743}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 11.044593, y: 14.13043, z: 9.988136}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1938004387}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1201212560
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1522,7 +1554,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1181058744}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 707ec409088b6294a9fa6298c5747c60,
         type: 3}
@@ -1542,17 +1574,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 707ec409088b6294a9fa6298c5747c60,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -11.11
+      value: -22.154593
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 707ec409088b6294a9fa6298c5747c60,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.05
+      value: -11.08043
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 707ec409088b6294a9fa6298c5747c60,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.18
+      value: -7.808136
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 707ec409088b6294a9fa6298c5747c60,
         type: 3}
@@ -1562,7 +1594,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 707ec409088b6294a9fa6298c5747c60,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 707ec409088b6294a9fa6298c5747c60,
         type: 3}
@@ -1912,6 +1944,12 @@ MonoBehaviour:
   cut_materal: {fileID: 2100000, guid: 81c5e87c7589a35498d78c2028efbeb9, type: 2}
   droping_item: {fileID: 3680988922467423700, guid: 9cca41b8822d9df4bb4b08caeec9b258,
     type: 3}
+--- !u!4 &1938004387 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 707ec409088b6294a9fa6298c5747c60,
+    type: 3}
+  m_PrefabInstance: {fileID: 1606728154}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1940526022 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 49b4e1875b37de5499950135686031dc,
@@ -2628,7 +2666,6 @@ SceneRoots:
   - {fileID: 1974202691}
   - {fileID: 1997892689}
   - {fileID: 1823688467}
-  - {fileID: 1606728154}
   - {fileID: 1441381296}
   - {fileID: 630902106}
   - {fileID: 236107815}
@@ -2640,3 +2677,4 @@ SceneRoots:
   - {fileID: 6532294496585009217}
   - {fileID: 4578881581757908037}
   - {fileID: 6171526188287941460}
+  - {fileID: 1181058744}
