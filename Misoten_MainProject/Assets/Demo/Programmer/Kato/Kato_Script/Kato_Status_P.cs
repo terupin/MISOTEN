@@ -5,8 +5,8 @@ using UnityEngine;
 public class Kato_Status_P : MonoBehaviour
 {
     public int MaxHP=5;
-    static public int NowHP;
-    public static int Armor;
+    public int NowHP;
+    public int Armor;
     private float ArmorTime=30.0f;
     private float ArmorCurrentTime;
     public static Kato_Status_P instance;
