@@ -566,7 +566,7 @@ public class K_Matsunaga_Enemy_State : MonoBehaviour
             //UnityEditor.EditorApplication.isPaused = true;
             if (P_Input)
             {
-                UnityEditor.EditorApplication.isPaused = true;
+                //UnityEditor.EditorApplication.isPaused = true;
                 if (Check_Current_Time0 > 0.0f && Check_Time0 >= Check_Current_Time0)
                 {
                     Debug.Log("aaaaaaaa" + Check_Current_Time0);
@@ -578,14 +578,14 @@ public class K_Matsunaga_Enemy_State : MonoBehaviour
                         UkeR = false;
                         E01Anim.SetBool("UkeL", true);
                         Debug.Log("判定　成功0L");
-                        UnityEditor.EditorApplication.isPaused = true;
+                        //UnityEditor.EditorApplication.isPaused = true;
                     }
                     else if (Miburo_State._Katana_Direction == 3 || Miburo_State._Katana_Direction == 4 || Miburo_State._Katana_Direction == 5 || Miburo_State._Katana_Direction == 6)
                     {
                         UkeR = true;
                         E01Anim.SetBool("UkeR", true);
                         Debug.Log("判定　成功0R");
-                        UnityEditor.EditorApplication.isPaused = true;
+                        //UnityEditor.EditorApplication.isPaused = true;
                     }
                 }
                 else
@@ -628,7 +628,7 @@ public class K_Matsunaga_Enemy_State : MonoBehaviour
                     {
                         Debug.Log("判定　成功1");
                         Debug.Log("iiiiiiiii" + Check_Current_Time1);
-                        UnityEditor.EditorApplication.isPaused = true;
+                        //UnityEditor.EditorApplication.isPaused = true;
                         StartCoroutine(WaitUKe__Ren01());
 
                     }
@@ -637,7 +637,7 @@ public class K_Matsunaga_Enemy_State : MonoBehaviour
                 else
                 {
                     Debug.Log("判定　時間切れ1　" + Check_Current_Time1);
-                    UnityEditor.EditorApplication.isPaused = true;
+                    //UnityEditor.EditorApplication.isPaused = true;
                 }
             }
             else
@@ -674,7 +674,7 @@ public class K_Matsunaga_Enemy_State : MonoBehaviour
                     if (!UKe__Ren02)
                     {
                         StartCoroutine(WaitUKe__Ren02());
-                        UnityEditor.EditorApplication.isPaused = true;
+                        //UnityEditor.EditorApplication.isPaused = true;
                         Debug.Log("ききき　" + Check_Current_Time2);
                         Debug.Log("ききき　" + Miburo_State._Katana_Direction);
                     }
