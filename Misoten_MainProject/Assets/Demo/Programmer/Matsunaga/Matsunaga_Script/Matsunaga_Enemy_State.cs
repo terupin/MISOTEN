@@ -78,12 +78,19 @@ public class Matsunaga_Enemy_State : MonoBehaviour
 
     private float elapsedTime = 0f; // 経過時間を記録
 
+    [Header("六角形の半径")]
     public float radius = 1.0f; // 六角形の半径
+    [Header("六角柱の高さ")]
     public float height = 2.0f; // 六角柱の高さ
+    [Header("六角柱の中央座標")]
     public Vector3 centerOffset = Vector3.zero; // 中央座標のオフセット
+    [Header("辺部分のマテリアル")]
     public Material lineMaterial; // 線用のマテリアル
+    [Header("面部分のマテリアル")]
     public Material faceMaterial; // 面用のマテリアル
+    [Header("電竹のモデル")]
     public GameObject vertexObjectPrefab; // 頂点に生成するオブジェクト
+    [Header("電竹のスケール")]
     public Vector3 vertexObjectScale = Vector3.one; // 頂点オブジェクトのスケール
 
     Vector3[] lowerVertices = new Vector3[6];
@@ -566,6 +573,7 @@ public class Matsunaga_Enemy_State : MonoBehaviour
         List<Vector3> vertices = new List<Vector3>();
         List<int> triangles = new List<int>();
 
+        /*
         // 下面
         for (int i = 1; i < 5; i++)
         {
@@ -589,6 +597,7 @@ public class Matsunaga_Enemy_State : MonoBehaviour
             triangles.Add(vertices.Count - 2);
             triangles.Add(vertices.Count - 1);
         }
+        */
 
         // 側面
         for (int i = 0; i < 6; i++)
