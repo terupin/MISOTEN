@@ -2026,7 +2026,7 @@ MonoBehaviour:
   S_Effect: {fileID: 9060970370165693562, guid: 9eef12dc538892048b21bbc76811f6c8,
     type: 3}
   Effectflg: 0
-  debug_switch: 1
+  debug_switch: 0
   Target_P: {fileID: 1322884133}
   SearchLength: 10
   AttackLength: 3.5
@@ -2040,14 +2040,15 @@ MonoBehaviour:
   durabilityFieldPrefab: {fileID: 9219549096807305038, guid: ba6f924de61fb164cb25456e3a9d4b85,
     type: 3}
   fieldPositions:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  fieldScale: {x: 1, y: 1, z: 1}
-  barrierPrefab: {fileID: 0}
+  - {x: 9, y: 0, z: 0}
+  - {x: 9, y: 0, z: 4}
+  - {x: 9, y: 0, z: 9}
+  - {x: -9, y: 0, z: 9}
+  - {x: -9, y: 0, z: 4}
+  - {x: -9, y: 0, z: 9}
+  fieldScale: {x: 2.5, y: 2.5, z: 2.5}
+  barrierPrefab: {fileID: 4615949204175965807, guid: 5c581583c6c7dcd4ba6a00633dc5598e,
+    type: 3}
   barrierPosition: []
   barrierScale: {x: 50, y: 50, z: 50}
 --- !u!1 &777521274
@@ -3426,7 +3427,7 @@ PrefabInstance:
     - target: {fileID: 3585649484615341185, guid: 0c03af48d89f8e24db637ca4b1af9eba,
         type: 3}
       propertyPath: m_IsTrigger
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3585649484615341185, guid: 0c03af48d89f8e24db637ca4b1af9eba,
         type: 3}

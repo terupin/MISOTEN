@@ -571,8 +571,15 @@ public class Miburo_State : MonoBehaviour
             {
                 gameObject.AddComponent<Damage_Flash>();
                 Miburo_Animator.SetTrigger("Damage");
-                gameObject.transform.position -= gameObject.transform.forward*2.5f;
+                //gameObject.transform.position -= gameObject.transform.forward*2.5f;
+                Rigidbody rb = GetComponent<Rigidbody>();
+                rb.AddForce(Target.transform.forward*5);            
             }
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        //if (collision. == "EWeapon")
     }
 }

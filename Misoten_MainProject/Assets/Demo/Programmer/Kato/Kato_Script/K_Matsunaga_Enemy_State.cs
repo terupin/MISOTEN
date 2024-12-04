@@ -47,7 +47,7 @@ public class K_Matsunaga_Enemy_State : MonoBehaviour
     };
 
     [SerializeField, Header("デバックモード")]
-    public bool debug_switch = true; //デバッグ用の処理のスイッチ
+    public bool debug_switch ; //デバッグ用の処理のスイッチ
 
     private Enemy_State_ E_State; // 現在の敵の状態を格納
 
@@ -123,6 +123,7 @@ public class K_Matsunaga_Enemy_State : MonoBehaviour
     {
         if (Kato_Status_E.NowHP <= 0)
         {
+
             return;
         }
 
