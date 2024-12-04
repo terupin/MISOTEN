@@ -11,6 +11,7 @@ public class Miburo_State : MonoBehaviour
     //フラグ
     private bool _Step;
     static public bool _Parry;
+    static public bool _Parry_Timing;//パリイ入力した瞬間
     static public bool _Attack01;
     static public bool _Attack02;
     private bool _Run;
@@ -22,8 +23,9 @@ public class Miburo_State : MonoBehaviour
     private bool _KnockBack;
     Vector3 dir;
 
+    //Rigidbody rb;
 
-    [SerializeField, Header("ノックバックスピード")]
+   [SerializeField, Header("ノックバックスピード")]
     public float KnockBack_Speed;
 
     [SerializeField, Header("ノックバック時間(秒)")]
@@ -84,7 +86,6 @@ public class Miburo_State : MonoBehaviour
         _Katana_Direction = -1;
 
          Test.AddComponent<MeshRenderer>();
-        
     }
 
     // Update is called once per frame
@@ -118,12 +119,14 @@ public class Miburo_State : MonoBehaviour
         if (UnityEngine.Input.GetKeyDown("joystick button 4"))
         {
             //StartCoroutine(Miburo_Parry());
-            _Parry = true;
+            //_Parry = true;
+            _Parry_Timing = true;
+            StartCoroutine(Miburo_Parry());
             return;
         }
         else
         {
-          
+            _Parry_Timing = false;
         }
 
         //Aボタン押下
@@ -142,13 +145,32 @@ public class Miburo_State : MonoBehaviour
         //ノックバック
         if(_KnockBack)
         {
-            Rigidbody rb = GetComponent<Rigidbody>();
 
-             
-            rb.position += (gameObject.transform.position+dir) * KnockBack_Speed*Time.deltaTime;
+
+            Rigidbody rb=GetComponent<Rigidbody>();
+            
+            Debug.Log("ああああ"+rb.position);
+            Debug.Log("ああああ" + dir);
+            rb.velocity = Vector3.zero;
+            rb.position -= dir * KnockBack_Speed*Time.deltaTime;
         }
 
-
+        if(K_Matsunaga_Enemy_State.UKe__Ren01 || K_Matsunaga_Enemy_State.UKe__Ren02 || K_Matsunaga_Enemy_State.UkeL || K_Matsunaga_Enemy_State.UkeR)
+        {
+            GetKatana_Direction();
+        }
+        else
+        {
+            if(_Parry)
+            {
+                if (!_wait)
+                {
+                    StartCoroutine(Miburo_Parry_Wait());
+                    _wait = true;
+                }
+            }
+ 
+        }
 
 
 
@@ -169,6 +191,7 @@ public class Miburo_State : MonoBehaviour
         ////判定をアニメーターへ
 
         Miburo_Animator.SetBool("Run", _Run);
+        Miburo_Animator.SetBool("Gurd", _Parry);
         //Miburo_Animator.SetInteger("KatanaD", _Katana_Direction);
 
 
@@ -253,37 +276,37 @@ public class Miburo_State : MonoBehaviour
 
 
 
-        if (K_Matsunaga_Enemy_State.UKe__Ren01 &&_Parry)
-        {
-            if (!_Ren11)
-            {
-                _Ren11 = true;
-                StartCoroutine(Miburo_Stick());
-               //UnityEditor.EditorApplication.isPaused = true;
-            }
+        //if (K_Matsunaga_Enemy_State.UKe__Ren01 &&_Parry)
+        //{
+        //    if (!_Ren11)
+        //    {
+        //        _Ren11 = true;
+        //        StartCoroutine(Miburo_Stick());
+        //       //UnityEditor.EditorApplication.isPaused = true;
+        //    }
 
-        }
-        else if(!K_Matsunaga_Enemy_State.UKe__Ren01 && _Parry)
-        {
-            //Debug.Log("判定　タイムオーバー2");
-            StartCoroutine(Miburo_Parry_Wait());
-            //UnityEditor.EditorApplication.isPaused = true;
-        }
+        //}
+        //else if(!K_Matsunaga_Enemy_State.UKe__Ren01 && _Parry)
+        //{
+        //    //Debug.Log("判定　タイムオーバー2");
+        //    StartCoroutine(Miburo_Parry_Wait());
+        //    //UnityEditor.EditorApplication.isPaused = true;
+        //}
 
-        if (K_Matsunaga_Enemy_State.UKe__Ren02 && _Parry)
-        {
-            if (!_Ren22)
-            {
-                _Ren22 = true;
-                StartCoroutine(Miburo_Stick());
-                //UnityEditor.EditorApplication.isPaused = true;
-            }
-        }
-        else if (!K_Matsunaga_Enemy_State.UKe__Ren02 && _Parry)
-        {
-            Debug.Log("判定　タイムオーバー2");
-            StartCoroutine(Miburo_Parry_Wait());
-        }
+        //if (K_Matsunaga_Enemy_State.UKe__Ren02 && _Parry)
+        //{
+        //    if (!_Ren22)
+        //    {
+        //        _Ren22 = true;
+        //        StartCoroutine(Miburo_Stick());
+        //        //UnityEditor.EditorApplication.isPaused = true;
+        //    }
+        //}
+        //else if (!K_Matsunaga_Enemy_State.UKe__Ren02 && _Parry)
+        //{
+        //    Debug.Log("判定　タイムオーバー2");
+        //    StartCoroutine(Miburo_Parry_Wait());
+        //}
 
         if (_Stick_Input)
         {
@@ -350,6 +373,7 @@ public class Miburo_State : MonoBehaviour
             Debug.Log("パリイ開始");
             yield return new WaitForSeconds(Parry_WaitTime);
             Debug.Log("パリイ待ち時間終了");
+            _Parry = false;
 
         }
         else
@@ -366,12 +390,12 @@ public class Miburo_State : MonoBehaviour
         {
             _Stick_Input = true;
             Debug.Log("スティック");
-            Miburo_Animator.SetBool("Gurd", _Stick_Input);
+            //Miburo_Animator.SetBool("Gurd", _Stick_Input);
             yield return new WaitForSeconds(Parry_WaitTime);
             Debug.Log("スティック待ち時間終了");
             Input_Check();
             _Stick_Input = false;
-            Miburo_Animator.SetBool("Gurd", _Stick_Input);
+            //Miburo_Animator.SetBool("Gurd", _Stick_Input);
             //UnityEditor.EditorApplication.isPaused = true;
 
         }
@@ -586,11 +610,12 @@ public class Miburo_State : MonoBehaviour
             GameObject Miburo_Box = GameObject.Find("Player");
             if (Miburo_Box && K_Matsunaga_Enemy_State.Attack)
             {
-                dir = Target.transform.position - gameObject.transform.position;
+                Rigidbody rb = GetComponent<Rigidbody>();
+                dir =(Target.transform.position- rb.position).normalized;
                 Miburo_Animator.SetTrigger("Damage");
                 gameObject.AddComponent<Damage_Flash>();
+
                 StartCoroutine(KnockBack());
-                //gameObject.transform.position -= gameObject.transform.forward*2.5f;
 
             }
         }
