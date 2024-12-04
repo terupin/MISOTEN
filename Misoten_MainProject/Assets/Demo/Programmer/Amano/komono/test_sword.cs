@@ -76,8 +76,8 @@ public class test_sword : MonoBehaviour
                 GameObject lowerHull = slicedObject.CreateLowerHull(targetObject, cuting);
 
                 //新しい部分物理コンポーネントを追加
-                MakeItPhysical(upperHull);
-                MakeItPhysical(lowerHull);
+                MakeItPhysical(upperHull,other.gameObject.transform.parent);
+                MakeItPhysical(lowerHull,other.gameObject.transform.parent);
 
                 //元のオブジェクトを削除
                 Destroy(targetObject);
@@ -87,16 +87,18 @@ public class test_sword : MonoBehaviour
 
 
     //オブジェクト生成時にMeshColliderとRigidbodyをアタッチする
-    private void MakeItPhysical(GameObject obj)
+    private void MakeItPhysical(GameObject objc,Transform pos)
     {
         //MeshColliderのConvexをtrueにしないと、すり抜けてしまうので注意
-        obj.AddComponent<MeshCollider>().convex = true;
+        objc.AddComponent<MeshCollider>().convex = true;
 
         //Rigidbody関係
-        Rigidbody rb = obj.AddComponent<Rigidbody>();
+        Rigidbody rb = objc.AddComponent<Rigidbody>();
         rb.useGravity = true;
 
-        Destroy(obj, lifetime);
+        objc.transform.position = pos.position;
+
+        Destroy(objc, lifetime);
 
         //切れたものをもう一度切れるようにするためのタグ付け
         //obj.gameObject.tag = cut_tag;
