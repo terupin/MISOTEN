@@ -9,13 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7990267080315534937}
-  - component: {fileID: 3429618914247794518}
   - component: {fileID: 6346175220718111584}
   - component: {fileID: 126546910121383811}
   - component: {fileID: 788636680117603469}
-  - component: {fileID: 4899932748930790640}
   - component: {fileID: 1243681727059629837}
-  - component: {fileID: 7402921998873306554}
   - component: {fileID: 5559175423462806870}
   m_Layer: 0
   m_Name: Player_Miburo
@@ -43,21 +40,6 @@ Transform:
   - {fileID: 4853101299218438117}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3429618914247794518
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3669612430873067828}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b85649e72b77d0e46aabd7a925df0248, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  StepWaitTime: 1
-  StepRength: 3.5
-  Player_Animator: {fileID: 0}
 --- !u!114 &6346175220718111584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,12 +47,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3669612430873067828}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 81463845ed4b1364888ca4dbacb3a4d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHP: 5
+  NowHP: 0
+  Armor: 0
 --- !u!65 &126546910121383811
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -119,7 +103,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 2
---- !u!114 &4899932748930790640
+--- !u!114 &1243681727059629837
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -128,21 +112,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3669612430873067828}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5233277554ff8d242bad3eb6abf0c67b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1243681727059629837
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3669612430873067828}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 238dca1c85878de4181b21ba308a6812, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  KnockBack_Speed: 0
+  KnockBack_Time: 0
   Move_Speed: 5.5
   Target: {fileID: 0}
   Player: {fileID: 0}
@@ -158,25 +132,6 @@ MonoBehaviour:
   Test: {fileID: 0}
   TestMat: {fileID: 0}
   Reset: {fileID: 0}
---- !u!114 &7402921998873306554
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3669612430873067828}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aead279a02bfc8f4c80e74a8c2d5e041, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isLockOn: 0
-  loocOnTarget: {fileID: 0}
-  virtualCamera: {fileID: 0}
-  LockOnCamera: {fileID: 0}
-  ukenagasiLCam: {fileID: 0}
-  ukenagasiRCam: {fileID: 0}
-  camchangecountlimit: 5
 --- !u!114 &5559175423462806870
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Rendering;
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -79,6 +80,9 @@ public class Miburo_State : MonoBehaviour
 
     public Material Reset;
 
+    [SerializeField, Header("ゲームオーバーシーン名")]
+    public string SceneName ;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -95,6 +99,7 @@ public class Miburo_State : MonoBehaviour
         if (Kato_Status_P.instance.NowHP <= 0)
         {
             Miburo_Animator.SetBool("GameOver", true);
+            StartCoroutine(Gameover());
             return;
         }
 
@@ -136,22 +141,10 @@ public class Miburo_State : MonoBehaviour
             StartCoroutine(Miburo_Step());
         }
 
-        //if (_Parry)//受け流し入力可能時に受け流し入力
-        //{
-
-        //    StartCoroutine(Miburo_Stick());
-
-        //}
-
         //ノックバック
         if(_KnockBack)
         {
-
-
             Rigidbody rb=GetComponent<Rigidbody>();
-            
-            Debug.Log("ああああ"+rb.position);
-            Debug.Log("ああああ" + dir);
             rb.velocity = Vector3.zero;
             rb.position -= dir * KnockBack_Speed*Time.deltaTime;
         }
@@ -172,8 +165,6 @@ public class Miburo_State : MonoBehaviour
             }
  
         }
-
-
 
         Player_Run_Input();//走行入力がされているかのフラグ
 
@@ -599,7 +590,7 @@ public class Miburo_State : MonoBehaviour
     {
 
         yield return new WaitForSeconds(5);
-        SceneManager.LoadScene("OverScene");
+        SceneManager.LoadScene(SceneName);
 
     }
 
