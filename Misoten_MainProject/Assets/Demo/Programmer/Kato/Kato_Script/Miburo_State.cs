@@ -19,6 +19,14 @@ public class Miburo_State : MonoBehaviour
 
     private bool _wait;
 
+    private bool _KnockBack;
+
+
+    [SerializeField, Header("ノックバックスピード")]
+    public float KnockBack_Speed;
+
+    [SerializeField, Header("ノックバック時間(秒)")]
+    public float KnockBack_Time;
 
     static public bool _Stick_Input;
 
@@ -130,6 +138,12 @@ public class Miburo_State : MonoBehaviour
 
         //}
 
+        //ノックバック
+        if(_KnockBack)
+        {
+            Rigidbody rb = GetComponent<Rigidbody>();
+            rb.position -= gameObject.transform.forward * KnockBack_Speed*Time.deltaTime;
+        }
 
 
 
@@ -569,11 +583,11 @@ public class Miburo_State : MonoBehaviour
             GameObject Miburo_Box = GameObject.Find("Player");
             if (Miburo_Box && K_Matsunaga_Enemy_State.Attack)
             {
-                gameObject.AddComponent<Damage_Flash>();
                 Miburo_Animator.SetTrigger("Damage");
+                gameObject.AddComponent<Damage_Flash>();
+                StartCoroutine(KnockBack());
                 //gameObject.transform.position -= gameObject.transform.forward*2.5f;
-                Rigidbody rb = GetComponent<Rigidbody>();
-                rb.AddForce(Target.transform.forward*5);            
+
             }
         }
     }
@@ -581,5 +595,17 @@ public class Miburo_State : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         //if (collision. == "EWeapon")
+    }
+
+    private IEnumerator KnockBack()
+    {
+        if(!_KnockBack)
+        {
+
+
+            _KnockBack = true;
+            yield return new WaitForSeconds(KnockBack_Time);
+            _KnockBack = false;
+        }
     }
 }
