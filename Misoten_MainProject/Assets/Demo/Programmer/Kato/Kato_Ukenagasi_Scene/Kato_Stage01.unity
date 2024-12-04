@@ -1232,6 +1232,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 713036022588363082, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 765943321502990841, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
       propertyPath: m_RenderingLayerMask
@@ -1526,7 +1531,7 @@ PrefabInstance:
     - target: {fileID: 3965139916692988938, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3965139916692988938, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
@@ -1973,6 +1978,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 723284152}
+    - targetCorrespondingSourceObject: {fileID: 3847602336648284765, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 723284153}
   m_SourcePrefab: {fileID: 100100000, guid: 5a5dfd0327ec98346a40d1796a249e1e, type: 3}
 --- !u!4 &723284142 stripped
 Transform:
@@ -1998,6 +2007,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11436e7c1365ec745b37ec7c39a80ce9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &723284153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 723284144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73509ccc2154a3c4fbd03d5ba477dae2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Testobj: {fileID: 1832229556}
+  Check_Time0: 0.5
+  Check_Time1: 0.5
+  Check_Time2: 0.5
+  S_Effect: {fileID: 9060970370165693562, guid: 9eef12dc538892048b21bbc76811f6c8,
+    type: 3}
+  Effectflg: 0
+  debug_switch: 0
+  Target_P: {fileID: 1322884133}
+  SearchLength: 10
+  AttackLength: 3.5
+  MoveSpeed: 12
+  TategiriChance: 60
+  RenGekiChance: 40
+  E01Anim: {fileID: 2002034717}
+  StateTime: 2.5
+  CooldownTime: 2.5
+  StaggerTime: 1
+  durabilityFieldPrefab: {fileID: 9219549096807305038, guid: ba6f924de61fb164cb25456e3a9d4b85,
+    type: 3}
+  fieldPositions:
+  - {x: 9, y: 0, z: 0}
+  - {x: 9, y: 0, z: 4}
+  - {x: 9, y: 0, z: 9}
+  - {x: -9, y: 0, z: 9}
+  - {x: -9, y: 0, z: 4}
+  - {x: -9, y: 0, z: 9}
+  fieldScale: {x: 2.5, y: 2.5, z: 2.5}
+  barrierPrefab: {fileID: 4615949204175965807, guid: 5c581583c6c7dcd4ba6a00633dc5598e,
+    type: 3}
+  barrierPosition: []
+  barrierScale: {x: 50, y: 50, z: 50}
 --- !u!1 &777521274
 GameObject:
   m_ObjectHideFlags: 0
@@ -3374,7 +3427,7 @@ PrefabInstance:
     - target: {fileID: 3585649484615341185, guid: 0c03af48d89f8e24db637ca4b1af9eba,
         type: 3}
       propertyPath: m_IsTrigger
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3585649484615341185, guid: 0c03af48d89f8e24db637ca4b1af9eba,
         type: 3}
