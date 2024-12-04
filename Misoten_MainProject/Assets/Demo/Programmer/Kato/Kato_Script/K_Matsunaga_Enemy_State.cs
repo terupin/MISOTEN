@@ -117,7 +117,7 @@ public class K_Matsunaga_Enemy_State : MonoBehaviour
         // 初期状態を設定
         E_State = Enemy_State_.Idle;
         StateCurrentTime = 0.0f; // 経過時間を初期化
-        currentHP = Matsunaga_Status_E.NowHP / Matsunaga_Status_E.MaxHP; // 初期HPを設定
+        currentHP = Kato_Status_E.NowHP / Kato_Status_E.MaxHP; // 初期HPを設定
         elapsedTime = 0f; // 経過時間を初期化
         E01Anim.SetBool("Idle", true); // Idleアニメーションを初期状態に設定
     }
@@ -129,6 +129,12 @@ public class K_Matsunaga_Enemy_State : MonoBehaviour
 
             return;
         }
+
+        if(UnityEngine.Input.GetKeyDown(KeyCode.O))
+        {
+            Kato_Status_E.NowHP -= 500;
+        }
+       
 
         if (Miburo_State._Parry_Timing)
         {
@@ -227,7 +233,7 @@ public class K_Matsunaga_Enemy_State : MonoBehaviour
         }
         else
         {
-            currentHP = Matsunaga_Status_E.NowHP / Matsunaga_Status_E.MaxHP;
+            currentHP = Kato_Status_E.NowHP / Kato_Status_E.MaxHP;
         }
 
         if (Target_P == null)

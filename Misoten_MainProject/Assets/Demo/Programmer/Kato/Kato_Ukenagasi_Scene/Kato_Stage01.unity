@@ -1869,6 +1869,21 @@ PrefabInstance:
       propertyPath: Target_P
       value: 
       objectReference: {fileID: 1322884133}
+    - target: {fileID: 6895063022661530804, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
+      propertyPath: debug_switch
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6895063022661530804, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
+      propertyPath: RenGekiChance
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6895063022661530804, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
+      propertyPath: TategiriChance
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 6980507435785902838, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
       propertyPath: m_StaticEditorFlags
