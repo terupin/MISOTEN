@@ -245,7 +245,8 @@ public class Miburo_State : MonoBehaviour
         {
             _Ren11 = false;
         }
-        if (Kato_Matsunaga_Enemy_State.UKe__Ren02)
+
+        if (Enemy01_State.UKe__Ren02)
         {
             if (!_Ren22)
             {

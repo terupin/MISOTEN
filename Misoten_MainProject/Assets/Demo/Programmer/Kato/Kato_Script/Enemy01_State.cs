@@ -749,8 +749,7 @@ public class Enemy01_State : MonoBehaviour
                             UKe__Ren02 = true;
                             E01Anim.SetBool("RenUke02", true);
                             //UnityEditor.EditorApplication.isPaused = true;
-                            Debug.Log("ききき　" + Check_Current_Time2);
-                            Debug.Log("ききき　" + Miburo_State._Katana_Direction);
+                            Debug.Log("判定　成功2");
                         }
                     }
 
@@ -759,13 +758,19 @@ public class Enemy01_State : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("判定　時間切れ2" + Check_Current_Time2);
+                    Debug.Log("判定　時間切れ2 " + Check_Current_Time2);
+
                 }
 
             }
             else
             {
                 Check_Current_Time2 += Time.deltaTime;
+                if (Check_Current_Time2 > Check_Time2)
+                {
+                    UnityEditor.EditorApplication.isPaused = true;
+
+                }
             }
         }
         else

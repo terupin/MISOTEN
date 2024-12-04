@@ -39,9 +39,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.31069946
-  m_TransitionOffset: 0.0031456924
-  m_ExitTime: 0.18994331
+  m_TransitionDuration: 0.27359164
+  m_TransitionOffset: 0.014278046
+  m_ExitTime: 0.1880691
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -565,9 +565,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.0654234
-  m_TransitionOffset: 0.09457844
-  m_ExitTime: 0.06414574
+  m_TransitionDuration: 0.071775705
+  m_TransitionOffset: 0.15012209
+  m_ExitTime: 0.15
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -1306,7 +1306,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: UKE 1
-  m_Speed: 1.5
+  m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 6242106356915139544}
