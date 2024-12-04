@@ -2056,6 +2056,7 @@ MonoBehaviour:
   S_Effect: {fileID: 9060970370165693562, guid: 9eef12dc538892048b21bbc76811f6c8,
     type: 3}
   Effectflg: 0
+  P_Input: 0
   debug_switch: 0
   Target_P: {fileID: 1322884133}
   SearchLength: 10
