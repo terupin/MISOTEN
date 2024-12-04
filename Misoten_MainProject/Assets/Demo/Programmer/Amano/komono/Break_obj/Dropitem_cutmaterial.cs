@@ -31,7 +31,7 @@ public class Dropitem_cutmaterial : MonoBehaviour
         if (droping_item != null)
         {
             GameObject prefab = Resources.Load<GameObject>(droping_item.name);
-            GameObject drop_new = Instantiate(droping_item, this.transform.position, Quaternion.identity);
+            GameObject drop_new = Instantiate(droping_item, this.transform.position, Quaternion.identity,gameObject.transform.parent);
             drop_new.AddComponent<Billboard>();
 
             Debug.Log(droping_item.name);
