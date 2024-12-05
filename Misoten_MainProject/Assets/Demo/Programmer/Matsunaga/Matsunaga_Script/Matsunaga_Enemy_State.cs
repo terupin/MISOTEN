@@ -63,6 +63,7 @@ public class Matsunaga_Enemy_State : MonoBehaviour
     //public Vector3 fieldScale = new Vector3(1, 1, 1); // 耐久フィールドのスケール（デフォルト値: 1, 1, 1）
 
     private float currentHP; // 敵の現在のHP
+    private bool hasUsedDurabilityField100 = false; // HP100%で耐久フィールドを生成済みかを管理
     private bool hasUsedDurabilityField75 = false; // HP75%で耐久フィールドを生成済みかを管理
     private bool hasUsedDurabilityField50 = false; // HP50%で耐久フィールドを生成済みかを管理
     private bool hasUsedDurabilityField25 = false; // HP25%で耐久フィールドを生成済みかを管理
@@ -95,6 +96,12 @@ public class Matsunaga_Enemy_State : MonoBehaviour
 
     Vector3[] lowerVertices = new Vector3[6];
     Vector3[] upperVertices = new Vector3[6];
+
+    private float maiclue_space = 10.0f;
+
+    private float maiclue_x;
+    private float maiclue_y;
+    private float maiclue_z;
 
     private void Start()
     {
@@ -184,7 +191,15 @@ public class Matsunaga_Enemy_State : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Alpha5))
             {
                 Debug.Log("dc5: 歩行ステートを実行します");
-                SetState(Enemy_State_.Walk);
+                //SetState(Enemy_State_.Walk);
+                maiclue_x = maiclue_space * Mathf.Sin(Time.time * MoveSpeed);
+                maiclue_x = maiclue_x + Target_P.transform.position.x;
+                maiclue_y = maiclue_space * Mathf.Cos(Time.time * MoveSpeed);
+                maiclue_z = Target_P.transform.position.z;
+
+                this.transform.position = new Vector3(maiclue_x, maiclue_y, maiclue_z);
+
+                Debug.Log($"周回{maiclue_x} {maiclue_y} {maiclue_z}");
             }
 
             // 6キーが押されたらidleステートを実行
@@ -461,6 +476,16 @@ public class Matsunaga_Enemy_State : MonoBehaviour
     // HPに応じた耐久フィールドの生成
     private void HandleDurabilityField()
     {
+        if (currentHP <= 1.0f && !hasUsedDurabilityField100)
+        {
+            //SpawnDurabilityField();
+            // 底面の頂点にオブジェクトを生成
+            GenerateObjectsAtVertices(lowerVertices);
+            StartCoroutine(DelayedBarrierSpawn());
+            hasUsedDurabilityField100 = true;
+            SetState(Enemy_State_.Kaihou);
+        }
+
         if (currentHP <= 0.75f && !hasUsedDurabilityField75)
         {
             //SpawnDurabilityField();
