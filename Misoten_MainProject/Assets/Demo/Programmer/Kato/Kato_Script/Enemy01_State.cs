@@ -118,6 +118,25 @@ public class Enemy01_State : MonoBehaviour
     Vector3[] lowerVertices = new Vector3[6];
     Vector3[] upperVertices = new Vector3[6];
 
+    public float maiclue_radius = 5.0f; //周回する円の半径
+    private float maiclue_x;    //周回計算用のX座標
+    private float maiclue_y;    //周回計算用のY座標
+    private float maiclue_z;    //周回計算用のZ座標
+    public float maiclue_speed; //周回スピード
+
+    private bool run_for_me; //周回用のフラグ
+     
+    private float angle = 0.0f; //周回計算用の角度
+
+    private float maiclue_attacktime; //周回時の攻撃間隔の時間(乱数格納用)
+    public float maiclue_maxtime = 3.0f; //周回時の攻撃間隔の最大時間
+    public float maiclue_mintime = 5.0f; //周回時の攻撃間隔の最小時間
+
+    private float maiclue_starttime;
+    private float maiclue_elapsedtime;
+
+    private bool maiclue_iscount;
+
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -127,7 +146,7 @@ public class Enemy01_State : MonoBehaviour
         currentHP = Kato_Status_E.NowHP / Kato_Status_E.MaxHP; // 初期HPを設定
         elapsedTime = 0f; // 経過時間を初期化
         E01Anim.SetBool("Idle", true); // Idleアニメーションを初期状態に設定
-        
+
         // 頂点を計算
         for (int i = 0; i < 6; i++)
         {
@@ -138,6 +157,8 @@ public class Enemy01_State : MonoBehaviour
             lowerVertices[i] = new Vector3(x, 0, z) + centerOffset;
             upperVertices[i] = new Vector3(x, height, z) + centerOffset;
         }
+
+        run_for_me = false;
     }
 
     private void Update()
@@ -166,6 +187,36 @@ public class Enemy01_State : MonoBehaviour
             LookAtPlayer(); // プレイヤーを向く処理を呼び出し
         }
 
+        if (run_for_me)
+        {
+            if(maiclue_iscount)
+            {
+                maiclue_starttime = Time.time;
+            }
+
+            maiclue_elapsedtime = Time.time - maiclue_starttime;
+
+            
+
+            
+
+            maiclue_attacktime = Random.Range(maiclue_mintime, maiclue_maxtime);
+
+            if (maiclue_elapsedtime <= maiclue_attacktime)
+            {
+                // 角度を更新（速度を考慮）
+                angle += maiclue_speed * Time.deltaTime;
+
+                // 円周上の位置を計算
+                maiclue_x = Target_P.transform.position.x + Mathf.Cos(angle) * maiclue_radius;
+                maiclue_z = Target_P.transform.position.z + Mathf.Sin(angle) * maiclue_radius;
+
+                // オブジェクトを移動
+                transform.position = new Vector3(maiclue_x, transform.position.y, maiclue_z);
+
+            }
+        }
+        
         //デバッグ用プログラム
         if (debug_switch)
         {
@@ -225,7 +276,10 @@ public class Enemy01_State : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Alpha5))
             {
                 Debug.Log("dc5: 歩行ステートを実行します");
-                SetState(Enemy_State_.Walk);
+
+                run_for_me = true;
+                
+                //SetState(Enemy_State_.Walk);
             }
 
             // 6キーが押されたらidleステートを実行
