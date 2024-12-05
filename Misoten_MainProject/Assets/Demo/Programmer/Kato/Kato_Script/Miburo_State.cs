@@ -24,12 +24,15 @@ public class Miburo_State : MonoBehaviour
     private bool _Ren11;
     private bool _Ren22;
 
-    private bool _wait;
+    static public bool _wait;
 
     public bool StickL;
     public bool StickR;
 
-    public bool _NotMuteki;
+
+    [SerializeField, Header("ステップ無敵時間(秒)")]
+    public float Step_Muteki_Time=0.5f;
+    private bool _StepMuteki;
 
     private bool _KnockBack;
     Vector3 dir;
@@ -163,15 +166,15 @@ public class Miburo_State : MonoBehaviour
 
         if (UnityEngine.Input.GetKey("joystick button 0"))
         {
-            _NotMuteki = false;
+            _StepMuteki = false;
 
         }
         else
         {
-            _NotMuteki = true;
+            _StepMuteki = true;
         }
 
-        Miburo_Box.SetActive(_NotMuteki);
+        Miburo_Box.SetActive(_StepMuteki);
 
 
         //ノックバック
