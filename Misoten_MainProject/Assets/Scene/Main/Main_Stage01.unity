@@ -1926,6 +1926,21 @@ PrefabInstance:
       propertyPath: vertexObjectScale.z
       value: 2.5
       objectReference: {fileID: 0}
+    - target: {fileID: 6111667495423680248, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
+      propertyPath: _Sound_Test.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6111667495423680248, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
+      propertyPath: _Sound_Test.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 3ad607a9e9e3fb74ab732b43fade7b25, type: 3}
+    - target: {fileID: 6111667495423680248, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
+      propertyPath: _Sound_Test.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: ae2730078f73a8e47bd7ef2f24202cfd, type: 3}
     - target: {fileID: 6183931800630074564, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
       propertyPath: m_RenderingLayerMask

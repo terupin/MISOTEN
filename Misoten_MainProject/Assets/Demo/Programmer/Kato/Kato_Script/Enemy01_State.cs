@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Enemy01_State : MonoBehaviour
@@ -36,6 +37,10 @@ public class Enemy01_State : MonoBehaviour
     static public bool Attack;//攻撃　当たり判定に使う
 
     private bool P_Input;//パリイ入力されたかどうか
+
+    [SerializeField, Header("テストサウンド")]
+    public AudioClip[] _Sound_Test;
+    AudioSource audioSource;
     //ここまで加藤
 
     // 敵の状態を表す列挙型
@@ -113,6 +118,7 @@ public class Enemy01_State : MonoBehaviour
 
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         // 初期状態を設定
         E_State = Enemy_State_.Idle;
         StateCurrentTime = 0.0f; // 経過時間を初期化
@@ -622,11 +628,7 @@ public class Enemy01_State : MonoBehaviour
             {              
                 if (Check_Current_Time0 > 0.0f && Check_Time0 >= Check_Current_Time0)
                 {
-                    Debug.Log("aaaaaaaa" + Check_Current_Time0);
                     //受け流し成功
-                    Debug.Log(Check_Current_Time0);
-                    //UnityEditor.EditorApplication.isPaused = true;
-                    Debug.Log("判定" + Miburo_State._Katana_Direction);
                     if (Miburo_State._Katana_Direction == 0 || Miburo_State._Katana_Direction == 1 || Miburo_State._Katana_Direction == 2 || Miburo_State._Katana_Direction == 7)
                     {
                         UkeL = true;
@@ -634,7 +636,7 @@ public class Enemy01_State : MonoBehaviour
                         UkeR = false;
                         E01Anim.SetBool("UkeR", false);
                         Debug.Log("判定　成功0L");
-                        //UnityEditor.EditorApplication.isPaused = true;
+                        audioSource.PlayOneShot(_Sound_Test[0]);
                     }
                     else if (Miburo_State._Katana_Direction == 3 || Miburo_State._Katana_Direction == 4 || Miburo_State._Katana_Direction == 5 || Miburo_State._Katana_Direction == 6)
                     {
@@ -642,8 +644,6 @@ public class Enemy01_State : MonoBehaviour
                         E01Anim.SetBool("UkeL", false);
                         UkeR = true;
                         E01Anim.SetBool("UkeR", true);
-                        Debug.Log("判定　成功0R");
-                        //UnityEditor.EditorApplication.isPaused = true;
                     }
                     else
                     {
@@ -654,6 +654,7 @@ public class Enemy01_State : MonoBehaviour
                 else
                 {
                     Debug.Log("判定　時間切れ　" + Check_Current_Time0);
+                    audioSource.PlayOneShot(_Sound_Test[1]);
                 }
             }
             else
@@ -673,10 +674,7 @@ public class Enemy01_State : MonoBehaviour
         if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Tategiri 0"))
         {
             Debug.Log(Check_Current_Time0);
-
-
             Check_Current_Time0 = 0;
-            //UnityEditor.EditorApplication.isPaused = true;
         }
 
         //連撃1振り上げ
@@ -696,6 +694,7 @@ public class Enemy01_State : MonoBehaviour
                             //UnityEditor.EditorApplication.isPaused = true;
                             UKe__Ren01 = true;
                             E01Anim.SetBool("RenUke01", true);
+                            audioSource.PlayOneShot(_Sound_Test[0]);
 
                         }
                     }
@@ -709,6 +708,7 @@ public class Enemy01_State : MonoBehaviour
                 else
                 {
                     Debug.Log("判定　時間切れ1　" + Check_Current_Time1);
+                    audioSource.PlayOneShot(_Sound_Test[1]);
                     //UnityEditor.EditorApplication.isPaused = true;
                 }
             }
@@ -755,6 +755,7 @@ public class Enemy01_State : MonoBehaviour
                             E01Anim.SetBool("RenUke02", true);
                             //UnityEditor.EditorApplication.isPaused = true;
                             Debug.Log("判定　成功2");
+                            audioSource.PlayOneShot(_Sound_Test[0]);
                         }
                     }
 
@@ -764,7 +765,7 @@ public class Enemy01_State : MonoBehaviour
                 else
                 {
                     Debug.Log("判定　時間切れ2 " + Check_Current_Time2);
-
+                    audioSource.PlayOneShot(_Sound_Test[1]);
                 }
 
             }
@@ -873,7 +874,36 @@ public class Enemy01_State : MonoBehaviour
         if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren01") || E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren02") || E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Tategiri"))
         {
             Testobj.SetActive(true);
-            Testobj.transform.localScale += Vector3.one * Time.deltaTime;
+            if (Check_Current_Time0 > 0.0f && Check_Time0 > Check_Current_Time0)
+            {
+
+                Testobj.transform.localScale += Vector3.one * Time.deltaTime;
+            }
+            else if(  Check_Current_Time0> Check_Time0)
+            {
+                Testobj.transform.localScale = Vector3.one;
+                Testobj.SetActive(false);
+            }
+
+            if (Check_Current_Time1 > 0.0f && Check_Time1 > Check_Current_Time1)
+            {
+                Testobj.transform.localScale += Vector3.one * Time.deltaTime;
+            }
+            else if (  Check_Current_Time1> Check_Time1)
+            {
+                Testobj.transform.localScale = Vector3.one;
+                Testobj.SetActive(false);
+            }
+
+            if (Check_Current_Time2 > 0.0f && Check_Time2 > Check_Current_Time2)
+            {
+                Testobj.transform.localScale += Vector3.one * Time.deltaTime;
+            }
+            else if (Check_Current_Time2> Check_Time2  )
+            {
+                Testobj.transform.localScale = Vector3.one;
+                Testobj.SetActive(false);
+            }
         }
         else
         {
