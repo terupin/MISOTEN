@@ -128,7 +128,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     private float maiclue_starttime;
     private float maiclue_elapsedtime;
 
-    private bool maiclue_iscount;
+    private bool maiclue_iscount = false;
 
     private void Start()
     {
@@ -180,29 +180,17 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
         if (run_for_me)
         {
-            // 角度を更新（速度を考慮）
-            angle += maiclue_speed * Time.deltaTime;
-
-            // 円周上の位置を計算
-            maiclue_x = Target_P.transform.position.x + Mathf.Cos(angle) * maiclue_radius;
-            maiclue_z = Target_P.transform.position.z + Mathf.Sin(angle) * maiclue_radius;
-
-            // オブジェクトを移動
-            transform.position = new Vector3(maiclue_x, transform.position.y, maiclue_z);
-            /*
             if (maiclue_iscount)
             {
                 maiclue_starttime = Time.time;
+                maiclue_attacktime = Random.Range(maiclue_mintime, maiclue_maxtime);
+                maiclue_iscount = !maiclue_iscount;
             }
-
-            maiclue_elapsedtime = Time.time - maiclue_starttime;
-
+            else
+            {
+                maiclue_elapsedtime = Time.time - maiclue_starttime;
+            }
             
-
-            
-
-            maiclue_attacktime = Random.Range(maiclue_mintime, maiclue_maxtime);
-
             if (maiclue_elapsedtime <= maiclue_attacktime)
             {
                 // 角度を更新（速度を考慮）
@@ -214,11 +202,29 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
                 // オブジェクトを移動
                 transform.position = new Vector3(maiclue_x, transform.position.y, maiclue_z);
-
             }
-            */
+            else
+            {
+                Debug.Log("攻撃範囲に入ったので攻撃を開始！");
+
+                P_E_Length = Vector3.Distance(Target_P.transform.position, gameObject.transform.position);
+                
+                if (P_E_Length <= AttackLength)
+                {
+                    Debug.Log("攻撃範囲に入ったので攻撃を開始！");
+
+                    DecideAttackType();
+                }
+                else
+                {
+                    Vector3 direction = (Target_P.transform.position - transform.position).normalized;
+                    direction.y = 0;
+                    transform.position += direction * MoveSpeed * Time.deltaTime;
+                }
+                
+            }
         }
-        
+
         //デバッグ用プログラム
         if (debug_switch)
         {
@@ -280,6 +286,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                 Debug.Log("dc5: 歩行ステートを実行します");
 
                 run_for_me = true;
+                maiclue_iscount = true;
                 
                 //SetState(Enemy_State_.Walk);
             }
