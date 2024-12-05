@@ -15,8 +15,11 @@ public class Miburo_State : MonoBehaviour
     static public bool _Parry_Timing;//パリイ入力した瞬間
     static public bool _Attack01;
     static public bool _Attack02;
-    static public bool _Counter01;
-    static public bool _Counter02;
+
+    static public bool _CounterL;
+    static public bool _CounterR;
+    static public bool _RenCounter01;
+    static public bool _RenCounter02;
     private bool _Run;
     private bool _Ren11;
     private bool _Ren22;
@@ -197,7 +200,7 @@ public class Miburo_State : MonoBehaviour
 
         Player_Run_Input();//走行入力がされているかのフラグ
 
-        if (_Attack01 ||_Attack02|| _Stick_Input)
+        if (_Attack01 ||_Attack02|| _Stick_Input ||_Parry || _wait)
         {         
         }
         else
@@ -218,6 +221,7 @@ public class Miburo_State : MonoBehaviour
         if (Enemy01_State.UkeL)
         {
             Miburo_Animator.SetBool("UkenagashiL", true);
+            _CounterL = true;
         }
         else
         {
@@ -227,6 +231,7 @@ public class Miburo_State : MonoBehaviour
         if (Enemy01_State.UkeR)
         {
             Miburo_Animator.SetBool("UkenagashiR", true);
+            _CounterR = true;
         }
         else
         {
@@ -241,7 +246,7 @@ public class Miburo_State : MonoBehaviour
             {
                 Miburo_Animator.SetTrigger("Ren11");
                 _Ren11 = true;
-                _Counter01 = true;
+                _RenCounter01 = true;
             }
         }
         else
@@ -255,7 +260,7 @@ public class Miburo_State : MonoBehaviour
             {
                 Miburo_Animator.SetTrigger("Ren22");
                 _Ren22 = true;
-                _Counter02 = true;
+                _RenCounter02 = true;
             }
 
         }
@@ -265,10 +270,10 @@ public class Miburo_State : MonoBehaviour
         }
 
 
-        if (_Stick_Input)
-        {
-             GetKatana_Direction();
-        } 
+        //if (_Stick_Input)
+        //{
+        //     GetKatana_Direction();
+        //} 
 
 
         GetCurrentAnimationStateName();//ステート取得して
@@ -367,6 +372,7 @@ public class Miburo_State : MonoBehaviour
         _Ren11 = false;
         _Ren22 = false;
         _Parry = false;
+        _wait = false;
     }
 
     private IEnumerator Counter_Timing_Input()
@@ -535,8 +541,10 @@ public class Miburo_State : MonoBehaviour
 
         if (Miburo_Animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
         {
-            _Counter01 = false;
-            _Counter02 = false;
+            _RenCounter01 = false;
+            _RenCounter02 = false;
+            _CounterL = false;
+            _CounterR = false;
         }
 
     }

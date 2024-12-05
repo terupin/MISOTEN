@@ -32,22 +32,22 @@ public class Enemy01_Box : MonoBehaviour
             GameObject Enemy_Box = GameObject.Find("Enemy");
             if (Enemy_Box)
             {
-                if (Miburo_State._Attack02)
+                if (Miburo_State._Attack02 || Miburo_State._CounterR || Miburo_State._CounterL)
                 {
                     gameObject.AddComponent<Enemy_Damage2>();
                     //gameObject.transform.position -= gameObject.transform.forward * 1.5f;
                 }
-                else if (Miburo_State._Attack01)
+                else if (Miburo_State._Attack01 )
                 {
                     gameObject.AddComponent<Enemy_Damage>();
                     //gameObject.transform.position -= gameObject.transform.forward * 1.5f;
                 }
-                else if (Miburo_State._Counter01)
+                else if (Miburo_State._RenCounter01)
                 {
                     gameObject.AddComponent<Enemy_Damage3>();
                     //gameObject.transform.position -= gameObject.transform.forward * 1.5f;
                 }
-                else if (Miburo_State._Counter02)
+                else if (Miburo_State._RenCounter02)
                 {
                     gameObject.AddComponent<Enemy_Damage4>();
                     //gameObject.transform.position -= gameObject.transform.forward * 1.5f;

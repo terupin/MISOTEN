@@ -410,6 +410,14 @@ public class Enemy01_State : MonoBehaviour
             E01Anim.SetBool("RenGeki", false); // アニメーションをリセット
             SetState(Enemy_State_.Cooldown);
         }
+
+        if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("RtoLtoNagasareS") && E01Anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f)
+        {
+            // 連撃攻撃完了後、クールダウンに遷移
+            Debug.Log("連撃攻撃が完了しました。Cooldown 状態に遷移します。");
+            E01Anim.SetBool("RenGeki", false); // アニメーションをリセット
+            SetState(Enemy_State_.Cooldown);
+        }
     }
 
     // ひるみ状態の処理
