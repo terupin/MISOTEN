@@ -50,6 +50,16 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         Kaihou      // 耐久フィールド展開状態
     };
 
+    private enum Mai_State_
+    {
+        Idle,
+        Spin,
+        Goto,
+        Attack,
+        Jumpback
+    };
+
+
     [SerializeField, Header("デバックモード")]
     public bool debug_switch = false; //デバッグ用の処理のスイッチ
 
@@ -111,10 +121,12 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     Vector3[] lowerVertices = new Vector3[6];
     Vector3[] upperVertices = new Vector3[6];
 
+    [Header("周回範囲の半径")]
     public float maiclue_radius = 5.0f; //周回する円の半径
     private float maiclue_x;    //周回計算用のX座標
     private float maiclue_y;    //周回計算用のY座標
     private float maiclue_z;    //周回計算用のZ座標
+    [Header("周回時の移動速度")]
     public float maiclue_speed; //周回スピード
 
     private bool run_for_me; //周回用のフラグ
@@ -122,7 +134,9 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     private float angle = 0.0f; //周回計算用の角度
 
     private float maiclue_attacktime; //周回時の攻撃間隔の時間(乱数格納用)
+    [Header("周回時の攻撃間隔の最大時間")]
     public float maiclue_maxtime = 5.0f; //周回時の攻撃間隔の最大時間
+    [Header("周回時の攻撃間隔の最小時間")]
     public float maiclue_mintime = 3.0f; //周回時の攻撃間隔の最小時間
 
     private float maiclue_starttime;
@@ -133,6 +147,8 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     private Vector3 targetPoint;
     private bool maiclue_istarget = true;
 
+    private Rigidbody rb; //自分のrigidbody
+    private Mai_State_ M_state;
 
     private void Start()
     {
@@ -155,6 +171,8 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         }
 
         run_for_me = false;
+        rb = GetComponent<Rigidbody>();
+        M_state = Mai_State_.Idle;
     }
 
     private void Update()
@@ -184,6 +202,73 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
         if (run_for_me)
         {
+            switch (M_state)
+            {
+                case Mai_State_.Spin:
+
+                    if (maiclue_iscount)
+                    {
+                        maiclue_starttime = Time.time;
+                        maiclue_attacktime = Random.Range(maiclue_mintime, maiclue_maxtime);
+                        maiclue_iscount = !maiclue_iscount;
+                    }
+
+                    maiclue_elapsedtime = Time.time - maiclue_starttime;
+
+                    // 角度を更新（速度を考慮）
+                    angle += maiclue_speed * Time.deltaTime;
+
+                    // 円周上の位置を計算
+                    maiclue_x = Target_P.transform.position.x + Mathf.Cos(angle) * maiclue_radius;
+                    maiclue_z = Target_P.transform.position.z + Mathf.Sin(angle) * maiclue_radius;
+
+                    // オブジェクトを移動
+                    transform.position = new Vector3(maiclue_x, transform.position.y, maiclue_z);
+
+                    if (!(maiclue_elapsedtime <= maiclue_attacktime))
+                    {
+                        M_state = Mai_State_.Goto;
+                    }
+
+                    break;
+
+                case Mai_State_.Goto:
+
+                    Vector3 direction = (Target_P.transform.position - transform.position).normalized;
+                    direction.y = 0;
+                    transform.position += direction * MoveSpeed * Time.deltaTime;
+
+                    if ((P_E_Length <= AttackLength))
+                    {
+                        M_state = Mai_State_.Attack;
+                    }
+
+                    break;
+
+                case Mai_State_.Attack:
+
+                    DecideAttackType();
+
+                    break;
+
+                case Mai_State_.Jumpback:
+
+                    transform.position = targetPoint;
+
+
+                    if(transform.position == targetPoint)
+                    {
+                        maiclue_iscount = !maiclue_iscount;
+
+                        M_state = Mai_State_.Spin;
+                    }
+
+                    break;
+            }
+
+
+
+            /*
             if (maiclue_iscount)
             {
                 maiclue_starttime = Time.time;
@@ -195,6 +280,14 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                 maiclue_elapsedtime = Time.time - maiclue_starttime;
             }
 
+            // ターゲット方向を計算
+            //Vector3 direction = (targetPoint - transform.position).normalized;
+
+            // 距離と高さを調整
+            //direction.y = 1f; // 上方向を強調
+            //rb.AddForce(direction.normalized * jumpForce, ForceMode.Impulse);
+
+            //接近前の座標に戻る
             if (maiclue_jumpback)
             {
                 maiclue_istarget = !maiclue_istarget;
@@ -205,6 +298,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             }
             else
             {
+                //周回移動
                 if (maiclue_elapsedtime <= maiclue_attacktime)
                 {
                     // 角度を更新（速度を考慮）
@@ -217,6 +311,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                     // オブジェクトを移動
                     transform.position = new Vector3(maiclue_x, transform.position.y, maiclue_z);
                 }
+                //接近移動
                 else
                 {
                     Debug.Log("攻撃範囲に入ったので攻撃を開始！");
@@ -243,7 +338,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                     }
                 }
             }
-            
+            */
         }
 
         //デバッグ用プログラム
@@ -308,7 +403,8 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
                 run_for_me = true;
                 maiclue_iscount = true;
-                
+                SetState(Enemy_State_.Idle);
+                M_state = Mai_State_.Spin;
                 //SetState(Enemy_State_.Walk);
             }
 
@@ -484,7 +580,8 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             E01Anim.SetBool("Tategiri", false); // アニメーションをリセット
             SetState(Enemy_State_.Cooldown);
 
-            maiclue_jumpback = true;
+            //maiclue_jumpback = true;
+            M_state = Mai_State_.Jumpback;
         }
     }
 
