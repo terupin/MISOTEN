@@ -144,6 +144,7 @@ public class Enemy01_State : MonoBehaviour
         if (UnityEngine.Input.GetKeyDown(KeyCode.O))
         {
             Kato_Status_E.NowHP -= 500;
+            audioSource.PlayOneShot(_Sound_Test[1]);
         }
 
         if (Miburo_State._Parry_Timing)
