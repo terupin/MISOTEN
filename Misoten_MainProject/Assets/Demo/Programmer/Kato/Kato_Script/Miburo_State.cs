@@ -29,6 +29,8 @@ public class Miburo_State : MonoBehaviour
     public bool StickL;
     public bool StickR;
 
+    public bool _NotMuteki;
+
     private bool _KnockBack;
     Vector3 dir;
 
@@ -97,6 +99,8 @@ public class Miburo_State : MonoBehaviour
     [SerializeField, Header("ゲームオーバーシーン名")]
     public string SceneName ;
 
+    GameObject Miburo_Box;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -104,6 +108,7 @@ public class Miburo_State : MonoBehaviour
         _Katana_Direction = -1;
 
          Test.AddComponent<MeshRenderer>();
+         Miburo_Box = GameObject.Find("Player");
     }
 
     // Update is called once per frame
@@ -152,8 +157,25 @@ public class Miburo_State : MonoBehaviour
             StartCoroutine(Miburo_Step());
         }
 
+      
+
+
+
+        if (UnityEngine.Input.GetKey("joystick button 0"))
+        {
+            _NotMuteki = false;
+
+        }
+        else
+        {
+            _NotMuteki = true;
+        }
+
+        Miburo_Box.SetActive(_NotMuteki);
+
+
         //ノックバック
-        if(_KnockBack)
+        if (_KnockBack)
         {
             Rigidbody rb=GetComponent<Rigidbody>();
             rb.velocity = Vector3.zero;
