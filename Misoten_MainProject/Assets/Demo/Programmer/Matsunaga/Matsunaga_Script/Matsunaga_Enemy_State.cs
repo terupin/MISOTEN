@@ -321,7 +321,9 @@ public class Matsunaga_Enemy_State : MonoBehaviour
             return; // ˆ—‚ğ’†’f
         }
 
-        if (StateCurrentTime >= StateTime)
+
+
+            if (StateCurrentTime >= StateTime)
         {
             StateCurrentTime = 0.0f;
 
@@ -362,6 +364,8 @@ public class Matsunaga_Enemy_State : MonoBehaviour
                 transform.position += direction * MoveSpeed * Time.deltaTime;
             }
         }
+
+
     }
 
     // UŒ‚ƒ^ƒCƒv‚ğŒˆ’è‚·‚é

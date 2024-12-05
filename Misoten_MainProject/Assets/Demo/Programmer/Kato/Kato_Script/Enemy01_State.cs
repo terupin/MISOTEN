@@ -29,6 +29,8 @@ public class Enemy01_State : MonoBehaviour
 
     private GameObject Clone_Effect;
 
+    static public bool P_Wait;
+
     static public bool UkeL;
     static public bool UkeR;
 
@@ -82,7 +84,7 @@ public class Enemy01_State : MonoBehaviour
 
     public Animator E01Anim; // 敵のアニメーションを制御するAnimator
 
-    public float StateTime = 2.5f; // 状態ごとの持続時間
+    public float StateTime = 0.1f; // 状態ごとの持続時間
     private float StateCurrentTime; // 現在の状態が開始してからの経過時間
 
     [SerializeField, Header("クールダウン時間")]
@@ -360,6 +362,12 @@ public class Enemy01_State : MonoBehaviour
 
                 transform.position += direction * MoveSpeed * Time.deltaTime;
             }
+        }
+
+        if (P_E_Length < AttackLength)
+        {
+            Debug.Log("時間　"+ StateCurrentTime);
+            //UnityEditor.EditorApplication.isPaused = true;
         }
     }
 
@@ -646,6 +654,7 @@ public class Enemy01_State : MonoBehaviour
                         E01Anim.SetBool("UkeR", false);
                         Debug.Log("判定　成功0L");
                         audioSource.PlayOneShot(_Sound_Test[0]);
+                        P_Wait = false;
                     }
                     else if (Miburo_State._Katana_Direction == 3 || Miburo_State._Katana_Direction == 4 || Miburo_State._Katana_Direction == 5 || Miburo_State._Katana_Direction == 6)
                     {
@@ -653,17 +662,26 @@ public class Enemy01_State : MonoBehaviour
                         E01Anim.SetBool("UkeL", false);
                         UkeR = true;
                         E01Anim.SetBool("UkeR", true);
+                        P_Wait = false;
                     }
                     else
                     {
                         UkeL = false;
                         UkeR = false;
+                        if (!P_Wait)
+                        {
+                            P_Wait = true;
+                        }
                     }
                 }
                 else
                 {
                     Debug.Log("判定　時間切れ　" + Check_Current_Time0);
                     audioSource.PlayOneShot(_Sound_Test[1]);
+                    if (!P_Wait)
+                    {
+                        P_Wait = true;
+                    }
                 }
             }
             else
@@ -704,6 +722,7 @@ public class Enemy01_State : MonoBehaviour
                             UKe__Ren01 = true;
                             E01Anim.SetBool("RenUke01", true);
                             audioSource.PlayOneShot(_Sound_Test[0]);
+                            P_Wait = false;
 
                         }
                     }
@@ -718,6 +737,10 @@ public class Enemy01_State : MonoBehaviour
                 {
                     Debug.Log("判定　時間切れ1　" + Check_Current_Time1);
                     audioSource.PlayOneShot(_Sound_Test[1]);
+                    if (!P_Wait)
+                    {
+                        P_Wait = true;
+                    }
                     //UnityEditor.EditorApplication.isPaused = true;
                 }
             }
@@ -765,6 +788,7 @@ public class Enemy01_State : MonoBehaviour
                             //UnityEditor.EditorApplication.isPaused = true;
                             Debug.Log("判定　成功2");
                             audioSource.PlayOneShot(_Sound_Test[0]);
+                            P_Wait = false;
                         }
                     }
 
@@ -775,12 +799,18 @@ public class Enemy01_State : MonoBehaviour
                 {
                     Debug.Log("判定　時間切れ2 " + Check_Current_Time2);
                     audioSource.PlayOneShot(_Sound_Test[1]);
+                    if(!P_Wait)
+                    {
+                        P_Wait = true;
+                    }
+                  
                 }
 
             }
             else
             {
                 Check_Current_Time2 += Time.deltaTime;
+                P_Wait = false;
             }
         }
         else
@@ -871,6 +901,7 @@ public class Enemy01_State : MonoBehaviour
 
         if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren1") || E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren2") || E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Tategiri 0"))
         {
+            P_Wait =false;
             Attack = true;
             //UnityEditor.EditorApplication.isPaused = true;
             Effectflg = false;
