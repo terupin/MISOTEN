@@ -187,9 +187,28 @@ public class Enemy01_State : MonoBehaviour
             LookAtPlayer(); // プレイヤーを向く処理を呼び出し
         }
 
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            Debug.Log("dc5: 歩行ステートを実行します");
+
+            run_for_me = true;
+
+            //SetState(Enemy_State_.Walk);
+        }
+
         if (run_for_me)
         {
-            if(maiclue_iscount)
+            // 角度を更新（速度を考慮）
+            angle += maiclue_speed * Time.deltaTime;
+
+            // 円周上の位置を計算
+            maiclue_x = Target_P.transform.position.x + Mathf.Cos(angle) * maiclue_radius;
+            maiclue_z = Target_P.transform.position.z + Mathf.Sin(angle) * maiclue_radius;
+
+            // オブジェクトを移動
+            transform.position = new Vector3(maiclue_x, transform.position.y, maiclue_z);
+            /*
+            if (maiclue_iscount)
             {
                 maiclue_starttime = Time.time;
             }
@@ -215,8 +234,9 @@ public class Enemy01_State : MonoBehaviour
                 transform.position = new Vector3(maiclue_x, transform.position.y, maiclue_z);
 
             }
+            */
         }
-        
+
         //デバッグ用プログラム
         if (debug_switch)
         {
