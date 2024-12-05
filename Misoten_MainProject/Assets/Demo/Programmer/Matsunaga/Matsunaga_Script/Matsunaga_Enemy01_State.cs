@@ -122,13 +122,17 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     private float angle = 0.0f; //周回計算用の角度
 
     private float maiclue_attacktime; //周回時の攻撃間隔の時間(乱数格納用)
-    public float maiclue_maxtime = 3.0f; //周回時の攻撃間隔の最大時間
-    public float maiclue_mintime = 5.0f; //周回時の攻撃間隔の最小時間
+    public float maiclue_maxtime = 5.0f; //周回時の攻撃間隔の最大時間
+    public float maiclue_mintime = 3.0f; //周回時の攻撃間隔の最小時間
 
     private float maiclue_starttime;
     private float maiclue_elapsedtime;
 
     private bool maiclue_iscount = false;
+    private bool maiclue_jumpback = false;
+    private Vector3 targetPoint;
+    private bool maiclue_istarget = true;
+
 
     private void Start()
     {
@@ -190,39 +194,56 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             {
                 maiclue_elapsedtime = Time.time - maiclue_starttime;
             }
-            
-            if (maiclue_elapsedtime <= maiclue_attacktime)
+
+            if (maiclue_jumpback)
             {
-                // 角度を更新（速度を考慮）
-                angle += maiclue_speed * Time.deltaTime;
+                maiclue_istarget = !maiclue_istarget;
+                transform.position = targetPoint;
 
-                // 円周上の位置を計算
-                maiclue_x = Target_P.transform.position.x + Mathf.Cos(angle) * maiclue_radius;
-                maiclue_z = Target_P.transform.position.z + Mathf.Sin(angle) * maiclue_radius;
-
-                // オブジェクトを移動
-                transform.position = new Vector3(maiclue_x, transform.position.y, maiclue_z);
+                maiclue_jumpback = !maiclue_jumpback;
+                maiclue_iscount = !maiclue_iscount;
             }
             else
             {
-                Debug.Log("攻撃範囲に入ったので攻撃を開始！");
-
-                P_E_Length = Vector3.Distance(Target_P.transform.position, gameObject.transform.position);
-                
-                if (P_E_Length <= AttackLength)
+                if (maiclue_elapsedtime <= maiclue_attacktime)
                 {
-                    Debug.Log("攻撃範囲に入ったので攻撃を開始！");
+                    // 角度を更新（速度を考慮）
+                    angle += maiclue_speed * Time.deltaTime;
 
-                    DecideAttackType();
+                    // 円周上の位置を計算
+                    maiclue_x = Target_P.transform.position.x + Mathf.Cos(angle) * maiclue_radius;
+                    maiclue_z = Target_P.transform.position.z + Mathf.Sin(angle) * maiclue_radius;
+
+                    // オブジェクトを移動
+                    transform.position = new Vector3(maiclue_x, transform.position.y, maiclue_z);
                 }
                 else
                 {
-                    Vector3 direction = (Target_P.transform.position - transform.position).normalized;
-                    direction.y = 0;
-                    transform.position += direction * MoveSpeed * Time.deltaTime;
+                    Debug.Log("攻撃範囲に入ったので攻撃を開始！");
+
+                    P_E_Length = Vector3.Distance(Target_P.transform.position, gameObject.transform.position);
+
+                    if (P_E_Length <= AttackLength)
+                    {
+                        Debug.Log("攻撃範囲に入ったので攻撃を開始！");
+
+                        DecideAttackType();
+                    }
+                    else
+                    {
+                        if(maiclue_istarget)
+                        {
+                            targetPoint = transform.position;
+                            maiclue_istarget = !maiclue_istarget;
+                        }
+
+                        Vector3 direction = (Target_P.transform.position - transform.position).normalized;
+                        direction.y = 0;
+                        transform.position += direction * MoveSpeed * Time.deltaTime;
+                    }
                 }
-                
             }
+            
         }
 
         //デバッグ用プログラム
@@ -462,6 +483,8 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             Debug.Log("縦切り攻撃が完了しました。Cooldown 状態に遷移します。");
             E01Anim.SetBool("Tategiri", false); // アニメーションをリセット
             SetState(Enemy_State_.Cooldown);
+
+            maiclue_jumpback = true;
         }
     }
 
