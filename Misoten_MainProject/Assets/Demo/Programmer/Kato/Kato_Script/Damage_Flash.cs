@@ -14,7 +14,7 @@ public class Damage_Flash : MonoBehaviour
     {
         Kato_Status_P.instance.Damage(1);
         FlashTime = 0.0f;
-        Miburo_Box = GameObject.Find("Player");
+        //GameObject Miburo_Box = GameObject.Find("Player");
     }
 
     // Update is called once per frame
