@@ -40,6 +40,12 @@ public class Miburo_State : MonoBehaviour
     [SerializeField, Header("ノックバック時間(秒)")]
     public float KnockBack_Time;
 
+    [SerializeField, Header("ステップスピード")]
+    public float Step_Speed;
+
+    [SerializeField, Header("ノックバック時間(秒)")]
+    public float Step_Time;
+
     static public bool _Stick_Input;
 
     static public bool _Uke_Input;//受け流し入力
@@ -153,6 +159,11 @@ public class Miburo_State : MonoBehaviour
             rb.velocity = Vector3.zero;
             rb.position -= dir * KnockBack_Speed*Time.deltaTime;
         }
+        else
+        {
+            Rigidbody rb = GetComponent<Rigidbody>();
+            rb.position= Vector3.zero;
+        }
 
         if (_Parry)
         {
@@ -189,32 +200,44 @@ public class Miburo_State : MonoBehaviour
         {
             if(_Parry)
             {
-                if (!_wait)
-                {
-                    StartCoroutine(Miburo_Parry_Wait());
-                    _wait = true;
-                }
+  
             }
  
         }
+        if(Enemy01_State.P_Wait)
+        {
+            if (!_wait)
+            {
+                StartCoroutine(Miburo_Parry_Wait());
+                Test.GetComponent<MeshRenderer>().material = TestMat;
 
-        Player_Run_Input();//走行入力がされているかのフラグ
-
-        if (_Attack01 ||_Attack02|| _Stick_Input ||_Parry || _wait)
-        {         
+                _wait = true;
+            }
         }
         else
         {
-            if(_Run)
-            {
-                Player_Run();//走行処理
-            }      
+            Test.GetComponent<MeshRenderer>().material = Reset;
+            _wait = false;
         }
+
+
+        //Player_Run_Input();//走行入力がされているかのフラグ
+
+        //if (_Attack01 || _Attack02 || _Stick_Input || _Parry || _wait)
+        //{
+        //}
+        //else
+        //{
+        //    if (_Run)
+        //    {
+        //        Player_Run();//走行処理
+        //    }
+        //}
 
 
         ////判定をアニメーターへ
 
-        Miburo_Animator.SetBool("Run", _Run);
+        //Miburo_Animator.SetBool("Run", _Run);
         Miburo_Animator.SetBool("Gurd", _Parry);
 
 
@@ -269,6 +292,8 @@ public class Miburo_State : MonoBehaviour
             _Ren22 = false;
         }
 
+        gameObject.transform.LookAt(Target.transform);
+
 
         //if (_Stick_Input)
         //{
@@ -301,7 +326,6 @@ public class Miburo_State : MonoBehaviour
     //コルーチン(攻撃2)
     private IEnumerator Miburo_Attack02()
     {
-
         if (!_Attack02)
         {
             _Attack02 = true;
@@ -363,16 +387,15 @@ public class Miburo_State : MonoBehaviour
     //コルーチン(構えウェイト)
     private IEnumerator Miburo_Parry_Wait()
     {
-        Test.GetComponent<MeshRenderer>().material = TestMat;
+        //Test.GetComponent<MeshRenderer>().material = TestMat;
         //UnityEditor.EditorApplication.isPaused = true;
         yield return new WaitForSeconds(0.4f);//24フレーム(.4秒)
-        Test.GetComponent<MeshRenderer>().material = Reset;
+        //Test.GetComponent<MeshRenderer>().material = Reset;
 
         _Parry = false;
         _Ren11 = false;
         _Ren22 = false;
         _Parry = false;
-        _wait = false;
     }
 
     private IEnumerator Counter_Timing_Input()
@@ -452,38 +475,38 @@ public class Miburo_State : MonoBehaviour
         }
     }
 
-    //移動
-    public void Player_Run()
-    {
-        float moveX = Input.GetAxis("Vertical");
-        float RotateY = Input.GetAxis("Horizontal");
-        float degree = Mathf.Atan2(RotateY, moveX) * Mathf.Rad2Deg;//コントローラー角度取得
+    ////移動
+    //public void Player_Run()
+    //{
+    //    float moveX = Input.GetAxis("Vertical");
+    //    float RotateY = Input.GetAxis("Horizontal");
+    //    float degree = Mathf.Atan2(RotateY, moveX) * Mathf.Rad2Deg;//コントローラー角度取得
 
-        Rigidbody rb = GetComponent<Rigidbody>();
+    //    Rigidbody rb = GetComponent<Rigidbody>();
 
-        gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, Camera_o.transform.localEulerAngles.y + degree, 0));
-        rb.position+=gameObject.transform.forward * Move_Speed * Time.deltaTime;
-        //gameObject.transform.position += gameObject.transform.forward * Move_Speed * Time.deltaTime;
-    }
+    //    gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, Camera_o.transform.localEulerAngles.y + degree, 0));
+    //    rb.position+=gameObject.transform.forward * Move_Speed * Time.deltaTime;
+    //    //gameObject.transform.position += gameObject.transform.forward * Move_Speed * Time.deltaTime;
+    //}
 
-    //移動入力
-    public void Player_Run_Input()
-    {
-        float moveX = Input.GetAxis("Vertical");
-        float RotateY = Input.GetAxis("Horizontal"); 
+    ////移動入力
+    //public void Player_Run_Input()
+    //{
+    //    float moveX = Input.GetAxis("Vertical");
+    //    float RotateY = Input.GetAxis("Horizontal"); 
 
-        if (MathF.Abs(moveX) >= 0.05f || MathF.Abs(RotateY) >= 0.05f)
-        {
-            if (Kato_Status_P.instance.NowHP > 0)
-            {
-                _Run = true;
-            }
-        }
-        else
-        {
-            _Run = false;
-        }
-    }
+    //    if (MathF.Abs(moveX) >= 0.05f || MathF.Abs(RotateY) >= 0.05f)
+    //    {
+    //        if (Kato_Status_P.instance.NowHP > 0)
+    //        {
+    //            _Run = true;
+    //        }
+    //    }
+    //    else
+    //    {
+    //        _Run = false;
+    //    }
+    //}
 
     //入力成功確認
     public void Input_Check()
@@ -493,7 +516,7 @@ public class Miburo_State : MonoBehaviour
             Debug.Log("判定　失敗");
             if(!_wait)
             {
-                StartCoroutine(Miburo_Parry_Wait());
+                //StartCoroutine(Miburo_Parry_Wait());
                 _wait = true;
             }
            
@@ -515,9 +538,7 @@ public class Miburo_State : MonoBehaviour
                 Debug.Log("判定　左");
                 //UnityEditor.EditorApplication.isPaused = true;
             }
-        }
-
-    
+        }   
     }
 
     //アニメーターからステート名を取得
@@ -572,12 +593,16 @@ public class Miburo_State : MonoBehaviour
             GameObject Miburo_Box = GameObject.Find("Player");
             if (Miburo_Box && Enemy01_State.Attack)
             {
-                Rigidbody rb = GetComponent<Rigidbody>();
-                dir =(Target.transform.position- rb.position).normalized;
-                Miburo_Animator.SetTrigger("Damage");
-                gameObject.AddComponent<Damage_Flash>();
+               if(!Miburo_Animator.GetCurrentAnimatorStateInfo(0).IsName("Battou")) 
+                    {
+                    Rigidbody rb = GetComponent<Rigidbody>();
+                    dir = (Target.transform.position - rb.position).normalized;
+                    Miburo_Animator.SetTrigger("Damage");
+                    gameObject.AddComponent<Damage_Flash>();
 
-                StartCoroutine(KnockBack());
+                    StartCoroutine(KnockBack());
+                }
+
 
             }
         }

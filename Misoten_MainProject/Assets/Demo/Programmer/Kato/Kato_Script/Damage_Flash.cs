@@ -29,10 +29,9 @@ public class Damage_Flash : MonoBehaviour
 
         if(FlashTime> MaxTime)
         {
-            if(!Miburo_Box)
-            {
+
                 Miburo_Box.SetActive(true);
-            }
+            
           
             Destroy(this);
         }
