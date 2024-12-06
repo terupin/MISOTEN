@@ -19,7 +19,7 @@ public class item_drink : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Kato_Status_P Armor_meny = other.gameObject.GetComponent<Kato_Status_P>(); //ƒvƒŒƒCƒ„[‚ÌHP—Ê‚Ìæ“¾
-        Armor_meny.Armor++;
+        //Armor_meny.Armor++;
         Destroy(this.gameObject);
     }
 

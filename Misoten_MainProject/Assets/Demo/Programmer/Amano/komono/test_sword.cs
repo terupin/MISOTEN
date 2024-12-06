@@ -2,37 +2,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using EzySlice;
-using UnityEngine.EventSystems;
-using System.Net.Sockets;
 
-public class test_sword : MonoBehaviour
+public class TestSword : MonoBehaviour
 {
-    //切断するオブジェクトのタグ名
+    // 切断するオブジェクトのタグ名
     [SerializeField, Header("切れるオブジェクトのタグ")]
     public string cut_tag = "Cut";
 
-    //刀の先端を示す空オブジェクト
+    // 刀の先端を示す空オブジェクト
     [SerializeField, Header("刀の先端")]
     public Transform swordTop;
 
-    //刀の柄を示す空オブジェクト
+    // 刀の柄を示す空オブジェクト
     [SerializeField, Header("刀の柄")]
     public Transform swordHit;
 
-    //切れた破片の存在する秒数
+    // 切れた破片の存在する秒数
     [SerializeField, Header("破片が消えるまでの秒数")]
     public float lifetime = 5.0f;
 
-    private Vector3 startPos;  //切り始めの刀の位置
-    private Vector3 endPos;  //霧終わりの刀の位置
-    private Vector3 cut_ObjPos;//切れるオブジェクトのポジション
+    private Vector3 startPos; // 切り始めの刀の位置
+    private Vector3 endPos;   // 切り終わりの刀の位置
 
     private void OnTriggerEnter(Collider other)
     {
-        //切れるオブジェクトか？
-        if (other.tag == cut_tag)
+        // 切れるオブジェクトかどうか確認
+        if (other.CompareTag(cut_tag))
         {
-            //当たった時に存在する刀の場所
             startPos = this.transform.position;
             Debug.Log("当たった");
         }
@@ -40,68 +36,70 @@ public class test_sword : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == cut_tag)
+        // 切れるオブジェクトかどうか確認
+        if (other.CompareTag(cut_tag))
         {
             Debug.Log("出たよ");
 
-            //切れるオブジェクトのポジションを取得
-            cut_ObjPos = other.transform.position;
+            // 切れるオブジェクトの中心を取得
+            Vector3 objectCenter = other.transform.position;
 
-            //出た時に存在する刀の場所
+            // 出た時に存在する刀の場所
             endPos = this.transform.position;
 
-            //剣の移動ベクトルを計算する
+            // 剣の移動ベクトルを計算する
             Vector3 swordMovement = endPos - startPos;
 
-            //剣の柄と先端のベクトルを計算して、剣の向きを取得
+            // 剣の柄と先端のベクトルを計算して、剣の向きを取得
             Vector3 swordDirection = (swordTop.position - swordHit.position).normalized;
 
-            //剣の軌道に垂直な平面を作成
-            Vector3 cutNormal = Vector3.Cross(swordMovement, swordDirection); //外積の計算
-            cutNormal = other.transform.InverseTransformDirection(cutNormal); //ローカル座標に変換
+            // 剣の軌道に垂直な平面を作成
+            Vector3 cutNormal = Vector3.Cross(swordMovement, swordDirection).normalized; // 外積の計算と正規化
+            cutNormal = other.transform.InverseTransformDirection(cutNormal); // ローカル座標に変換
 
-            //切れる場所の計算
-            Vector3 slice_pos = other.transform.InverseTransformDirection(endPos - cut_ObjPos);
+            // 切れる場所をオブジェクトの中心に設定
+            Vector3 slice_pos = other.transform.InverseTransformPoint(objectCenter);
             EzySlice.Plane cutPlane = new EzySlice.Plane(slice_pos, cutNormal);
 
-            //EzySliceで相手をスライスする
+            // EzySliceで対象をスライスする
             GameObject targetObject = other.gameObject;
-            Material cuting = targetObject.GetComponent<Dropitem_cutmaterial>().cut_materal;
-            SlicedHull slicedObject = targetObject.Slice(cutPlane, cuting);  //第２引数は切られた断面のマテリアル
+            Material cuttingMaterial = targetObject.GetComponent<Dropitem_cutmaterial>().cut_materal;
+            SlicedHull slicedObject = targetObject.Slice(cutPlane, cuttingMaterial); // 第2引数は切断面のマテリアル
 
             if (slicedObject != null)
             {
-                //スライスされた部分を生成
-                GameObject upperHull = slicedObject.CreateUpperHull(targetObject, cuting);
-                GameObject lowerHull = slicedObject.CreateLowerHull(targetObject, cuting);
+                // スライスされた部分を生成
+                GameObject upperHull = slicedObject.CreateUpperHull(targetObject, cuttingMaterial);
+                GameObject lowerHull = slicedObject.CreateLowerHull(targetObject, cuttingMaterial);
 
-                //新しい部分物理コンポーネントを追加
-                MakeItPhysical(upperHull,other.gameObject.transform.parent);
-                MakeItPhysical(lowerHull,other.gameObject.transform.parent);
+                // 新しい部分に物理コンポーネントを追加
+                MakeItPhysical(upperHull, other.transform);
+                MakeItPhysical(lowerHull, other.transform);
 
-                //元のオブジェクトを削除
+                // 元のオブジェクトを削除
                 Destroy(targetObject);
             }
         }
     }
 
-
-    //オブジェクト生成時にMeshColliderとRigidbodyをアタッチする
-    private void MakeItPhysical(GameObject objc,Transform pos)
+    // オブジェクト生成時にMeshColliderとRigidbodyをアタッチする
+    private void MakeItPhysical(GameObject obj, Transform parent)
     {
-        //MeshColliderのConvexをtrueにしないと、すり抜けてしまうので注意
-        objc.AddComponent<MeshCollider>().convex = true;
+        // MeshColliderのConvexをtrueに設定
+        var collider = obj.AddComponent<MeshCollider>();
+        collider.convex = true;
 
-        //Rigidbody関係
-        Rigidbody rb = objc.AddComponent<Rigidbody>();
+        // Rigidbodyを設定
+        Rigidbody rb = obj.AddComponent<Rigidbody>();
         rb.useGravity = true;
 
-        objc.transform.position = pos.position;
+        // オブジェクトの位置を親オブジェクトに合わせる
+        obj.transform.position = parent.position;
 
-        Destroy(objc, lifetime);
+        // 指定秒数後に削除
+        Destroy(obj, lifetime);
 
-        //切れたものをもう一度切れるようにするためのタグ付け
-        //obj.gameObject.tag = cut_tag;
+        // 切れたものを再度切れるようにするためのタグ付け（必要なら有効化）
+        // obj.tag = cut_tag;
     }
-
 }
