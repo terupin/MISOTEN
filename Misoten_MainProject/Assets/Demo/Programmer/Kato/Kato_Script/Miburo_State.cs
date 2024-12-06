@@ -85,12 +85,10 @@ public class Miburo_State : MonoBehaviour
     [SerializeField, Header("待ち時間(攻撃2段目)")]
     public float Attack02_WaitTime;
 
-
+    [SerializeField, Header("受け流し方向セット時間")]
+    public float Katana_DirectionSet_Time;
     [SerializeField, Header("待ち時間(受け流し方向セット)")]
     public float Katana_DirectionSet_WaitTime;
-
-    [SerializeField, Header("斬撃エフェクト(debugテスト用)")]
-    public GameObject S_Effect;
 
     [SerializeField, Header("モデル(debugテスト用)")]
     public GameObject Test;

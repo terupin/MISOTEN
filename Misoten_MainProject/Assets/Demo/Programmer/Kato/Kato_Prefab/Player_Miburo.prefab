@@ -132,6 +132,7 @@ MonoBehaviour:
   Attack02_Time: 1
   Attack02_WaitTime: 1
   Katana_DirectionSet_WaitTime: 1
+  Katana_DirectionSet_Time: 1
   S_Effect: {fileID: 9060970370165693562, guid: 9eef12dc538892048b21bbc76811f6c8,
     type: 3}
   Test: {fileID: 0}
