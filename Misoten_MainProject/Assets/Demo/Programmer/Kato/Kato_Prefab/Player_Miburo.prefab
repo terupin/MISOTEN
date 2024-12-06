@@ -115,26 +115,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 238dca1c85878de4181b21ba308a6812, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StickL: 0
-  StickR: 0
   KnockBack_Speed: 0
   KnockBack_Time: 0
+  Step_Speed: 0
+  Step_Time: 0.5
+  Step_WaitTime: 1
   Move_Speed: 5.5
   Target: {fileID: 0}
   Player: {fileID: 0}
   Camera_o: {fileID: 0}
   Miburo_Animator: {fileID: 6762955980653805399}
-  Step_WaitTime: 1
+  Damage_MutekiTime: 0
   Parry_WaitTime: 1
+  Attack01_Time: 1
   Attack01_WaitTime: 1
+  Attack02_Time: 1
   Attack02_WaitTime: 1
   Katana_DirectionSet_WaitTime: 1
   S_Effect: {fileID: 9060970370165693562, guid: 9eef12dc538892048b21bbc76811f6c8,
     type: 3}
   Test: {fileID: 0}
   TestMat: {fileID: 0}
+  M_UkenagasiIcon: {fileID: 0}
+  M_StepIcon: {fileID: 0}
+  M_AttackIcon: {fileID: 0}
   Reset: {fileID: 0}
   SceneName: 
+  Miburo_HitBox: {fileID: 0}
+  slash_effect: {fileID: 0}
 --- !u!114 &5559175423462806870
 MonoBehaviour:
   m_ObjectHideFlags: 0
