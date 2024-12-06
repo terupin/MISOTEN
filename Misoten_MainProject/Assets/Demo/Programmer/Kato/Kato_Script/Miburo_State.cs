@@ -101,7 +101,8 @@ public class Miburo_State : MonoBehaviour
     public string SceneName;
 
     [SerializeField, Header("当たり判定ボックス")]
-     GameObject Miburo_HitBox;
+     public GameObject Miburo_HitBox;
+    private GameObject M_HitBox;
 
     // Start is called before the first frame update
     void Start()
@@ -115,12 +116,22 @@ public class Miburo_State : MonoBehaviour
         M_UkenagasiIcon.SetFloat("_CoolDown", 1.0f);
         M_StepIcon.SetFloat("_CoolDown", 1.0f);
         M_AttackIcon.SetFloat("_CoolDown", 1.0f);
-        Miburo_HitBox = GameObject.Find("Player");
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        M_HitBox= GameObject.Find("Player");
+        if ((M_HitBox))
+        {
+            //UnityEditor.EditorApplication.isPaused = true;
+        }
+        else
+        {
+            //UnityEditor.EditorApplication.isPaused = true;
+        }
+
         //HP0以下ならゲームオーバー
         if (Kato_Status_P.instance.NowHP <= 0)
         {
@@ -135,6 +146,10 @@ public class Miburo_State : MonoBehaviour
         }
 
 
+        //if(Kato_Status_P.instance.NowHP==3)
+        //{
+        //    UnityEditor.EditorApplication.isPaused = true;
+        //}
 
         //R1ボタン押下(攻撃)
         if (UnityEngine.Input.GetKeyDown("joystick button 5"))
@@ -165,17 +180,8 @@ public class Miburo_State : MonoBehaviour
         if (UnityEngine.Input.GetKeyDown("joystick button 0"))
         {
             StartCoroutine(Miburo_Step());
-            StartCoroutine(ChangeCoolDown(M_StepIcon, 0.0f, 1.0f, 1.0f));
+            //StartCoroutine(ChangeCoolDown(M_StepIcon, 0.0f, 1.0f, 1.0f));
         }
-
-        //if(_Muteki)
-        //{
-        //    Miburo_HitBox.SetActive(false);
-        //}
-        //else
-        //{
-        //    Miburo_HitBox.SetActive(true);
-        //}
 
         //ノックバック
         if (_KnockBack)
@@ -190,6 +196,15 @@ public class Miburo_State : MonoBehaviour
             Rigidbody rb = GetComponent<Rigidbody>();
             rb.position = Vector3.zero;
             Miburo_HitBox.SetActive(true);
+        }
+
+        if(_Step)
+        {
+            Miburo_HitBox.SetActive(false);
+        }
+        else
+        {
+                Miburo_HitBox.SetActive(true);                     
         }
 
         if (_Parry)
@@ -407,6 +422,7 @@ public class Miburo_State : MonoBehaviour
             Debug.Log("ステップ待ち時間終了");
             _Step = false;
             Miburo_HitBox.SetActive(true);
+            StartCoroutine(ChangeCoolDown(M_StepIcon, 0.0f, 1.0f, 1.0f));
         }
         else
         {
@@ -525,7 +541,8 @@ public class Miburo_State : MonoBehaviour
     {
         if (other.tag == "EWeapon")
         {
-            if (Miburo_HitBox && Matsunaga_Enemy01_State.Attack)
+            //Miburo_HitBox =GameObject.Find("Player");
+            if (M_HitBox && Matsunaga_Enemy01_State.Attack)
             {
 
                 if (!Miburo_Animator.GetCurrentAnimatorStateInfo(0).IsName("Battou"))
@@ -534,7 +551,6 @@ public class Miburo_State : MonoBehaviour
                     dir = (Target.transform.position - rb.position).normalized;
                     Miburo_Animator.SetTrigger("Damage");
                     Kato_Status_P.instance.Damage(1);
-                    //StartCoroutine(Muteki());
                     StartCoroutine(KnockBack());
                 }
             }

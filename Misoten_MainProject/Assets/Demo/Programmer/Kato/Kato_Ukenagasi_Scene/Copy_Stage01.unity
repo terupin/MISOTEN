@@ -1202,6 +1202,41 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
+      propertyPath: Target_P
+      value: 
+      objectReference: {fileID: 1322884133}
+    - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
+      propertyPath: debug_switch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
+      propertyPath: RenGekiChance
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
+      propertyPath: maiclue_speed
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
+      propertyPath: TategiriChance
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
+      propertyPath: maiclue_maxtime
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
+      propertyPath: maiclue_mintime
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 536073772360287028, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
       propertyPath: m_RenderingLayerMask
@@ -3276,8 +3311,13 @@ PrefabInstance:
       objectReference: {fileID: 706112271}
     - target: {fileID: 1243681727059629837, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}
+      propertyPath: Step_WaitTime
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1243681727059629837, guid: 8eb4fdc726e23774da71f86d9d295d96,
+        type: 3}
       propertyPath: KnockBack_Time
-      value: 1.5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1243681727059629837, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}
