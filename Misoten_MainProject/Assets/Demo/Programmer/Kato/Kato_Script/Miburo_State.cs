@@ -154,7 +154,9 @@ public class Miburo_State : MonoBehaviour
             gameObject.transform.LookAt(Target.transform);
         }
 
-       
+
+
+
 
         //R1ボタン押下(攻撃)
         if (UnityEngine.Input.GetKeyDown("joystick button 5"))
@@ -269,6 +271,8 @@ public class Miburo_State : MonoBehaviour
             Miburo_Animator.SetBool("UkenagashiR", false);
         }
 
+        GetCurrentAnimationStateName();//ステート取得して
+
         if (Matsunaga_Enemy01_State.UKe__Ren01)
         {
             if (!_Ren11)
@@ -287,7 +291,7 @@ public class Miburo_State : MonoBehaviour
         {
             if (!_Ren22)
             {
-                UnityEditor.EditorApplication.isPaused = true;
+                //UnityEditor.EditorApplication.isPaused = true;
                 Miburo_Animator.SetTrigger("Ren22");
                 _Ren22 = true;
                 _RenCounter02 = true;
@@ -298,13 +302,6 @@ public class Miburo_State : MonoBehaviour
         {
             _Ren22 = false;
         }
-
-       
-
-        GetCurrentAnimationStateName();//ステート取得して
-
-        //
-        Miburo_HitBox.SetActive(false);
     }
 
     //コルーチン(攻撃1)
@@ -364,7 +361,7 @@ public class Miburo_State : MonoBehaviour
             // 新しく追加：M_UkenagasiIcon の変更を開始
             if(Matsunaga_Enemy01_State.UkeL|| Matsunaga_Enemy01_State.UkeR|| Matsunaga_Enemy01_State.UKe__Ren01 || Matsunaga_Enemy01_State.UKe__Ren02)
             {
-                UnityEditor.EditorApplication.isPaused = true;
+                //UnityEditor.EditorApplication.isPaused = true;
                 StartCoroutine(ChangeCoolDown(M_UkenagasiIcon, 0.0f, 1.0f, Parry_WaitTime));
                 yield return new WaitForSeconds(Parry_WaitTime);
             }
@@ -386,23 +383,6 @@ public class Miburo_State : MonoBehaviour
         }
 
     }
-
-    private IEnumerator Counter_Timing_Input()
-    {
-        if (!_Uke_Input)
-        {
-            _Uke_Input = true;
-            Debug.Log("受け開始");
-            yield return new WaitForSeconds(1);
-            Debug.Log("受け待ち時間終了");
-            _Uke_Input = false;
-        }
-        else
-        {
-            Debug.Log("待ち時間です。入力は反映されません。");
-        }
-    }
-
     //コルーチン(ステップ)
     private IEnumerator Miburo_Step()
     {
@@ -476,6 +456,10 @@ public class Miburo_State : MonoBehaviour
             _RenCounter02 = false;
             _CounterL = false;
             _CounterR = false;
+        }
+        else
+        {
+
         }
 
     }
