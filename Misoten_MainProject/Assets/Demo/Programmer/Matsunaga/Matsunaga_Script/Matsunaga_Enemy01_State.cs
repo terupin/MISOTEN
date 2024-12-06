@@ -154,6 +154,10 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     private Rigidbody rb; //自分のrigidbody
     private Mai_State_ M_state;
 
+    // 定数を追加：円を6分割するための角度
+    private float[] targetAngles = new float[6];
+    private int currentSegment = 0;
+
     private void Start()
     {
         // 初期状態を設定
@@ -177,6 +181,12 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         run_for_me = false;
         rb = GetComponent<Rigidbody>();
         M_state = Mai_State_.Idle;
+
+        // 円周を6分割した各分割点の角度を計算
+        for (int i = 0; i < 6; i++)
+        {
+            targetAngles[i] = i * Mathf.PI / 3;  // 6分割なので2π/6=π/3の角度間隔
+        }
 
     }
 
@@ -206,12 +216,11 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         }
 
         if (run_for_me)
-        {   
+        {
             switch (M_state)
             {
-                //周回
+                // 周回
                 case Mai_State_.Spin:
-
                     if (maiclue_iscount)
                     {
                         maiclue_starttime = Time.time;
@@ -227,26 +236,33 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
                     // 円周上の位置を計算
                     maiclue_x = Target_P.transform.position.x + Mathf.Cos(angle) * maiclue_radius;
-                    //時計回り
-                    if (maiclue_spind == 1)
-                    {maiclue_z = Target_P.transform.position.z + Mathf.Sin(angle) * maiclue_radius;}
-                    //反時計周り
-                    else
-                    {maiclue_z = Target_P.transform.position.z - Mathf.Sin(angle) * maiclue_radius;}
 
+                    // 時計回り
+                    if (maiclue_spind == 1)
+                    {
+                        maiclue_z = Target_P.transform.position.z + Mathf.Sin(angle) * maiclue_radius;
+                    }
+                    // 反時計回り
+                    else
+                    {
+                        maiclue_z = Target_P.transform.position.z - Mathf.Sin(angle) * maiclue_radius;
+                    }
+
+                    // 現在のセグメントに到達したか確認
+                    if (Mathf.Abs(angle - targetAngles[currentSegment]) < 0.1f)
+                    {
+                        // セグメントに到達した場合、次のセグメントへ
+                        currentSegment = (currentSegment + 1) % 6;
+                        M_state = Mai_State_.Goto;  // Goto状態に移行
+                    }
 
                     // オブジェクトを移動
                     transform.position = new Vector3(maiclue_x, transform.position.y, maiclue_z);
 
-                    if (!(maiclue_elapsedtime <= maiclue_attacktime))
-                    {
-                        M_state = Mai_State_.Goto;
-                    }
                     break;
 
-                //接近
+                // 接近
                 case Mai_State_.Goto:
-
                     Vector3 direction = (Target_P.transform.position - transform.position).normalized;
                     direction.y = 0;
                     transform.position += direction * MoveSpeed * Time.deltaTime;
@@ -255,35 +271,24 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                     {
                         M_state = Mai_State_.Attack;
                     }
-
                     break;
 
-                //攻撃
+                // 攻撃
                 case Mai_State_.Attack:
-
                     DecideAttackType();
-
                     break;
 
-                //元の場所に戻る
+                // 元の場所に戻る
                 case Mai_State_.Jumpback:
-
                     transform.position = targetPoint;
-
-                    //WaitForSeconds(2.5f); //待機
 
                     if (transform.position == targetPoint)
                     {
                         maiclue_iscount = !maiclue_iscount;
-
                         M_state = Mai_State_.Spin;
                     }
-
                     break;
             }
-
-            
-
 
             /*
             if (maiclue_iscount)
