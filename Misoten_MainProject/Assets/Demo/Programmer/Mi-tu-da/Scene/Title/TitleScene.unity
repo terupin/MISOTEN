@@ -233,7 +233,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!1 &441721931
+--- !u!1 &280403945
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -241,22 +241,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 441721933}
-  - component: {fileID: 441721932}
+  - component: {fileID: 280403947}
+  - component: {fileID: 280403946}
   m_Layer: 0
-  m_Name: chitose-sakura
+  m_Name: TitleBGM
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!82 &441721932
+--- !u!82 &280403946
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 441721931}
+  m_GameObject: {fileID: 280403945}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 8746277036587050856, guid: 8e6420d3dcdfcef4d815ef31ef9cd51f,
@@ -347,13 +347,13 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!4 &441721933
+--- !u!4 &280403947
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 441721931}
+  m_GameObject: {fileID: 280403945}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -1718,4 +1718,4 @@ SceneRoots:
   - {fileID: 1746012213}
   - {fileID: 206628918}
   - {fileID: 1894127503}
-  - {fileID: 441721933}
+  - {fileID: 280403947}
