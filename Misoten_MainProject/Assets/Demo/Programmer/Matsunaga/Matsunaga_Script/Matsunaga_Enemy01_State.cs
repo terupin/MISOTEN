@@ -52,11 +52,11 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
     private enum Mai_State_
     {
-        Idle,
-        Spin,
-        Goto,
-        Attack,
-        Jumpback
+        Idle,       //デフォルト状態
+        Spin,       //周回状態
+        Goto,       //接近状態
+        Attack,     //攻撃状態
+        Jumpback    //撤退状態
     };
 
 
@@ -117,6 +117,8 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     public GameObject vertexObjectPrefab; // 頂点に生成するオブジェクト
     [Header("電竹のスケール")]
     public Vector3 vertexObjectScale = Vector3.one; // 頂点オブジェクトのスケール
+    [Header("バリアと電竹の生成角度")]
+    public float rotationAngle = 0.0f; //バリアと電竹の生成角度
 
     Vector3[] lowerVertices = new Vector3[6];
     Vector3[] upperVertices = new Vector3[6];
@@ -130,7 +132,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     public float maiclue_speed; //周回スピード
 
     private bool run_for_me; //周回用のフラグ
-     
+
     private float angle = 0.0f; //周回計算用の角度
 
     private float maiclue_attacktime; //周回時の攻撃間隔の時間(乱数格納用)
@@ -164,9 +166,9 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         // 頂点を計算
         for (int i = 0; i < 6; i++)
         {
-            float angle = Mathf.Deg2Rad * (60 * i);
-            float x = Mathf.Cos(angle) * radius;
-            float z = Mathf.Sin(angle) * radius;
+            float Hexaangle = Mathf.Deg2Rad * (60 * i + rotationAngle);
+            float x = Mathf.Cos(Hexaangle) * radius;
+            float z = Mathf.Sin(Hexaangle) * radius;
 
             lowerVertices[i] = new Vector3(x, 0, z) + centerOffset;
             upperVertices[i] = new Vector3(x, height, z) + centerOffset;
@@ -175,11 +177,12 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         run_for_me = false;
         rb = GetComponent<Rigidbody>();
         M_state = Mai_State_.Idle;
+
     }
 
     private void Update()
     {
-         //加藤  
+        //加藤  
         if (UnityEngine.Input.GetKeyDown(KeyCode.O))
         {
             Kato_Status_E.NowHP -= 500;
@@ -203,7 +206,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         }
 
         if (run_for_me)
-        {
+        {   
             switch (M_state)
             {
                 //周回
@@ -214,7 +217,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                         maiclue_starttime = Time.time;
                         maiclue_attacktime = Random.Range(maiclue_mintime, maiclue_maxtime);
                         maiclue_iscount = !maiclue_iscount;
-                        maiclue_spind = Random.Range(1,3);
+                        maiclue_spind = Random.Range(1, 3);
                     }
 
                     maiclue_elapsedtime = Time.time - maiclue_starttime;
@@ -226,15 +229,11 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                     maiclue_x = Target_P.transform.position.x + Mathf.Cos(angle) * maiclue_radius;
                     //時計回り
                     if (maiclue_spind == 1)
-                    {
-                        maiclue_z = Target_P.transform.position.z + Mathf.Sin(angle) * maiclue_radius;
-                    }
+                    {maiclue_z = Target_P.transform.position.z + Mathf.Sin(angle) * maiclue_radius;}
                     //反時計周り
                     else
-                    {
-                        maiclue_z = Target_P.transform.position.z - Mathf.Sin(angle) * maiclue_radius;
-                    }
-                    
+                    {maiclue_z = Target_P.transform.position.z - Mathf.Sin(angle) * maiclue_radius;}
+
 
                     // オブジェクトを移動
                     transform.position = new Vector3(maiclue_x, transform.position.y, maiclue_z);
@@ -243,7 +242,6 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                     {
                         M_state = Mai_State_.Goto;
                     }
-
                     break;
 
                 //接近
@@ -284,6 +282,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                     break;
             }
 
+            
 
 
             /*
@@ -455,7 +454,8 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         }
 
         // プレイヤーと敵の距離を計算
-        P_E_Length = Vector3.Distance(Target_P.transform.position, gameObject.transform.position);
+        //P_E_Length = Vector3.Distance(Target_P.transform.position, gameObject.transform.position);
+        P_E_Length = Vector3.Distance(new Vector3(0,0,0), gameObject.transform.position);
         Debug.Log($"プレイヤーとの距離: {P_E_Length}");
 
         // 状態ごとの経過時間を更新
@@ -761,6 +761,9 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         lineRenderer.SetPositions(new Vector3[] { start, end });
         lineRenderer.startWidth = 0.05f;
         lineRenderer.endWidth = 0.05f;
+
+        // 親を設定せず、ワールド空間に配置
+        lineObject.transform.SetParent(null);
     }
 
     void CreateMesh(Vector3[] lowerVertices, Vector3[] upperVertices)
@@ -801,6 +804,9 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         // メッシュを設定
         meshFilter.mesh = mesh;
         meshRenderer.material = faceMaterial;
+
+        // 親を設定せず、ワールド空間に配置
+        meshObject.transform.SetParent(null);
     }
 
     void GenerateObjectsAtVertices(Vector3[] lowerVertices)
@@ -816,6 +822,9 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         {
             GameObject vertexObject = Instantiate(vertexObjectPrefab, lowerVertices[i], Quaternion.identity, transform);
             vertexObject.transform.localScale = vertexObjectScale;
+
+            // 親を設定せず、ワールド空間に配置
+            vertexObject.transform.SetParent(null);
         }
     }
 
