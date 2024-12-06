@@ -4,6 +4,8 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+//UnityEditor.EditorApplication.isPaused = true;
+
 public class Miburo_State : MonoBehaviour
 {
     //フラグ
@@ -73,11 +75,16 @@ public class Miburo_State : MonoBehaviour
     [SerializeField, Header("待ち時間(パリィ)")]
     public float Parry_WaitTime;
 
+    [SerializeField, Header("攻撃時間(攻撃1段目)")]
+    public float Attack01_Time;
     [SerializeField, Header("待ち時間(攻撃1段目)")]
     public float Attack01_WaitTime;
 
+    [SerializeField, Header("攻撃時間(攻撃2段目)")]
+    public float Attack02_Time;
     [SerializeField, Header("待ち時間(攻撃2段目)")]
     public float Attack02_WaitTime;
+
 
     [SerializeField, Header("待ち時間(受け流し方向セット)")]
     public float Katana_DirectionSet_WaitTime;
@@ -170,11 +177,13 @@ public class Miburo_State : MonoBehaviour
         {
             if (_Attack01)
             {
+                StartCoroutine(ChangeCoolDown(M_AttackIcon, 0.0f, 1.0f, Attack02_Time + Attack02_WaitTime));
                 StartCoroutine(Miburo_Attack02());
                 Instantiate(slash_effect, transform.position, transform.rotation);
             }
             else
             {
+                StartCoroutine(ChangeCoolDown(M_AttackIcon, 0.0f, 1.0f, Attack01_Time + Attack01_WaitTime));
                 StartCoroutine(Miburo_Attack01());
                 Instantiate(slash_effect, transform.position, transform.rotation);
             }
@@ -318,11 +327,9 @@ public class Miburo_State : MonoBehaviour
         }
 
 
-
         if (IsAnimationFinished("Attack02"))
         {
-
-            StartCoroutine(ChangeCoolDown(M_AttackIcon, 0.0f, 1.0f, Attack01_WaitTime));
+            UnityEditor.EditorApplication.isPaused = true;
         }
        
 
@@ -337,9 +344,12 @@ public class Miburo_State : MonoBehaviour
             _Attack01 = true;
             Debug.Log("攻撃1開始");
             Miburo_Animator.SetBool("Attack01", true);
+            //StartCoroutine(ChangeCoolDown(M_AttackIcon, 0.0f, 1.0f, Attack01_Time + Attack01_WaitTime));
+            yield return new WaitForSeconds(Attack01_Time);
+            Miburo_Animator.SetBool("Attack01", false);
             yield return new WaitForSeconds(Attack01_WaitTime);
             Debug.Log("攻撃1待ち時間終了");
-            Miburo_Animator.SetBool("Attack01", false);
+
             _Attack01 = false;
         }
         else
@@ -356,9 +366,11 @@ public class Miburo_State : MonoBehaviour
             _Attack02 = true;
             Debug.Log("攻撃2開始");
             Miburo_Animator.SetBool("Attack02", true);
-            yield return new WaitForSeconds(Attack02_WaitTime);
+            //StartCoroutine(ChangeCoolDown(M_AttackIcon, 0.0f, 1.0f, Attack02_Time + Attack02_WaitTime));
+            yield return new WaitForSeconds(Attack02_Time);
             Debug.Log("攻撃2待ち時間終了");
             Miburo_Animator.SetBool("Attack02", false);
+            yield return new WaitForSeconds(Attack02_WaitTime);
             _Attack02 = false;
         }
         else
@@ -556,9 +568,9 @@ public class Miburo_State : MonoBehaviour
     // UIに反映させるためのコルーチン
     IEnumerator ChangeCoolDown(Material _material,float startValue, float endValue, float duration)
     {
-        if(!_CoolDown)
-        {
-            _CoolDown = true;
+        //if(!_CoolDown)
+        //{
+        //    _CoolDown = true;
             float time = 0.0f;
 
             // 時間経過で M_UkenagasiIcon の CoolDown 値を徐々に変更
@@ -572,11 +584,11 @@ public class Miburo_State : MonoBehaviour
 
             // 最終値を確定
             _material.SetFloat("_CoolDown", endValue);
-            _CoolDown = false;
-        }
-        else
-        {
-        }
+        //    _CoolDown = false;
+        //}
+        //else
+        //{
+        //}
     }
 
     //当たり判定
