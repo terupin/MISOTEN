@@ -53,7 +53,7 @@ Shader "Custom/UIUnlitShader"
                 fixed4 subColor = tex2D(_SubTex, i.uv);
 
                 // CoolDown値を利用したアルファマスク処理
-                float mask = step(_CoolDown, i.uv.y); // UV.yを使ったマスク
+                float mask = step(_CoolDown, i.uv.x); // UV.yを使ったマスク
                 fixed4 resultColor = lerp(mainColor, subColor, mask);
 
                 // 出力色
