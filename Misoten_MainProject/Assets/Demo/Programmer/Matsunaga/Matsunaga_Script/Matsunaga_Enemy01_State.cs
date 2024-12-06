@@ -223,6 +223,8 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             LookAtPlayer(); // プレイヤーを向く処理を呼び出し
         }
 
+        KatoUpdateAnim();
+
         if (run_for_me)
         {
             switch (M_state)
@@ -570,6 +572,16 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             //maiclue_jumpback = true;
             M_state = Mai_State_.Jumpback;
         }
+
+        if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("NagasereL") && E01Anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f)
+        {
+            M_state = Mai_State_.Jumpback;
+        }
+
+        if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("NagasereR") && E01Anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f)
+        {
+            M_state = Mai_State_.Jumpback;
+        }
     }
 
     // 連撃攻撃の処理
@@ -581,6 +593,18 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             Debug.Log("連撃攻撃が完了しました。Cooldown 状態に遷移します。");
             E01Anim.SetBool("RenGeki", false); // アニメーションをリセット
             SetState(Enemy_State_.Cooldown);
+
+            M_state = Mai_State_.Jumpback;
+        }
+
+        if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("RtoLtoNagasare") && E01Anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f)
+        {
+            M_state = Mai_State_.Jumpback;
+        }
+
+        if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("RtoNagasare") && E01Anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f)
+        {
+            M_state = Mai_State_.Jumpback;
         }
     }
 
@@ -718,7 +742,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         E01Anim.SetBool("Rengeki", E_State == Enemy_State_.RenGeki);
         E01Anim.SetBool("Hirumi", E_State == Enemy_State_.Stagger);
         E01Anim.SetBool("Kaihou", E_State == Enemy_State_.Kaihou);
-        KatoUpdateAnim();
+
     }
 
     void DrawLine(Vector3 start, Vector3 end)
