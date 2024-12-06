@@ -8,6 +8,7 @@ public class Miburo_State : MonoBehaviour
 {
     //フラグ
     private bool _Step;
+    private bool _StepMuteki;
     private bool _CoolDown;
     static public bool _Parry;
     static public bool _Parry_Timing;//パリイ入力した瞬間
@@ -39,9 +40,10 @@ public class Miburo_State : MonoBehaviour
 
     [SerializeField, Header("ステップスピード")]
     public float Step_Speed;
-
     [SerializeField, Header("ステップ時間(秒)")]
     public float Step_Time;
+    [SerializeField, Header("待ち時間(ステップ終了後)")]
+    public float Step_WaitTime;
 
     static public bool _Stick_Input;
 
@@ -67,9 +69,6 @@ public class Miburo_State : MonoBehaviour
 
     [SerializeField, Header("待ち時間(ダメージ後無敵)")]
     public float Damage_MutekiTime;
-
-    [SerializeField, Header("待ち時間(ステップ)")]
-    public float Step_WaitTime;
 
     [SerializeField, Header("待ち時間(パリィ)")]
     public float Parry_WaitTime;
@@ -155,7 +154,7 @@ public class Miburo_State : MonoBehaviour
         //    UnityEditor.EditorApplication.isPaused = true;
         //}
 
-        if(_KnockBack ||_Step)
+        if(_KnockBack ||_StepMuteki)
         {
 
         }
@@ -196,7 +195,6 @@ public class Miburo_State : MonoBehaviour
         if (UnityEngine.Input.GetKeyDown("joystick button 0"))
         {
             StartCoroutine(Miburo_Step());
-            //StartCoroutine(ChangeCoolDown(M_StepIcon, 0.0f, 1.0f, 1.0f));
         }
 
         //ノックバック
@@ -214,7 +212,7 @@ public class Miburo_State : MonoBehaviour
             Miburo_HitBox.SetActive(true);
         }
 
-        if(_Step)
+        if(_StepMuteki)
         {
             Miburo_HitBox.SetActive(false);
         }
@@ -432,13 +430,16 @@ public class Miburo_State : MonoBehaviour
         if (!_Step)
         {
             _Step = true;
+            _StepMuteki = true;
             Miburo_HitBox.SetActive(false);
             Debug.Log("ステップ開始");
-            yield return new WaitForSeconds(Step_WaitTime);
+            StartCoroutine(ChangeCoolDown(M_StepIcon, 0.0f, 1.0f, Step_WaitTime+Step_Time));
+            yield return new WaitForSeconds(Step_Time);
             Debug.Log("ステップ待ち時間終了");
-            _Step = false;
+            _StepMuteki = false;
             Miburo_HitBox.SetActive(true);
-            StartCoroutine(ChangeCoolDown(M_StepIcon, 0.0f, 1.0f, 1.0f));
+            yield return new WaitForSeconds(Step_WaitTime);
+            _Step = false;
         }
         else
         {
@@ -523,6 +524,32 @@ public class Miburo_State : MonoBehaviour
             _KnockBack = true;
             yield return new WaitForSeconds(KnockBack_Time);
             _KnockBack = false;
+        }
+    }
+
+    // UIに反映させるためのコルーチン
+    IEnumerator aChangeCoolDown(Material _material, float startValue, float endValue, float duration)
+    {
+        if (!_CoolDown)
+        {
+            _CoolDown = true;
+            float time = 0.0f;
+
+            // 時間経過で M_UkenagasiIcon の CoolDown 値を徐々に変更
+            while (time < duration)
+            {
+                time += Time.deltaTime;
+                float value = Mathf.Lerp(startValue, endValue, time / duration);
+                _material.SetFloat("_CoolDown", value); // M_UkenagasiIcon のみを操作
+                yield return null;
+            }
+
+            // 最終値を確定
+            _material.SetFloat("_CoolDown", endValue);
+            _CoolDown = false;
+        }
+        else
+        {
         }
     }
 
