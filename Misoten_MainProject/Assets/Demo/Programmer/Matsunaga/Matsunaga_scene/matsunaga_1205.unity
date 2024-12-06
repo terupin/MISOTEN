@@ -2217,6 +2217,7 @@ MonoBehaviour:
   maiclue_maxtime: 5
   maiclue_mintime: 3
   skipCount: 3
+  jumpBackWaitTime: 2
 --- !u!1 &777521274
 GameObject:
   m_ObjectHideFlags: 0
