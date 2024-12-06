@@ -51,16 +51,6 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         Ukenagashi,
     };
 
-    private enum Mai_State_
-    {
-        Idle,       //デフォルト状態
-        Spin,       //周回状態
-        Goto,       //接近状態
-        Attack,     //攻撃状態
-        Jumpback    //撤退状態
-    };
-
-
     [SerializeField, Header("デバックモード")]
     public bool debug_switch = false; //デバッグ用の処理のスイッチ
 
@@ -124,47 +114,47 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     Vector3[] lowerVertices = new Vector3[6];
     Vector3[] upperVertices = new Vector3[6];
 
-    [Header("周回範囲の半径")]
-    public float maiclue_radius = 5.0f; //周回する円の半径
-    private float maiclue_x;    //周回計算用のX座標
-    private float maiclue_y;    //周回計算用のY座標
-    private float maiclue_z;    //周回計算用のZ座標
-    [Header("周回時の移動速度")]
-    public float maiclue_speed; //周回スピード
+    //周回関係
+    private enum Mai_State_
+    {
+        Idle,       //デフォルト状態
+        Spin,       //周回状態
+        Goto,       //接近状態
+        Attack,     //攻撃状態
+        Jumpback    //撤退状態
+    };
 
-    private bool run_for_me; //周回用のフラグ
-
-    private float angle = 0.0f; //周回計算用の角度
-
-    private float maiclue_attacktime; //周回時の攻撃間隔の時間(乱数格納用)
-    [Header("周回時の攻撃間隔の最大時間")]
-    public float maiclue_maxtime = 5.0f; //周回時の攻撃間隔の最大時間
-    [Header("周回時の攻撃間隔の最小時間")]
-    public float maiclue_mintime = 3.0f; //周回時の攻撃間隔の最小時間
-
-    private float maiclue_starttime;
-    private float maiclue_elapsedtime;
-
-    private bool maiclue_iscount = false;
-    private bool maiclue_jumpback = false;
-    private Vector3 targetPoint;
-    private bool maiclue_istarget = true;
-
-    private int maiclue_spind; //時計回りか反時計回りか(乱数格納用)
-
-    private Rigidbody rb; //自分のrigidbody
     private Mai_State_ M_state;
-    
-    [Header("スキップする角度の数")]
-    public int skipCount = 1;  // インスペクタで設定できる、スキップする角度の数
 
-    // 定数を追加：円を6分割するための角度
-    private float[] targetAngles = new float[6];
-    private int currentSegment = 0;
-    private bool isRandomTarget = false;  // ランダムなターゲット選択フラグ
+    private bool run_for_me = false;
 
-    [Header("ジャンプバック後の待機時間")]
-    public float jumpBackWaitTime = 2.5f; // ジャンプバック後の待機時間（秒）
+    [SerializeField]
+    private float spinRadius = 5f; // 円の半径（インスペクタで編集可能）
+
+    [SerializeField]
+    private float spinSpeed = 2f; // 周回速度（ラジアン/秒）
+
+    private float currentAngle = 0f; // 現在の角度（ラジアン）
+
+    // 攻撃ポイント（円を6等分した点）
+    private Vector3[] attackPoints = new Vector3[6];
+
+    // Goto状態の開始時の位置を記録
+    private Vector3 gotoStartPosition;
+
+    // Goto状態の移動速度
+    private float moveSpeed = 2f;
+
+    // Goto状態で到達すべき中心からの半径
+    private float targetRadius = 1f;
+
+    // Jumpback状態で待機する時間（インスペクタで設定可能）
+    [SerializeField]
+    private float waitTime = 2f; // 待機時間
+
+    // Jumpback状態で経過した時間
+    private float jumpbackTimer = 0f;
+
 
     private void Start()
     {
@@ -187,15 +177,8 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         }
 
         run_for_me = false;
-        rb = GetComponent<Rigidbody>();
+       
         M_state = Mai_State_.Idle;
-
-        // 円周を6分割した各分割点の角度を計算
-        for (int i = 0; i < 6; i++)
-        {
-            targetAngles[i] = i * Mathf.PI / 3;  // 6分割なので2π/6=π/3の角度間隔
-        }
-
     }
 
     private void Update()
@@ -229,101 +212,27 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         {
             switch (M_state)
             {
-                // 周回
                 case Mai_State_.Spin:
-                    if (maiclue_iscount)
-                    {
-                        maiclue_starttime = Time.time;
-                        maiclue_attacktime = Random.Range(maiclue_mintime, maiclue_maxtime);
-                        maiclue_iscount = !maiclue_iscount;
-                        maiclue_spind = Random.Range(1, 3);
-                    }
 
-                    maiclue_elapsedtime = Time.time - maiclue_starttime;
-
-                    // ランダムで次のターゲット角度を決める
-                    if (!isRandomTarget)
-                    {
-                        // ランダムにスキップする角度の数を決定
-                        currentSegment = Random.Range(0, 6);  // ランダムに現在のセグメントを選択
-
-                        // スキップする角度をランダムに選ぶ
-                        for (int i = 0; i < skipCount; i++)
-                        {
-                            currentSegment = (currentSegment + Random.Range(1, 6)) % 6; // 現在のセグメントからランダムに飛ばす
-                        }
-
-                        isRandomTarget = true; // 次のターゲット選択を完了
-                    }
-
-                    // 角度を更新（速度を考慮）
-                    angle += maiclue_speed * Time.deltaTime;
-
-                    // 角度を0〜2πに正規化
-                    if (angle >= 2 * Mathf.PI) angle -= 2 * Mathf.PI;
-                    if (angle < 0) angle += 2 * Mathf.PI;
-
-                    // 円周上の位置を計算
-                    //maiclue_x = Target_P.transform.position.x + Mathf.Cos(angle) * maiclue_radius;
-                    maiclue_x = 0.0f + Mathf.Cos(angle) * maiclue_radius;
-
-                    // 時計回り
-                    if (maiclue_spind == 1)
-                    {
-                        //maiclue_z = Target_P.transform.position.z + Mathf.Sin(angle) * maiclue_radius;
-                        maiclue_z = 0.0f + Mathf.Sin(angle) * maiclue_radius;
-                    }
-                    // 反時計回り
-                    else
-                    {
-                        //maiclue_z = Target_P.transform.position.z - Mathf.Sin(angle) * maiclue_radius;
-                        maiclue_z = 0.0f - Mathf.Sin(angle) * maiclue_radius;
-                    }
-
-                    // 現在のセグメントに到達したか確認
-                    // 到達する角度を0.1度くらいの誤差で許容する
-                    if (Mathf.Abs(angle - targetAngles[currentSegment]) < 0.1f || Mathf.Abs(angle - targetAngles[currentSegment]) > Mathf.PI * 2 - 0.1f)
-                    {
-                        // セグメントに到達した場合、次のセグメントへ
-                        isRandomTarget = false;  // ランダムターゲットを再度有効化
-                        M_state = Mai_State_.Goto;  // Goto状態に移行
-                    }
-
-                    // オブジェクトを移動
-                    transform.position = new Vector3(maiclue_x, transform.position.y, maiclue_z);
+                    UpdateSpin();
 
                     break;
 
-                // 接近
                 case Mai_State_.Goto:
-                    //Vector3 direction = (Target_P.transform.position - transform.position).normalized;
-                    Vector3 direction = (new Vector3(0,0,0) - transform.position).normalized;
-                    direction.y = 0;
-                    transform.position += direction * MoveSpeed * Time.deltaTime;
 
-                    if ((P_E_Length <= AttackLength))
-                    {
-                        M_state = Mai_State_.Attack;
-                    }
+                    UpdateGoto();
+
                     break;
 
-                // 攻撃
                 case Mai_State_.Attack:
+
                     DecideAttackType();
+
                     break;
 
-                // 元の場所に戻る
                 case Mai_State_.Jumpback:
-                    
-                    //StartCoroutine(WaitAndReturnToSpin());
 
-                    transform.position = targetPoint;
-
-                    if (transform.position == targetPoint)
-                    {
-                        maiclue_iscount = !maiclue_iscount;
-                        M_state = Mai_State_.Spin;
-                    }
+                    UpdateJumpback();
 
                     break;
             }
@@ -390,7 +299,6 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                 Debug.Log("dc5: 歩行ステートを実行します");
 
                 run_for_me = true;
-                maiclue_iscount = true;
                 SetState(Enemy_State_.Idle);
                 M_state = Mai_State_.Spin;
                 //SetState(Enemy_State_.Walk);
@@ -426,7 +334,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
         // プレイヤーと敵の距離を計算
         //P_E_Length = Vector3.Distance(Target_P.transform.position, gameObject.transform.position);
-        P_E_Length = Vector3.Distance(new Vector3(0,0,0), gameObject.transform.position);
+        P_E_Length = Vector3.Distance(new Vector3(0,0,0), transform.position);
         Debug.Log($"プレイヤーとの距離: {P_E_Length}");
 
         // 状態ごとの経過時間を更新
@@ -464,6 +372,93 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
         // 状態に応じてアニメーションを更新
         UpdateAnimations();
+    }
+
+    private void UpdateSpin()
+    {
+        // 角度を更新（時間経過に応じて進む）
+        currentAngle += spinSpeed * Time.deltaTime;
+
+        // 円周上の位置を計算
+        float x = Mathf.Cos(currentAngle) * spinRadius;
+        float z = Mathf.Sin(currentAngle) * spinRadius;
+
+        // オブジェクトの位置を更新
+        transform.position = new Vector3(x, transform.position.y, z);
+
+        // 6等分された攻撃ポイントを計算
+        CalculateAttackPoints();
+
+        // 現在位置が攻撃ポイントに到達したらGoto状態に遷移
+        CheckAttackPointReached(x, z);
+
+        Debug.Log($"Spin状態: 半径 = {spinRadius}, 位置 = ({x}, {z})");
+    }
+
+    private void CalculateAttackPoints()
+    {
+        // 0度を開始として360度を6等分した攻撃ポイントを計算
+        for (int i = 0; i < 6; i++)
+        {
+            float angleInRadians = Mathf.Deg2Rad * (i * 60); // 60度間隔で分割
+            float attackX = Mathf.Cos(angleInRadians) * spinRadius;
+            float attackZ = Mathf.Sin(angleInRadians) * spinRadius;
+
+            attackPoints[i] = new Vector3(attackX, transform.position.y, attackZ);
+        }
+    }
+
+    private void CheckAttackPointReached(float x, float z)
+    {
+        // 現在位置と攻撃ポイントが十分近ければGoto状態に遷移
+        float threshold = 0.2f; // 近づく距離の閾値
+        foreach (var point in attackPoints)
+        {
+            if (Vector3.Distance(new Vector3(x, transform.position.y, z), point) < threshold)
+            {
+                Debug.Log("攻撃ポイント到達!");
+                M_state = Mai_State_.Goto; // Goto状態に遷移
+                break;
+            }
+        }
+    }
+
+    private void UpdateGoto()
+    {
+        // 0,0,0に向かって移動（円周上の速度を維持）
+        Vector3 direction = Vector3.zero - transform.position; // 中心座標 (0,0,0) への方向
+        direction.y = 0; // 高さは変えずにXY平面で移動
+
+        // 目標半径（内側の円に到達したら攻撃状態に遷移）
+        if (direction.magnitude < AttackLength)
+        {
+            M_state = Mai_State_.Attack; // Attack状態に遷移
+            Debug.Log("Attack状態に遷移！");
+        }
+
+        // 移動処理
+        float step = moveSpeed * Time.deltaTime;
+        transform.position = Vector3.MoveTowards(transform.position, Vector3.zero, step);
+
+        Debug.Log($"Goto状態: 位置 = {transform.position}");
+    }
+    
+    private void UpdateJumpback()
+    {
+        // Goto状態開始時に格納した位置に戻る処理
+        Vector3 directionToGotoStart = gotoStartPosition - transform.position;
+        directionToGotoStart.y = 0; // 高さは変えずにXY平面で移動
+
+        // 到着したら指定の待機時間を待つ
+        jumpbackTimer += Time.deltaTime;
+
+        // 待機時間を経過したらSpin状態に遷移
+        if (jumpbackTimer >= waitTime)
+        {
+            M_state = Mai_State_.Spin; // Spin状態に遷移
+            jumpbackTimer = 0f; // タイマーをリセット
+            Debug.Log("Spin状態に遷移！");
+        }
     }
 
     // 新しい状態を設定し経過時間をリセット
@@ -638,12 +633,15 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     // クールダウン状態の処理
     private void HandleCooldown()
     {
+        /*
         if (StateCurrentTime >= CooldownTime)
         {
             // クールダウン終了後、待機状態に遷移
             Debug.Log("クールダウンが終了しました。Idle 状態に遷移します。");
             SetState(Enemy_State_.Idle);
         }
+        */
+        SetState(Enemy_State_.Idle);
     }
 
     // HPに応じた耐久フィールドの生成
@@ -819,23 +817,6 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             // 親を設定せず、ワールド空間に配置
             vertexObject.transform.SetParent(null);
         }
-    }
-
-    private IEnumerator WaitAndReturnToSpin()
-    {
-        
-
-        // 指定時間待機
-        yield return new WaitForSeconds(jumpBackWaitTime);
-
-        transform.position = targetPoint;
-
-        if (transform.position == targetPoint)
-        {
-            maiclue_iscount = !maiclue_iscount;
-            M_state = Mai_State_.Spin;
-        }
-
     }
 
     //ここから加藤
