@@ -74,8 +74,8 @@ public class Enemy01_State : MonoBehaviour
     [SerializeField, Header("ターゲットとなるプレイヤー")]
     public GameObject Target_P; // 敵がターゲットするプレイヤーオブジェクト
 
-    [SerializeField, Header("サーチ射程(10)")]
-    public float SearchLength = 100; // 敵がプレイヤーを探知できる距離
+    //[SerializeField, Header("サーチ射程(10)")]
+    //public float SearchLength = 100; // 敵がプレイヤーを探知できる距離
 
     [SerializeField, Header("攻撃射程(3.5)")]
     public float AttackLength = 3.5f; // 敵が攻撃可能な距離
@@ -268,6 +268,7 @@ public class Enemy01_State : MonoBehaviour
                     if ((P_E_Length <= AttackLength))
                     {
                         M_state = Mai_State_.Attack;
+                        UnityEditor.EditorApplication.isPaused = true;
                     }
 
                     break;
@@ -282,7 +283,7 @@ public class Enemy01_State : MonoBehaviour
                 //元の場所に戻る
                 case Mai_State_.Jumpback:
 
-                    //UnityEditor.EditorApplication.isPaused = true;
+
                     transform.position = targetPoint;
 
                     //WaitForSeconds(2.5f); //待機
@@ -459,47 +460,47 @@ public class Enemy01_State : MonoBehaviour
             return; // 処理を中断
         }
 
-        if (StateCurrentTime >= StateTime)
-        {
-            StateCurrentTime = 0.0f;
+        //if (StateCurrentTime >= StateTime)
+        //{
+        //    StateCurrentTime = 0.0f;
 
-            if (P_E_Length <= AttackLength)
-            {
-                Debug.Log("攻撃範囲に入ったので攻撃を開始！");
-                DecideAttackType();
-            }
-            else if (P_E_Length < SearchLength)
-            {
-                Debug.Log("プレイヤーがサーチ範囲内にいますが攻撃範囲外です。移動を開始します。");
-                SetState(Enemy_State_.Walk);
-            }
-            else
-            {
-                Debug.Log("プレイヤーが範囲外です。待機状態に戻ります。");
-                SetState(Enemy_State_.Idle);
-            }
-        }
+        //    if (P_E_Length <= AttackLength)
+        //    {
+        //        Debug.Log("攻撃範囲に入ったので攻撃を開始！");
+        //        DecideAttackType();
+        //    }
+        //    else if (P_E_Length < SearchLength)
+        //    {
+        //        Debug.Log("プレイヤーがサーチ範囲内にいますが攻撃範囲外です。移動を開始します。");
+        //        SetState(Enemy_State_.Walk);
+        //    }
+        //    else
+        //    {
+        //        Debug.Log("プレイヤーが範囲外です。待機状態に戻ります。");
+        //        SetState(Enemy_State_.Idle);
+        //    }
+        //}
 
-        if (E_State == Enemy_State_.Idle && P_E_Length < SearchLength)
-        {
-            Vector3 direction = (Target_P.transform.position - transform.position).normalized;
-            direction.y = 0;
-            Quaternion targetRotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * MoveSpeed);
-        }
+        //if (E_State == Enemy_State_.Idle && P_E_Length < SearchLength)
+        //{
+        //    Vector3 direction = (Target_P.transform.position - transform.position).normalized;
+        //    direction.y = 0;
+        //    Quaternion targetRotation = Quaternion.LookRotation(direction);
+        //    transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * MoveSpeed);
+        //}
 
-        if (E_State == Enemy_State_.Walk)
-        {
-            if (P_E_Length > AttackLength && P_E_Length < SearchLength)
-            {
-                Vector3 direction = (Target_P.transform.position - transform.position).normalized;
-                direction.y = 0;
-                Quaternion targetRotation = Quaternion.LookRotation(direction);
-                transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * MoveSpeed);
+        //if (E_State == Enemy_State_.Walk)
+        //{
+        //    if (P_E_Length > AttackLength && P_E_Length < SearchLength)
+        //    {
+        //        Vector3 direction = (Target_P.transform.position - transform.position).normalized;
+        //        direction.y = 0;
+        //        Quaternion targetRotation = Quaternion.LookRotation(direction);
+        //        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * MoveSpeed);
 
-                transform.position += direction * MoveSpeed * Time.deltaTime;
-            }
-        }
+        //        transform.position += direction * MoveSpeed * Time.deltaTime;
+        //    }
+        //}
 
         if (P_E_Length < AttackLength)
         {

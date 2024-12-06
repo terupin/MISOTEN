@@ -18,21 +18,17 @@ public class Miburo_State : MonoBehaviour
     static public bool _CounterR;
     static public bool _RenCounter01;
     static public bool _RenCounter02;
-    private bool _Run;
     private bool _Ren11;
     private bool _Ren22;
 
     static public bool _wait;
 
-    public bool StickL;
-    public bool StickR;
+    private bool StickL;//スティック左スティック
+    private bool StickR;//スティック右スティック
 
+    private bool _KnockBack;//ノックバック
+    Vector3 dir;//ノックバックで使用する
 
-
-    private bool _KnockBack;
-    Vector3 dir;
-
-    //Rigidbody rb;
 
     [SerializeField, Header("ノックバックスピード")]
     public float KnockBack_Speed;
@@ -133,20 +129,21 @@ public class Miburo_State : MonoBehaviour
             return;
         }
 
-        //R1ボタン押下
+        //R1ボタン押下(攻撃)
         if (UnityEngine.Input.GetKeyDown("joystick button 5"))
         {
             if (_Attack01)
             {
                 StartCoroutine(Miburo_Attack02());
-
             }
             else
             {
                 StartCoroutine(Miburo_Attack01());
+
             }
         }
-        //L1ボタン押下
+
+        //L1ボタン押下//ガード
         if (UnityEngine.Input.GetKeyDown("joystick button 4"))
         {
             _Parry_Timing = true;
@@ -157,10 +154,11 @@ public class Miburo_State : MonoBehaviour
             _Parry_Timing = false;
         }
 
-        //Aボタン押下
+        //Aボタン押下(ステップ)
         if (UnityEngine.Input.GetKeyDown("joystick button 0"))
         {
             StartCoroutine(Miburo_Step());
+            StartCoroutine(ChangeCoolDown(M_StepIcon, 0.0f, 1.0f, 1.0f));
         }
 
 
@@ -214,20 +212,6 @@ public class Miburo_State : MonoBehaviour
 
         Miburo_Animator.SetBool("StickR", StickR);
         Miburo_Animator.SetBool("StickL", StickL);
-
-        if (Enemy01_State.UKe__Ren01 || Enemy01_State.UKe__Ren02 || Enemy01_State.UkeL || Enemy01_State.UkeR)
-        {
-
-
-        }
-        else
-        {
-            if (_Parry)
-            {
-
-            }
-
-        }
         if (Enemy01_State.P_Wait)
         {
             if (!_wait)
@@ -246,24 +230,7 @@ public class Miburo_State : MonoBehaviour
             _wait = false;
         }
 
-
-        //Player_Run_Input();//走行入力がされているかのフラグ
-
-        //if (_Attack01 || _Attack02 || _Stick_Input || _Parry || _wait)
-        //{
-        //}
-        //else
-        //{
-        //    if (_Run)
-        //    {
-        //        Player_Run();//走行処理
-        //    }
-        //}
-
-
         ////判定をアニメーターへ
-
-        //Miburo_Animator.SetBool("Run", _Run);
         Miburo_Animator.SetBool("Gurd", _Parry);
 
 
@@ -286,8 +253,6 @@ public class Miburo_State : MonoBehaviour
         {
             Miburo_Animator.SetBool("UkenagashiR", false);
         }
-
-
 
         if (Enemy01_State.UKe__Ren01)
         {
@@ -320,12 +285,12 @@ public class Miburo_State : MonoBehaviour
 
         gameObject.transform.LookAt(Target.transform);
 
+        if (IsAnimationFinished("Attack02"))
+        {
 
-        //if (_Stick_Input)
-        //{
-        //     GetKatana_Direction();
-        //} 
-
+            StartCoroutine(ChangeCoolDown(M_AttackIcon, 0.0f, 1.0f, Attack01_WaitTime));
+        }
+       
 
         GetCurrentAnimationStateName();//ステート取得して
     }
@@ -393,28 +358,7 @@ public class Miburo_State : MonoBehaviour
 
     }
 
-    //コルーチン(Stick)
-    private IEnumerator Miburo_Stick()
-    {
-        if (!_Stick_Input)
-        {
-            _Stick_Input = true;
-            Debug.Log("スティック");
-            //Miburo_Animator.SetBool("Gurd", _Stick_Input);
-            yield return new WaitForSeconds(Parry_WaitTime);
-            Debug.Log("スティック待ち時間終了");
-            Input_Check();
-            _Stick_Input = false;
-            //Miburo_Animator.SetBool("Gurd", _Stick_Input);
-            //UnityEditor.EditorApplication.isPaused = true;
 
-        }
-        else
-        {
-            Debug.Log("待ち時間です。入力は反映されません。");
-        }
-
-    }
 
     //コルーチン(構えウェイト)
     private IEnumerator Miburo_Parry_Wait()
@@ -464,11 +408,11 @@ public class Miburo_State : MonoBehaviour
     }
 
     // 指定アニメーションが終了しているかを判定
-    private bool AnimationFinished(string animationName)
+    private bool IsAnimationFinished(string animationName)
     {
-        return !Miburo_Animator.GetCurrentAnimatorStateInfo(0).IsName(animationName)
-            || Miburo_Animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f;
+        return Miburo_Animator.GetCurrentAnimatorStateInfo(0).IsName(animationName) && Miburo_Animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f;
     }
+
 
     //コントローラーから斬撃の方向を取得
     void GetKatana_Direction()
@@ -479,119 +423,33 @@ public class Miburo_State : MonoBehaviour
 
         float degree = Mathf.Atan2(v, h) * Mathf.Rad2Deg;
 
-        //UnityEditor.EditorApplication.isPaused = true;
         if (degree < 0)
         {
             degree += 360;
         }
 
-        //if (Katana_Direction == -1)
+        if (MathF.Abs(v) <= 0.15f || MathF.Abs(h) <= 0.15f)
         {
-
-            if (MathF.Abs(v) <= 0.15f || MathF.Abs(h) <= 0.15f)
-            {
-                _Katana_Direction = -1;
-            }
-            else
-            {
-                if (degree < 22.5f) { _Katana_Direction = 0; }
-                else if (degree < 67.5f) { _Katana_Direction = 1; }
-                else if (degree < 112.5f) { _Katana_Direction = 2; }
-                else if (degree < 157.5f) { _Katana_Direction = 3; }
-                else if (degree < 202.5f) { _Katana_Direction = 4; }
-                else if (degree < 247.5f) { _Katana_Direction = 5; }
-                else if (degree < 292.5f) { _Katana_Direction = 6; }
-                else if (degree < 337.5f) { _Katana_Direction = 7; }
-                else { _Katana_Direction = 0; }
-            }
-        }
-    }
-
-    ////移動
-    //public void Player_Run()
-    //{
-    //    float moveX = Input.GetAxis("Vertical");
-    //    float RotateY = Input.GetAxis("Horizontal");
-    //    float degree = Mathf.Atan2(RotateY, moveX) * Mathf.Rad2Deg;//コントローラー角度取得
-
-    //    Rigidbody rb = GetComponent<Rigidbody>();
-
-    //    gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, Camera_o.transform.localEulerAngles.y + degree, 0));
-    //    rb.position+=gameObject.transform.forward * Move_Speed * Time.deltaTime;
-    //    //gameObject.transform.position += gameObject.transform.forward * Move_Speed * Time.deltaTime;
-    //}
-
-    ////移動入力
-    //public void Player_Run_Input()
-    //{
-    //    float moveX = Input.GetAxis("Vertical");
-    //    float RotateY = Input.GetAxis("Horizontal"); 
-
-    //    if (MathF.Abs(moveX) >= 0.05f || MathF.Abs(RotateY) >= 0.05f)
-    //    {
-    //        if (Kato_Status_P.instance.NowHP > 0)
-    //        {
-    //            _Run = true;
-    //        }
-    //    }
-    //    else
-    //    {
-    //        _Run = false;
-    //    }
-    //}
-
-    //入力成功確認
-    public void Input_Check()
-    {
-        if (_Katana_Direction == -1)
-        {
-            Debug.Log("判定　失敗");
-            if (!_wait)
-            {
-                //StartCoroutine(Miburo_Parry_Wait());
-                _wait = true;
-            }
-
-            //UnityEditor.EditorApplication.isPaused = true;
+            _Katana_Direction = -1;
         }
         else
         {
-            Debug.Log("判定　成功");
-            //UnityEditor.EditorApplication.isPaused = true;
-            if (_Katana_Direction == 0 || _Katana_Direction == 1 || _Katana_Direction == 2 || _Katana_Direction == 7)
-            {
-                //ここに受け流し
-                Debug.Log("判定　右");
-                //UnityEditor.EditorApplication.isPaused = true;
-            }
-            else if (_Katana_Direction == 3 || _Katana_Direction == 4 || _Katana_Direction == 5 || _Katana_Direction == 6)
-            {
-                //ここに受け流し
-                Debug.Log("判定　左");
-                //UnityEditor.EditorApplication.isPaused = true;
-            }
+            if (degree < 22.5f) { _Katana_Direction = 0; }
+            else if (degree < 67.5f) { _Katana_Direction = 1; }
+            else if (degree < 112.5f) { _Katana_Direction = 2; }
+            else if (degree < 157.5f) { _Katana_Direction = 3; }
+            else if (degree < 202.5f) { _Katana_Direction = 4; }
+            else if (degree < 247.5f) { _Katana_Direction = 5; }
+            else if (degree < 292.5f) { _Katana_Direction = 6; }
+            else if (degree < 337.5f) { _Katana_Direction = 7; }
+            else { _Katana_Direction = 0; }
         }
     }
+
 
     //アニメーターからステート名を取得
     void GetCurrentAnimationStateName()
     {
-        //if (Miburo_Animator.GetCurrentAnimatorStateInfo(0).IsName("UKE"))
-        //{
-        //    gameObject.transform.position += gameObject.transform.forward * Time.deltaTime*5.5f;
-        //    gameObject.transform.position = new Vector3(Player.transform.position.x, 0, Player.transform.position.z);
-        //}
-        //if (Miburo_Animator.GetCurrentAnimatorStateInfo(0).IsName("UKE2"))
-        //{
-        //    gameObject.transform.position += gameObject.transform.forward * Time.deltaTime * 2.5f;
-        //    gameObject.transform.position = new Vector3(Player.transform.position.x, 0, Player.transform.position.z);
-        //}
-        //if (Miburo_Animator.GetCurrentAnimatorStateInfo(0).IsName("UKE3"))
-        //{
-        //    gameObject.transform.position -= gameObject.transform.forward * Time.deltaTime * 0.1f;
-        //    gameObject.transform.position = new Vector3(Player.transform.position.x, 0, Player.transform.position.z);
-        //}
-
         if (Miburo_Animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
         {
             _RenCounter01 = false;
@@ -602,11 +460,6 @@ public class Miburo_State : MonoBehaviour
 
     }
 
-    //受け流し成功時の位置調整
-    void CounterPosSet()
-    {
-        gameObject.transform.position = new Vector3(Target.transform.position.x, Target.transform.position.y, Target.transform.position.z);
-    }
 
     //ゲームオーバー
     private IEnumerator Gameover()
@@ -615,30 +468,7 @@ public class Miburo_State : MonoBehaviour
         yield return new WaitForSeconds(5);
         SceneManager.LoadScene(SceneName);
 
-    }
-
-    //当たり判定
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "EWeapon")
-        {
-            GameObject Miburo_Box = GameObject.Find("Player");
-            if (Miburo_Box && Enemy01_State.Attack)
-            {
-                if (!Miburo_Animator.GetCurrentAnimatorStateInfo(0).IsName("Battou"))
-                {
-                    Rigidbody rb = GetComponent<Rigidbody>();
-                    dir = (Target.transform.position - rb.position).normalized;
-                    Miburo_Animator.SetTrigger("Damage");
-                    gameObject.AddComponent<Damage_Flash>();
-
-                    StartCoroutine(KnockBack());
-                }
-
-
-            }
-        }
-    }
+    }  
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -680,11 +510,29 @@ public class Miburo_State : MonoBehaviour
         }
         else
         {
-
         }
-
     }
 
+    //当たり判定
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "EWeapon")
+        {
+            GameObject Miburo_Box = GameObject.Find("Player");
+            if (Miburo_Box && Enemy01_State.Attack)
+            {
+                if (!Miburo_Animator.GetCurrentAnimatorStateInfo(0).IsName("Battou"))
+                {
+                    Rigidbody rb = GetComponent<Rigidbody>();
+                    dir = (Target.transform.position - rb.position).normalized;
+                    Miburo_Animator.SetTrigger("Damage");
+                    gameObject.AddComponent<Damage_Flash>();
+
+                    StartCoroutine(KnockBack());
+                }
+            }
+        }
+    }
 }
 
 
