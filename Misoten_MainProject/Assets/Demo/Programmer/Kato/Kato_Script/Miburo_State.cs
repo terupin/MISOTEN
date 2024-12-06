@@ -445,6 +445,7 @@ public class Miburo_State : MonoBehaviour
             _StepMuteki = true;
             Miburo_HitBox.SetActive(false);
             Debug.Log("ステップ開始");
+            Miburo_Animator.SetTrigger("Step");
             StartCoroutine(ChangeCoolDown(M_StepIcon, 0.0f, 1.0f, Step_WaitTime+Step_Time));
             yield return new WaitForSeconds(Step_Time);
             Debug.Log("ステップ待ち時間終了");
