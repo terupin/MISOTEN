@@ -136,6 +136,8 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
     private float currentAngle = 0f; // 現在の角度（ラジアン）
 
+    private bool isReverse = false; // 逆方向かどうか
+
     // 攻撃ポイント（円を6等分した点）
     private Vector3[] attackPoints = new Vector3[6];
 
@@ -376,8 +378,11 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
     private void UpdateSpin()
     {
+        // 方向を変更（正方向または逆方向）
+        float direction = isReverse ? -1f : 1f;
+
         // 角度を更新（時間経過に応じて進む）
-        currentAngle += spinSpeed * Time.deltaTime;
+        currentAngle += direction * spinSpeed * Time.deltaTime;
 
         // 円周上の位置を計算
         float x = Mathf.Cos(currentAngle) * spinRadius;
@@ -392,7 +397,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         // 現在位置が攻撃ポイントに到達したらGoto状態に遷移
         CheckAttackPointReached(x, z);
 
-        Debug.Log($"Spin状態: 半径 = {spinRadius}, 位置 = ({x}, {z})");
+        Debug.Log($"Spin状態: 現在の方向 = {(isReverse ? "逆" : "正")}, 半径 = {spinRadius}, 位置 = ({x}, {z})");
     }
 
     private void CalculateAttackPoints()
@@ -458,6 +463,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             M_state = Mai_State_.Spin; // Spin状態に遷移
             jumpbackTimer = 0f; // タイマーをリセット
             Debug.Log("Spin状態に遷移！");
+            isReverse = Random.value > 0.5f;
         }
     }
 
