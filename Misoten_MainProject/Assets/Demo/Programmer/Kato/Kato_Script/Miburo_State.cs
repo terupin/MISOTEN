@@ -104,6 +104,9 @@ public class Miburo_State : MonoBehaviour
      public GameObject Miburo_HitBox;
     private GameObject M_HitBox;
 
+    [SerializeField, Header("攻撃エフェクト")]
+    public ParticleSystem slash_effect;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -157,11 +160,12 @@ public class Miburo_State : MonoBehaviour
             if (_Attack01)
             {
                 StartCoroutine(Miburo_Attack02());
+                Instantiate(slash_effect, transform.position, transform.rotation);
             }
             else
             {
                 StartCoroutine(Miburo_Attack01());
-
+                Instantiate(slash_effect, transform.position, transform.rotation);
             }
         }
 
