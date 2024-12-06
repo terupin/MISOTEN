@@ -163,6 +163,9 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     private int currentSegment = 0;
     private bool isRandomTarget = false;  // ランダムなターゲット選択フラグ
 
+    [Header("ジャンプバック後の待機時間")]
+    public float jumpBackWaitTime = 2.5f; // ジャンプバック後の待機時間（秒）
+
     private void Start()
     {
         // 初期状態を設定
@@ -311,6 +314,8 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                 case Mai_State_.Jumpback:
                     transform.position = targetPoint;
 
+                    //StartCoroutine(WaitAndReturnToSpin());
+
                     if (transform.position == targetPoint)
                     {
                         maiclue_iscount = !maiclue_iscount;
@@ -318,78 +323,6 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                     }
                     break;
             }
-
-            /*
-            if (maiclue_iscount)
-            {
-                maiclue_starttime = Time.time;
-                maiclue_attacktime = Random.Range(maiclue_mintime, maiclue_maxtime);
-                maiclue_iscount = !maiclue_iscount;
-            }
-            else
-            {
-                maiclue_elapsedtime = Time.time - maiclue_starttime;
-            }
-
-            // ターゲット方向を計算
-            //Vector3 direction = (targetPoint - transform.position).normalized;
-
-            // 距離と高さを調整
-            //direction.y = 1f; // 上方向を強調
-            //rb.AddForce(direction.normalized * jumpForce, ForceMode.Impulse);
-
-            //接近前の座標に戻る
-            if (maiclue_jumpback)
-            {
-                maiclue_istarget = !maiclue_istarget;
-                transform.position = targetPoint;
-
-                maiclue_jumpback = !maiclue_jumpback;
-                maiclue_iscount = !maiclue_iscount;
-            }
-            else
-            {
-                //周回移動
-                if (maiclue_elapsedtime <= maiclue_attacktime)
-                {
-                    // 角度を更新（速度を考慮）
-                    angle += maiclue_speed * Time.deltaTime;
-
-                    // 円周上の位置を計算
-                    maiclue_x = Target_P.transform.position.x + Mathf.Cos(angle) * maiclue_radius;
-                    maiclue_z = Target_P.transform.position.z + Mathf.Sin(angle) * maiclue_radius;
-
-                    // オブジェクトを移動
-                    transform.position = new Vector3(maiclue_x, transform.position.y, maiclue_z);
-                }
-                //接近移動
-                else
-                {
-                    Debug.Log("攻撃範囲に入ったので攻撃を開始！");
-
-                    P_E_Length = Vector3.Distance(Target_P.transform.position, gameObject.transform.position);
-
-                    if (P_E_Length <= AttackLength)
-                    {
-                        Debug.Log("攻撃範囲に入ったので攻撃を開始！");
-
-                        DecideAttackType();
-                    }
-                    else
-                    {
-                        if(maiclue_istarget)
-                        {
-                            targetPoint = transform.position;
-                            maiclue_istarget = !maiclue_istarget;
-                        }
-
-                        Vector3 direction = (Target_P.transform.position - transform.position).normalized;
-                        direction.y = 0;
-                        transform.position += direction * MoveSpeed * Time.deltaTime;
-                    }
-                }
-            }
-            */
         }
 
         //デバッグ用プログラム
@@ -860,6 +793,13 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             // 親を設定せず、ワールド空間に配置
             vertexObject.transform.SetParent(null);
         }
+    }
+
+    private IEnumerator WaitAndReturnToSpin()
+    {
+        // 指定時間待機
+        yield return new WaitForSeconds(jumpBackWaitTime);
+        
     }
 
     //ここから加藤
