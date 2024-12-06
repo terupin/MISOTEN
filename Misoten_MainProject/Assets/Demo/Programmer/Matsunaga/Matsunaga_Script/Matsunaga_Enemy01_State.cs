@@ -312,15 +312,17 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
                 // 元の場所に戻る
                 case Mai_State_.Jumpback:
-                    transform.position = targetPoint;
-
+                    
                     //StartCoroutine(WaitAndReturnToSpin());
+
+                    transform.position = targetPoint;
 
                     if (transform.position == targetPoint)
                     {
                         maiclue_iscount = !maiclue_iscount;
                         M_state = Mai_State_.Spin;
                     }
+
                     break;
             }
         }
@@ -797,9 +799,19 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
     private IEnumerator WaitAndReturnToSpin()
     {
+        
+
         // 指定時間待機
         yield return new WaitForSeconds(jumpBackWaitTime);
-        
+
+        transform.position = targetPoint;
+
+        if (transform.position == targetPoint)
+        {
+            maiclue_iscount = !maiclue_iscount;
+            M_state = Mai_State_.Spin;
+        }
+
     }
 
     //ここから加藤
