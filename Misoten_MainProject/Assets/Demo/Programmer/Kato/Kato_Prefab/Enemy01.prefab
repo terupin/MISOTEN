@@ -282,7 +282,7 @@ GameObject:
   - component: {fileID: 3148915597662609761}
   - component: {fileID: 1770043382980743518}
   - component: {fileID: 7930574039795249098}
-  - component: {fileID: 6111667495423680248}
+  - component: {fileID: 432260384158943923}
   m_Layer: 0
   m_Name: Enemy01
   m_TagString: Enemy
@@ -381,7 +381,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11436e7c1365ec745b37ec7c39a80ce9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6111667495423680248
+--- !u!114 &432260384158943923
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -390,33 +390,40 @@ MonoBehaviour:
   m_GameObject: {fileID: 3847602336648284765}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d701817f1774d594da9baa7ece6eefa5, type: 3}
+  m_Script: {fileID: 11500000, guid: 79129bb46919246499af5e7ec2ac2bf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Testobj: {fileID: 0}
-  Check_Time0: 0
-  Check_Time1: 0
-  Check_Time2: 0
-  S_Effect: {fileID: 0}
+  Testobj: {fileID: 1549096205295157176}
+  Check_Time0: 0.5
+  Check_Time1: 0.5
+  Check_Time2: 0.5
+  S_Effect: {fileID: 9060970370165693562, guid: 9eef12dc538892048b21bbc76811f6c8,
+    type: 3}
   Effectflg: 0
   debug_switch: 1
   Target_P: {fileID: 0}
-  SearchLength: 100
+  SearchLength: 10
   AttackLength: 3.5
   MoveSpeed: 12
   TategiriChance: 60
   RenGekiChance: 40
-  E01Anim: {fileID: 0}
-  StateTime: 2.5
+  E01Anim: {fileID: 284557907054861467}
+  StateTime: 0
   CooldownTime: 2.5
   StaggerTime: 1
-  radius: 1
-  height: 2
+  radius: 10
+  height: 15
   centerOffset: {x: 0, y: 0, z: 0}
-  lineMaterial: {fileID: 0}
-  faceMaterial: {fileID: 0}
-  vertexObjectPrefab: {fileID: 0}
-  vertexObjectScale: {x: 1, y: 1, z: 1}
+  lineMaterial: {fileID: 2100000, guid: 426ab8c9cf4c37c4e9b6a3713e1697a0, type: 2}
+  faceMaterial: {fileID: 2100000, guid: 426ab8c9cf4c37c4e9b6a3713e1697a0, type: 2}
+  vertexObjectPrefab: {fileID: 9219549096807305038, guid: ba6f924de61fb164cb25456e3a9d4b85,
+    type: 3}
+  vertexObjectScale: {x: 2.5, y: 2.5, z: 2.5}
+  rotationAngle: 90
+  maiclue_radius: 10
+  maiclue_speed: 2
+  maiclue_maxtime: 5
+  maiclue_mintime: 3
 --- !u!1001 &4859386567887339926
 PrefabInstance:
   m_ObjectHideFlags: 0
