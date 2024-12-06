@@ -22,13 +22,12 @@ public class item_ramen : MonoBehaviour
         {
             Kato_Status_P Hp_meny = other.gameObject.GetComponent<Kato_Status_P>(); //ƒvƒŒƒCƒ„[‚ÌHP—Ê‚Ìæ“¾
 
-            if (Hp_meny.NowHP < Hp_meny.MaxHP)
-            {
-                Hp_meny.NowHP++;
+            //if (Hp_meny.NowHP < Hp_meny.MaxHP)
+            //{
+            //    Hp_meny.NowHP++;
+            //}
 
-                Destroy(this.gameObject);
-
-            }
+            Destroy(this.gameObject);
         }
     }
 }
