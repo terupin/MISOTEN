@@ -57,6 +57,15 @@ public class Enemy01_State : MonoBehaviour
         Kaihou      // 耐久フィールド展開状態
     };
 
+    private enum Mai_State_
+    {
+        Idle,
+        Spin,
+        Goto,
+        Attack,
+        Jumpback
+    };
+
     [SerializeField, Header("デバックモード")]
     public bool debug_switch = false; //デバッグ用の処理のスイッチ
 
@@ -129,13 +138,19 @@ public class Enemy01_State : MonoBehaviour
     private float angle = 0.0f; //周回計算用の角度
 
     private float maiclue_attacktime; //周回時の攻撃間隔の時間(乱数格納用)
-    public float maiclue_maxtime = 3.0f; //周回時の攻撃間隔の最大時間
-    public float maiclue_mintime = 5.0f; //周回時の攻撃間隔の最小時間
+    public float maiclue_maxtime = 5.0f; //周回時の攻撃間隔の最大時間
+    public float maiclue_mintime = 3.0f; //周回時の攻撃間隔の最小時間
 
     private float maiclue_starttime;
     private float maiclue_elapsedtime;
 
-    private bool maiclue_iscount;
+    private bool maiclue_iscount = false;
+    private bool maiclue_jumpback = false;
+    private Vector3 targetPoint;
+    private bool maiclue_istarget = true;
+
+    private Mai_State_ M_state;
+    private Rigidbody rb; //自分のrigidbody
 
     private void Start()
     {
@@ -159,6 +174,8 @@ public class Enemy01_State : MonoBehaviour
         }
 
         run_for_me = false;
+        rb = GetComponent<Rigidbody>();
+        M_state = Mai_State_.Idle;
     }
 
     private void Update()
@@ -198,43 +215,72 @@ public class Enemy01_State : MonoBehaviour
 
         if (run_for_me)
         {
-            // 角度を更新（速度を考慮）
-            angle += maiclue_speed * Time.deltaTime;
-
-            // 円周上の位置を計算
-            maiclue_x = Target_P.transform.position.x + Mathf.Cos(angle) * maiclue_radius;
-            maiclue_z = Target_P.transform.position.z + Mathf.Sin(angle) * maiclue_radius;
-
-            // オブジェクトを移動
-            transform.position = new Vector3(maiclue_x, transform.position.y, maiclue_z);
-            /*
-            if (maiclue_iscount)
+            //UnityEditor.EditorApplication.isPaused = true;
+            switch (M_state)
             {
-                maiclue_starttime = Time.time;
+                  
+                case Mai_State_.Spin:
+
+                    if (maiclue_iscount)
+                    {
+                        maiclue_starttime = Time.time;
+                        maiclue_attacktime = Random.Range(maiclue_mintime, maiclue_maxtime);
+                        maiclue_iscount = !maiclue_iscount;
+                    }
+
+                    maiclue_elapsedtime = Time.time - maiclue_starttime;
+
+                    // 角度を更新（速度を考慮）
+                    angle += maiclue_speed * Time.deltaTime;
+
+                    // 円周上の位置を計算
+                    maiclue_x = Target_P.transform.position.x + Mathf.Cos(angle) * maiclue_radius;
+                    maiclue_z = Target_P.transform.position.z + Mathf.Sin(angle) * maiclue_radius;
+
+                    // オブジェクトを移動
+                    transform.position = new Vector3(maiclue_x, transform.position.y, maiclue_z);
+
+                    if (!(maiclue_elapsedtime <= maiclue_attacktime))
+                    {
+                        M_state = Mai_State_.Goto;
+                    }
+
+                    break;
+
+                case Mai_State_.Goto:
+
+                    Vector3 direction = (Target_P.transform.position - transform.position).normalized;
+                    direction.y = 0;
+                    transform.position += direction * MoveSpeed * Time.deltaTime;
+
+                    if ((P_E_Length <= AttackLength))
+                    {
+                        M_state = Mai_State_.Attack;
+                    }
+
+                    break;
+
+                case Mai_State_.Attack:
+
+                    DecideAttackType();
+
+                    break;
+
+                case Mai_State_.Jumpback:
+
+                    transform.position = targetPoint;
+
+
+                    if (transform.position == targetPoint)
+                    {
+                        maiclue_iscount = !maiclue_iscount;
+
+                        M_state = Mai_State_.Spin;
+                    }
+
+                    break;
             }
 
-            maiclue_elapsedtime = Time.time - maiclue_starttime;
-
-            
-
-            
-
-            maiclue_attacktime = Random.Range(maiclue_mintime, maiclue_maxtime);
-
-            if (maiclue_elapsedtime <= maiclue_attacktime)
-            {
-                // 角度を更新（速度を考慮）
-                angle += maiclue_speed * Time.deltaTime;
-
-                // 円周上の位置を計算
-                maiclue_x = Target_P.transform.position.x + Mathf.Cos(angle) * maiclue_radius;
-                maiclue_z = Target_P.transform.position.z + Mathf.Sin(angle) * maiclue_radius;
-
-                // オブジェクトを移動
-                transform.position = new Vector3(maiclue_x, transform.position.y, maiclue_z);
-
-            }
-            */
         }
 
         //デバッグ用プログラム
@@ -298,7 +344,9 @@ public class Enemy01_State : MonoBehaviour
                 Debug.Log("dc5: 歩行ステートを実行します");
 
                 run_for_me = true;
-                
+                maiclue_iscount = true;
+                SetState(Enemy_State_.Idle);
+                M_state = Mai_State_.Spin;
                 //SetState(Enemy_State_.Walk);
             }
 
@@ -479,6 +527,8 @@ public class Enemy01_State : MonoBehaviour
             Debug.Log("縦切り攻撃が完了しました。Cooldown 状態に遷移します。");
             E01Anim.SetBool("Tategiri", false); // アニメーションをリセット
             SetState(Enemy_State_.Cooldown);
+
+            M_state = Mai_State_.Jumpback;
         }
     }
 
@@ -894,6 +944,7 @@ public class Enemy01_State : MonoBehaviour
 
         if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("NagasereL") || E01Anim.GetCurrentAnimatorStateInfo(0).IsName("NagasereR"))
         {
+            M_state = Mai_State_.Jumpback;
             UkeL = false;
             UkeR = false;
             Check_Current_Time0 = 0;
