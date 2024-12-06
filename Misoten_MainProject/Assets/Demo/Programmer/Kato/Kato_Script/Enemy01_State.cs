@@ -270,7 +270,7 @@ public class Enemy01_State : MonoBehaviour
                     if ((P_E_Length <= AttackLength))
                     {
                         M_state = Mai_State_.Attack;
-                        UnityEditor.EditorApplication.isPaused = true;
+                        //UnityEditor.EditorApplication.isPaused = true;
                     }
 
                     break;
