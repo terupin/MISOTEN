@@ -17,7 +17,14 @@ public class Enemy01_Box : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        //if (Miburo_State._RenCounter01)
+        //{
+        //    UnityEditor.EditorApplication.isPaused = true;
+        //}
+        //else if (Miburo_State._RenCounter02)
+        //{
+        //    UnityEditor.EditorApplication.isPaused = true;
+        //}
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -40,17 +47,16 @@ public class Enemy01_Box : MonoBehaviour
                 else if (Miburo_State._Attack01 )
                 {
                     gameObject.AddComponent<Enemy_Damage>();
-                   
                 }
                 else if (Miburo_State._RenCounter01)
                 {
                     gameObject.AddComponent<Enemy_Damage3>();
-                    UnityEditor.EditorApplication.isPaused = true;
+                    //UnityEditor.EditorApplication.isPaused = true;
                 }
                 else if (Miburo_State._RenCounter02)
                 {
                     gameObject.AddComponent<Enemy_Damage4>();
-                    UnityEditor.EditorApplication.isPaused = true;
+                    //UnityEditor.EditorApplication.isPaused = true;
                 }
             }
         }
