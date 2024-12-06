@@ -235,16 +235,16 @@ public class Enemy01_State : MonoBehaviour
                     angle += maiclue_speed * Time.deltaTime;
 
                     // 円周上の位置を計算
-                    maiclue_x = Target_P.transform.position.x + Mathf.Cos(angle) * maiclue_radius;
+                    maiclue_x = 0.0f + Mathf.Cos(angle) * maiclue_radius;
                     //時計回り
                     if (maiclue_spind == 1)
                     {
-                        maiclue_z = Target_P.transform.position.z + Mathf.Sin(angle) * maiclue_radius;
+                        maiclue_z = 0.0f + Mathf.Sin(angle) * maiclue_radius;
                     }
                     //反時計周り
                     else
                     {
-                        maiclue_z = Target_P.transform.position.z - Mathf.Sin(angle) * maiclue_radius;
+                        maiclue_z = 0.0f - Mathf.Sin(angle) * maiclue_radius;
                     }
 
 
@@ -261,7 +261,7 @@ public class Enemy01_State : MonoBehaviour
                 //接近
                 case Mai_State_.Goto:
 
-                    Vector3 direction = (Target_P.transform.position - transform.position).normalized;
+                    Vector3 direction = (Vector3.zero - transform.position).normalized;
                     direction.y = 0;
                     transform.position += direction * MoveSpeed * Time.deltaTime;
 
@@ -282,7 +282,7 @@ public class Enemy01_State : MonoBehaviour
                 //元の場所に戻る
                 case Mai_State_.Jumpback:
 
-                    UnityEditor.EditorApplication.isPaused = true;
+                    //UnityEditor.EditorApplication.isPaused = true;
                     transform.position = targetPoint;
 
                     //WaitForSeconds(2.5f); //待機
@@ -582,7 +582,6 @@ public class Enemy01_State : MonoBehaviour
 
     private void HandleKaihou()
     {
-
         E01Anim.Play("Enemy01_Kaihou", 0, 0f);
         // 必要なら他の状態処理も実行
         SetState(Enemy_State_.Kaihou);
@@ -688,8 +687,7 @@ public class Enemy01_State : MonoBehaviour
     // 指定アニメーションが終了しているかを判定
     private bool IsAnimationFinished(string animationName)
     {
-        AnimatorStateInfo stateInfo = E01Anim.GetCurrentAnimatorStateInfo(0);
-        return stateInfo.IsName(animationName) && stateInfo.normalizedTime >= 1.0f;
+        return E01Anim.GetCurrentAnimatorStateInfo(0).IsName(animationName) && E01Anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f;
     }
 
     // 状態に応じてアニメーションを更新
@@ -1091,6 +1089,12 @@ public class Enemy01_State : MonoBehaviour
             Testobj.transform.localScale = Vector3.one;
             Testobj.SetActive(false);
         }
+
+        if (IsAnimationFinished("NagasereR") || IsAnimationFinished("NagasereL"))
+        {
+            M_state = Mai_State_.Jumpback;
+        }
+
     }
 
 
@@ -1112,4 +1116,5 @@ public class Enemy01_State : MonoBehaviour
 
     }
     //ここまで加藤
+
 }
