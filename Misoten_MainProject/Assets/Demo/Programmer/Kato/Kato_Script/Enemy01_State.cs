@@ -74,8 +74,8 @@ public class Enemy01_State : MonoBehaviour
     [SerializeField, Header("ターゲットとなるプレイヤー")]
     public GameObject Target_P; // 敵がターゲットするプレイヤーオブジェクト
 
-    [SerializeField, Header("サーチ射程(10)")]
-    public float SearchLength = 100; // 敵がプレイヤーを探知できる距離
+    //[SerializeField, Header("サーチ射程(10)")]
+    //public float SearchLength = 100; // 敵がプレイヤーを探知できる距離
 
     [SerializeField, Header("攻撃射程(3.5)")]
     public float AttackLength = 3.5f; // 敵が攻撃可能な距離
@@ -148,6 +148,7 @@ public class Enemy01_State : MonoBehaviour
     private bool maiclue_jumpback = false;
     private Vector3 targetPoint;
     private bool maiclue_istarget = true;
+    private int maiclue_spind; //時計回りか反時計回りか(乱数格納用)
 
     private Mai_State_ M_state;
     private Rigidbody rb; //自分のrigidbody
@@ -215,10 +216,9 @@ public class Enemy01_State : MonoBehaviour
 
         if (run_for_me)
         {
-            //UnityEditor.EditorApplication.isPaused = true;
             switch (M_state)
             {
-                  
+                //周回
                 case Mai_State_.Spin:
 
                     if (maiclue_iscount)
@@ -226,6 +226,7 @@ public class Enemy01_State : MonoBehaviour
                         maiclue_starttime = Time.time;
                         maiclue_attacktime = Random.Range(maiclue_mintime, maiclue_maxtime);
                         maiclue_iscount = !maiclue_iscount;
+                        maiclue_spind = Random.Range(1, 3);
                     }
 
                     maiclue_elapsedtime = Time.time - maiclue_starttime;
@@ -234,8 +235,18 @@ public class Enemy01_State : MonoBehaviour
                     angle += maiclue_speed * Time.deltaTime;
 
                     // 円周上の位置を計算
-                    maiclue_x = Target_P.transform.position.x + Mathf.Cos(angle) * maiclue_radius;
-                    maiclue_z = Target_P.transform.position.z + Mathf.Sin(angle) * maiclue_radius;
+                    maiclue_x = 0.0f + Mathf.Cos(angle) * maiclue_radius;
+                    //時計回り
+                    if (maiclue_spind == 1)
+                    {
+                        maiclue_z = 0.0f + Mathf.Sin(angle) * maiclue_radius;
+                    }
+                    //反時計周り
+                    else
+                    {
+                        maiclue_z = 0.0f - Mathf.Sin(angle) * maiclue_radius;
+                    }
+
 
                     // オブジェクトを移動
                     transform.position = new Vector3(maiclue_x, transform.position.y, maiclue_z);
@@ -247,29 +258,35 @@ public class Enemy01_State : MonoBehaviour
 
                     break;
 
+                //接近
                 case Mai_State_.Goto:
 
-                    Vector3 direction = (Target_P.transform.position - transform.position).normalized;
+                    Vector3 direction = (Vector3.zero - transform.position).normalized;
                     direction.y = 0;
                     transform.position += direction * MoveSpeed * Time.deltaTime;
 
                     if ((P_E_Length <= AttackLength))
                     {
                         M_state = Mai_State_.Attack;
+                        UnityEditor.EditorApplication.isPaused = true;
                     }
 
                     break;
 
+                //攻撃
                 case Mai_State_.Attack:
 
                     DecideAttackType();
 
                     break;
 
+                //元の場所に戻る
                 case Mai_State_.Jumpback:
+
 
                     transform.position = targetPoint;
 
+                    //WaitForSeconds(2.5f); //待機
 
                     if (transform.position == targetPoint)
                     {
@@ -280,7 +297,6 @@ public class Enemy01_State : MonoBehaviour
 
                     break;
             }
-
         }
 
         //デバッグ用プログラム
@@ -444,47 +460,47 @@ public class Enemy01_State : MonoBehaviour
             return; // 処理を中断
         }
 
-        if (StateCurrentTime >= StateTime)
-        {
-            StateCurrentTime = 0.0f;
+        //if (StateCurrentTime >= StateTime)
+        //{
+        //    StateCurrentTime = 0.0f;
 
-            if (P_E_Length <= AttackLength)
-            {
-                Debug.Log("攻撃範囲に入ったので攻撃を開始！");
-                DecideAttackType();
-            }
-            else if (P_E_Length < SearchLength)
-            {
-                Debug.Log("プレイヤーがサーチ範囲内にいますが攻撃範囲外です。移動を開始します。");
-                SetState(Enemy_State_.Walk);
-            }
-            else
-            {
-                Debug.Log("プレイヤーが範囲外です。待機状態に戻ります。");
-                SetState(Enemy_State_.Idle);
-            }
-        }
+        //    if (P_E_Length <= AttackLength)
+        //    {
+        //        Debug.Log("攻撃範囲に入ったので攻撃を開始！");
+        //        DecideAttackType();
+        //    }
+        //    else if (P_E_Length < SearchLength)
+        //    {
+        //        Debug.Log("プレイヤーがサーチ範囲内にいますが攻撃範囲外です。移動を開始します。");
+        //        SetState(Enemy_State_.Walk);
+        //    }
+        //    else
+        //    {
+        //        Debug.Log("プレイヤーが範囲外です。待機状態に戻ります。");
+        //        SetState(Enemy_State_.Idle);
+        //    }
+        //}
 
-        if (E_State == Enemy_State_.Idle && P_E_Length < SearchLength)
-        {
-            Vector3 direction = (Target_P.transform.position - transform.position).normalized;
-            direction.y = 0;
-            Quaternion targetRotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * MoveSpeed);
-        }
+        //if (E_State == Enemy_State_.Idle && P_E_Length < SearchLength)
+        //{
+        //    Vector3 direction = (Target_P.transform.position - transform.position).normalized;
+        //    direction.y = 0;
+        //    Quaternion targetRotation = Quaternion.LookRotation(direction);
+        //    transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * MoveSpeed);
+        //}
 
-        if (E_State == Enemy_State_.Walk)
-        {
-            if (P_E_Length > AttackLength && P_E_Length < SearchLength)
-            {
-                Vector3 direction = (Target_P.transform.position - transform.position).normalized;
-                direction.y = 0;
-                Quaternion targetRotation = Quaternion.LookRotation(direction);
-                transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * MoveSpeed);
+        //if (E_State == Enemy_State_.Walk)
+        //{
+        //    if (P_E_Length > AttackLength && P_E_Length < SearchLength)
+        //    {
+        //        Vector3 direction = (Target_P.transform.position - transform.position).normalized;
+        //        direction.y = 0;
+        //        Quaternion targetRotation = Quaternion.LookRotation(direction);
+        //        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * MoveSpeed);
 
-                transform.position += direction * MoveSpeed * Time.deltaTime;
-            }
-        }
+        //        transform.position += direction * MoveSpeed * Time.deltaTime;
+        //    }
+        //}
 
         if (P_E_Length < AttackLength)
         {
@@ -529,6 +545,7 @@ public class Enemy01_State : MonoBehaviour
             SetState(Enemy_State_.Cooldown);
 
             M_state = Mai_State_.Jumpback;
+
         }
     }
 
@@ -566,7 +583,6 @@ public class Enemy01_State : MonoBehaviour
 
     private void HandleKaihou()
     {
-
         E01Anim.Play("Enemy01_Kaihou", 0, 0f);
         // 必要なら他の状態処理も実行
         SetState(Enemy_State_.Kaihou);
@@ -672,8 +688,7 @@ public class Enemy01_State : MonoBehaviour
     // 指定アニメーションが終了しているかを判定
     private bool IsAnimationFinished(string animationName)
     {
-        AnimatorStateInfo stateInfo = E01Anim.GetCurrentAnimatorStateInfo(0);
-        return stateInfo.IsName(animationName) && stateInfo.normalizedTime >= 1.0f;
+        return E01Anim.GetCurrentAnimatorStateInfo(0).IsName(animationName) && E01Anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f;
     }
 
     // 状態に応じてアニメーションを更新
@@ -1075,6 +1090,12 @@ public class Enemy01_State : MonoBehaviour
             Testobj.transform.localScale = Vector3.one;
             Testobj.SetActive(false);
         }
+
+        if (IsAnimationFinished("NagasereR") || IsAnimationFinished("NagasereL"))
+        {
+            M_state = Mai_State_.Jumpback;
+        }
+
     }
 
 
@@ -1096,4 +1117,5 @@ public class Enemy01_State : MonoBehaviour
 
     }
     //ここまで加藤
+
 }
