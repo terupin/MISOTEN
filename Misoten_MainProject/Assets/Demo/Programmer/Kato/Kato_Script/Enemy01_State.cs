@@ -148,6 +148,7 @@ public class Enemy01_State : MonoBehaviour
     private bool maiclue_jumpback = false;
     private Vector3 targetPoint;
     private bool maiclue_istarget = true;
+    private int maiclue_spind; //時計回りか反時計回りか(乱数格納用)
 
     private Mai_State_ M_state;
     private Rigidbody rb; //自分のrigidbody
@@ -215,10 +216,9 @@ public class Enemy01_State : MonoBehaviour
 
         if (run_for_me)
         {
-            //UnityEditor.EditorApplication.isPaused = true;
             switch (M_state)
             {
-                  
+                //周回
                 case Mai_State_.Spin:
 
                     if (maiclue_iscount)
@@ -226,6 +226,7 @@ public class Enemy01_State : MonoBehaviour
                         maiclue_starttime = Time.time;
                         maiclue_attacktime = Random.Range(maiclue_mintime, maiclue_maxtime);
                         maiclue_iscount = !maiclue_iscount;
+                        maiclue_spind = Random.Range(1, 3);
                     }
 
                     maiclue_elapsedtime = Time.time - maiclue_starttime;
@@ -235,7 +236,17 @@ public class Enemy01_State : MonoBehaviour
 
                     // 円周上の位置を計算
                     maiclue_x = Target_P.transform.position.x + Mathf.Cos(angle) * maiclue_radius;
-                    maiclue_z = Target_P.transform.position.z + Mathf.Sin(angle) * maiclue_radius;
+                    //時計回り
+                    if (maiclue_spind == 1)
+                    {
+                        maiclue_z = Target_P.transform.position.z + Mathf.Sin(angle) * maiclue_radius;
+                    }
+                    //反時計周り
+                    else
+                    {
+                        maiclue_z = Target_P.transform.position.z - Mathf.Sin(angle) * maiclue_radius;
+                    }
+
 
                     // オブジェクトを移動
                     transform.position = new Vector3(maiclue_x, transform.position.y, maiclue_z);
@@ -247,6 +258,7 @@ public class Enemy01_State : MonoBehaviour
 
                     break;
 
+                //接近
                 case Mai_State_.Goto:
 
                     Vector3 direction = (Target_P.transform.position - transform.position).normalized;
@@ -260,16 +272,20 @@ public class Enemy01_State : MonoBehaviour
 
                     break;
 
+                //攻撃
                 case Mai_State_.Attack:
 
                     DecideAttackType();
 
                     break;
 
+                //元の場所に戻る
                 case Mai_State_.Jumpback:
 
+                    UnityEditor.EditorApplication.isPaused = true;
                     transform.position = targetPoint;
 
+                    //WaitForSeconds(2.5f); //待機
 
                     if (transform.position == targetPoint)
                     {
@@ -280,7 +296,6 @@ public class Enemy01_State : MonoBehaviour
 
                     break;
             }
-
         }
 
         //デバッグ用プログラム
@@ -529,6 +544,7 @@ public class Enemy01_State : MonoBehaviour
             SetState(Enemy_State_.Cooldown);
 
             M_state = Mai_State_.Jumpback;
+
         }
     }
 

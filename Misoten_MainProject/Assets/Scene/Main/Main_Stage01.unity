@@ -1863,7 +1863,7 @@ PrefabInstance:
     - target: {fileID: 6111667495423680248, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
       propertyPath: debug_switch
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6111667495423680248, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
@@ -3225,9 +3225,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1243681727059629837, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}
+      propertyPath: Step_Time
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1243681727059629837, guid: 8eb4fdc726e23774da71f86d9d295d96,
+        type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1243681727059629837, guid: 8eb4fdc726e23774da71f86d9d295d96,
+        type: 3}
+      propertyPath: M_StepIcon
+      value: 
+      objectReference: {fileID: 2100000, guid: 6399470bd0d41814da8f5d61ecc94ea8, type: 2}
     - target: {fileID: 1243681727059629837, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}
       propertyPath: Move_Speed
@@ -3235,8 +3245,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1243681727059629837, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}
+      propertyPath: Step_Speed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1243681727059629837, guid: 8eb4fdc726e23774da71f86d9d295d96,
+        type: 3}
+      propertyPath: M_AttackIcon
+      value: 
+      objectReference: {fileID: 2100000, guid: e2f4557f60dd24a40b1129d4f08e0ed9, type: 2}
+    - target: {fileID: 1243681727059629837, guid: 8eb4fdc726e23774da71f86d9d295d96,
+        type: 3}
       propertyPath: KnockBack_Time
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1243681727059629837, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}
@@ -3246,8 +3266,13 @@ PrefabInstance:
     - target: {fileID: 1243681727059629837, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}
       propertyPath: KnockBack_Speed
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1243681727059629837, guid: 8eb4fdc726e23774da71f86d9d295d96,
+        type: 3}
+      propertyPath: M_UkenagasiIcon
+      value: 
+      objectReference: {fileID: 2100000, guid: 0ca75fbcdc33fba4d8bf012637c277a2, type: 2}
     - target: {fileID: 1794119793786185270, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}
       propertyPath: m_RenderingLayerMask

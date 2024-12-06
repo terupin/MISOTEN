@@ -1,17 +1,14 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.Rendering;
 //using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 
 public class Miburo_State : MonoBehaviour
 {
     //フラグ
     private bool _Step;
+    private bool _CoolDown;
     static public bool _Parry;
     static public bool _Parry_Timing;//パリイ入力した瞬間
     static public bool _Attack01;
@@ -31,9 +28,6 @@ public class Miburo_State : MonoBehaviour
     public bool StickR;
 
 
-    [SerializeField, Header("ステップ無敵時間(秒)")]
-    public float Step_Muteki_Time=0.5f;
-    private bool _StepMuteki;
 
     private bool _KnockBack;
     Vector3 dir;
@@ -49,7 +43,7 @@ public class Miburo_State : MonoBehaviour
     [SerializeField, Header("ステップスピード")]
     public float Step_Speed;
 
-    [SerializeField, Header("ノックバック時間(秒)")]
+    [SerializeField, Header("ステップ時間(秒)")]
     public float Step_Time;
 
     static public bool _Stick_Input;
@@ -175,15 +169,11 @@ public class Miburo_State : MonoBehaviour
 
         if (UnityEngine.Input.GetKey("joystick button 0"))
         {
-            _StepMuteki = false;
+            StartCoroutine(Miburo_Step());
 
         }
-        else
-        {
-            _StepMuteki = true;
-        }
 
-        Miburo_Box.SetActive(_StepMuteki);
+        Miburo_Box.SetActive(!_Step);
 
 
         //ノックバック
@@ -390,7 +380,7 @@ public class Miburo_State : MonoBehaviour
             M_UkenagasiIcon.SetFloat("_CoolDown", 0.0f);
 
             // 新しく追加：M_UkenagasiIcon の変更を開始
-            StartCoroutine(ChangeCoolDown(0.0f, 1.0f, 1.0f));
+            StartCoroutine(ChangeCoolDown(M_UkenagasiIcon,0.0f, 1.0f, 1.0f));
 
             Debug.Log("パリイ待ち時間終了");
             _Parry = false;
@@ -668,22 +658,33 @@ public class Miburo_State : MonoBehaviour
     }
 
     // UIに反映させるためのコルーチン
-    IEnumerator ChangeCoolDown(float startValue, float endValue, float duration)
+    IEnumerator ChangeCoolDown(Material _material,float startValue, float endValue, float duration)
     {
-        float time = 0.0f;
-
-        // 時間経過で M_UkenagasiIcon の CoolDown 値を徐々に変更
-        while (time < duration)
+        if(!_CoolDown)
         {
-            time += Time.deltaTime;
-            float value = Mathf.Lerp(startValue, endValue, time / duration);
-            M_UkenagasiIcon.SetFloat("_CoolDown", value); // M_UkenagasiIcon のみを操作
-            yield return null;
+            _CoolDown = true;
+            float time = 0.0f;
+
+            // 時間経過で M_UkenagasiIcon の CoolDown 値を徐々に変更
+            while (time < duration)
+            {
+                time += Time.deltaTime;
+                float value = Mathf.Lerp(startValue, endValue, time / duration);
+                _material.SetFloat("_CoolDown", value); // M_UkenagasiIcon のみを操作
+                yield return null;
+            }
+
+            // 最終値を確定
+            _material.SetFloat("_CoolDown", endValue);
+            _CoolDown = false;
+        }
+        else
+        {
+
         }
 
-        // 最終値を確定
-        M_UkenagasiIcon.SetFloat("_CoolDown", endValue);
     }
+
 }
 
 
