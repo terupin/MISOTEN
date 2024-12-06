@@ -54,9 +54,6 @@ public class Miburo_State : MonoBehaviour
     //刀の方向
     static public int _Katana_Direction;
 
-    [SerializeField, Header("移動スピード")]
-    public float Move_Speed;
-
     [SerializeField, Header("敵プレハブ")]
     public GameObject Target;
 
@@ -90,8 +87,11 @@ public class Miburo_State : MonoBehaviour
     [SerializeField, Header("待ち時間(受け流し方向セット)")]
     public float Katana_DirectionSet_WaitTime;
 
-    [SerializeField, Header("モデル(debugテスト用)")]
+    [SerializeField, Header("玉(debugテスト受け流し入力用)")]
     public GameObject Test;
+
+    [SerializeField, Header("玉(debugテスト回避判定用玉)")]
+    public GameObject _StepBoll;
 
     [SerializeField, Header("マテリアル(debugテスト用)")]
     public Material TestMat;
@@ -129,16 +129,7 @@ public class Miburo_State : MonoBehaviour
     void Update()
     {
 
-
         M_HitBox= GameObject.Find("Player");
-        if ((M_HitBox))
-        {
-            //UnityEditor.EditorApplication.isPaused = true;
-        }
-        else
-        {
-            //UnityEditor.EditorApplication.isPaused = true;
-        }
 
         //HP0以下ならゲームオーバー
         if (Kato_Status_P.instance.NowHP <= 0)
@@ -152,12 +143,6 @@ public class Miburo_State : MonoBehaviour
         {
             return;
         }
-
-
-        //if(Kato_Status_P.instance.NowHP==3)
-        //{
-        //    UnityEditor.EditorApplication.isPaused = true;
-        //}
 
         if(_KnockBack ||_StepMuteki)
         {
@@ -219,7 +204,8 @@ public class Miburo_State : MonoBehaviour
             Miburo_HitBox.SetActive(true);
         }
 
-        if(_StepMuteki)
+        _StepBoll.SetActive(_StepMuteki);
+        if (_StepMuteki)
         {
             Miburo_HitBox.SetActive(false);
         }
@@ -275,7 +261,7 @@ public class Miburo_State : MonoBehaviour
         Miburo_Animator.SetBool("Gurd", _Parry);
 
 
-        if (Enemy01_State.UkeL)
+        if (Matsunaga_Enemy01_State.UkeL)
         {
             Miburo_Animator.SetBool("UkenagashiL", true);
             _CounterL = true;
@@ -285,7 +271,7 @@ public class Miburo_State : MonoBehaviour
             Miburo_Animator.SetBool("UkenagashiL", false);
         }
 
-        if (Enemy01_State.UkeR)
+        if (Matsunaga_Enemy01_State.UkeR)
         {
             Miburo_Animator.SetBool("UkenagashiR", true);
             _CounterR = true;
@@ -295,7 +281,7 @@ public class Miburo_State : MonoBehaviour
             Miburo_Animator.SetBool("UkenagashiR", false);
         }
 
-        if (Enemy01_State.UKe__Ren01)
+        if (Matsunaga_Enemy01_State.UKe__Ren01)
         {
             if (!_Ren11)
             {
@@ -309,10 +295,11 @@ public class Miburo_State : MonoBehaviour
             _Ren11 = false;
         }
 
-        if (Enemy01_State.UKe__Ren02)
+        if (Matsunaga_Enemy01_State.UKe__Ren02)
         {
             if (!_Ren22)
             {
+                UnityEditor.EditorApplication.isPaused = true;
                 Miburo_Animator.SetTrigger("Ren22");
                 _Ren22 = true;
                 _RenCounter02 = true;
@@ -324,14 +311,12 @@ public class Miburo_State : MonoBehaviour
             _Ren22 = false;
         }
 
-
-        //if (IsAnimationFinished("Attack02"))
-        //{
-        //    UnityEditor.EditorApplication.isPaused = true;
-        //}
        
 
         GetCurrentAnimationStateName();//ステート取得して
+
+        //
+        Miburo_HitBox.SetActive(false);
     }
 
     //コルーチン(攻撃1)
