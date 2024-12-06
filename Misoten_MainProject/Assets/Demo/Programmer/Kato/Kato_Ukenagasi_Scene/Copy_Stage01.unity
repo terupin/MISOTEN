@@ -1158,6 +1158,12 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 723284140}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &706112271 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7287183770792060896, guid: 8eb4fdc726e23774da71f86d9d295d96,
+    type: 3}
+  m_PrefabInstance: {fileID: 1322884129}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &723284140
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1843,7 +1849,7 @@ PrefabInstance:
     - target: {fileID: 6111667495423680248, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6111667495423680248, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
@@ -2173,7 +2179,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3847602336648284765, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 723284152}
+      addedObject: {fileID: 723284153}
   m_SourcePrefab: {fileID: 100100000, guid: 5a5dfd0327ec98346a40d1796a249e1e, type: 3}
 --- !u!4 &723284142 stripped
 Transform:
@@ -2284,36 +2290,49 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &723284152
+--- !u!114 &723284153
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 723284144}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c71cb29b997eae24baa98d12fcba4619, type: 3}
+  m_Script: {fileID: 11500000, guid: 79129bb46919246499af5e7ec2ac2bf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Testobj: {fileID: 1832229556}
-  Target_P: {fileID: 1322884133}
   Check_Time0: 0.5
   Check_Time1: 0.5
   Check_Time2: 0.5
   S_Effect: {fileID: 9060970370165693562, guid: 9eef12dc538892048b21bbc76811f6c8,
     type: 3}
   Effectflg: 0
-  _Sound_Test: []
-  TategiriChance: 100
-  RenGekiChance: 0
+  debug_switch: 1
+  Target_P: {fileID: 1322884133}
+  SearchLength: 10
   AttackLength: 3.5
   MoveSpeed: 12
-  maiclue_radius: 10
-  maiclue_speed: 2
-  maiclue_maxtime: 5
-  maiclue_mintime: 3
+  TategiriChance: 100
+  RenGekiChance: 0
   E01Anim: {fileID: 2002034717}
+  StateTime: 0
+  CooldownTime: 2.5
+  StaggerTime: 1
+  radius: 10
+  height: 15
+  centerOffset: {x: 0, y: 0, z: 0}
+  lineMaterial: {fileID: 2100000, guid: 426ab8c9cf4c37c4e9b6a3713e1697a0, type: 2}
+  faceMaterial: {fileID: 2100000, guid: 426ab8c9cf4c37c4e9b6a3713e1697a0, type: 2}
+  vertexObjectPrefab: {fileID: 9219549096807305038, guid: ba6f924de61fb164cb25456e3a9d4b85,
+    type: 3}
+  vertexObjectScale: {x: 2.5, y: 2.5, z: 2.5}
+  rotationAngle: 90
+  maiclue_radius: 10
+  maiclue_speed: 1
+  maiclue_maxtime: 8
+  maiclue_mintime: 5
 --- !u!1 &777521274
 GameObject:
   m_ObjectHideFlags: 0
@@ -3279,6 +3298,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 6399470bd0d41814da8f5d61ecc94ea8, type: 2}
     - target: {fileID: 1243681727059629837, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}
+      propertyPath: Miburo_Box
+      value: 
+      objectReference: {fileID: 706112271}
+    - target: {fileID: 1243681727059629837, guid: 8eb4fdc726e23774da71f86d9d295d96,
+        type: 3}
       propertyPath: Move_Speed
       value: 8
       objectReference: {fileID: 0}
@@ -3294,8 +3318,13 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: e2f4557f60dd24a40b1129d4f08e0ed9, type: 2}
     - target: {fileID: 1243681727059629837, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}
+      propertyPath: Miburo_HitBox
+      value: 
+      objectReference: {fileID: 706112271}
+    - target: {fileID: 1243681727059629837, guid: 8eb4fdc726e23774da71f86d9d295d96,
+        type: 3}
       propertyPath: KnockBack_Time
-      value: 1
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 1243681727059629837, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}
@@ -3312,6 +3341,11 @@ PrefabInstance:
       propertyPath: M_UkenagasiIcon
       value: 
       objectReference: {fileID: 2100000, guid: 0ca75fbcdc33fba4d8bf012637c277a2, type: 2}
+    - target: {fileID: 1243681727059629837, guid: 8eb4fdc726e23774da71f86d9d295d96,
+        type: 3}
+      propertyPath: Damage_MutekiTime
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1794119793786185270, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}
       propertyPath: m_RenderingLayerMask

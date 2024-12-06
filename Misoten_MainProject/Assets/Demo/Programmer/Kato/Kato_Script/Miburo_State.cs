@@ -27,6 +27,7 @@ public class Miburo_State : MonoBehaviour
     private bool StickR;//スティック右スティック
 
     private bool _KnockBack;//ノックバック
+    private bool _Muteki;//無敵
     Vector3 dir;//ノックバックで使用する
 
 
@@ -64,6 +65,9 @@ public class Miburo_State : MonoBehaviour
     [SerializeField, Header("みぶろアニメーター")]
     public Animator Miburo_Animator;
 
+    [SerializeField, Header("待ち時間(ダメージ後無敵)")]
+    public float Damage_MutekiTime;
+
     [SerializeField, Header("待ち時間(ステップ)")]
     public float Step_WaitTime;
 
@@ -96,7 +100,8 @@ public class Miburo_State : MonoBehaviour
     [SerializeField, Header("ゲームオーバーシーン名")]
     public string SceneName;
 
-    GameObject Miburo_Box;
+    [SerializeField, Header("当たり判定ボックス")]
+     GameObject Miburo_HitBox;
 
     // Start is called before the first frame update
     void Start()
@@ -105,12 +110,12 @@ public class Miburo_State : MonoBehaviour
         _Katana_Direction = -1;
 
         Test.AddComponent<MeshRenderer>();
-        Miburo_Box = GameObject.Find("Player");
 
         //UI
         M_UkenagasiIcon.SetFloat("_CoolDown", 1.0f);
         M_StepIcon.SetFloat("_CoolDown", 1.0f);
         M_AttackIcon.SetFloat("_CoolDown", 1.0f);
+        Miburo_HitBox = GameObject.Find("Player");
     }
 
     // Update is called once per frame
@@ -128,6 +133,8 @@ public class Miburo_State : MonoBehaviour
         {
             return;
         }
+
+
 
         //R1ボタン押下(攻撃)
         if (UnityEngine.Input.GetKeyDown("joystick button 5"))
@@ -161,22 +168,19 @@ public class Miburo_State : MonoBehaviour
             StartCoroutine(ChangeCoolDown(M_StepIcon, 0.0f, 1.0f, 1.0f));
         }
 
-
-
-
-
-        if (UnityEngine.Input.GetKey("joystick button 0"))
-        {
-            StartCoroutine(Miburo_Step());
-
-        }
-
-        Miburo_Box.SetActive(!_Step);
-
+        //if(_Muteki)
+        //{
+        //    Miburo_HitBox.SetActive(false);
+        //}
+        //else
+        //{
+        //    Miburo_HitBox.SetActive(true);
+        //}
 
         //ノックバック
         if (_KnockBack)
         {
+            Miburo_HitBox.SetActive(false);
             Rigidbody rb = GetComponent<Rigidbody>();
             rb.velocity = Vector3.zero;
             rb.position -= dir * KnockBack_Speed * Time.deltaTime;
@@ -185,6 +189,7 @@ public class Miburo_State : MonoBehaviour
         {
             Rigidbody rb = GetComponent<Rigidbody>();
             rb.position = Vector3.zero;
+            Miburo_HitBox.SetActive(true);
         }
 
         if (_Parry)
@@ -396,10 +401,12 @@ public class Miburo_State : MonoBehaviour
         if (!_Step)
         {
             _Step = true;
+            Miburo_HitBox.SetActive(false);
             Debug.Log("ステップ開始");
             yield return new WaitForSeconds(Step_WaitTime);
             Debug.Log("ステップ待ち時間終了");
             _Step = false;
+            Miburo_HitBox.SetActive(true);
         }
         else
         {
@@ -518,19 +525,39 @@ public class Miburo_State : MonoBehaviour
     {
         if (other.tag == "EWeapon")
         {
-            GameObject Miburo_Box = GameObject.Find("Player");
-            if (Miburo_Box && Enemy01_State.Attack)
+            if (Miburo_HitBox && Matsunaga_Enemy01_State.Attack)
             {
+
                 if (!Miburo_Animator.GetCurrentAnimatorStateInfo(0).IsName("Battou"))
                 {
                     Rigidbody rb = GetComponent<Rigidbody>();
                     dir = (Target.transform.position - rb.position).normalized;
                     Miburo_Animator.SetTrigger("Damage");
-                    gameObject.AddComponent<Damage_Flash>();
-
+                    Kato_Status_P.instance.Damage(1);
+                    //StartCoroutine(Muteki());
                     StartCoroutine(KnockBack());
                 }
             }
+        }
+    }
+
+    private IEnumerator Damage_Muteki()
+    {
+        //Miburo_HitBox.SetActive(false);
+        yield return new WaitForSeconds(Damage_MutekiTime);
+        //Miburo_HitBox.SetActive(true);
+
+    }
+
+    private IEnumerator Muteki()
+    {
+        if (!_Muteki)
+        {
+
+
+            _Muteki = true;
+            yield return new WaitForSeconds(Damage_MutekiTime);
+            _Muteki = false;
         }
     }
 }
