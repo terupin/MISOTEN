@@ -1,30 +1,30 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Matsunaga_Enemy01_State : MonoBehaviour
 {
-    //‚±‚±‚©‚ç‰Á“¡
-    [SerializeField, Header("ƒeƒXƒg‚Ég‚¤ƒIƒuƒWƒFƒNƒg")]
-    public GameObject Testobj;//ƒeƒXƒg‚Ég‚¤ƒIƒuƒWƒFƒNƒg
+    //ã“ã“ã‹ã‚‰åŠ è—¤
+    [SerializeField, Header("ãƒ†ã‚¹ãƒˆã«ä½¿ã†ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ")]
+    public GameObject Testobj;//ãƒ†ã‚¹ãƒˆã«ä½¿ã†ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 
-    //cØ‚è Å‘å“ü—Í—P—\ 1.7•b
-    //˜AŒ‚1 Å‘å“ü—Í—P—\ 1.2•b
-    //˜AŒ‚2 Å‘å“ü—Í—P—\ 0.5•b
-    [SerializeField, Header("cØ‚è Å‘å“ü—Í—P—\ 1.7•b")]
+    //ç¸¦åˆ‡ã‚Š æœ€å¤§å…¥åŠ›çŒ¶äºˆ 1.7ç§’
+    //é€£æ’ƒ1 æœ€å¤§å…¥åŠ›çŒ¶äºˆ 1.2ç§’
+    //é€£æ’ƒ2 æœ€å¤§å…¥åŠ›çŒ¶äºˆ 0.5ç§’
+    [SerializeField, Header("ç¸¦åˆ‡ã‚Š æœ€å¤§å…¥åŠ›çŒ¶äºˆ 1.7ç§’")]
     public float Check_Time0;
-    [SerializeField, Header("˜AŒ‚1 Å‘å“ü—Í—P—\ 1.2•b")]
+    [SerializeField, Header("é€£æ’ƒ1 æœ€å¤§å…¥åŠ›çŒ¶äºˆ 1.2ç§’")]
     public float Check_Time1;
-    [SerializeField, Header("˜AŒ‚2 Å‘å“ü—Í—P—\ 0.75•b")]
+    [SerializeField, Header("é€£æ’ƒ2 æœ€å¤§å…¥åŠ›çŒ¶äºˆ 0.75ç§’")]
     public float Check_Time2;
 
-    private float Check_Current_Time0;//“ü—ÍŠJn‚©‚çŒo‰ß‚µ‚½ŠÔ
-    private float Check_Current_Time1;//“ü—ÍŠJn‚©‚çŒo‰ß‚µ‚½ŠÔ
-    private float Check_Current_Time2;//“ü—ÍŠJn‚©‚çŒo‰ß‚µ‚½ŠÔ
+    private float Check_Current_Time0;//å…¥åŠ›é–‹å§‹ã‹ã‚‰çµŒéã—ãŸæ™‚é–“
+    private float Check_Current_Time1;//å…¥åŠ›é–‹å§‹ã‹ã‚‰çµŒéã—ãŸæ™‚é–“
+    private float Check_Current_Time2;//å…¥åŠ›é–‹å§‹ã‹ã‚‰çµŒéã—ãŸæ™‚é–“
 
-    [SerializeField, Header("aŒ‚ƒGƒtƒFƒNƒg")]
+    [SerializeField, Header("æ–¬æ’ƒã‚¨ãƒ•ã‚§ã‚¯ãƒˆ")]
     public GameObject S_Effect;
-    public bool Effectflg;//–³‘Ê‚ÈƒGƒtƒFƒNƒg‚ªo‚È‚¢‚æ‚¤‚É‚·‚é
+    public bool Effectflg;//ç„¡é§„ãªã‚¨ãƒ•ã‚§ã‚¯ãƒˆãŒå‡ºãªã„ã‚ˆã†ã«ã™ã‚‹
 
     private GameObject Clone_Effect;
 
@@ -33,113 +33,114 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
     static public bool UKe__Ren01;
     static public bool UKe__Ren02;
-    static public bool Attack;//UŒ‚@“–‚½‚è”»’è‚Ég‚¤
+    static public bool Attack;//æ”»æ’ƒã€€å½“ãŸã‚Šåˆ¤å®šã«ä½¿ã†
 
-    private bool P_Input;//ƒpƒŠƒC“ü—Í‚³‚ê‚½‚©‚Ç‚¤‚©
-    //‚±‚±‚Ü‚Å‰Á“¡
+    private bool P_Input;//ãƒ‘ãƒªã‚¤å…¥åŠ›ã•ã‚ŒãŸã‹ã©ã†ã‹
+    //ã“ã“ã¾ã§åŠ è—¤
 
-    // “G‚Ìó‘Ô‚ğ•\‚·—ñ‹“Œ^
+    // æ•µã®çŠ¶æ…‹ã‚’è¡¨ã™åˆ—æŒ™å‹
     public enum Enemy_State_
     {
-        Idle,       // ‘Ò‹@ó‘Ô
-        Walk,       // ˆÚ“®ó‘Ô
-        Tategiri,   // cØ‚èUŒ‚ó‘Ô
-        RenGeki,    // ˜AŒ‚UŒ‚ó‘Ô
-        Stagger,    // ‚Ğ‚é‚İó‘Ô
-        Cooldown,   // ƒN[ƒ‹ƒ_ƒEƒ“ó‘Ô
-        Kaihou      // ‘Ï‹vƒtƒB[ƒ‹ƒh“WŠJó‘Ô
+        Idle,       // å¾…æ©ŸçŠ¶æ…‹
+        Walk,       // ç§»å‹•çŠ¶æ…‹
+        Tategiri,   // ç¸¦åˆ‡ã‚Šæ”»æ’ƒçŠ¶æ…‹
+        RenGeki,    // é€£æ’ƒæ”»æ’ƒçŠ¶æ…‹
+        Stagger,    // ã²ã‚‹ã¿çŠ¶æ…‹
+        Cooldown,   // ã‚¯ãƒ¼ãƒ«ãƒ€ã‚¦ãƒ³çŠ¶æ…‹
+        Kaihou,     // è€ä¹…ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰å±•é–‹çŠ¶æ…‹
+        Ukenagashi,
     };
 
     private enum Mai_State_
     {
-        Idle,       //ƒfƒtƒHƒ‹ƒgó‘Ô
-        Spin,       //ü‰ñó‘Ô
-        Goto,       //Ú‹ßó‘Ô
-        Attack,     //UŒ‚ó‘Ô
-        Jumpback    //“P‘Şó‘Ô
+        Idle,       //ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆçŠ¶æ…‹
+        Spin,       //å‘¨å›çŠ¶æ…‹
+        Goto,       //æ¥è¿‘çŠ¶æ…‹
+        Attack,     //æ”»æ’ƒçŠ¶æ…‹
+        Jumpback    //æ’¤é€€çŠ¶æ…‹
     };
 
 
-    [SerializeField, Header("ƒfƒoƒbƒNƒ‚[ƒh")]
-    public bool debug_switch = false; //ƒfƒoƒbƒO—p‚Ìˆ—‚ÌƒXƒCƒbƒ`
+    [SerializeField, Header("ãƒ‡ãƒãƒƒã‚¯ãƒ¢ãƒ¼ãƒ‰")]
+    public bool debug_switch = false; //ãƒ‡ãƒãƒƒã‚°ç”¨ã®å‡¦ç†ã®ã‚¹ã‚¤ãƒƒãƒ
 
-    private Enemy_State_ E_State; // Œ»İ‚Ì“G‚Ìó‘Ô‚ğŠi”[
+    private Enemy_State_ E_State; // ç¾åœ¨ã®æ•µã®çŠ¶æ…‹ã‚’æ ¼ç´
 
-    [SerializeField, Header("ƒ^[ƒQƒbƒg‚Æ‚È‚éƒvƒŒƒCƒ„[")]
-    public GameObject Target_P; // “G‚ªƒ^[ƒQƒbƒg‚·‚éƒvƒŒƒCƒ„[ƒIƒuƒWƒFƒNƒg
+    [SerializeField, Header("ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã¨ãªã‚‹ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼")]
+    public GameObject Target_P; // æ•µãŒã‚¿ãƒ¼ã‚²ãƒƒãƒˆã™ã‚‹ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 
-    [SerializeField, Header("ƒT[ƒ`Ë’ö(10)")]
-    public float SearchLength = 100; // “G‚ªƒvƒŒƒCƒ„[‚ğ’T’m‚Å‚«‚é‹——£
+    [SerializeField, Header("ã‚µãƒ¼ãƒå°„ç¨‹(10)")]
+    public float SearchLength = 100; // æ•µãŒãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’æ¢çŸ¥ã§ãã‚‹è·é›¢
 
-    [SerializeField, Header("UŒ‚Ë’ö(3.5)")]
-    public float AttackLength = 3.5f; // “G‚ªUŒ‚‰Â”\‚È‹——£
+    [SerializeField, Header("æ”»æ’ƒå°„ç¨‹(3.5)")]
+    public float AttackLength = 3.5f; // æ•µãŒæ”»æ’ƒå¯èƒ½ãªè·é›¢
 
-    [SerializeField, Header("ˆÚ“®ƒXƒs[ƒh(12)")]
-    public float MoveSpeed = 12; // “G‚ªˆÚ“®‚·‚é‘¬“x
+    [SerializeField, Header("ç§»å‹•ã‚¹ãƒ”ãƒ¼ãƒ‰(12)")]
+    public float MoveSpeed = 12; // æ•µãŒç§»å‹•ã™ã‚‹é€Ÿåº¦
 
-    [SerializeField, Header("cØ‚èUŒ‚Šm—¦(%)"), Range(0, 100)]
-    public int TategiriChance = 60; // cØ‚èUŒ‚‚ğ‘I‘ğ‚·‚éŠm—¦
+    [SerializeField, Header("ç¸¦åˆ‡ã‚Šæ”»æ’ƒç¢ºç‡(%)"), Range(0, 100)]
+    public int TategiriChance = 60; // ç¸¦åˆ‡ã‚Šæ”»æ’ƒã‚’é¸æŠã™ã‚‹ç¢ºç‡
 
-    [SerializeField, Header("˜AŒ‚UŒ‚Šm—¦(%)"), Range(0, 100)]
-    public int RenGekiChance = 40; // ˜AŒ‚UŒ‚‚ğ‘I‘ğ‚·‚éŠm—¦
+    [SerializeField, Header("é€£æ’ƒæ”»æ’ƒç¢ºç‡(%)"), Range(0, 100)]
+    public int RenGekiChance = 40; // é€£æ’ƒæ”»æ’ƒã‚’é¸æŠã™ã‚‹ç¢ºç‡
 
-    private float P_E_Length; // ƒvƒŒƒCƒ„[‚Æ“G‚Æ‚Ì‹——£‚ğ•Û
+    private float P_E_Length; // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨æ•µã¨ã®è·é›¢ã‚’ä¿æŒ
 
-    public Animator E01Anim; // “G‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚ğ§Œä‚·‚éAnimator
+    public Animator E01Anim; // æ•µã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’åˆ¶å¾¡ã™ã‚‹Animator
 
-    public float StateTime = 2.5f; // ó‘Ô‚²‚Æ‚Ì‘±ŠÔ
-    private float StateCurrentTime; // Œ»İ‚Ìó‘Ô‚ªŠJn‚µ‚Ä‚©‚ç‚ÌŒo‰ßŠÔ
+    public float StateTime = 2.5f; // çŠ¶æ…‹ã”ã¨ã®æŒç¶šæ™‚é–“
+    private float StateCurrentTime; // ç¾åœ¨ã®çŠ¶æ…‹ãŒé–‹å§‹ã—ã¦ã‹ã‚‰ã®çµŒéæ™‚é–“
 
-    [SerializeField, Header("ƒN[ƒ‹ƒ_ƒEƒ“ŠÔ")]
-    private float CooldownTime = 2.5f; // ƒN[ƒ‹ƒ_ƒEƒ“ó‘Ô‚Ì‘±ŠÔ
+    [SerializeField, Header("ã‚¯ãƒ¼ãƒ«ãƒ€ã‚¦ãƒ³æ™‚é–“")]
+    private float CooldownTime = 2.5f; // ã‚¯ãƒ¼ãƒ«ãƒ€ã‚¦ãƒ³çŠ¶æ…‹ã®æŒç¶šæ™‚é–“
 
-    [SerializeField, Header("‚Ğ‚é‚ŞŠÔ")]
-    private float StaggerTime = 1.0f; // ‚Ğ‚é‚İó‘Ô‚Ì‘±ŠÔ
+    [SerializeField, Header("ã²ã‚‹ã‚€æ™‚é–“")]
+    private float StaggerTime = 1.0f; // ã²ã‚‹ã¿çŠ¶æ…‹ã®æŒç¶šæ™‚é–“
 
-    private float currentHP; // “G‚ÌŒ»İ‚ÌHP
-    private bool hasUsedDurabilityField75 = false; // HP75%‚Å‘Ï‹vƒtƒB[ƒ‹ƒh‚ğ¶¬Ï‚İ‚©‚ğŠÇ—
-    private bool hasUsedDurabilityField50 = false; // HP50%‚Å‘Ï‹vƒtƒB[ƒ‹ƒh‚ğ¶¬Ï‚İ‚©‚ğŠÇ—
-    private bool hasUsedDurabilityField25 = false; // HP25%‚Å‘Ï‹vƒtƒB[ƒ‹ƒh‚ğ¶¬Ï‚İ‚©‚ğŠÇ—
+    private float currentHP; // æ•µã®ç¾åœ¨ã®HP
+    private bool hasUsedDurabilityField75 = false; // HP75%ã§è€ä¹…ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã‚’ç”Ÿæˆæ¸ˆã¿ã‹ã‚’ç®¡ç†
+    private bool hasUsedDurabilityField50 = false; // HP50%ã§è€ä¹…ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã‚’ç”Ÿæˆæ¸ˆã¿ã‹ã‚’ç®¡ç†
+    private bool hasUsedDurabilityField25 = false; // HP25%ã§è€ä¹…ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã‚’ç”Ÿæˆæ¸ˆã¿ã‹ã‚’ç®¡ç†
 
-    private float elapsedTime = 0f; // Œo‰ßŠÔ‚ğ‹L˜^
+    private float elapsedTime = 0f; // çµŒéæ™‚é–“ã‚’è¨˜éŒ²
 
-    [Header("˜ZŠpŒ`‚Ì”¼Œa")]
-    public float radius = 1.0f; // ˜ZŠpŒ`‚Ì”¼Œa
-    [Header("˜ZŠp’Œ‚Ì‚‚³")]
-    public float height = 2.0f; // ˜ZŠp’Œ‚Ì‚‚³
-    [Header("˜ZŠp’Œ‚Ì’†‰›À•W")]
-    public Vector3 centerOffset = Vector3.zero; // ’†‰›À•W‚ÌƒIƒtƒZƒbƒg
-    [Header("•Ó•”•ª‚Ìƒ}ƒeƒŠƒAƒ‹")]
-    public Material lineMaterial; // ü—p‚Ìƒ}ƒeƒŠƒAƒ‹
-    [Header("–Ê•”•ª‚Ìƒ}ƒeƒŠƒAƒ‹")]
-    public Material faceMaterial; // –Ê—p‚Ìƒ}ƒeƒŠƒAƒ‹
-    [Header("“d’|‚Ìƒ‚ƒfƒ‹")]
-    public GameObject vertexObjectPrefab; // ’¸“_‚É¶¬‚·‚éƒIƒuƒWƒFƒNƒg
-    [Header("“d’|‚ÌƒXƒP[ƒ‹")]
-    public Vector3 vertexObjectScale = Vector3.one; // ’¸“_ƒIƒuƒWƒFƒNƒg‚ÌƒXƒP[ƒ‹
-    [Header("ƒoƒŠƒA‚Æ“d’|‚Ì¶¬Šp“x")]
-    public float rotationAngle = 0.0f; //ƒoƒŠƒA‚Æ“d’|‚Ì¶¬Šp“x
+    [Header("å…­è§’å½¢ã®åŠå¾„")]
+    public float radius = 1.0f; // å…­è§’å½¢ã®åŠå¾„
+    [Header("å…­è§’æŸ±ã®é«˜ã•")]
+    public float height = 2.0f; // å…­è§’æŸ±ã®é«˜ã•
+    [Header("å…­è§’æŸ±ã®ä¸­å¤®åº§æ¨™")]
+    public Vector3 centerOffset = Vector3.zero; // ä¸­å¤®åº§æ¨™ã®ã‚ªãƒ•ã‚»ãƒƒãƒˆ
+    [Header("è¾ºéƒ¨åˆ†ã®ãƒãƒ†ãƒªã‚¢ãƒ«")]
+    public Material lineMaterial; // ç·šç”¨ã®ãƒãƒ†ãƒªã‚¢ãƒ«
+    [Header("é¢éƒ¨åˆ†ã®ãƒãƒ†ãƒªã‚¢ãƒ«")]
+    public Material faceMaterial; // é¢ç”¨ã®ãƒãƒ†ãƒªã‚¢ãƒ«
+    [Header("é›»ç«¹ã®ãƒ¢ãƒ‡ãƒ«")]
+    public GameObject vertexObjectPrefab; // é ‚ç‚¹ã«ç”Ÿæˆã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+    [Header("é›»ç«¹ã®ã‚¹ã‚±ãƒ¼ãƒ«")]
+    public Vector3 vertexObjectScale = Vector3.one; // é ‚ç‚¹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã‚¹ã‚±ãƒ¼ãƒ«
+    [Header("ãƒãƒªã‚¢ã¨é›»ç«¹ã®ç”Ÿæˆè§’åº¦")]
+    public float rotationAngle = 0.0f; //ãƒãƒªã‚¢ã¨é›»ç«¹ã®ç”Ÿæˆè§’åº¦
 
     Vector3[] lowerVertices = new Vector3[6];
     Vector3[] upperVertices = new Vector3[6];
 
-    [Header("ü‰ñ”ÍˆÍ‚Ì”¼Œa")]
-    public float maiclue_radius = 5.0f; //ü‰ñ‚·‚é‰~‚Ì”¼Œa
-    private float maiclue_x;    //ü‰ñŒvZ—p‚ÌXÀ•W
-    private float maiclue_y;    //ü‰ñŒvZ—p‚ÌYÀ•W
-    private float maiclue_z;    //ü‰ñŒvZ—p‚ÌZÀ•W
-    [Header("ü‰ñ‚ÌˆÚ“®‘¬“x")]
-    public float maiclue_speed; //ü‰ñƒXƒs[ƒh
+    [Header("å‘¨å›ç¯„å›²ã®åŠå¾„")]
+    public float maiclue_radius = 5.0f; //å‘¨å›ã™ã‚‹å††ã®åŠå¾„
+    private float maiclue_x;    //å‘¨å›è¨ˆç®—ç”¨ã®Xåº§æ¨™
+    private float maiclue_y;    //å‘¨å›è¨ˆç®—ç”¨ã®Yåº§æ¨™
+    private float maiclue_z;    //å‘¨å›è¨ˆç®—ç”¨ã®Zåº§æ¨™
+    [Header("å‘¨å›æ™‚ã®ç§»å‹•é€Ÿåº¦")]
+    public float maiclue_speed; //å‘¨å›ã‚¹ãƒ”ãƒ¼ãƒ‰
 
-    private bool run_for_me; //ü‰ñ—p‚Ìƒtƒ‰ƒO
+    private bool run_for_me; //å‘¨å›ç”¨ã®ãƒ•ãƒ©ã‚°
 
-    private float angle = 0.0f; //ü‰ñŒvZ—p‚ÌŠp“x
+    private float angle = 0.0f; //å‘¨å›è¨ˆç®—ç”¨ã®è§’åº¦
 
-    private float maiclue_attacktime; //ü‰ñ‚ÌUŒ‚ŠÔŠu‚ÌŠÔ(—”Ši”[—p)
-    [Header("ü‰ñ‚ÌUŒ‚ŠÔŠu‚ÌÅ‘åŠÔ")]
-    public float maiclue_maxtime = 5.0f; //ü‰ñ‚ÌUŒ‚ŠÔŠu‚ÌÅ‘åŠÔ
-    [Header("ü‰ñ‚ÌUŒ‚ŠÔŠu‚ÌÅ¬ŠÔ")]
-    public float maiclue_mintime = 3.0f; //ü‰ñ‚ÌUŒ‚ŠÔŠu‚ÌÅ¬ŠÔ
+    private float maiclue_attacktime; //å‘¨å›æ™‚ã®æ”»æ’ƒé–“éš”ã®æ™‚é–“(ä¹±æ•°æ ¼ç´ç”¨)
+    [Header("å‘¨å›æ™‚ã®æ”»æ’ƒé–“éš”ã®æœ€å¤§æ™‚é–“")]
+    public float maiclue_maxtime = 5.0f; //å‘¨å›æ™‚ã®æ”»æ’ƒé–“éš”ã®æœ€å¤§æ™‚é–“
+    [Header("å‘¨å›æ™‚ã®æ”»æ’ƒé–“éš”ã®æœ€å°æ™‚é–“")]
+    public float maiclue_mintime = 3.0f; //å‘¨å›æ™‚ã®æ”»æ’ƒé–“éš”ã®æœ€å°æ™‚é–“
 
     private float maiclue_starttime;
     private float maiclue_elapsedtime;
@@ -149,25 +150,32 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     private Vector3 targetPoint;
     private bool maiclue_istarget = true;
 
-    private int maiclue_spind; //Œv‰ñ‚è‚©”½Œv‰ñ‚è‚©(—”Ši”[—p)
+    private int maiclue_spind; //æ™‚è¨ˆå›ã‚Šã‹åæ™‚è¨ˆå›ã‚Šã‹(ä¹±æ•°æ ¼ç´ç”¨)
 
-    private Rigidbody rb; //©•ª‚Ìrigidbody
+    private Rigidbody rb; //è‡ªåˆ†ã®rigidbody
     private Mai_State_ M_state;
+    
+    [Header("ã‚¹ã‚­ãƒƒãƒ—ã™ã‚‹è§’åº¦ã®æ•°")]
+    public int skipCount = 1;  // ã‚¤ãƒ³ã‚¹ãƒšã‚¯ã‚¿ã§è¨­å®šã§ãã‚‹ã€ã‚¹ã‚­ãƒƒãƒ—ã™ã‚‹è§’åº¦ã®æ•°
 
-    // ’è”‚ğ’Ç‰ÁF‰~‚ğ6•ªŠ„‚·‚é‚½‚ß‚ÌŠp“x
+    // å®šæ•°ã‚’è¿½åŠ ï¼šå††ã‚’6åˆ†å‰²ã™ã‚‹ãŸã‚ã®è§’åº¦
     private float[] targetAngles = new float[6];
     private int currentSegment = 0;
+    private bool isRandomTarget = false;  // ãƒ©ãƒ³ãƒ€ãƒ ãªã‚¿ãƒ¼ã‚²ãƒƒãƒˆé¸æŠãƒ•ãƒ©ã‚°
+
+    [Header("ã‚¸ãƒ£ãƒ³ãƒ—ãƒãƒƒã‚¯å¾Œã®å¾…æ©Ÿæ™‚é–“")]
+    public float jumpBackWaitTime = 2.5f; // ã‚¸ãƒ£ãƒ³ãƒ—ãƒãƒƒã‚¯å¾Œã®å¾…æ©Ÿæ™‚é–“ï¼ˆç§’ï¼‰
 
     private void Start()
     {
-        // ‰Šúó‘Ô‚ğİ’è
+        // åˆæœŸçŠ¶æ…‹ã‚’è¨­å®š
         E_State = Enemy_State_.Idle;
-        StateCurrentTime = 0.0f; // Œo‰ßŠÔ‚ğ‰Šú‰»
-        currentHP = Kato_Status_E.NowHP / Kato_Status_E.MaxHP; // ‰ŠúHP‚ğİ’è
-        elapsedTime = 0f; // Œo‰ßŠÔ‚ğ‰Šú‰»
-        E01Anim.SetBool("Idle", true); // IdleƒAƒjƒ[ƒVƒ‡ƒ“‚ğ‰Šúó‘Ô‚Éİ’è
+        StateCurrentTime = 0.0f; // çµŒéæ™‚é–“ã‚’åˆæœŸåŒ–
+        currentHP = Kato_Status_E.NowHP / Kato_Status_E.MaxHP; // åˆæœŸHPã‚’è¨­å®š
+        elapsedTime = 0f; // çµŒéæ™‚é–“ã‚’åˆæœŸåŒ–
+        E01Anim.SetBool("Idle", true); // Idleã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’åˆæœŸçŠ¶æ…‹ã«è¨­å®š
 
-        // ’¸“_‚ğŒvZ
+        // é ‚ç‚¹ã‚’è¨ˆç®—
         for (int i = 0; i < 6; i++)
         {
             float Hexaangle = Mathf.Deg2Rad * (60 * i + rotationAngle);
@@ -182,17 +190,17 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         M_state = Mai_State_.Idle;
 
-        // ‰~ü‚ğ6•ªŠ„‚µ‚½Še•ªŠ„“_‚ÌŠp“x‚ğŒvZ
+        // å††å‘¨ã‚’6åˆ†å‰²ã—ãŸå„åˆ†å‰²ç‚¹ã®è§’åº¦ã‚’è¨ˆç®—
         for (int i = 0; i < 6; i++)
         {
-            targetAngles[i] = i * Mathf.PI / 3;  // 6•ªŠ„‚È‚Ì‚Å2ƒÎ/6=ƒÎ/3‚ÌŠp“xŠÔŠu
+            targetAngles[i] = i * Mathf.PI / 3;  // 6åˆ†å‰²ãªã®ã§2Ï€/6=Ï€/3ã®è§’åº¦é–“éš”
         }
 
     }
 
     private void Update()
     {
-        //‰Á“¡  
+        //åŠ è—¤  
         if (UnityEngine.Input.GetKeyDown(KeyCode.O))
         {
             Kato_Status_E.NowHP -= 500;
@@ -207,19 +215,19 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             }
 
         }
-        //‰Á“¡  
+        //åŠ è—¤  
 
-        // ƒvƒŒƒCƒ„[‚ªİ’è‚³‚ê‚Ä‚¢‚éê‡‚Ì‚İ•ûŒü‚ğŒü‚­ˆ—‚ğÀs
+        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒè¨­å®šã•ã‚Œã¦ã„ã‚‹å ´åˆã®ã¿æ–¹å‘ã‚’å‘ãå‡¦ç†ã‚’å®Ÿè¡Œ
         if (Target_P != null)
         {
-            LookAtPlayer(); // ƒvƒŒƒCƒ„[‚ğŒü‚­ˆ—‚ğŒÄ‚Ño‚µ
+            LookAtPlayer(); // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’å‘ãå‡¦ç†ã‚’å‘¼ã³å‡ºã—
         }
 
         if (run_for_me)
         {
             switch (M_state)
             {
-                // ü‰ñ
+                // å‘¨å›
                 case Mai_State_.Spin:
                     if (maiclue_iscount)
                     {
@@ -231,39 +239,63 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
                     maiclue_elapsedtime = Time.time - maiclue_starttime;
 
-                    // Šp“x‚ğXVi‘¬“x‚ğl—¶j
+                    // ãƒ©ãƒ³ãƒ€ãƒ ã§æ¬¡ã®ã‚¿ãƒ¼ã‚²ãƒƒãƒˆè§’åº¦ã‚’æ±ºã‚ã‚‹
+                    if (!isRandomTarget)
+                    {
+                        // ãƒ©ãƒ³ãƒ€ãƒ ã«ã‚¹ã‚­ãƒƒãƒ—ã™ã‚‹è§’åº¦ã®æ•°ã‚’æ±ºå®š
+                        currentSegment = Random.Range(0, 6);  // ãƒ©ãƒ³ãƒ€ãƒ ã«ç¾åœ¨ã®ã‚»ã‚°ãƒ¡ãƒ³ãƒˆã‚’é¸æŠ
+
+                        // ã‚¹ã‚­ãƒƒãƒ—ã™ã‚‹è§’åº¦ã‚’ãƒ©ãƒ³ãƒ€ãƒ ã«é¸ã¶
+                        for (int i = 0; i < skipCount; i++)
+                        {
+                            currentSegment = (currentSegment + Random.Range(1, 6)) % 6; // ç¾åœ¨ã®ã‚»ã‚°ãƒ¡ãƒ³ãƒˆã‹ã‚‰ãƒ©ãƒ³ãƒ€ãƒ ã«é£›ã°ã™
+                        }
+
+                        isRandomTarget = true; // æ¬¡ã®ã‚¿ãƒ¼ã‚²ãƒƒãƒˆé¸æŠã‚’å®Œäº†
+                    }
+
+                    // è§’åº¦ã‚’æ›´æ–°ï¼ˆé€Ÿåº¦ã‚’è€ƒæ…®ï¼‰
                     angle += maiclue_speed * Time.deltaTime;
 
-                    // ‰~üã‚ÌˆÊ’u‚ğŒvZ
-                    maiclue_x = Target_P.transform.position.x + Mathf.Cos(angle) * maiclue_radius;
+                    // è§’åº¦ã‚’0ã€œ2Ï€ã«æ­£è¦åŒ–
+                    if (angle >= 2 * Mathf.PI) angle -= 2 * Mathf.PI;
+                    if (angle < 0) angle += 2 * Mathf.PI;
 
-                    // Œv‰ñ‚è
+                    // å††å‘¨ä¸Šã®ä½ç½®ã‚’è¨ˆç®—
+                    //maiclue_x = Target_P.transform.position.x + Mathf.Cos(angle) * maiclue_radius;
+                    maiclue_x = 0.0f + Mathf.Cos(angle) * maiclue_radius;
+
+                    // æ™‚è¨ˆå›ã‚Š
                     if (maiclue_spind == 1)
                     {
-                        maiclue_z = Target_P.transform.position.z + Mathf.Sin(angle) * maiclue_radius;
+                        //maiclue_z = Target_P.transform.position.z + Mathf.Sin(angle) * maiclue_radius;
+                        maiclue_z = 0.0f + Mathf.Sin(angle) * maiclue_radius;
                     }
-                    // ”½Œv‰ñ‚è
+                    // åæ™‚è¨ˆå›ã‚Š
                     else
                     {
-                        maiclue_z = Target_P.transform.position.z - Mathf.Sin(angle) * maiclue_radius;
+                        //maiclue_z = Target_P.transform.position.z - Mathf.Sin(angle) * maiclue_radius;
+                        maiclue_z = 0.0f - Mathf.Sin(angle) * maiclue_radius;
                     }
 
-                    // Œ»İ‚ÌƒZƒOƒƒ“ƒg‚É“’B‚µ‚½‚©Šm”F
-                    if (Mathf.Abs(angle - targetAngles[currentSegment]) < 0.1f)
+                    // ç¾åœ¨ã®ã‚»ã‚°ãƒ¡ãƒ³ãƒˆã«åˆ°é”ã—ãŸã‹ç¢ºèª
+                    // åˆ°é”ã™ã‚‹è§’åº¦ã‚’0.1åº¦ãã‚‰ã„ã®èª¤å·®ã§è¨±å®¹ã™ã‚‹
+                    if (Mathf.Abs(angle - targetAngles[currentSegment]) < 0.1f || Mathf.Abs(angle - targetAngles[currentSegment]) > Mathf.PI * 2 - 0.1f)
                     {
-                        // ƒZƒOƒƒ“ƒg‚É“’B‚µ‚½ê‡AŸ‚ÌƒZƒOƒƒ“ƒg‚Ö
-                        currentSegment = (currentSegment + 1) % 6;
-                        M_state = Mai_State_.Goto;  // Gotoó‘Ô‚ÉˆÚs
+                        // ã‚»ã‚°ãƒ¡ãƒ³ãƒˆã«åˆ°é”ã—ãŸå ´åˆã€æ¬¡ã®ã‚»ã‚°ãƒ¡ãƒ³ãƒˆã¸
+                        isRandomTarget = false;  // ãƒ©ãƒ³ãƒ€ãƒ ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã‚’å†åº¦æœ‰åŠ¹åŒ–
+                        M_state = Mai_State_.Goto;  // GotoçŠ¶æ…‹ã«ç§»è¡Œ
                     }
 
-                    // ƒIƒuƒWƒFƒNƒg‚ğˆÚ“®
+                    // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç§»å‹•
                     transform.position = new Vector3(maiclue_x, transform.position.y, maiclue_z);
 
                     break;
 
-                // Ú‹ß
+                // æ¥è¿‘
                 case Mai_State_.Goto:
-                    Vector3 direction = (Target_P.transform.position - transform.position).normalized;
+                    //Vector3 direction = (Target_P.transform.position - transform.position).normalized;
+                    Vector3 direction = (new Vector3(0,0,0) - transform.position).normalized;
                     direction.y = 0;
                     transform.position += direction * MoveSpeed * Time.deltaTime;
 
@@ -273,14 +305,16 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                     }
                     break;
 
-                // UŒ‚
+                // æ”»æ’ƒ
                 case Mai_State_.Attack:
                     DecideAttackType();
                     break;
 
-                // Œ³‚ÌêŠ‚É–ß‚é
+                // å…ƒã®å ´æ‰€ã«æˆ»ã‚‹
                 case Mai_State_.Jumpback:
                     transform.position = targetPoint;
+
+                    //StartCoroutine(WaitAndReturnToSpin());
 
                     if (transform.position == targetPoint)
                     {
@@ -289,139 +323,67 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                     }
                     break;
             }
-
-            /*
-            if (maiclue_iscount)
-            {
-                maiclue_starttime = Time.time;
-                maiclue_attacktime = Random.Range(maiclue_mintime, maiclue_maxtime);
-                maiclue_iscount = !maiclue_iscount;
-            }
-            else
-            {
-                maiclue_elapsedtime = Time.time - maiclue_starttime;
-            }
-
-            // ƒ^[ƒQƒbƒg•ûŒü‚ğŒvZ
-            //Vector3 direction = (targetPoint - transform.position).normalized;
-
-            // ‹——£‚Æ‚‚³‚ğ’²®
-            //direction.y = 1f; // ã•ûŒü‚ğ‹­’²
-            //rb.AddForce(direction.normalized * jumpForce, ForceMode.Impulse);
-
-            //Ú‹ß‘O‚ÌÀ•W‚É–ß‚é
-            if (maiclue_jumpback)
-            {
-                maiclue_istarget = !maiclue_istarget;
-                transform.position = targetPoint;
-
-                maiclue_jumpback = !maiclue_jumpback;
-                maiclue_iscount = !maiclue_iscount;
-            }
-            else
-            {
-                //ü‰ñˆÚ“®
-                if (maiclue_elapsedtime <= maiclue_attacktime)
-                {
-                    // Šp“x‚ğXVi‘¬“x‚ğl—¶j
-                    angle += maiclue_speed * Time.deltaTime;
-
-                    // ‰~üã‚ÌˆÊ’u‚ğŒvZ
-                    maiclue_x = Target_P.transform.position.x + Mathf.Cos(angle) * maiclue_radius;
-                    maiclue_z = Target_P.transform.position.z + Mathf.Sin(angle) * maiclue_radius;
-
-                    // ƒIƒuƒWƒFƒNƒg‚ğˆÚ“®
-                    transform.position = new Vector3(maiclue_x, transform.position.y, maiclue_z);
-                }
-                //Ú‹ßˆÚ“®
-                else
-                {
-                    Debug.Log("UŒ‚”ÍˆÍ‚É“ü‚Á‚½‚Ì‚ÅUŒ‚‚ğŠJnI");
-
-                    P_E_Length = Vector3.Distance(Target_P.transform.position, gameObject.transform.position);
-
-                    if (P_E_Length <= AttackLength)
-                    {
-                        Debug.Log("UŒ‚”ÍˆÍ‚É“ü‚Á‚½‚Ì‚ÅUŒ‚‚ğŠJnI");
-
-                        DecideAttackType();
-                    }
-                    else
-                    {
-                        if(maiclue_istarget)
-                        {
-                            targetPoint = transform.position;
-                            maiclue_istarget = !maiclue_istarget;
-                        }
-
-                        Vector3 direction = (Target_P.transform.position - transform.position).normalized;
-                        direction.y = 0;
-                        transform.position += direction * MoveSpeed * Time.deltaTime;
-                    }
-                }
-            }
-            */
         }
 
-        //ƒfƒoƒbƒO—pƒvƒƒOƒ‰ƒ€
+        //ãƒ‡ãƒãƒƒã‚°ç”¨ãƒ—ãƒ­ã‚°ãƒ©ãƒ 
         if (debug_switch)
         {
-            // 1ƒL[‚ª‰Ÿ‚³‚ê‚½‚çHP‚ª‡”Ô‚É•Ï‰»
+            // 1ã‚­ãƒ¼ãŒæŠ¼ã•ã‚ŒãŸã‚‰HPãŒé †ç•ªã«å¤‰åŒ–
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                //Debug.Log("HP‚ğ75%‚Éİ’è‚µ‚Ü‚µ‚½I");
-                if (currentHP == 1.0f) // Œ»İHP‚ª100%‚È‚ç
+                //Debug.Log("HPã‚’75%ã«è¨­å®šã—ã¾ã—ãŸï¼");
+                if (currentHP == 1.0f) // ç¾åœ¨HPãŒ100%ãªã‚‰
                 {
-                    currentHP = 0.75f;  // HP‚ğ75%‚Éİ’è
-                    Debug.Log($"dc1-1 HP‚ğ75%‚Éİ’è‚µ‚Ü‚µ‚½I: {currentHP} / 1.0f");
+                    currentHP = 0.75f;  // HPã‚’75%ã«è¨­å®š
+                    Debug.Log($"dc1-1 HPã‚’75%ã«è¨­å®šã—ã¾ã—ãŸï¼: {currentHP} / 1.0f");
                 }
-                else if (currentHP == 0.75f) // Œ»İHP‚ª75%‚È‚ç
+                else if (currentHP == 0.75f) // ç¾åœ¨HPãŒ75%ãªã‚‰
                 {
-                    currentHP = 0.50f;  // HP‚ğ50%‚Éİ’è
-                    Debug.Log($"dc1-2 HP‚ğ50%‚Éİ’è‚µ‚Ü‚µ‚½I: {currentHP} / 1.0f");
+                    currentHP = 0.50f;  // HPã‚’50%ã«è¨­å®š
+                    Debug.Log($"dc1-2 HPã‚’50%ã«è¨­å®šã—ã¾ã—ãŸï¼: {currentHP} / 1.0f");
                 }
-                else if (currentHP == 0.50f) // Œ»İHP‚ª50%‚È‚ç
+                else if (currentHP == 0.50f) // ç¾åœ¨HPãŒ50%ãªã‚‰
                 {
-                    currentHP = 0.25f;  // HP‚ğ25%‚Éİ’è
-                    Debug.Log($"dc1-3 HP‚ğ25%‚Éİ’è‚µ‚Ü‚µ‚½I: {currentHP} / 1.0f");
+                    currentHP = 0.25f;  // HPã‚’25%ã«è¨­å®š
+                    Debug.Log($"dc1-3 HPã‚’25%ã«è¨­å®šã—ã¾ã—ãŸï¼: {currentHP} / 1.0f");
                 }
-                else if (currentHP == 0.25f) // Œ»İHP‚ª25%‚È‚ç
+                else if (currentHP == 0.25f) // ç¾åœ¨HPãŒ25%ãªã‚‰
                 {
-                    currentHP = 0f;  // HP‚ğ0%‚Éİ’è
-                    Debug.Log($"dc1-4 HP‚ğ0%‚Éİ’è‚µ‚Ü‚µ‚½I: {currentHP} / 1.0f");
+                    currentHP = 0f;  // HPã‚’0%ã«è¨­å®š
+                    Debug.Log($"dc1-4 HPã‚’0%ã«è¨­å®šã—ã¾ã—ãŸï¼: {currentHP} / 1.0f");
                 }
-                else if (currentHP == 0f) // Œ»İHP‚ª0%‚È‚ç
+                else if (currentHP == 0f) // ç¾åœ¨HPãŒ0%ãªã‚‰
                 {
-                    currentHP = 1.0f;  // HP‚ğ100%‚Éİ’è
-                    Debug.Log($"dc1-5 HP‚ğ100%‚Éİ’è‚µ‚Ü‚µ‚½: {currentHP} / 1.0f");
+                    currentHP = 1.0f;  // HPã‚’100%ã«è¨­å®š
+                    Debug.Log($"dc1-5 HPã‚’100%ã«è¨­å®šã—ã¾ã—ãŸ: {currentHP} / 1.0f");
                 }
             }
 
-            // 2ƒL[‚ª‰Ÿ‚³‚ê‚½‚çcØ‚èƒXƒe[ƒg‚ğÀs
+            // 2ã‚­ãƒ¼ãŒæŠ¼ã•ã‚ŒãŸã‚‰ç¸¦åˆ‡ã‚Šã‚¹ãƒ†ãƒ¼ãƒˆã‚’å®Ÿè¡Œ
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                Debug.Log("dc2: cØ‚èƒXƒe[ƒg‚ğÀs‚µ‚Ü‚·");
+                Debug.Log("dc2: ç¸¦åˆ‡ã‚Šã‚¹ãƒ†ãƒ¼ãƒˆã‚’å®Ÿè¡Œã—ã¾ã™");
                 SetState(Enemy_State_.Tategiri);
             }
 
-            // 3ƒL[‚ª‰Ÿ‚³‚ê‚½‚ç˜AŒ‚ƒXƒe[ƒg‚ğÀs
+            // 3ã‚­ãƒ¼ãŒæŠ¼ã•ã‚ŒãŸã‚‰é€£æ’ƒã‚¹ãƒ†ãƒ¼ãƒˆã‚’å®Ÿè¡Œ
             if (Input.GetKeyDown(KeyCode.Alpha3))
             {
-                Debug.Log("dc3: ˜AŒ‚ƒXƒe[ƒg‚ğÀs‚µ‚Ü‚·");
+                Debug.Log("dc3: é€£æ’ƒã‚¹ãƒ†ãƒ¼ãƒˆã‚’å®Ÿè¡Œã—ã¾ã™");
                 SetState(Enemy_State_.RenGeki);
             }
 
-            // 4ƒL[‚ª‰Ÿ‚³‚ê‚½‚ç‹¯‚İƒXƒe[ƒg‚ğÀs
+            // 4ã‚­ãƒ¼ãŒæŠ¼ã•ã‚ŒãŸã‚‰æ€¯ã¿ã‚¹ãƒ†ãƒ¼ãƒˆã‚’å®Ÿè¡Œ
             if (Input.GetKeyDown(KeyCode.Alpha4))
             {
-                Debug.Log("dc4: ‹¯‚İƒXƒe[ƒg‚ğÀs‚µ‚Ü‚·");
+                Debug.Log("dc4: æ€¯ã¿ã‚¹ãƒ†ãƒ¼ãƒˆã‚’å®Ÿè¡Œã—ã¾ã™");
                 SetState(Enemy_State_.Stagger);
             }
 
-            // 5ƒL[‚ª‰Ÿ‚³‚ê‚½‚ç•àsƒXƒe[ƒg‚ğÀs
+            // 5ã‚­ãƒ¼ãŒæŠ¼ã•ã‚ŒãŸã‚‰æ­©è¡Œã‚¹ãƒ†ãƒ¼ãƒˆã‚’å®Ÿè¡Œ
             if (Input.GetKeyDown(KeyCode.Alpha5))
             {
-                Debug.Log("dc5: •àsƒXƒe[ƒg‚ğÀs‚µ‚Ü‚·");
+                Debug.Log("dc5: æ­©è¡Œã‚¹ãƒ†ãƒ¼ãƒˆã‚’å®Ÿè¡Œã—ã¾ã™");
 
                 run_for_me = true;
                 maiclue_iscount = true;
@@ -430,21 +392,21 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                 //SetState(Enemy_State_.Walk);
             }
 
-            // 6ƒL[‚ª‰Ÿ‚³‚ê‚½‚çidleƒXƒe[ƒg‚ğÀs
+            // 6ã‚­ãƒ¼ãŒæŠ¼ã•ã‚ŒãŸã‚‰idleã‚¹ãƒ†ãƒ¼ãƒˆã‚’å®Ÿè¡Œ
             if (Input.GetKeyDown(KeyCode.Alpha6))
             {
-                Debug.Log("dc6: idleƒXƒe[ƒg‚ğÀs‚µ‚Ü‚·");
+                Debug.Log("dc6: idleã‚¹ãƒ†ãƒ¼ãƒˆã‚’å®Ÿè¡Œã—ã¾ã™");
 
-                // Idleó‘Ô‚É‘JˆÚ
+                // IdleçŠ¶æ…‹ã«é·ç§»
                 SetState(Enemy_State_.Idle);
             }
 
-            // 7ƒL[‚ª‰Ÿ‚³‚ê‚½‚ç‰ğ•úƒXƒe[ƒg‚ğÀs
+            // 7ã‚­ãƒ¼ãŒæŠ¼ã•ã‚ŒãŸã‚‰è§£æ”¾ã‚¹ãƒ†ãƒ¼ãƒˆã‚’å®Ÿè¡Œ
             if (Input.GetKeyDown(KeyCode.Alpha7))
             {
-                Debug.Log("dc7: ‰ğ•úƒXƒe[ƒg‚ğÀs‚µ‚Ü‚·");
+                Debug.Log("dc7: è§£æ”¾ã‚¹ãƒ†ãƒ¼ãƒˆã‚’å®Ÿè¡Œã—ã¾ã™");
                 SetState(Enemy_State_.Kaihou);
-                E01Anim.SetBool("Kaihou", true); // ‰ğ•úƒAƒjƒ[ƒVƒ‡ƒ“‚Ìƒtƒ‰ƒO‚ğİ’è
+                E01Anim.SetBool("Kaihou", true); // è§£æ”¾ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ãƒ•ãƒ©ã‚°ã‚’è¨­å®š
             }
         }
         else
@@ -454,20 +416,20 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
         if (Target_P == null)
         {
-            Debug.LogWarning("Target_P ‚ªİ’è‚³‚ê‚Ä‚¢‚Ü‚¹‚ñI");
+            Debug.LogWarning("Target_P ãŒè¨­å®šã•ã‚Œã¦ã„ã¾ã›ã‚“ï¼");
             return;
         }
 
-        // ƒvƒŒƒCƒ„[‚Æ“G‚Ì‹——£‚ğŒvZ
+        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨æ•µã®è·é›¢ã‚’è¨ˆç®—
         //P_E_Length = Vector3.Distance(Target_P.transform.position, gameObject.transform.position);
         P_E_Length = Vector3.Distance(new Vector3(0,0,0), gameObject.transform.position);
-        Debug.Log($"ƒvƒŒƒCƒ„[‚Æ‚Ì‹——£: {P_E_Length}");
+        Debug.Log($"ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨ã®è·é›¢: {P_E_Length}");
 
-        // ó‘Ô‚²‚Æ‚ÌŒo‰ßŠÔ‚ğXV
+        // çŠ¶æ…‹ã”ã¨ã®çµŒéæ™‚é–“ã‚’æ›´æ–°
         StateCurrentTime += Time.deltaTime;
         elapsedTime += Time.deltaTime;
 
-        // Šeó‘Ô‚É‰‚¶‚½ˆ—‚ğŒÄ‚Ño‚µ
+        // å„çŠ¶æ…‹ã«å¿œã˜ãŸå‡¦ç†ã‚’å‘¼ã³å‡ºã—
         if (E_State == Enemy_State_.Cooldown)
         {
             HandleCooldown();
@@ -493,36 +455,36 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             HandleKaihou();
         }
 
-        // HP‚É‰‚¶‚Ä‘Ï‹vƒtƒB[ƒ‹ƒh‚ğ¶¬
+        // HPã«å¿œã˜ã¦è€ä¹…ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã‚’ç”Ÿæˆ
         HandleDurabilityField();
 
-        // ó‘Ô‚É‰‚¶‚ÄƒAƒjƒ[ƒVƒ‡ƒ“‚ğXV
+        // çŠ¶æ…‹ã«å¿œã˜ã¦ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’æ›´æ–°
         UpdateAnimations();
     }
 
-    // V‚µ‚¢ó‘Ô‚ğİ’è‚µŒo‰ßŠÔ‚ğƒŠƒZƒbƒg
+    // æ–°ã—ã„çŠ¶æ…‹ã‚’è¨­å®šã—çµŒéæ™‚é–“ã‚’ãƒªã‚»ãƒƒãƒˆ
     private void SetState(Enemy_State_ newState)
     {
-        if (E_State == newState) return; // “¯‚¶ó‘Ô‚Ö‚Ì‘JˆÚ‚ğ–h‚®
+        if (E_State == newState) return; // åŒã˜çŠ¶æ…‹ã¸ã®é·ç§»ã‚’é˜²ã
         E_State = newState;
         StateCurrentTime = 0.0f;
-        Debug.Log($"ó‘Ô‚ª {newState} ‚É•ÏX‚³‚ê‚Ü‚µ‚½");
+        Debug.Log($"çŠ¶æ…‹ãŒ {newState} ã«å¤‰æ›´ã•ã‚Œã¾ã—ãŸ");
     }
 
     private void HandleMovementAndState()
     {
-        // Kaihouó‘Ô’†‚ÍˆÚ“®ˆ—‚ğ–³Œø‰»
+        // KaihouçŠ¶æ…‹ä¸­ã¯ç§»å‹•å‡¦ç†ã‚’ç„¡åŠ¹åŒ–
         if (E_State == Enemy_State_.Kaihou)
         {
-            Debug.Log("‰ğ•ú’†‚Ì‚½‚ßˆÚ“®ˆ—‚ğƒXƒLƒbƒv‚µ‚Ü‚·B");
+            Debug.Log("è§£æ”¾ä¸­ã®ãŸã‚ç§»å‹•å‡¦ç†ã‚’ã‚¹ã‚­ãƒƒãƒ—ã—ã¾ã™ã€‚");
             return;
         }
 
-        // ‚»‚êˆÈŠO‚Ì’Êí‚ÌˆÚ“®ˆ—
+        // ãã‚Œä»¥å¤–ã®é€šå¸¸ã®ç§»å‹•å‡¦ç†
         if (debug_switch)
         {
-            Debug.Log("ƒfƒoƒbƒOƒ‚[ƒh’†‚Ì‚½‚ßˆÚ“®ˆ—‚ÍÀs‚³‚ê‚Ü‚¹‚ñB");
-            return; // ˆ—‚ğ’†’f
+            Debug.Log("ãƒ‡ãƒãƒƒã‚°ãƒ¢ãƒ¼ãƒ‰ä¸­ã®ãŸã‚ç§»å‹•å‡¦ç†ã¯å®Ÿè¡Œã•ã‚Œã¾ã›ã‚“ã€‚");
+            return; // å‡¦ç†ã‚’ä¸­æ–­
         }
 
         if (StateCurrentTime >= StateTime)
@@ -531,17 +493,17 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
             if (P_E_Length <= AttackLength)
             {
-                Debug.Log("UŒ‚”ÍˆÍ‚É“ü‚Á‚½‚Ì‚ÅUŒ‚‚ğŠJnI");
+                Debug.Log("æ”»æ’ƒç¯„å›²ã«å…¥ã£ãŸã®ã§æ”»æ’ƒã‚’é–‹å§‹ï¼");
                 DecideAttackType();
             }
             else if (P_E_Length < SearchLength)
             {
-                Debug.Log("ƒvƒŒƒCƒ„[‚ªƒT[ƒ`”ÍˆÍ“à‚É‚¢‚Ü‚·‚ªUŒ‚”ÍˆÍŠO‚Å‚·BˆÚ“®‚ğŠJn‚µ‚Ü‚·B");
+                Debug.Log("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒã‚µãƒ¼ãƒç¯„å›²å†…ã«ã„ã¾ã™ãŒæ”»æ’ƒç¯„å›²å¤–ã§ã™ã€‚ç§»å‹•ã‚’é–‹å§‹ã—ã¾ã™ã€‚");
                 SetState(Enemy_State_.Walk);
             }
             else
             {
-                Debug.Log("ƒvƒŒƒCƒ„[‚ª”ÍˆÍŠO‚Å‚·B‘Ò‹@ó‘Ô‚É–ß‚è‚Ü‚·B");
+                Debug.Log("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒç¯„å›²å¤–ã§ã™ã€‚å¾…æ©ŸçŠ¶æ…‹ã«æˆ»ã‚Šã¾ã™ã€‚");
                 SetState(Enemy_State_.Idle);
             }
         }
@@ -568,39 +530,39 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         }
     }
 
-    // UŒ‚ƒ^ƒCƒv‚ğŒˆ’è‚·‚é
+    // æ”»æ’ƒã‚¿ã‚¤ãƒ—ã‚’æ±ºå®šã™ã‚‹
     private void DecideAttackType()
     {
-        int randomValue = Random.Range(0, 100); // 0`100‚Ìƒ‰ƒ“ƒ_ƒ€’l‚ğ¶¬
+        int randomValue = Random.Range(0, 100); // 0ï½100ã®ãƒ©ãƒ³ãƒ€ãƒ å€¤ã‚’ç”Ÿæˆ
         Debug.Log($"DecideAttackType: Random Value = {randomValue}, TategiriChance = {TategiriChance}");
 
-        //E01Anim.SetBool("Walk", false); // ƒAƒjƒ[ƒVƒ‡ƒ“‚ğƒŠƒZƒbƒg
-        Debug.Log($"•ä{E01Anim.GetBool("Walk")}");
+        //E01Anim.SetBool("Walk", false); // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’ãƒªã‚»ãƒƒãƒˆ
+        Debug.Log($"ç©‚{E01Anim.GetBool("Walk")}");
 
         if (randomValue < TategiriChance)
         {
-            // cØ‚èUŒ‚‚ğ‘I‘ğ
-            Debug.Log("cØ‚èUŒ‚‚ğ‘I‘ğ‚µ‚Ü‚µ‚½I");
+            // ç¸¦åˆ‡ã‚Šæ”»æ’ƒã‚’é¸æŠ
+            Debug.Log("ç¸¦åˆ‡ã‚Šæ”»æ’ƒã‚’é¸æŠã—ã¾ã—ãŸï¼");
             SetState(Enemy_State_.Tategiri);
             //UnityEditor.EditorApplication.isPaused = true;
         }
         else
         {
-            // ˜AŒ‚UŒ‚‚ğ‘I‘ğ
-            Debug.Log("˜AŒ‚UŒ‚‚ğ‘I‘ğ‚µ‚Ü‚µ‚½I");
+            // é€£æ’ƒæ”»æ’ƒã‚’é¸æŠ
+            Debug.Log("é€£æ’ƒæ”»æ’ƒã‚’é¸æŠã—ã¾ã—ãŸï¼");
             SetState(Enemy_State_.RenGeki);
             //UnityEditor.EditorApplication.isPaused = true;
         }
     }
 
-    // cØ‚èUŒ‚‚Ìˆ—
+    // ç¸¦åˆ‡ã‚Šæ”»æ’ƒã®å‡¦ç†
     private void HandleTategiri()
     {
         if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Tategiri 0") && E01Anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f)
         {
-            // cØ‚èUŒ‚Š®—¹ŒãAƒN[ƒ‹ƒ_ƒEƒ“‚É‘JˆÚ
-            Debug.Log("cØ‚èUŒ‚‚ªŠ®—¹‚µ‚Ü‚µ‚½BCooldown ó‘Ô‚É‘JˆÚ‚µ‚Ü‚·B");
-            E01Anim.SetBool("Tategiri", false); // ƒAƒjƒ[ƒVƒ‡ƒ“‚ğƒŠƒZƒbƒg
+            // ç¸¦åˆ‡ã‚Šæ”»æ’ƒå®Œäº†å¾Œã€ã‚¯ãƒ¼ãƒ«ãƒ€ã‚¦ãƒ³ã«é·ç§»
+            Debug.Log("ç¸¦åˆ‡ã‚Šæ”»æ’ƒãŒå®Œäº†ã—ã¾ã—ãŸã€‚Cooldown çŠ¶æ…‹ã«é·ç§»ã—ã¾ã™ã€‚");
+            E01Anim.SetBool("Tategiri", false); // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’ãƒªã‚»ãƒƒãƒˆ
             SetState(Enemy_State_.Cooldown);
 
             //maiclue_jumpback = true;
@@ -608,26 +570,26 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         }
     }
 
-    // ˜AŒ‚UŒ‚‚Ìˆ—
+    // é€£æ’ƒæ”»æ’ƒã®å‡¦ç†
     private void HandleRenGeki()
     {
         if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren2") && E01Anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f)
         {
-            // ˜AŒ‚UŒ‚Š®—¹ŒãAƒN[ƒ‹ƒ_ƒEƒ“‚É‘JˆÚ
-            Debug.Log("˜AŒ‚UŒ‚‚ªŠ®—¹‚µ‚Ü‚µ‚½BCooldown ó‘Ô‚É‘JˆÚ‚µ‚Ü‚·B");
-            E01Anim.SetBool("RenGeki", false); // ƒAƒjƒ[ƒVƒ‡ƒ“‚ğƒŠƒZƒbƒg
+            // é€£æ’ƒæ”»æ’ƒå®Œäº†å¾Œã€ã‚¯ãƒ¼ãƒ«ãƒ€ã‚¦ãƒ³ã«é·ç§»
+            Debug.Log("é€£æ’ƒæ”»æ’ƒãŒå®Œäº†ã—ã¾ã—ãŸã€‚Cooldown çŠ¶æ…‹ã«é·ç§»ã—ã¾ã™ã€‚");
+            E01Anim.SetBool("RenGeki", false); // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’ãƒªã‚»ãƒƒãƒˆ
             SetState(Enemy_State_.Cooldown);
         }
     }
 
-    // ‚Ğ‚é‚İó‘Ô‚Ìˆ—
+    // ã²ã‚‹ã¿çŠ¶æ…‹ã®å‡¦ç†
     private void HandleStagger()
     {
         if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Hirumi") && E01Anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f)
         {
-            // ‚Ğ‚é‚İó‘ÔI—¹ŒãA‘Ò‹@ó‘Ô‚É‘JˆÚ
-            Debug.Log("‚Ğ‚é‚İó‘Ô‚ªI—¹‚µ‚Ü‚µ‚½BIdle ó‘Ô‚É‘JˆÚ‚µ‚Ü‚·B");
-            E01Anim.SetBool("Hiruimi", false); // ‚Ğ‚é‚İƒAƒjƒ[ƒVƒ‡ƒ“‚Ìƒtƒ‰ƒO‚ğƒŠƒZƒbƒg
+            // ã²ã‚‹ã¿çŠ¶æ…‹çµ‚äº†å¾Œã€å¾…æ©ŸçŠ¶æ…‹ã«é·ç§»
+            Debug.Log("ã²ã‚‹ã¿çŠ¶æ…‹ãŒçµ‚äº†ã—ã¾ã—ãŸã€‚Idle çŠ¶æ…‹ã«é·ç§»ã—ã¾ã™ã€‚");
+            E01Anim.SetBool("Hiruimi", false); // ã²ã‚‹ã¿ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ãƒ•ãƒ©ã‚°ã‚’ãƒªã‚»ãƒƒãƒˆ
             SetState(Enemy_State_.Idle);
         }
     }
@@ -636,35 +598,35 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     {
 
         E01Anim.Play("Enemy01_Kaihou", 0, 0f);
-        // •K—v‚È‚ç‘¼‚Ìó‘Ôˆ—‚àÀs
+        // å¿…è¦ãªã‚‰ä»–ã®çŠ¶æ…‹å‡¦ç†ã‚‚å®Ÿè¡Œ
         SetState(Enemy_State_.Kaihou);
 
         if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Kaihou") && E01Anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f)
         {
-            Debug.Log("‰ğ•úƒAƒjƒ[ƒVƒ‡ƒ“‚ªŠ®—¹‚µ‚Ü‚µ‚½BIdle ó‘Ô‚É‘JˆÚ‚µ‚Ü‚·B");
+            Debug.Log("è§£æ”¾ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãŒå®Œäº†ã—ã¾ã—ãŸã€‚Idle çŠ¶æ…‹ã«é·ç§»ã—ã¾ã™ã€‚");
             SetState(Enemy_State_.Idle);
         }
     }
 
 
-    // ƒN[ƒ‹ƒ_ƒEƒ“ó‘Ô‚Ìˆ—
+    // ã‚¯ãƒ¼ãƒ«ãƒ€ã‚¦ãƒ³çŠ¶æ…‹ã®å‡¦ç†
     private void HandleCooldown()
     {
         if (StateCurrentTime >= CooldownTime)
         {
-            // ƒN[ƒ‹ƒ_ƒEƒ“I—¹ŒãA‘Ò‹@ó‘Ô‚É‘JˆÚ
-            Debug.Log("ƒN[ƒ‹ƒ_ƒEƒ“‚ªI—¹‚µ‚Ü‚µ‚½BIdle ó‘Ô‚É‘JˆÚ‚µ‚Ü‚·B");
+            // ã‚¯ãƒ¼ãƒ«ãƒ€ã‚¦ãƒ³çµ‚äº†å¾Œã€å¾…æ©ŸçŠ¶æ…‹ã«é·ç§»
+            Debug.Log("ã‚¯ãƒ¼ãƒ«ãƒ€ã‚¦ãƒ³ãŒçµ‚äº†ã—ã¾ã—ãŸã€‚Idle çŠ¶æ…‹ã«é·ç§»ã—ã¾ã™ã€‚");
             SetState(Enemy_State_.Idle);
         }
     }
 
-    // HP‚É‰‚¶‚½‘Ï‹vƒtƒB[ƒ‹ƒh‚Ì¶¬
+    // HPã«å¿œã˜ãŸè€ä¹…ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã®ç”Ÿæˆ
     private void HandleDurabilityField()
     {
         if (currentHP <= 0.75f && !hasUsedDurabilityField75)
         {
             //SpawnDurabilityField();
-            // ’ê–Ê‚Ì’¸“_‚ÉƒIƒuƒWƒFƒNƒg‚ğ¶¬
+            // åº•é¢ã®é ‚ç‚¹ã«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆ
             GenerateObjectsAtVertices(lowerVertices);
             StartCoroutine(DelayedBarrierSpawn());
             hasUsedDurabilityField75 = true;
@@ -690,24 +652,24 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         }
     }
 
-    // ƒoƒŠƒA¶¬‚ğ’x‰„‚·‚éƒRƒ‹[ƒ`ƒ“
+    // ãƒãƒªã‚¢ç”Ÿæˆã‚’é…å»¶ã™ã‚‹ã‚³ãƒ«ãƒ¼ãƒãƒ³
     private IEnumerator DelayedBarrierSpawn()
     {
-        yield return new WaitForSeconds(2f); // 2•b‘Ò‹@
+        yield return new WaitForSeconds(2f); // 2ç§’å¾…æ©Ÿ
         //SpawnBarrier();
 
-        // •Ó‚ğ•`‰æ
+        // è¾ºã‚’æç”»
         for (int i = 0; i < 6; i++)
         {
-            // …•½•Ó (‰º)
+            // æ°´å¹³è¾º (ä¸‹)
             DrawLine(lowerVertices[i], lowerVertices[(i + 1) % 6]);
-            // …•½•Ó (ã)
+            // æ°´å¹³è¾º (ä¸Š)
             DrawLine(upperVertices[i], upperVertices[(i + 1) % 6]);
-            // ‚’¼•Ó
+            // å‚ç›´è¾º
             DrawLine(lowerVertices[i], upperVertices[i]);
         }
 
-        // –Ê‚ğ•`‰æ
+        // é¢ã‚’æç”»
         CreateMesh(lowerVertices, upperVertices);
     }
 
@@ -715,39 +677,39 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     {
         yield return new WaitUntil(() => IsAnimationFinished("Enemy01_Kaihou"));
 
-        // ‰ğ•úƒAƒjƒ[ƒVƒ‡ƒ“‚ªI—¹‚µ‚½‚çAƒtƒ‰ƒO‚ğƒŠƒZƒbƒg‚µó‘Ô‚ğIdle‚É‘JˆÚ
+        // è§£æ”¾ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãŒçµ‚äº†ã—ãŸã‚‰ã€ãƒ•ãƒ©ã‚°ã‚’ãƒªã‚»ãƒƒãƒˆã—çŠ¶æ…‹ã‚’Idleã«é·ç§»
         E01Anim.SetBool("Kaihou", false);
-        Debug.Log("‰ğ•úƒAƒjƒ[ƒVƒ‡ƒ“‚ªŠ®—¹‚µ‚Ü‚µ‚½");
+        Debug.Log("è§£æ”¾ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãŒå®Œäº†ã—ã¾ã—ãŸ");
         SetState(Enemy_State_.Idle);
     }
 
-    // ƒvƒŒƒCƒ„[‚ğŒü‚­ˆ—
+    // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’å‘ãå‡¦ç†
     private void LookAtPlayer()
     {
-        // ƒvƒŒƒCƒ„[‚Ì•ûŒü‚ğŒvZ
+        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æ–¹å‘ã‚’è¨ˆç®—
         Vector3 direction = (Target_P.transform.position - transform.position).normalized;
 
-        // Y²•ûŒü‚Ì‰ñ“]‚Ì‚İ“K—p
+        // Yè»¸æ–¹å‘ã®å›è»¢ã®ã¿é©ç”¨
         direction.y = 0;
 
-        // ƒvƒŒƒCƒ„[•ûŒü‚ğŒü‚­‰ñ“]‚ğŒvZ
+        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æ–¹å‘ã‚’å‘ãå›è»¢ã‚’è¨ˆç®—
         Quaternion targetRotation = Quaternion.LookRotation(direction);
 
-        // ƒXƒ€[ƒY‚É‰ñ“]‚³‚¹‚é
+        // ã‚¹ãƒ ãƒ¼ã‚ºã«å›è»¢ã•ã›ã‚‹
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * MoveSpeed);
     }
 
-    // w’èƒAƒjƒ[ƒVƒ‡ƒ“‚ªI—¹‚µ‚Ä‚¢‚é‚©‚ğ”»’è
+    // æŒ‡å®šã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãŒçµ‚äº†ã—ã¦ã„ã‚‹ã‹ã‚’åˆ¤å®š
     private bool IsAnimationFinished(string animationName)
     {
         AnimatorStateInfo stateInfo = E01Anim.GetCurrentAnimatorStateInfo(0);
         return stateInfo.IsName(animationName) && stateInfo.normalizedTime >= 1.0f;
     }
 
-    // ó‘Ô‚É‰‚¶‚ÄƒAƒjƒ[ƒVƒ‡ƒ“‚ğXV
+    // çŠ¶æ…‹ã«å¿œã˜ã¦ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’æ›´æ–°
     private void UpdateAnimations()
     {
-        // ó‘Ô‚²‚Æ‚ÌƒAƒjƒ[ƒVƒ‡ƒ“ƒtƒ‰ƒO‚ğXV
+        // çŠ¶æ…‹ã”ã¨ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ•ãƒ©ã‚°ã‚’æ›´æ–°
         E01Anim.SetBool("Idle", E_State == Enemy_State_.Idle);
         E01Anim.SetBool("Walk", E_State == Enemy_State_.Walk);
         E01Anim.SetBool("Tategiri", E_State == Enemy_State_.Tategiri);
@@ -767,7 +729,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         lineRenderer.startWidth = 0.05f;
         lineRenderer.endWidth = 0.05f;
 
-        // e‚ğİ’è‚¹‚¸Aƒ[ƒ‹ƒh‹óŠÔ‚É”z’u
+        // è¦ªã‚’è¨­å®šã›ãšã€ãƒ¯ãƒ¼ãƒ«ãƒ‰ç©ºé–“ã«é…ç½®
         lineObject.transform.SetParent(null);
     }
 
@@ -782,7 +744,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         List<int> triangles = new List<int>();
 
 
-        // ‘¤–Ê
+        // å´é¢
         for (int i = 0; i < 6; i++)
         {
             int next = (i + 1) % 6;
@@ -801,16 +763,16 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             triangles.Add(vertices.Count - 1);
         }
 
-        // ’¸“_‚ÆOŠpŒ`‚ğƒƒbƒVƒ…‚Éİ’è
+        // é ‚ç‚¹ã¨ä¸‰è§’å½¢ã‚’ãƒ¡ãƒƒã‚·ãƒ¥ã«è¨­å®š
         mesh.vertices = vertices.ToArray();
         mesh.triangles = triangles.ToArray();
         mesh.RecalculateNormals();
 
-        // ƒƒbƒVƒ…‚ğİ’è
+        // ãƒ¡ãƒƒã‚·ãƒ¥ã‚’è¨­å®š
         meshFilter.mesh = mesh;
         meshRenderer.material = faceMaterial;
 
-        // e‚ğİ’è‚¹‚¸Aƒ[ƒ‹ƒh‹óŠÔ‚É”z’u
+        // è¦ªã‚’è¨­å®šã›ãšã€ãƒ¯ãƒ¼ãƒ«ãƒ‰ç©ºé–“ã«é…ç½®
         meshObject.transform.SetParent(null);
     }
 
@@ -822,23 +784,30 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             return;
         }
 
-        // ’ê–Ê‚Ì’¸“_‚ÉƒIƒuƒWƒFƒNƒg‚ğ¶¬
+        // åº•é¢ã®é ‚ç‚¹ã«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆ
         for (int i = 0; i < lowerVertices.Length; i++)
         {
             GameObject vertexObject = Instantiate(vertexObjectPrefab, lowerVertices[i], Quaternion.identity, transform);
             vertexObject.transform.localScale = vertexObjectScale;
 
-            // e‚ğİ’è‚¹‚¸Aƒ[ƒ‹ƒh‹óŠÔ‚É”z’u
+            // è¦ªã‚’è¨­å®šã›ãšã€ãƒ¯ãƒ¼ãƒ«ãƒ‰ç©ºé–“ã«é…ç½®
             vertexObject.transform.SetParent(null);
         }
     }
 
-    //‚±‚±‚©‚ç‰Á“¡
+    private IEnumerator WaitAndReturnToSpin()
+    {
+        // æŒ‡å®šæ™‚é–“å¾…æ©Ÿ
+        yield return new WaitForSeconds(jumpBackWaitTime);
+        
+    }
+
+    //ã“ã“ã‹ã‚‰åŠ è—¤
     private void KatoUpdateAnim()
     {
 
 
-        //cØ‚èU‚èã‚°
+        //ç¸¦åˆ‡ã‚ŠæŒ¯ã‚Šä¸Šã’
         if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Tategiri"))
         {
             //UnityEditor.EditorApplication.isPaused = true;
@@ -847,17 +816,17 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                 if (Check_Current_Time0 > 0.0f && Check_Time0 >= Check_Current_Time0)
                 {
                     Debug.Log("aaaaaaaa" + Check_Current_Time0);
-                    //ó‚¯—¬‚µ¬Œ÷
+                    //å—ã‘æµã—æˆåŠŸ
                     Debug.Log(Check_Current_Time0);
                     //UnityEditor.EditorApplication.isPaused = true;
-                    Debug.Log("”»’è" + Miburo_State._Katana_Direction);
+                    Debug.Log("åˆ¤å®š" + Miburo_State._Katana_Direction);
                     if (Miburo_State._Katana_Direction == 0 || Miburo_State._Katana_Direction == 1 || Miburo_State._Katana_Direction == 2 || Miburo_State._Katana_Direction == 7)
                     {
                         UkeL = true;
                         E01Anim.SetBool("UkeL", true);
                         UkeR = false;
                         E01Anim.SetBool("UkeR", false);
-                        Debug.Log("”»’è@¬Œ÷0L");
+                        Debug.Log("åˆ¤å®šã€€æˆåŠŸ0L");
                         //UnityEditor.EditorApplication.isPaused = true;
                     }
                     else if (Miburo_State._Katana_Direction == 3 || Miburo_State._Katana_Direction == 4 || Miburo_State._Katana_Direction == 5 || Miburo_State._Katana_Direction == 6)
@@ -866,7 +835,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                         E01Anim.SetBool("UkeL", false);
                         UkeR = true;
                         E01Anim.SetBool("UkeR", true);
-                        Debug.Log("”»’è@¬Œ÷0R");
+                        Debug.Log("åˆ¤å®šã€€æˆåŠŸ0R");
                         //UnityEditor.EditorApplication.isPaused = true;
                     }
                     else
@@ -877,7 +846,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("”»’è@ŠÔØ‚ê@" + Check_Current_Time0);
+                    Debug.Log("åˆ¤å®šã€€æ™‚é–“åˆ‡ã‚Œã€€" + Check_Current_Time0);
                 }
             }
             else
@@ -893,7 +862,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             Check_Current_Time0 = 0;
         }
 
-        //cØ‚èU‚è‚¨‚ë‚µ
+        //ç¸¦åˆ‡ã‚ŠæŒ¯ã‚ŠãŠã‚ã—
         if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Tategiri 0"))
         {
             Debug.Log(Check_Current_Time0);
@@ -903,7 +872,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             //UnityEditor.EditorApplication.isPaused = true;
         }
 
-        //˜AŒ‚1U‚èã‚°
+        //é€£æ’ƒ1æŒ¯ã‚Šä¸Šã’
         if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren01"))
         {
             //UnityEditor.EditorApplication.isPaused = true;
@@ -915,7 +884,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                     {
                         if (!UKe__Ren01)
                         {
-                            Debug.Log("”»’è@¬Œ÷1");
+                            Debug.Log("åˆ¤å®šã€€æˆåŠŸ1");
                             Debug.Log("iiiiiiiii" + Check_Current_Time1);
                             //UnityEditor.EditorApplication.isPaused = true;
                             UKe__Ren01 = true;
@@ -932,7 +901,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("”»’è@ŠÔØ‚ê1@" + Check_Current_Time1);
+                    Debug.Log("åˆ¤å®šã€€æ™‚é–“åˆ‡ã‚Œ1ã€€" + Check_Current_Time1);
                     //UnityEditor.EditorApplication.isPaused = true;
                 }
             }
@@ -949,7 +918,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
         }
 
-        //˜AŒ‚1U‚è‚¨‚ë‚µ
+        //é€£æ’ƒ1æŒ¯ã‚ŠãŠã‚ã—
         if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren1"))
         {
             Debug.Log(Check_Current_Time1);
@@ -959,7 +928,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
         }
 
-        //˜AŒ‚2U‚èã‚°
+        //é€£æ’ƒ2æŒ¯ã‚Šä¸Šã’
         if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren02"))
         {
             if (P_Input)
@@ -978,7 +947,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                             UKe__Ren02 = true;
                             E01Anim.SetBool("RenUke02", true);
                             //UnityEditor.EditorApplication.isPaused = true;
-                            Debug.Log("”»’è@¬Œ÷2");
+                            Debug.Log("åˆ¤å®šã€€æˆåŠŸ2");
                         }
                     }
 
@@ -987,7 +956,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("”»’è@ŠÔØ‚ê2 " + Check_Current_Time2);
+                    Debug.Log("åˆ¤å®šã€€æ™‚é–“åˆ‡ã‚Œ2 " + Check_Current_Time2);
 
                 }
 
@@ -1011,7 +980,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             //UnityEditor.EditorApplication.isPaused = true;
         }
 
-        //˜AŒ‚2U‚è‚¨‚ë‚µ         
+        //é€£æ’ƒ2æŒ¯ã‚ŠãŠã‚ã—         
         if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren1"))
         {
 
@@ -1020,7 +989,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             Check_Current_Time1 = 0;
         }
 
-        //˜AŒ‚2U‚è‚¨‚ë‚µ         
+        //é€£æ’ƒ2æŒ¯ã‚ŠãŠã‚ã—         
         if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren2"))
         {
 
@@ -1124,5 +1093,5 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         UKe__Ren01 = false;
 
     }
-    //‚±‚±‚Ü‚Å‰Á“¡
+    //ã“ã“ã¾ã§åŠ è—¤
 }
