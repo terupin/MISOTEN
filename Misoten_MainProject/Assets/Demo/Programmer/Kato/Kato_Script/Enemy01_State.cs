@@ -45,6 +45,8 @@ public class Enemy01_State : MonoBehaviour
     AudioSource audioSource;
     //‚±‚±‚Ü‚Å‰Á“¡
 
+    public AudioClip Ukenagasi;
+
     // “G‚Ìó‘Ô‚ğ•\‚·—ñ‹“Œ^
     public enum Enemy_State_
     {
