@@ -125,6 +125,7 @@ public class Miburo_State : MonoBehaviour
     void Update()
     {
 
+
         M_HitBox= GameObject.Find("Player");
         if ((M_HitBox))
         {
@@ -153,6 +154,17 @@ public class Miburo_State : MonoBehaviour
         //{
         //    UnityEditor.EditorApplication.isPaused = true;
         //}
+
+        if(_KnockBack ||_Step)
+        {
+
+        }
+        else
+        {
+            gameObject.transform.LookAt(Target.transform);
+        }
+
+       
 
         //R1É{É^Éìâüâ∫(çUåÇ)
         if (UnityEngine.Input.GetKeyDown("joystick button 5"))
@@ -307,7 +319,7 @@ public class Miburo_State : MonoBehaviour
             _Ren22 = false;
         }
 
-        gameObject.transform.LookAt(Target.transform);
+
 
         if (IsAnimationFinished("Attack02"))
         {
