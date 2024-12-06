@@ -1209,6 +1209,11 @@ PrefabInstance:
       objectReference: {fileID: 1322884133}
     - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
+      propertyPath: spinRadius
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
       propertyPath: debug_switch
       value: 1
       objectReference: {fileID: 0}
