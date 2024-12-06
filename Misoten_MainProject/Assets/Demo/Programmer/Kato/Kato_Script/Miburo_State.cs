@@ -325,10 +325,10 @@ public class Miburo_State : MonoBehaviour
         }
 
 
-        if (IsAnimationFinished("Attack02"))
-        {
-            UnityEditor.EditorApplication.isPaused = true;
-        }
+        //if (IsAnimationFinished("Attack02"))
+        //{
+        //    UnityEditor.EditorApplication.isPaused = true;
+        //}
        
 
         GetCurrentAnimationStateName();//ステート取得して
