@@ -3328,7 +3328,7 @@ PrefabInstance:
     - target: {fileID: 1243681727059629837, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}
       propertyPath: Parry_WaitTime
-      value: 0.35
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 1243681727059629837, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}
@@ -3344,6 +3344,16 @@ PrefabInstance:
         type: 3}
       propertyPath: Damage_MutekiTime
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1243681727059629837, guid: 8eb4fdc726e23774da71f86d9d295d96,
+        type: 3}
+      propertyPath: Katana_DirectionSet_Time
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 1243681727059629837, guid: 8eb4fdc726e23774da71f86d9d295d96,
+        type: 3}
+      propertyPath: Katana_DirectionSet_WaitTime
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 1794119793786185270, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}

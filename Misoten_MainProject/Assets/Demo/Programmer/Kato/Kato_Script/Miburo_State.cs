@@ -33,8 +33,9 @@ public class Miburo_State : MonoBehaviour
     private bool _Muteki;//無敵
     Vector3 dir;//ノックバックで使用する
 
+    private bool sippai;//入力失敗時
 
-    [SerializeField, Header("ノックバックスピード")]
+   [SerializeField, Header("ノックバックスピード")]
     public float KnockBack_Speed;
 
     [SerializeField, Header("ノックバック時間(秒)")]
@@ -84,7 +85,7 @@ public class Miburo_State : MonoBehaviour
 
     [SerializeField, Header("受け流し方向セット時間")]
     public float Katana_DirectionSet_Time;
-    [SerializeField, Header("待ち時間(受け流し方向セット)")]
+    [SerializeField, Header("待ち時間(受け流し方向セット失敗)")]
     public float Katana_DirectionSet_WaitTime;
 
     [SerializeField, Header("玉(debugテスト受け流し入力用)")]
@@ -214,11 +215,6 @@ public class Miburo_State : MonoBehaviour
                 Miburo_HitBox.SetActive(true);                     
         }
 
-        if (_Parry)
-        {
-
-        }
-
         GetKatana_Direction();
 
         if (_Katana_Direction == 0 || _Katana_Direction == 1 || _Katana_Direction == 2 || _Katana_Direction == 7)
@@ -239,22 +235,14 @@ public class Miburo_State : MonoBehaviour
 
         Miburo_Animator.SetBool("StickR", StickR);
         Miburo_Animator.SetBool("StickL", StickL);
-        if (Enemy01_State.P_Wait)
-        {
-            if (!_wait)
-            {
-                StartCoroutine(Miburo_Parry_Wait());
-                Test.GetComponent<MeshRenderer>().material = TestMat;
 
-                
-                _wait = true;
-            }
+        if(sippai)
+        {
+            Test.GetComponent<MeshRenderer>().material = TestMat;
         }
         else
         {
             Test.GetComponent<MeshRenderer>().material = Reset;
-
-            _wait = false;
         }
 
         ////判定をアニメーターへ
@@ -369,12 +357,24 @@ public class Miburo_State : MonoBehaviour
         {
             _Parry = true;
             Debug.Log("パリイ開始");
-            yield return new WaitForSeconds(Parry_WaitTime);
+            yield return new WaitForSeconds(Katana_DirectionSet_Time);
 
             M_UkenagasiIcon.SetFloat("_CoolDown", 0.0f);
 
             // 新しく追加：M_UkenagasiIcon の変更を開始
-            StartCoroutine(ChangeCoolDown(M_UkenagasiIcon,0.0f, 1.0f, 1.0f));
+            if(Matsunaga_Enemy01_State.UkeL|| Matsunaga_Enemy01_State.UkeR|| Matsunaga_Enemy01_State.UKe__Ren01 || Matsunaga_Enemy01_State.UKe__Ren02)
+            {
+                UnityEditor.EditorApplication.isPaused = true;
+                StartCoroutine(ChangeCoolDown(M_UkenagasiIcon, 0.0f, 1.0f, Parry_WaitTime));
+                yield return new WaitForSeconds(Parry_WaitTime);
+            }
+            else 
+            {
+                sippai = true;
+                StartCoroutine(ChangeCoolDown(M_UkenagasiIcon, 0.0f, 1.0f, Parry_WaitTime+Katana_DirectionSet_WaitTime));
+                yield return new WaitForSeconds(Parry_WaitTime + Katana_DirectionSet_WaitTime);
+                sippai = false;
+            }
 
             Debug.Log("パリイ待ち時間終了");
             _Parry = false;
@@ -385,22 +385,6 @@ public class Miburo_State : MonoBehaviour
             Debug.Log("待ち時間です。入力は反映されません。");
         }
 
-    }
-
-
-
-    //コルーチン(構えウェイト)
-    private IEnumerator Miburo_Parry_Wait()
-    {
-        //Test.GetComponent<MeshRenderer>().material = TestMat;
-        //UnityEditor.EditorApplication.isPaused = true;
-        yield return new WaitForSeconds(0.4f);//24フレーム(.4秒)
-        //Test.GetComponent<MeshRenderer>().material = Reset;
-
-        _Parry = false;
-        _Ren11 = false;
-        _Ren22 = false;
-        _Parry = false;
     }
 
     private IEnumerator Counter_Timing_Input()
