@@ -2307,6 +2307,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 723284146}
+    - targetCorrespondingSourceObject: {fileID: 3847602336648284765, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 723284153}
   m_SourcePrefab: {fileID: 100100000, guid: 5a5dfd0327ec98346a40d1796a249e1e, type: 3}
 --- !u!4 &723284142 stripped
 Transform:
@@ -2362,6 +2366,18 @@ MonoBehaviour:
   spinRadius: 10
   spinSpeed: 2
   waitTime: 2
+--- !u!114 &723284153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 723284144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1605056231a8a6c45894c98bd7f11ca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &777521274
 GameObject:
   m_ObjectHideFlags: 0
