@@ -8,6 +8,11 @@ public class StateAnimE01 : MonoBehaviour
 {
     [SerializeField, Header("テストに使うオブジェクト")]
     public GameObject Testobj;//テストに使うオブジェクト
+    [SerializeField, Header("テストに使うオブジェクトのマテリアル通常")]
+    public Material Defultmat;
+    [SerializeField, Header("テストに使うオブジェクトのマテリアル発光")]
+    public Material Testobjmat;
+
 
     //縦切り 最大入力猶予 1.7秒
     //連撃1 最大入力猶予 1.2秒
@@ -85,6 +90,12 @@ public class StateAnimE01 : MonoBehaviour
 
     private void KatoUpdateAnim()
     {
+        if (_AnimatorE01.GetCurrentAnimatorStateInfo(0).IsName("Walk"))
+        {
+            Testobj.SetActive(true);
+            Testobj.transform.localScale += Vector3.one * Time.deltaTime;
+        }
+
 
             //縦切り振り上げ
             if (_AnimatorE01.GetCurrentAnimatorStateInfo(0).IsName("Tategiri"))
@@ -117,6 +128,11 @@ public class StateAnimE01 : MonoBehaviour
             else
             {
                 Check_Current_Time0 += Time.deltaTime;
+            }
+
+            if (Check_Current_Time0 > 0.0f && Check_Time0 >= Check_Current_Time0)
+            {
+                Testobj.GetComponent<MeshRenderer>().material = Testobjmat;
             }
         }
         else
@@ -160,6 +176,11 @@ public class StateAnimE01 : MonoBehaviour
             {
                 Check_Current_Time1 += Time.deltaTime;
             }
+
+            if (Check_Current_Time1 > 0.0f && Check_Time1 >= Check_Current_Time1)
+            {
+                Testobj.GetComponent<MeshRenderer>().material = Testobjmat;
+            }
         }
         else
         {
@@ -193,6 +214,11 @@ public class StateAnimE01 : MonoBehaviour
             else
             {
                 Check_Current_Time2 += Time.deltaTime;
+            }
+
+            if (Check_Current_Time2 > 0.0f && Check_Time2 >= Check_Current_Time2)
+            {
+                Testobj.GetComponent<MeshRenderer>().material = Testobjmat;
             }
         }
 
@@ -259,11 +285,10 @@ public class StateAnimE01 : MonoBehaviour
 
         if (_AnimatorE01.GetCurrentAnimatorStateInfo(0).IsName("Ren01") || _AnimatorE01.GetCurrentAnimatorStateInfo(0).IsName("Ren02") || _AnimatorE01.GetCurrentAnimatorStateInfo(0).IsName("Tategiri"))
         {
-            Testobj.SetActive(true);
-            Testobj.transform.localScale += Vector3.one * Time.deltaTime;
         }
         else
         {
+            Testobj.GetComponent<MeshRenderer>().material = Defultmat;
             Testobj.transform.localScale = Vector3.one;
             Testobj.SetActive(false);
         }
