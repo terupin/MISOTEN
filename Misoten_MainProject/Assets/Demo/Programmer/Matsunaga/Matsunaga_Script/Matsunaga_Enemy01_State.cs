@@ -123,8 +123,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         Goto,       //接近状態
         Attack,     //攻撃状態
         Jumpback,   //撤退状態
-        Kaihou,     //耐久フィールド展開
-        Ukenagasare,//
+        Kaihou,
     };
 
     private Mai_State_ M_state;
@@ -162,7 +161,6 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     // Jumpback状態で経過した時間
     private float jumpbackTimer = 0f;
 
-    private bool UkeTestFlag = false;
 
     private void Start()
     {
@@ -207,16 +205,6 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
         }
         //加藤  
-
-        // テスト用の入力
-        if (Input.GetKeyDown(KeyCode.Space)) // スペースキーを押すとテストを実行
-        {
-            Debug.Log("受け流しが成功しました");
-            UkeTestFlag = true;
-
-            // 受け流し成功時の処理開始
-            StartCoroutine(WaitForUke());
-        }
 
         // プレイヤーが設定されている場合のみ方向を向く処理を実行
         if (Target_P != null)
@@ -265,13 +253,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
                     HandleDurabilityField();
                     StartCoroutine(WaitForKaihouAnimation());
-
-                    break;
-
-                case Mai_State_.Ukenagasare:
-
-
-
+                    
                     break;
             }
 
@@ -816,29 +798,8 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         Debug.Log($"M_stateがSpinに設定されました: {M_state}");
     }
 
-    private IEnumerator WaitForUke()
-    {
-        Debug.Log("受け流しの待機を開始します");
-
-        // M_state を Ukenagasare に設定
-        M_state = Mai_State_.Ukenagasare;
-        Debug.Log($"M_state が Ukenagasare に設定されました: {M_state}");
-
-        // 指定した秒数待機（例: 5秒）
-        float waitTime = 15.0f;
-        yield return new WaitForSeconds(waitTime);
-
-        // 待機終了後、M_state を Spin に変更
-        M_state = Mai_State_.Jumpback;
-        Debug.Log($"待機が完了しました。M_state が Spin に設定されました: {M_state}");
-
-        // 状態リセット（モックの状態変更）
-        UkeTestFlag = false;
-        Debug.Log("受け流し状態がリセットされました");
-    }
-
-// プレイヤーを向く処理
-private void LookAtPlayer()
+    // プレイヤーを向く処理
+    private void LookAtPlayer()
     {
         // プレイヤーの方向を計算
         Vector3 direction = (Target_P.transform.position - transform.position).normalized;
@@ -952,6 +913,8 @@ private void LookAtPlayer()
     //ここから加藤
     private void KatoUpdateAnim()
     {
+
+
         //縦切り振り上げ
         if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Tategiri"))
         {
@@ -972,9 +935,6 @@ private void LookAtPlayer()
                         UkeR = false;
                         E01Anim.SetBool("UkeR", false);
                         Debug.Log("判定　成功0L");
-
-                        // WaitForUkeを開始
-                        StartCoroutine(WaitForUke());
                         //UnityEditor.EditorApplication.isPaused = true;
                     }
                     else if (Miburo_State._Katana_Direction == 3 || Miburo_State._Katana_Direction == 4 || Miburo_State._Katana_Direction == 5 || Miburo_State._Katana_Direction == 6)
@@ -984,9 +944,6 @@ private void LookAtPlayer()
                         UkeR = true;
                         E01Anim.SetBool("UkeR", true);
                         Debug.Log("判定　成功0R");
-
-                        // WaitForUkeを開始
-                        StartCoroutine(WaitForUke());
                         //UnityEditor.EditorApplication.isPaused = true;
                     }
                     else
