@@ -121,7 +121,8 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         Spin,       //周回状態
         Goto,       //接近状態
         Attack,     //攻撃状態
-        Jumpback    //撤退状態
+        Jumpback,   //撤退状態
+        Kaihou,
     };
 
     private Mai_State_ M_state;
@@ -244,6 +245,12 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                 case Mai_State_.Jumpback:
 
                     UpdateJumpback();
+
+                    break;
+
+                case Mai_State_.Kaihou:
+
+                    HandleDurabilityField();
 
                     break;
             }
@@ -379,7 +386,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         }
 
         // HPに応じて耐久フィールドを生成
-        HandleDurabilityField();
+        //HandleDurabilityField();
 
         // 状態に応じてアニメーションを更新
         UpdateAnimations();
@@ -405,6 +412,15 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
         // 現在位置が攻撃ポイントに到達したらGoto状態に遷移
         CheckAttackPointReached(x, z);
+
+        // HPが75%以下なら即座にGoto状態に遷移
+        if ((currentHP <= 0.75f && !hasUsedDurabilityField75) ||
+            (currentHP <= 0.5f  && !hasUsedDurabilityField50) || 
+            (currentHP <= 0.25f && !hasUsedDurabilityField25 ))
+        {
+            Debug.Log("HPが指定状態まで減少: Kaihou状態に遷移");
+            M_state = Mai_State_.Kaihou;
+        }
 
         Debug.Log($"Spin状態: 現在の方向 = {(isReverse ? "逆" : "正")}, 半径 = {spinRadius}, 位置 = ({x}, {z})");
     }

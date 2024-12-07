@@ -2361,6 +2361,7 @@ MonoBehaviour:
   rotationAngle: 90
   spinRadius: 10
   spinSpeed: 2
+  waitTime: 2
 --- !u!1 &777521274
 GameObject:
   m_ObjectHideFlags: 0
