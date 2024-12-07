@@ -46,7 +46,7 @@ public class StateAnimE01 : MonoBehaviour
     [SerializeField, Header("アニメーター")]
     public Animator _AnimatorE01;
 
-    private Matsunaga_Enemy01_State.Mai_State_ getState;
+    //private Matsunaga_Enemy01_State.Mai_State_ getState;
 
     // Start is called before the first frame update
     void Start()
