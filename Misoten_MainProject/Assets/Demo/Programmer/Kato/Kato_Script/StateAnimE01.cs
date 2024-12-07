@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -40,7 +41,7 @@ public class StateAnimE01 : MonoBehaviour
     [SerializeField, Header("ÉAÉjÉÅÅ[É^Å[")]
     public Animator _AnimatorE01;
 
-    private Matsunaga_Enemy01_State.Enemy_State_ getState;
+    private Matsunaga_Enemy01_State.Mai_State_ getState;
 
     // Start is called before the first frame update
     void Start()
@@ -51,19 +52,42 @@ public class StateAnimE01 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(getState==Matsunaga_Enemy01_State.Enemy_State_.Idle)
+        //if (getState==Matsunaga_Enemy01_State.Mai_State_.Idle)
         {
-
+            //_Animator.SetBool(,);
         }
-        
+        //else if (getState == Matsunaga_Enemy01_State.Mai_State_.Spin)
+        {
+            //_Animator.SetBool(,);
+            //_Animator.SetBool(,);
+        }
+        //else if (getState == Matsunaga_Enemy01_State.Mai_State_.Goto)
+        {
+            //_Animator.SetBool(,);
+        }
+        //else if (getState == Matsunaga_Enemy01_State.Mai_State_.Attack)
+        {
+            //_Animator.SetBool(,);
+        }
+        //else if (getState == Matsunaga_Enemy01_State.Mai_State_.Jumpback)
+        {
+            //_Animator.SetBool(,);
+        }
+        //else if (getState == Matsunaga_Enemy01_State.Mai_State_.Kaihou)
+        {
+            //_Animator.SetBool(,);
+        }
+
+
         //_Animator.SetBool(,);
         //_Animator.SetTrigger();
     }
 
     private void KatoUpdateAnim()
     {
-        //ècêÿÇËêUÇËè„Ç∞
-        if (_AnimatorE01.GetCurrentAnimatorStateInfo(0).IsName("Tategiri"))
+
+            //ècêÿÇËêUÇËè„Ç∞
+            if (_AnimatorE01.GetCurrentAnimatorStateInfo(0).IsName("Tategiri"))
         {
             if (P_Input)
             {
@@ -88,9 +112,6 @@ public class StateAnimE01 : MonoBehaviour
                         UkeL = false;
                         UkeR = false;
                     }
-                }
-                else
-                {
                 }
             }
             else
@@ -134,9 +155,6 @@ public class StateAnimE01 : MonoBehaviour
                         _AnimatorE01.SetBool("RenUke01", false);
                     }
                 }
-                else
-                {
-                }
             }
             else
             {
@@ -148,11 +166,7 @@ public class StateAnimE01 : MonoBehaviour
         }
 
         //òAåÇ1êUÇËÇ®ÇÎÇµ
-        if (_AnimatorE01.GetCurrentAnimatorStateInfo(0).IsName("Ren1"))
-        {
-            Debug.Log(Check_Current_Time1);
-            Check_Current_Time1 = 0;
-        }
+        if (_AnimatorE01.GetCurrentAnimatorStateInfo(0).IsName("Ren1")){Check_Current_Time1 = 0;}
 
         //òAåÇ2êUÇËè„Ç∞
         if (_AnimatorE01.GetCurrentAnimatorStateInfo(0).IsName("Ren02"))
@@ -175,38 +189,15 @@ public class StateAnimE01 : MonoBehaviour
                         }
                     }
                 }
-                else
-                {
-                }
-
             }
             else
             {
                 Check_Current_Time2 += Time.deltaTime;
             }
         }
-        else
-        {
-        }
-
-        if (_AnimatorE01.GetCurrentAnimatorStateInfo(0).IsName("NagasereL") || _AnimatorE01.GetCurrentAnimatorStateInfo(0).IsName("NagasereR"))
-        {
-            UkeL = false;
-            UkeR = false;
-            Check_Current_Time0 = 0;
-        }
 
         //òAåÇ2êUÇËÇ®ÇÎÇµ         
-        if (_AnimatorE01.GetCurrentAnimatorStateInfo(0).IsName("Ren1"))
-        {
-            Check_Current_Time1 = 0;
-        }
-
-        //òAåÇ2êUÇËÇ®ÇÎÇµ         
-        if (_AnimatorE01.GetCurrentAnimatorStateInfo(0).IsName("Ren2"))
-        {
-            Check_Current_Time2 = 0;
-        }
+        if (_AnimatorE01.GetCurrentAnimatorStateInfo(0).IsName("Ren2")){Check_Current_Time2 = 0;}
 
         if (_AnimatorE01.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
         {
@@ -219,11 +210,15 @@ public class StateAnimE01 : MonoBehaviour
         if (_AnimatorE01.GetCurrentAnimatorStateInfo(0).IsName("NagasereR") || _AnimatorE01.GetCurrentAnimatorStateInfo(0).IsName("NagasereL"))
         {
             Clone_Effect = GameObject.Find("Slash_Effect(Clone)");
+
             if (Clone_Effect == null && !Effectflg)
             {
                 Instantiate(S_Effect);
                 Effectflg = true;
             }
+            UkeL = false;
+            UkeR = false;
+            Check_Current_Time0 = 0;
         }
 
         if (_AnimatorE01.GetCurrentAnimatorStateInfo(0).IsName("RtoNagasare"))
@@ -234,7 +229,6 @@ public class StateAnimE01 : MonoBehaviour
                 Instantiate(S_Effect);
                 Effectflg = true;
             }
-
             UKe__Ren01 = false;
             Check_Current_Time1 = 0;
             _AnimatorE01.SetBool("RenUke01", false);
@@ -248,7 +242,6 @@ public class StateAnimE01 : MonoBehaviour
                 Instantiate(S_Effect);
                 Effectflg = true;
             }
-
             _AnimatorE01.SetBool("RenUke02", false);
             UKe__Ren02 = false;
             Check_Current_Time2 = 0;
