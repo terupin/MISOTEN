@@ -88,7 +88,7 @@ public class Kato_HitBoxP_camcheck : MonoBehaviour
         }
         if (collision.gameObject.name == "Enemy" && Kato_HitBoxE_camcheck.Ukenagashi_Flg)
         {
-            Enemy_Model.AddComponent<UkenagashiDamage>();
+            //Enemy_Model.AddComponent<UkenagashiDamage>();
             Debug.LogFormat("éÛÇØó¨Çµê¨å˜ÅI");
             Tubazeri_Flg = true;
             //if(Input.GetAxis("Horizontal2") < -0.01)

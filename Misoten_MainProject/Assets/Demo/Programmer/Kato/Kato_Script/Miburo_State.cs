@@ -4,10 +4,13 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+//UnityEditor.EditorApplication.isPaused = true;
+
 public class Miburo_State : MonoBehaviour
 {
     //フラグ
     private bool _Step;
+    private bool _StepMuteki;
     private bool _CoolDown;
     static public bool _Parry;
     static public bool _Parry_Timing;//パリイ入力した瞬間
@@ -30,8 +33,9 @@ public class Miburo_State : MonoBehaviour
     private bool _Muteki;//無敵
     Vector3 dir;//ノックバックで使用する
 
+    private bool sippai;//入力失敗時
 
-    [SerializeField, Header("ノックバックスピード")]
+   [SerializeField, Header("ノックバックスピード")]
     public float KnockBack_Speed;
 
     [SerializeField, Header("ノックバック時間(秒)")]
@@ -39,9 +43,10 @@ public class Miburo_State : MonoBehaviour
 
     [SerializeField, Header("ステップスピード")]
     public float Step_Speed;
-
     [SerializeField, Header("ステップ時間(秒)")]
     public float Step_Time;
+    [SerializeField, Header("待ち時間(ステップ終了後)")]
+    public float Step_WaitTime;
 
     static public bool _Stick_Input;
 
@@ -49,9 +54,6 @@ public class Miburo_State : MonoBehaviour
 
     //刀の方向
     static public int _Katana_Direction;
-
-    [SerializeField, Header("移動スピード")]
-    public float Move_Speed;
 
     [SerializeField, Header("敵プレハブ")]
     public GameObject Target;
@@ -68,26 +70,29 @@ public class Miburo_State : MonoBehaviour
     [SerializeField, Header("待ち時間(ダメージ後無敵)")]
     public float Damage_MutekiTime;
 
-    [SerializeField, Header("待ち時間(ステップ)")]
-    public float Step_WaitTime;
-
     [SerializeField, Header("待ち時間(パリィ)")]
     public float Parry_WaitTime;
 
+    [SerializeField, Header("攻撃時間(攻撃1段目)")]
+    public float Attack01_Time;
     [SerializeField, Header("待ち時間(攻撃1段目)")]
     public float Attack01_WaitTime;
 
+    [SerializeField, Header("攻撃時間(攻撃2段目)")]
+    public float Attack02_Time;
     [SerializeField, Header("待ち時間(攻撃2段目)")]
     public float Attack02_WaitTime;
 
-    [SerializeField, Header("待ち時間(受け流し方向セット)")]
+    [SerializeField, Header("受け流し方向セット時間")]
+    public float Katana_DirectionSet_Time;
+    [SerializeField, Header("待ち時間(受け流し方向セット失敗)")]
     public float Katana_DirectionSet_WaitTime;
 
-    [SerializeField, Header("斬撃エフェクト(debugテスト用)")]
-    public GameObject S_Effect;
-
-    [SerializeField, Header("モデル(debugテスト用)")]
+    [SerializeField, Header("玉(debugテスト受け流し入力用)")]
     public GameObject Test;
+
+    [SerializeField, Header("玉(debugテスト回避判定用玉)")]
+    public GameObject _StepBoll;
 
     [SerializeField, Header("マテリアル(debugテスト用)")]
     public Material TestMat;
@@ -125,16 +130,7 @@ public class Miburo_State : MonoBehaviour
     void Update()
     {
 
-
         M_HitBox= GameObject.Find("Player");
-        if ((M_HitBox))
-        {
-            //UnityEditor.EditorApplication.isPaused = true;
-        }
-        else
-        {
-            //UnityEditor.EditorApplication.isPaused = true;
-        }
 
         //HP0以下ならゲームオーバー
         if (Kato_Status_P.instance.NowHP <= 0)
@@ -149,13 +145,7 @@ public class Miburo_State : MonoBehaviour
             return;
         }
 
-
-        //if(Kato_Status_P.instance.NowHP==3)
-        //{
-        //    UnityEditor.EditorApplication.isPaused = true;
-        //}
-
-        if(_KnockBack ||_Step)
+        if(_KnockBack ||_StepMuteki)
         {
 
         }
@@ -164,18 +154,22 @@ public class Miburo_State : MonoBehaviour
             gameObject.transform.LookAt(Target.transform);
         }
 
-       
+
+
+
 
         //R1ボタン押下(攻撃)
         if (UnityEngine.Input.GetKeyDown("joystick button 5"))
         {
             if (_Attack01)
             {
+                StartCoroutine(ChangeCoolDown(M_AttackIcon, 0.0f, 1.0f, Attack02_Time + Attack02_WaitTime));
                 StartCoroutine(Miburo_Attack02());
                 Instantiate(slash_effect, transform.position, transform.rotation);
             }
             else
             {
+                StartCoroutine(ChangeCoolDown(M_AttackIcon, 0.0f, 1.0f, Attack01_Time + Attack01_WaitTime));
                 StartCoroutine(Miburo_Attack01());
                 Instantiate(slash_effect, transform.position, transform.rotation);
             }
@@ -196,7 +190,6 @@ public class Miburo_State : MonoBehaviour
         if (UnityEngine.Input.GetKeyDown("joystick button 0"))
         {
             StartCoroutine(Miburo_Step());
-            //StartCoroutine(ChangeCoolDown(M_StepIcon, 0.0f, 1.0f, 1.0f));
         }
 
         //ノックバック
@@ -214,18 +207,14 @@ public class Miburo_State : MonoBehaviour
             Miburo_HitBox.SetActive(true);
         }
 
-        if(_Step)
+        _StepBoll.SetActive(_StepMuteki);
+        if (_StepMuteki)
         {
             Miburo_HitBox.SetActive(false);
         }
         else
         {
                 Miburo_HitBox.SetActive(true);                     
-        }
-
-        if (_Parry)
-        {
-
         }
 
         GetKatana_Direction();
@@ -248,29 +237,21 @@ public class Miburo_State : MonoBehaviour
 
         Miburo_Animator.SetBool("StickR", StickR);
         Miburo_Animator.SetBool("StickL", StickL);
-        if (Enemy01_State.P_Wait)
-        {
-            if (!_wait)
-            {
-                StartCoroutine(Miburo_Parry_Wait());
-                Test.GetComponent<MeshRenderer>().material = TestMat;
 
-                
-                _wait = true;
-            }
+        if(sippai)
+        {
+            Test.GetComponent<MeshRenderer>().material = TestMat;
         }
         else
         {
             Test.GetComponent<MeshRenderer>().material = Reset;
-
-            _wait = false;
         }
 
         ////判定をアニメーターへ
         Miburo_Animator.SetBool("Gurd", _Parry);
 
 
-        if (Enemy01_State.UkeL)
+        if (Matsunaga_Enemy01_State.UkeL)
         {
             Miburo_Animator.SetBool("UkenagashiL", true);
             _CounterL = true;
@@ -280,7 +261,7 @@ public class Miburo_State : MonoBehaviour
             Miburo_Animator.SetBool("UkenagashiL", false);
         }
 
-        if (Enemy01_State.UkeR)
+        if (Matsunaga_Enemy01_State.UkeR)
         {
             Miburo_Animator.SetBool("UkenagashiR", true);
             _CounterR = true;
@@ -290,7 +271,9 @@ public class Miburo_State : MonoBehaviour
             Miburo_Animator.SetBool("UkenagashiR", false);
         }
 
-        if (Enemy01_State.UKe__Ren01)
+        GetCurrentAnimationStateName();//ステート取得して
+
+        if (Matsunaga_Enemy01_State.UKe__Ren01)
         {
             if (!_Ren11)
             {
@@ -304,10 +287,11 @@ public class Miburo_State : MonoBehaviour
             _Ren11 = false;
         }
 
-        if (Enemy01_State.UKe__Ren02)
+        if (Matsunaga_Enemy01_State.UKe__Ren02)
         {
             if (!_Ren22)
             {
+                //UnityEditor.EditorApplication.isPaused = true;
                 Miburo_Animator.SetTrigger("Ren22");
                 _Ren22 = true;
                 _RenCounter02 = true;
@@ -318,17 +302,6 @@ public class Miburo_State : MonoBehaviour
         {
             _Ren22 = false;
         }
-
-
-
-        if (IsAnimationFinished("Attack02"))
-        {
-
-            StartCoroutine(ChangeCoolDown(M_AttackIcon, 0.0f, 1.0f, Attack01_WaitTime));
-        }
-       
-
-        GetCurrentAnimationStateName();//ステート取得して
     }
 
     //コルーチン(攻撃1)
@@ -339,9 +312,12 @@ public class Miburo_State : MonoBehaviour
             _Attack01 = true;
             Debug.Log("攻撃1開始");
             Miburo_Animator.SetBool("Attack01", true);
+            //StartCoroutine(ChangeCoolDown(M_AttackIcon, 0.0f, 1.0f, Attack01_Time + Attack01_WaitTime));
+            yield return new WaitForSeconds(Attack01_Time);
+            Miburo_Animator.SetBool("Attack01", false);
             yield return new WaitForSeconds(Attack01_WaitTime);
             Debug.Log("攻撃1待ち時間終了");
-            Miburo_Animator.SetBool("Attack01", false);
+
             _Attack01 = false;
         }
         else
@@ -358,9 +334,11 @@ public class Miburo_State : MonoBehaviour
             _Attack02 = true;
             Debug.Log("攻撃2開始");
             Miburo_Animator.SetBool("Attack02", true);
-            yield return new WaitForSeconds(Attack02_WaitTime);
+            //StartCoroutine(ChangeCoolDown(M_AttackIcon, 0.0f, 1.0f, Attack02_Time + Attack02_WaitTime));
+            yield return new WaitForSeconds(Attack02_Time);
             Debug.Log("攻撃2待ち時間終了");
             Miburo_Animator.SetBool("Attack02", false);
+            yield return new WaitForSeconds(Attack02_WaitTime);
             _Attack02 = false;
         }
         else
@@ -376,12 +354,24 @@ public class Miburo_State : MonoBehaviour
         {
             _Parry = true;
             Debug.Log("パリイ開始");
-            yield return new WaitForSeconds(Parry_WaitTime);
+            yield return new WaitForSeconds(Katana_DirectionSet_Time);
 
             M_UkenagasiIcon.SetFloat("_CoolDown", 0.0f);
 
             // 新しく追加：M_UkenagasiIcon の変更を開始
-            StartCoroutine(ChangeCoolDown(M_UkenagasiIcon,0.0f, 1.0f, 1.0f));
+            if(Matsunaga_Enemy01_State.UkeL|| Matsunaga_Enemy01_State.UkeR|| Matsunaga_Enemy01_State.UKe__Ren01 || Matsunaga_Enemy01_State.UKe__Ren02)
+            {
+                //UnityEditor.EditorApplication.isPaused = true;
+                StartCoroutine(ChangeCoolDown(M_UkenagasiIcon, 0.0f, 1.0f, Parry_WaitTime));
+                yield return new WaitForSeconds(Parry_WaitTime);
+            }
+            else 
+            {
+                sippai = true;
+                StartCoroutine(ChangeCoolDown(M_UkenagasiIcon, 0.0f, 1.0f, Parry_WaitTime+Katana_DirectionSet_WaitTime));
+                yield return new WaitForSeconds(Parry_WaitTime + Katana_DirectionSet_WaitTime);
+                sippai = false;
+            }
 
             Debug.Log("パリイ待ち時間終了");
             _Parry = false;
@@ -393,52 +383,23 @@ public class Miburo_State : MonoBehaviour
         }
 
     }
-
-
-
-    //コルーチン(構えウェイト)
-    private IEnumerator Miburo_Parry_Wait()
-    {
-        //Test.GetComponent<MeshRenderer>().material = TestMat;
-        //UnityEditor.EditorApplication.isPaused = true;
-        yield return new WaitForSeconds(0.4f);//24フレーム(.4秒)
-        //Test.GetComponent<MeshRenderer>().material = Reset;
-
-        _Parry = false;
-        _Ren11 = false;
-        _Ren22 = false;
-        _Parry = false;
-    }
-
-    private IEnumerator Counter_Timing_Input()
-    {
-        if (!_Uke_Input)
-        {
-            _Uke_Input = true;
-            Debug.Log("受け開始");
-            yield return new WaitForSeconds(1);
-            Debug.Log("受け待ち時間終了");
-            _Uke_Input = false;
-        }
-        else
-        {
-            Debug.Log("待ち時間です。入力は反映されません。");
-        }
-    }
-
     //コルーチン(ステップ)
     private IEnumerator Miburo_Step()
     {
         if (!_Step)
         {
             _Step = true;
+            _StepMuteki = true;
             Miburo_HitBox.SetActive(false);
             Debug.Log("ステップ開始");
-            yield return new WaitForSeconds(Step_WaitTime);
+            Miburo_Animator.SetTrigger("Step");
+            StartCoroutine(ChangeCoolDown(M_StepIcon, 0.0f, 1.0f, Step_WaitTime+Step_Time));
+            yield return new WaitForSeconds(Step_Time);
             Debug.Log("ステップ待ち時間終了");
-            _Step = false;
+            _StepMuteki = false;
             Miburo_HitBox.SetActive(true);
-            StartCoroutine(ChangeCoolDown(M_StepIcon, 0.0f, 1.0f, 1.0f));
+            yield return new WaitForSeconds(Step_WaitTime);
+            _Step = false;
         }
         else
         {
@@ -496,6 +457,10 @@ public class Miburo_State : MonoBehaviour
             _CounterL = false;
             _CounterR = false;
         }
+        else
+        {
+
+        }
 
     }
 
@@ -527,9 +492,9 @@ public class Miburo_State : MonoBehaviour
     }
 
     // UIに反映させるためのコルーチン
-    IEnumerator ChangeCoolDown(Material _material,float startValue, float endValue, float duration)
+    IEnumerator aChangeCoolDown(Material _material, float startValue, float endValue, float duration)
     {
-        if(!_CoolDown)
+        if (!_CoolDown)
         {
             _CoolDown = true;
             float time = 0.0f;
@@ -550,6 +515,32 @@ public class Miburo_State : MonoBehaviour
         else
         {
         }
+    }
+
+    // UIに反映させるためのコルーチン
+    IEnumerator ChangeCoolDown(Material _material,float startValue, float endValue, float duration)
+    {
+        //if(!_CoolDown)
+        //{
+        //    _CoolDown = true;
+            float time = 0.0f;
+
+            // 時間経過で M_UkenagasiIcon の CoolDown 値を徐々に変更
+            while (time < duration)
+            {
+                time += Time.deltaTime;
+                float value = Mathf.Lerp(startValue, endValue, time / duration);
+                _material.SetFloat("_CoolDown", value); // M_UkenagasiIcon のみを操作
+                yield return null;
+            }
+
+            // 最終値を確定
+            _material.SetFloat("_CoolDown", endValue);
+        //    _CoolDown = false;
+        //}
+        //else
+        //{
+        //}
     }
 
     //当たり判定

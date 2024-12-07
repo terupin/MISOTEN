@@ -45,6 +45,8 @@ public class Enemy01_State : MonoBehaviour
     AudioSource audioSource;
     //‚±‚±‚Ü‚Å‰Á“¡
 
+    public AudioClip Ukenagasi;
+
     // “G‚Ìó‘Ô‚ğ•\‚·—ñ‹“Œ^
     public enum Enemy_State_
     {
@@ -268,7 +270,7 @@ public class Enemy01_State : MonoBehaviour
                     if ((P_E_Length <= AttackLength))
                     {
                         M_state = Mai_State_.Attack;
-                        UnityEditor.EditorApplication.isPaused = true;
+                        //UnityEditor.EditorApplication.isPaused = true;
                     }
 
                     break;
