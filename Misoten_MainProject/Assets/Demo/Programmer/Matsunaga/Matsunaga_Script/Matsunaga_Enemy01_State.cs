@@ -138,6 +138,8 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
     private bool isReverse = false; // 逆方向かどうか
 
+    private bool hasStartedSpin = false; // Spin開始済みかどうか
+
     // 攻撃ポイント（円を6等分した点）
     private Vector3[] attackPoints = new Vector3[6];
 
@@ -178,9 +180,9 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             upperVertices[i] = new Vector3(x, height, z) + centerOffset;
         }
 
-        run_for_me = false;
+        run_for_me = true;
        
-        M_state = Mai_State_.Idle;
+        M_state = Mai_State_.Spin;
     }
 
     private void Update()
@@ -209,6 +211,13 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         }
 
         KatoUpdateAnim();
+
+        // run_for_meがtrueで、まだSpin開始処理をしていない場合
+        if (run_for_me && !hasStartedSpin)
+        {
+            hasStartedSpin = true; // 処理を一度だけ実行するためのフラグ
+            StartCoroutine(StartSpinAfterDelay(2f)); // 2秒待ってSpin状態を開始
+        }
 
         if (run_for_me)
         {
@@ -400,6 +409,16 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         Debug.Log($"Spin状態: 現在の方向 = {(isReverse ? "逆" : "正")}, 半径 = {spinRadius}, 位置 = ({x}, {z})");
     }
 
+    private IEnumerator StartSpinAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay); // 指定した時間だけ待つ
+
+        // 50%の確率で逆方向を決定
+        isReverse = Random.value > 0.5f;
+        M_state = Mai_State_.Spin; // Spin状態に遷移
+        Debug.Log($"Spin状態開始: 現在の方向 = {(isReverse ? "逆" : "正")}");
+    }
+
     private void CalculateAttackPoints()
     {
         // 0度を開始として360度を6等分した攻撃ポイントを計算
@@ -467,6 +486,25 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         }
     }
 
+    private void Waittostart()
+    {
+        // Goto状態開始時に格納した位置に戻る処理
+        Vector3 directionToGotoStart = gotoStartPosition - transform.position;
+        directionToGotoStart.y = 0; // 高さは変えずにXY平面で移動
+
+        // 到着したら指定の待機時間を待つ
+        jumpbackTimer += Time.deltaTime;
+
+        // 待機時間を経過したらSpin状態に遷移
+        if (jumpbackTimer >= waitTime)
+        {
+            M_state = Mai_State_.Spin; // Spin状態に遷移
+            jumpbackTimer = 0f; // タイマーをリセット
+            Debug.Log("Spin状態に遷移！");
+            isReverse = Random.value > 0.5f;
+        }
+    }
+
     // 新しい状態を設定し経過時間をリセット
     private void SetState(Enemy_State_ newState)
     {
@@ -492,6 +530,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             return; // 処理を中断
         }
 
+        /*
         if (StateCurrentTime >= StateTime)
         {
             StateCurrentTime = 0.0f;
@@ -512,6 +551,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                 SetState(Enemy_State_.Idle);
             }
         }
+        */
 
         if (E_State == Enemy_State_.Idle && P_E_Length < SearchLength)
         {
