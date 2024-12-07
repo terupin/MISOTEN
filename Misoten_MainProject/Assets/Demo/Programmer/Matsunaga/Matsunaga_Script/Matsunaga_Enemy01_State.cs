@@ -49,7 +49,6 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         Stagger,    // ひるみ状態
         Cooldown,   // クールダウン状態
         Kaihou,     // 耐久フィールド展開状態
-        Ukenagashi,
     };
 
     [SerializeField, Header("デバックモード")]
@@ -270,7 +269,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
                 case Mai_State_.Ukenagasare:
 
-
+                    StartCoroutine(WaitForUke());
 
                     break;
             }
@@ -760,19 +759,6 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         CreateMesh(lowerVertices, upperVertices);
     }
 
-    /*
-    private IEnumerator WaitForKaihouAnimation()
-    {
-        yield return new WaitUntil(() => IsAnimationFinished("Enemy01_Kaihou"));
-
-        // 解放アニメーションが終了したら、フラグをリセットし状態をIdleに遷移
-        E01Anim.SetBool("Kaihou", false);
-        Debug.Log("解放アニメーションが完了しました");
-        SetState(Enemy_State_.Idle);
-        M_state = Mai_State_.Spin;
-    }
-    */
-
     private IEnumerator WaitForKaihouAnimation()
     {
         Debug.Log("解放アニメーションの待機を開始します");
@@ -798,16 +784,16 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         Debug.Log("受け流しの待機を開始します");
 
         // M_state を Ukenagasare に設定
-        M_state = Mai_State_.Ukenagasare;
-        Debug.Log($"M_state が Ukenagasare に設定されました: {M_state}");
+        //M_state = Mai_State_.Ukenagasare;
+        //Debug.Log($"M_state が Ukenagasare に設定されました: {M_state}");
 
         // 指定した秒数待機（例: 5秒）
-        float waitTime = 15.0f;
+        float waitTime = 1.0f;
         yield return new WaitForSeconds(waitTime);
 
         // 待機終了後、M_state を Spin に変更
         M_state = Mai_State_.Jumpback;
-        Debug.Log($"待機が完了しました。M_state が Spin に設定されました: {M_state}");
+        Debug.Log($"待機が完了しました。M_state が Jumpbackに設定されました: {M_state}");
 
         // 状態リセット（モックの状態変更）
         UkeTestFlag = false;
@@ -961,7 +947,10 @@ private void LookAtPlayer()
                         Debug.Log("判定　成功0L");
 
                         // WaitForUkeを開始
-                        StartCoroutine(WaitForUke());
+                        M_state = Mai_State_.Ukenagasare;
+                        E_State = Enemy_State_.Idle;
+                        //StartCoroutine(WaitForUke());
+
                         //UnityEditor.EditorApplication.isPaused = true;
                     }
                     else if (Miburo_State._Katana_Direction == 3 || Miburo_State._Katana_Direction == 4 || Miburo_State._Katana_Direction == 5 || Miburo_State._Katana_Direction == 6)
@@ -973,7 +962,10 @@ private void LookAtPlayer()
                         Debug.Log("判定　成功0R");
 
                         // WaitForUkeを開始
-                        StartCoroutine(WaitForUke());
+                        M_state = Mai_State_.Ukenagasare;
+                        E_State = Enemy_State_.Idle;
+                        //StartCoroutine(WaitForUke());
+
                         //UnityEditor.EditorApplication.isPaused = true;
                     }
                     else
