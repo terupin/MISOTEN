@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Damage_Flash : MonoBehaviour
 {
-   private float MaxTime = 5.5f;   //被ダメージ後無敵時間
+   private float MaxTime = 6.0f;   //被ダメージ後無敵時間
    private GameObject Miburo_Box;//ダメージ当たり判定
 
     private float FlashTime = 0.0f;
@@ -12,9 +12,9 @@ public class Damage_Flash : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        Kato_Status_P.NowHP--;
+
         FlashTime = 0.0f;
-        Miburo_Box = GameObject.Find("Player");
+        //GameObject Miburo_Box = GameObject.Find("Player");
     }
 
     // Update is called once per frame
@@ -29,10 +29,9 @@ public class Damage_Flash : MonoBehaviour
 
         if(FlashTime> MaxTime)
         {
-            if(!Miburo_Box)
-            {
+
                 Miburo_Box.SetActive(true);
-            }
+            
           
             Destroy(this);
         }

@@ -69,25 +69,25 @@ public class MainCamera : MonoBehaviour
     }
     void ukenagashicam()
     {
-        C_ukenagashi = Miburo_State._Katana_Direction;
+        //C_ukenagashi = Miburo_State._Katana_Direction;
 
-        if (C_ukenagashi == 0 || C_ukenagashi == 1 || C_ukenagashi == 2 || C_ukenagashi == 7)
-        {
-            if(Kato_Matsunaga_Enemy_State.UkeL)
-            {
-                changecamstartR = true;
-                Debug.Log(changecamstartL);
-            }
+        //if (C_ukenagashi == 0 || C_ukenagashi == 1 || C_ukenagashi == 2 || C_ukenagashi == 7)
+        //{
+        //    if(Enemy01_State.UkeL)
+        //    {
+        //        changecamstartR = true;
+        //        Debug.Log(changecamstartL);
+        //    }
 
-        }
-        else if (C_ukenagashi == 3 || C_ukenagashi == 4 || C_ukenagashi == 5 || C_ukenagashi == 6)
-        {
-            if (Kato_Matsunaga_Enemy_State.UkeR)
-            {
-                changecamstartL = true;
-                Debug.Log(changecamstartR);
-            }
-        }
+        //}
+        //else if (C_ukenagashi == 3 || C_ukenagashi == 4 || C_ukenagashi == 5 || C_ukenagashi == 6)
+        //{
+        //    if (Enemy01_State.UkeR)
+        //    {
+        //        changecamstartL = true;
+        //        Debug.Log(changecamstartR);
+        //    }
+        //}
 
 
 

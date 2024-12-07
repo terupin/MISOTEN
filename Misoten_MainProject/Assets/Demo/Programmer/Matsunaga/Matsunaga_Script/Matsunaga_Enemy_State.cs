@@ -63,6 +63,7 @@ public class Matsunaga_Enemy_State : MonoBehaviour
     //public Vector3 fieldScale = new Vector3(1, 1, 1); // 耐久フィールドのスケール（デフォルト値: 1, 1, 1）
 
     private float currentHP; // 敵の現在のHP
+    private bool hasUsedDurabilityField100 = false; // HP100%で耐久フィールドを生成済みかを管理
     private bool hasUsedDurabilityField75 = false; // HP75%で耐久フィールドを生成済みかを管理
     private bool hasUsedDurabilityField50 = false; // HP50%で耐久フィールドを生成済みかを管理
     private bool hasUsedDurabilityField25 = false; // HP25%で耐久フィールドを生成済みかを管理
@@ -78,16 +79,29 @@ public class Matsunaga_Enemy_State : MonoBehaviour
 
     private float elapsedTime = 0f; // 経過時間を記録
 
+    [Header("六角形の半径")]
     public float radius = 1.0f; // 六角形の半径
+    [Header("六角柱の高さ")]
     public float height = 2.0f; // 六角柱の高さ
+    [Header("六角柱の中央座標")]
     public Vector3 centerOffset = Vector3.zero; // 中央座標のオフセット
+    [Header("辺部分のマテリアル")]
     public Material lineMaterial; // 線用のマテリアル
+    [Header("面部分のマテリアル")]
     public Material faceMaterial; // 面用のマテリアル
+    [Header("電竹のモデル")]
     public GameObject vertexObjectPrefab; // 頂点に生成するオブジェクト
+    [Header("電竹のスケール")]
     public Vector3 vertexObjectScale = Vector3.one; // 頂点オブジェクトのスケール
 
     Vector3[] lowerVertices = new Vector3[6];
     Vector3[] upperVertices = new Vector3[6];
+
+    private float maiclue_space = 10.0f;
+
+    private float maiclue_x;
+    private float maiclue_y;
+    private float maiclue_z;
 
     private void Start()
     {
@@ -177,7 +191,15 @@ public class Matsunaga_Enemy_State : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Alpha5))
             {
                 Debug.Log("dc5: 歩行ステートを実行します");
-                SetState(Enemy_State_.Walk);
+                //SetState(Enemy_State_.Walk);
+                maiclue_x = maiclue_space * Mathf.Sin(Time.time * MoveSpeed);
+                maiclue_x = maiclue_x + Target_P.transform.position.x;
+                maiclue_y = maiclue_space * Mathf.Cos(Time.time * MoveSpeed);
+                maiclue_z = Target_P.transform.position.z;
+
+                this.transform.position = new Vector3(maiclue_x, maiclue_y, maiclue_z);
+
+                Debug.Log($"周回{maiclue_x} {maiclue_y} {maiclue_z}");
             }
 
             // 6キーが押されたらidleステートを実行
@@ -314,7 +336,9 @@ public class Matsunaga_Enemy_State : MonoBehaviour
             return; // 処理を中断
         }
 
-        if (StateCurrentTime >= StateTime)
+
+
+            if (StateCurrentTime >= StateTime)
         {
             StateCurrentTime = 0.0f;
 
@@ -355,6 +379,8 @@ public class Matsunaga_Enemy_State : MonoBehaviour
                 transform.position += direction * MoveSpeed * Time.deltaTime;
             }
         }
+
+
     }
 
     // 攻撃タイプを決定する
@@ -450,6 +476,16 @@ public class Matsunaga_Enemy_State : MonoBehaviour
     // HPに応じた耐久フィールドの生成
     private void HandleDurabilityField()
     {
+        if (currentHP <= 1.0f && !hasUsedDurabilityField100)
+        {
+            //SpawnDurabilityField();
+            // 底面の頂点にオブジェクトを生成
+            GenerateObjectsAtVertices(lowerVertices);
+            StartCoroutine(DelayedBarrierSpawn());
+            hasUsedDurabilityField100 = true;
+            SetState(Enemy_State_.Kaihou);
+        }
+
         if (currentHP <= 0.75f && !hasUsedDurabilityField75)
         {
             //SpawnDurabilityField();
@@ -566,6 +602,7 @@ public class Matsunaga_Enemy_State : MonoBehaviour
         List<Vector3> vertices = new List<Vector3>();
         List<int> triangles = new List<int>();
 
+        /*
         // 下面
         for (int i = 1; i < 5; i++)
         {
@@ -589,6 +626,7 @@ public class Matsunaga_Enemy_State : MonoBehaviour
             triangles.Add(vertices.Count - 2);
             triangles.Add(vertices.Count - 1);
         }
+        */
 
         // 側面
         for (int i = 0; i < 6; i++)

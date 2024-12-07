@@ -16,6 +16,6 @@ public class TestUI_PHP : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        PHP.text = string.Format("{0}", Kato_Status_P.NowHP);
+        PHP.text = string.Format("{0}", Kato_Status_P.instance.NowHP);
     }
 }

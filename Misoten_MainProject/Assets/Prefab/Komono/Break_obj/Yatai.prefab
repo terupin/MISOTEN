@@ -1,0 +1,127 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5860205292127394375
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1536528984862677725}
+  - component: {fileID: 5027816793325343329}
+  m_Layer: 0
+  m_Name: Yatai
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1536528984862677725
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5860205292127394375}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 640438304732608188}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5027816793325343329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5860205292127394375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 167e95ad087d2334493f35738ee9b79c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 7754787359522172087, guid: d5321f799fe941b41a82f40ab5c17322, type: 3}
+--- !u!1001 &7509208766736335025
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1536528984862677725}
+    m_Modifications:
+    - target: {fileID: 9950912819833658, guid: d5321f799fe941b41a82f40ab5c17322, type: 3}
+      propertyPath: item_particle
+      value: 
+      objectReference: {fileID: 1233770085097687628, guid: 8d5c894722adcfc4f821d6b1e15f5c5c,
+        type: 3}
+    - target: {fileID: 6977582878698927629, guid: d5321f799fe941b41a82f40ab5c17322,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6977582878698927629, guid: d5321f799fe941b41a82f40ab5c17322,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6977582878698927629, guid: d5321f799fe941b41a82f40ab5c17322,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6977582878698927629, guid: d5321f799fe941b41a82f40ab5c17322,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6977582878698927629, guid: d5321f799fe941b41a82f40ab5c17322,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6977582878698927629, guid: d5321f799fe941b41a82f40ab5c17322,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6977582878698927629, guid: d5321f799fe941b41a82f40ab5c17322,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6977582878698927629, guid: d5321f799fe941b41a82f40ab5c17322,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6977582878698927629, guid: d5321f799fe941b41a82f40ab5c17322,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6977582878698927629, guid: d5321f799fe941b41a82f40ab5c17322,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7754787359522172087, guid: d5321f799fe941b41a82f40ab5c17322,
+        type: 3}
+      propertyPath: m_Name
+      value: yatai_tougou
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d5321f799fe941b41a82f40ab5c17322, type: 3}
+--- !u!4 &640438304732608188 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6977582878698927629, guid: d5321f799fe941b41a82f40ab5c17322,
+    type: 3}
+  m_PrefabInstance: {fileID: 7509208766736335025}
+  m_PrefabAsset: {fileID: 0}

@@ -195,7 +195,7 @@ public class Kato_a_Player_Anim : MonoBehaviour
                 //UnityEditor.EditorApplication.isPaused = true;
             }
         }
-        if(Kato_Status_P.NowHP <= 0)
+        if(Kato_Status_P.instance.NowHP <= 0)
         {
             Player_Animator.SetBool("GameOver", true);
         }

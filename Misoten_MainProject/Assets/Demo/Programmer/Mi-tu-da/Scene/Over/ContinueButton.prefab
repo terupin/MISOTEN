@@ -145,4 +145,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c74ac30ea4729c7469d59d932a8c9d9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SceneName: Kato_1018
+  SceneName: Main_Stage01

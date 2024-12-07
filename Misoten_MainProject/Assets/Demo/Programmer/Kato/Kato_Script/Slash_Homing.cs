@@ -48,19 +48,19 @@ public class Slash_Homing : MonoBehaviour
 
         gameObject.transform.position = new Vector3(EnemyKatanaBox.transform.localPosition.x, 0.0f, EnemyKatanaBox.transform.localPosition.z);
 
-        if (Miburo_State._Katana_Direction == 0 || Miburo_State._Katana_Direction == 1 || Miburo_State._Katana_Direction == 2 || Miburo_State._Katana_Direction == 7 || Kato_Matsunaga_Enemy_State.UKe__Ren01)
+        if (Miburo_State._Katana_Direction == 0 || Miburo_State._Katana_Direction == 1 || Miburo_State._Katana_Direction == 2 || Miburo_State._Katana_Direction == 7 || Miburo_State._RenCounter01)
         {
-            gameObject.transform.rotation = Quaternion.Euler(0.0f, EnemyObj.transform.localEulerAngles.y -30, 0.0f);
+            gameObject.transform.rotation = Quaternion.Euler(0.0f, EnemyObj.transform.localEulerAngles.y - 30, 0.0f);
         }
-        else if (Miburo_State._Katana_Direction == 3 || Miburo_State._Katana_Direction == 4 || Miburo_State._Katana_Direction == 5 || Miburo_State._Katana_Direction == 6 || Kato_Matsunaga_Enemy_State.UKe__Ren02)
+        else if (Miburo_State._Katana_Direction == 3 || Miburo_State._Katana_Direction == 4 || Miburo_State._Katana_Direction == 5 || Miburo_State._Katana_Direction == 6 || Miburo_State._RenCounter02)
         {
             gameObject.transform.rotation = Quaternion.Euler(0.0f, EnemyObj.transform.localEulerAngles.y + 30, 0.0f);
         }
 
-        //gameObject.transform.rotation = Quaternion.Euler(0.0f, EnemyObj.transform.localEulerAngles.y , 0.0f);
+       // gameObject.transform.rotation = Quaternion.Euler(0.0f, EnemyObj.transform.localEulerAngles.y, 0.0f);
 
         ////オブジェクト生成時に探索
-       
+
     }
 
     // Update is called once per frame
@@ -77,12 +77,12 @@ public class Slash_Homing : MonoBehaviour
 
         if (Target != null)
         {
-            float HomingDistance= Vector3.Distance(Target.transform.position, gameObject.transform.position);
+            float HomingDistance = Vector3.Distance(Target.transform.position, gameObject.transform.position);
 
 
 
 
-            if (HomingDistance<=Homing_Start_Dis && HomingDistance >=Homing_End_Dis)
+            if (HomingDistance <= Homing_Start_Dis && HomingDistance >= Homing_End_Dis)
             {
                 // 対象物と自分自身の座標からベクトルを算出してQuaternion(回転値)を取得
                 Vector3 HomingVector = Target.transform.position - this.transform.position;
@@ -98,7 +98,7 @@ public class Slash_Homing : MonoBehaviour
 
             if (HomingDistance <= Homing_End_Dis && !Seach_END_Flg)
             {
-                gameObject.transform.LookAt(new Vector3(Target.transform.position.x,gameObject.transform.position.y, Target.transform.position.z));
+                gameObject.transform.LookAt(new Vector3(Target.transform.position.x, gameObject.transform.position.y, Target.transform.position.z));
                 Seach_END_Flg = true;
             }
 
