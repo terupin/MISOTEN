@@ -252,9 +252,12 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                 case Mai_State_.Kaihou:
 
                     HandleDurabilityField();
-
+                    StartCoroutine(WaitForKaihouAnimation());
+                    
                     break;
             }
+
+            Debug.Log($"状態チェック: {E_State} :{M_state}");
         }
 
         //デバッグ用プログラム
@@ -718,6 +721,8 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             StartCoroutine(DelayedBarrierSpawn());
             hasUsedDurabilityField75 = true;
             SetState(Enemy_State_.Kaihou);
+            StartCoroutine(WaitForKaihouAnimation());
+            //M_state = Mai_State_.Spin;
         }
 
         if (currentHP <= 0.50f && !hasUsedDurabilityField50)
@@ -760,6 +765,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         CreateMesh(lowerVertices, upperVertices);
     }
 
+    /*
     private IEnumerator WaitForKaihouAnimation()
     {
         yield return new WaitUntil(() => IsAnimationFinished("Enemy01_Kaihou"));
@@ -768,6 +774,28 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         E01Anim.SetBool("Kaihou", false);
         Debug.Log("解放アニメーションが完了しました");
         SetState(Enemy_State_.Idle);
+        M_state = Mai_State_.Spin;
+    }
+    */
+
+    private IEnumerator WaitForKaihouAnimation()
+    {
+        Debug.Log("解放アニメーションの待機を開始します");
+
+        // 指定した秒数待機（例: 2秒）
+        float waitTime = 9.0f;
+        yield return new WaitForSeconds(waitTime);
+
+        // 解放アニメーションが終了した後の処理を実行
+        E01Anim.SetBool("Kaihou", false);
+        Debug.Log("解放アニメーションの待機が完了しました");
+
+        // 状態をIdleに遷移
+        SetState(Enemy_State_.Idle);
+
+        // M_stateをSpinに設定
+        M_state = Mai_State_.Spin;
+        Debug.Log($"M_stateがSpinに設定されました: {M_state}");
     }
 
     // プレイヤーを向く処理
