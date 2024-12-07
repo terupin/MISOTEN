@@ -568,29 +568,6 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             return; // 処理を中断
         }
 
-        /*
-        if (StateCurrentTime >= StateTime)
-        {
-            StateCurrentTime = 0.0f;
-
-            if (P_E_Length <= AttackLength)
-            {
-                Debug.Log("攻撃範囲に入ったので攻撃を開始！");
-                DecideAttackType();
-            }
-            else if (P_E_Length < SearchLength)
-            {
-                Debug.Log("プレイヤーがサーチ範囲内にいますが攻撃範囲外です。移動を開始します。");
-                SetState(Enemy_State_.Walk);
-            }
-            else
-            {
-                Debug.Log("プレイヤーが範囲外です。待機状態に戻ります。");
-                SetState(Enemy_State_.Idle);
-            }
-        }
-        */
-
         if (E_State == Enemy_State_.Idle && P_E_Length < SearchLength)
         {
             Vector3 direction = (Target_P.transform.position - transform.position).normalized;
@@ -863,6 +840,7 @@ private void LookAtPlayer()
     // 状態に応じてアニメーションを更新
     private void UpdateAnimations()
     {
+        /*
         // 状態ごとのアニメーションフラグを更新
         E01Anim.SetBool("Idle", E_State == Enemy_State_.Idle);
         E01Anim.SetBool("Walk", E_State == Enemy_State_.Walk);
@@ -870,6 +848,15 @@ private void LookAtPlayer()
         E01Anim.SetBool("Rengeki", E_State == Enemy_State_.RenGeki);
         E01Anim.SetBool("Hirumi", E_State == Enemy_State_.Stagger);
         E01Anim.SetBool("Kaihou", E_State == Enemy_State_.Kaihou);
+        */
+
+        // 状態ごとのアニメーションフラグを更新
+        E01Anim.SetBool("Idle",     M_state == Mai_State_.Idle);
+        E01Anim.SetBool("Walk",     M_state == Mai_State_.Goto);
+        E01Anim.SetBool("Tategiri", E_State == Enemy_State_.Tategiri);
+        E01Anim.SetBool("Rengeki",  E_State == Enemy_State_.RenGeki);
+        E01Anim.SetBool("Hirumi",   E_State == Enemy_State_.Stagger);
+        E01Anim.SetBool("Kaihou",   M_state == Mai_State_.Kaihou);
 
     }
 
