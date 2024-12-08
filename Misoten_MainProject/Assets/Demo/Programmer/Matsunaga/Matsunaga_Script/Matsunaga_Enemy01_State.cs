@@ -109,6 +109,8 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     private float StaggerTime = 1.0f; // ひるみ状態の持続時間
 
     private float currentHP; // 敵の現在のHP
+    private bool hasUsedDurabilityFieldMAX = false;
+    private bool hasUsedDurabilityField100 = false;
     private bool hasUsedDurabilityField75 = false; // HP75%で耐久フィールドを生成済みかを管理
     private bool hasUsedDurabilityField50 = false; // HP50%で耐久フィールドを生成済みかを管理
     private bool hasUsedDurabilityField25 = false; // HP25%で耐久フィールドを生成済みかを管理
@@ -145,7 +147,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     [SerializeField]
     private float spinSpeed = 2f; // 周回速度（ラジアン/秒）
 
-    private float currentAngle = 0f; // 現在の角度（ラジアン）
+    private float currentAngle = 90.0f; // 現在の角度（ラジアン）
 
     private bool isReverse = false; // 逆方向かどうか
 
@@ -172,6 +174,8 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     private float jumpbackTimer = 0f;
 
     private bool UkeTestFlag = false;
+
+    private string mySceneName; // 自身が配置されているシーン名
 
     private void Start()
     {
@@ -272,8 +276,21 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
                 case Enemy_State_.Kaihou:
 
-                    HandleDurabilityField();
+                    //HandleDurabilityField();
+                    
                     StartCoroutine(WaitForKaihouAnimation());
+
+                    if (hasUsedDurabilityField100)
+                    {
+                        //hasUsedDurabilityField100 = false;
+                        GenerateObjectsAtVertices(lowerVertices);
+                        StartCoroutine(DelayedBarrierSpawn());
+                        hasUsedDurabilityField100 = false;
+                        hasUsedDurabilityFieldMAX = true;
+                        E_State = Enemy_State_.Spin;
+                    }
+
+                    //E_State = Enemy_State_.Spin;
 
                     break;
 
@@ -420,7 +437,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         */
 
         // HPに応じて耐久フィールドを生成
-        //HandleDurabilityField();
+        HandleDurabilityField();
 
         // 状態に応じてアニメーションを更新
         UpdateAnimations();
@@ -448,7 +465,8 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         CheckAttackPointReached(x, z);
 
         // HPが75%以下なら即座にGoto状態に遷移
-        if ((currentHP <= 0.75f && !hasUsedDurabilityField75) ||
+        if ((currentHP <= 1.0f && !hasUsedDurabilityField100 && !hasUsedDurabilityFieldMAX) ||
+            (currentHP <= 0.75f && !hasUsedDurabilityField75) ||
             (currentHP <= 0.5f && !hasUsedDurabilityField50) ||
             (currentHP <= 0.25f && !hasUsedDurabilityField25))
         {
@@ -749,34 +767,36 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     // HPに応じた耐久フィールドの生成
     private void HandleDurabilityField()
     {
+        if (currentHP <= 1.0 && hasUsedDurabilityField100 && E_State != Enemy_State_.Kaihou)
+        {
+            E_State = Enemy_State_.Kaihou;
+            //hasUsedDurabilityField100 = true;
+            Debug.Log("DurabilityField 100% が発動されました");
+            StartCoroutine(WaitForKaihouAnimation());
+        }
+
         if (currentHP <= 0.75f && !hasUsedDurabilityField75)
         {
-            //SpawnDurabilityField();
-            // 底面の頂点にオブジェクトを生成
             GenerateObjectsAtVertices(lowerVertices);
             StartCoroutine(DelayedBarrierSpawn());
             hasUsedDurabilityField75 = true;
-            //SetState(Enemy_State_.Kaihou);
-            StartCoroutine(WaitForKaihouAnimation());
-            //M_state = Mai_State_.Spin;
+            Debug.Log("DurabilityField 75% が発動されました");
         }
 
         if (currentHP <= 0.50f && !hasUsedDurabilityField50)
         {
-            //SpawnDurabilityField();
             GenerateObjectsAtVertices(lowerVertices);
             StartCoroutine(DelayedBarrierSpawn());
             hasUsedDurabilityField50 = true;
-            //SetState(Enemy_State_.Kaihou);
+            Debug.Log("DurabilityField 50% が発動されました");
         }
 
         if (currentHP <= 0.25f && !hasUsedDurabilityField25)
         {
-            //SpawnDurabilityField();
             GenerateObjectsAtVertices(lowerVertices);
             StartCoroutine(DelayedBarrierSpawn());
             hasUsedDurabilityField25 = true;
-            //SetState(Enemy_State_.Kaihou);
+            Debug.Log("DurabilityField 25% が発動されました");
         }
     }
 
@@ -810,28 +830,21 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         E01Anim.SetBool("Kaihou", false);
         Debug.Log("解放アニメーションが完了しました");
         SetState(Enemy_State_.Idle);
-        M_state = Mai_State_.Spin;
+        //M_state = Mai_State_.Spin;
     }
     */
 
     private IEnumerator WaitForKaihouAnimation()
     {
         Debug.Log("解放アニメーションの待機を開始します");
-
-        // 指定した秒数待機（例: 2秒）
-        float waitTime = 9.0f;
+        float waitTime = 0.5f;
         yield return new WaitForSeconds(waitTime);
 
-        // 解放アニメーションが終了した後の処理を実行
         E01Anim.SetBool("Kaihou", false);
-        Debug.Log("解放アニメーションの待機が完了しました");
+        Debug.Log("解放アニメーションが終了しました");
 
-        // 状態をIdleに遷移
-        SetState(Enemy_State_.Idle);
-
-        // M_stateをSpinに設定
-        E_State = Enemy_State_.Spin;
-        Debug.Log($"M_stateがSpinに設定されました: {E_State}");
+        //E_State = Enemy_State_.Spin; // 次の状態に遷移
+        Debug.Log($"状態がSpinに設定されました: {E_State}");
     }
 
     private IEnumerator WaitForUke()
@@ -967,6 +980,48 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             // 親を設定せず、ワールド空間に配置
             vertexObject.transform.SetParent(null);
         }
+    }
+
+    void Awake()
+    {
+        // 現在のシーン名を取得
+        mySceneName = gameObject.scene.name;
+
+        // シーンロードイベントに登録
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnDestroy()
+    {
+        // シーンロードイベントを解除
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    // シーンが読み込まれたときに呼び出されるメソッド
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == mySceneName)
+        {
+            Debug.Log($"シーン '{mySceneName}' が読み込まれました。オブジェクト: {gameObject.name}");
+            HandleSceneLoaded(); // シーン読み込み時の処理
+        }
+    }
+
+    // シーンが読み込まれたときの処理
+    private void HandleSceneLoaded()
+    {
+        transform.position = new Vector3(0, 0, 10);
+        StartCoroutine(Waitwhenload());
+    }
+
+    private IEnumerator Waitwhenload()
+    {
+        // 指定した秒数待機（例: 5秒）
+        float waitTime = 10.0f;
+        yield return new WaitForSeconds(waitTime);
+
+        // 待機終了後、M_state を Spin に変更
+        E_State = Enemy_State_.Kaihou;
     }
 
     //ここから加藤
