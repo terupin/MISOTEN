@@ -180,7 +180,8 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     private void Start()
     {
         // 初期状態を設定
-        E_State = Enemy_State_.Idle;
+        //E_State = Enemy_State_.Idle;
+        E_State = Enemy_State_.Spin;
         StateCurrentTime = 0.0f; // 経過時間を初期化
         currentHP = Kato_Status_E.NowHP / Kato_Status_E.MaxHP; // 初期HPを設定
         elapsedTime = 0f; // 経過時間を初期化
@@ -254,7 +255,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
                     UpdateSpin();
 
-                    //UnityEditor.EditorApplication.isPaused = true;
+                   
 
                     break;
 
@@ -285,11 +286,12 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
                     if (!hasUsedDurabilityField100)
                     {
+                        //UnityEditor.EditorApplication.isPaused = true;
                         GenerateObjectsAtVertices(lowerVertices);
                         StartCoroutine(DelayedBarrierSpawn());
                         hasUsedDurabilityField100 = true;
                         hasUsedDurabilityFieldMAX = true;
-                        StartCoroutine(WaitForKaihouAnimation());
+                        //StartCoroutine(WaitForKaihouAnimation());
                     }
 
                     //E_State = Enemy_State_.Spin;
@@ -306,91 +308,11 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             Debug.Log($"状態チェック: {E_State} ");
         }
 
-        ////デバッグ用プログラム
-        //if (debug_switch)
-        //{
-        //    // 1キーが押されたらHPが順番に変化
-        //    if (Input.GetKeyDown(KeyCode.Alpha1))
-        //    {
-        //        //Debug.Log("HPを75%に設定しました！");
-        //        if (currentHP == 1.0f) // 現在HPが100%なら
-        //        {
-        //            currentHP = 0.75f;  // HPを75%に設定
-        //            Debug.Log($"dc1-1 HPを75%に設定しました！: {currentHP} / 1.0f");
-        //        }
-        //        else if (currentHP == 0.75f) // 現在HPが75%なら
-        //        {
-        //            currentHP = 0.50f;  // HPを50%に設定
-        //            Debug.Log($"dc1-2 HPを50%に設定しました！: {currentHP} / 1.0f");
-        //        }
-        //        else if (currentHP == 0.50f) // 現在HPが50%なら
-        //        {
-        //            currentHP = 0.25f;  // HPを25%に設定
-        //            Debug.Log($"dc1-3 HPを25%に設定しました！: {currentHP} / 1.0f");
-        //        }
-        //        else if (currentHP == 0.25f) // 現在HPが25%なら
-        //        {
-        //            currentHP = 0f;  // HPを0%に設定
-        //            Debug.Log($"dc1-4 HPを0%に設定しました！: {currentHP} / 1.0f");
-        //        }
-        //        else if (currentHP == 0f) // 現在HPが0%なら
-        //        {
-        //            currentHP = 1.0f;  // HPを100%に設定
-        //            Debug.Log($"dc1-5 HPを100%に設定しました: {currentHP} / 1.0f");
-        //        }
-        //    }
+       if( IsAnimationFinished("Kaihou"))
+        {
+            E_State = Enemy_State_.Spin;
+        }
 
-        //    // 2キーが押されたら縦切りステートを実行
-        //    if (Input.GetKeyDown(KeyCode.Alpha2))
-        //    {
-        //        Debug.Log("dc2: 縦切りステートを実行します");
-        //        SetState(Enemy_State_.Tategiri);
-        //    }
-
-        //    // 3キーが押されたら連撃ステートを実行
-        //    if (Input.GetKeyDown(KeyCode.Alpha3))
-        //    {
-        //        Debug.Log("dc3: 連撃ステートを実行します");
-        //        SetState(Enemy_State_.RenGeki);
-        //    }
-
-        //    // 4キーが押されたら怯みステートを実行
-        //    if (Input.GetKeyDown(KeyCode.Alpha4))
-        //    {
-        //        Debug.Log("dc4: 怯みステートを実行します");
-        //        SetState(Enemy_State_.Stagger);
-        //    }
-
-        //    // 5キーが押されたら歩行ステートを実行
-        //    if (Input.GetKeyDown(KeyCode.Alpha5))
-        //    {
-        //        Debug.Log("dc5: 歩行ステートを実行します");
-
-        //        run_for_me = true;
-        //        SetState(Enemy_State_.Idle);
-        //        M_state = Mai_State_.Spin;
-        //        //SetState(Enemy_State_.Walk);
-        //    }
-
-        //    // 6キーが押されたらidleステートを実行
-        //    if (Input.GetKeyDown(KeyCode.Alpha6))
-        //    {
-        //        Debug.Log("dc6: idleステートを実行します");
-
-        //        // Idle状態に遷移
-        //        SetState(Enemy_State_.Idle);
-        //    }
-
-        //    // 7キーが押されたら解放ステートを実行
-        //    if (Input.GetKeyDown(KeyCode.Alpha7))
-        //    {
-        //        Debug.Log("dc7: 解放ステートを実行します");
-        //        //SetState(Enemy_State_.Kaihou);
-        //        M_state = Mai_State_.Kaihou;
-        //        E01Anim.SetBool("Kaihou", true); // 解放アニメーションのフラグを設定
-        //    }
-        //}
-        //else
         {
             currentHP = (float)Kato_Status_E.NowHP / (float)Kato_Status_E.MaxHP;
         }
@@ -438,6 +360,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
     private void UpdateSpin()
     {
+
         // 方向を変更（正方向または逆方向）
         float direction = isReverse ? -1f : 1f;
 
@@ -455,6 +378,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         CalculateAttackPoints();
 
         // 現在位置が攻撃ポイントに到達したらGoto状態に遷移
+
         CheckAttackPointReached(x, z);
 
         // HPが75%以下なら即座にGoto状態に遷移
@@ -463,9 +387,13 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             (currentHP <= 0.5f && !hasUsedDurabilityField50) ||
             (currentHP <= 0.25f && !hasUsedDurabilityField25))
         {
+
+            //UnityEditor.EditorApplication.isPaused = true;
             Debug.Log("HPが指定状態まで減少: Kaihou状態に遷移");
             E_State = Enemy_State_.Kaihou;
         }
+
+
 
         Debug.Log($"Spin状態: 現在の方向 = {(isReverse ? "逆" : "正")}, 半径 = {spinRadius}, 位置 = ({x}, {z})");
     }
@@ -509,6 +437,12 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         }
     }
 
+    // 指定アニメーションが終了しているかを判定
+    private bool IsAnimationFinished(string animationName)
+    {
+        return E01Anim.GetCurrentAnimatorStateInfo(0).IsName(animationName) && E01Anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f;
+    }
+
     private void UpdateGoto()
     {
         // 0,0,0に向かって移動（円周上の速度を維持）
@@ -516,7 +450,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         direction.y = 0; // 高さは変えずにXY平面で移動
 
         // 目標半径（内側の円に到達したら攻撃状態に遷移）
-        if (direction.magnitude < AttackLength)
+        if (direction.magnitude <= AttackLength)
         {
             E_State = Enemy_State_.Attack; // Attack状態に遷移
             Debug.Log("Attack状態に遷移！");
@@ -767,7 +701,9 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         E01Anim.SetBool("Kaihou", false);
         Debug.Log("解放アニメーションが終了しました");
 
+        //UnityEditor.EditorApplication.isPaused = true;
         E_State = Enemy_State_.Spin; // 次の状態に遷移
+
         Debug.Log($"状態がSpinに設定されました: {E_State}");
     }
 
@@ -801,13 +737,6 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
         // スムーズに回転させる
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * MoveSpeed);
-    }
-
-    // 指定アニメーションが終了しているかを判定
-    private bool IsAnimationFinished(string animationName)
-    {
-        AnimatorStateInfo stateInfo = E01Anim.GetCurrentAnimatorStateInfo(0);
-        return stateInfo.IsName(animationName) && stateInfo.normalizedTime >= 1.0f;
     }
 
     // 状態に応じてアニメーションを更新
