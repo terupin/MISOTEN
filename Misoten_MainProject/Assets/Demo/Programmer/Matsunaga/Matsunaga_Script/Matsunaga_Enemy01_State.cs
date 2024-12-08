@@ -262,11 +262,16 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
                     UpdateGoto();
 
+                    //UnityEditor.EditorApplication.isPaused = true;
+
                     break;
 
                 case Enemy_State_.Attack:
 
                     DecideAttackType();
+
+                    //Debug.Log("attack状態");
+                    //UnityEditor.EditorApplication.isPaused = true;
 
                     break;
 
@@ -280,13 +285,10 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
                     if (!hasUsedDurabilityField100)
                     {
-                        Debug.Log("dead");
-                        //hasUsedDurabilityField100 = false;
                         GenerateObjectsAtVertices(lowerVertices);
                         StartCoroutine(DelayedBarrierSpawn());
                         hasUsedDurabilityField100 = true;
                         hasUsedDurabilityFieldMAX = true;
-                        //E_State = Enemy_State_.Spin;
                         StartCoroutine(WaitForKaihouAnimation());
                     }
 
@@ -423,21 +425,12 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         }
         else if (E_State == Enemy_State_.Tategiri)
         {
-            HandleTategiri();
+            HandleTategiri();   
         }
         else if (E_State == Enemy_State_.Stagger)
         {
             HandleStagger();
         }
-        /*
-        else if (E_State == Enemy_State_.Kaihou)
-        {
-            HandleKaihou();
-        }
-        */
-
-        // HPに応じて耐久フィールドを生成
-        //HandleDurabilityField();
 
         // 状態に応じてアニメーションを更新
         UpdateAnimations();
@@ -510,6 +503,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             {
                 Debug.Log("攻撃ポイント到達!");
                 E_State = Enemy_State_.Goto; // Goto状態に遷移
+                //UnityEditor.EditorApplication.isPaused = true;
                 break;
             }
         }
@@ -526,6 +520,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         {
             E_State = Enemy_State_.Attack; // Attack状態に遷移
             Debug.Log("Attack状態に遷移！");
+            //UnityEditor.EditorApplication.isPaused = true;
         }
 
         // 移動処理
@@ -675,6 +670,9 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     // 縦切り攻撃の処理
     private void HandleTategiri()
     {
+        Debug.Log("handletategiri状態");
+        //UnityEditor.EditorApplication.isPaused = true;
+
         if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Tategiri 0") && E01Anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f)
         {
             // 縦切り攻撃完了後、クールダウンに遷移
