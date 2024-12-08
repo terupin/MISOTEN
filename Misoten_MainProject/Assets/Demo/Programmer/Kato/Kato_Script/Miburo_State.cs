@@ -112,6 +112,11 @@ public class Miburo_State : MonoBehaviour
     [SerializeField, Header("攻撃エフェクト")]
     public ParticleSystem slash_effect;
 
+    [SerializeField, Header("被ダメージ")]
+    public AudioClip AudioClip00;
+
+    private AudioSource audioSource_P;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -119,7 +124,7 @@ public class Miburo_State : MonoBehaviour
         _Katana_Direction = -1;
 
         Test.AddComponent<MeshRenderer>();
-
+        audioSource_P = GetComponent<AudioSource>();
         //UI
         M_UkenagasiIcon.SetFloat("_CoolDown", 1.0f);
         M_StepIcon.SetFloat("_CoolDown", 1.0f);
@@ -557,6 +562,7 @@ public class Miburo_State : MonoBehaviour
                     Rigidbody rb = GetComponent<Rigidbody>();
                     dir = (Target.transform.position - rb.position).normalized;
                     Miburo_Animator.SetTrigger("Damage");
+                    audioSource_P.PlayOneShot(AudioClip00);
                     Kato_Status_P.instance.Damage(1);
                     StartCoroutine(KnockBack());
                 }
