@@ -1004,6 +1004,8 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                     {
                         UkeL = false;
                         UkeR = false;
+                        M_state = Mai_State_.Jumpback;
+                        E_State = Enemy_State_.Idle;
                     }
                 }
                 else
