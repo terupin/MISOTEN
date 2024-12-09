@@ -923,13 +923,13 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         E_State = Enemy_State_.Spin;
     }
 
-    //ここから加藤入力判定処理
+
     private void KatoUpdateAnim()
     {
-        if (E_State==Enemy_State_.Goto)
+        if (E_State == Enemy_State_.Goto)
         {
             Testobj.SetActive(true);
-            Testobj.transform.localScale += Vector3.one * Time.deltaTime*0.1f;
+            Testobj.transform.localScale += Vector3.one * Time.deltaTime * 0.1f;
         }
 
         //縦切り振り上げ
@@ -1090,7 +1090,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                         {
                             UKe__Ren02 = true;
                             E01Anim.SetBool("RenUke02", true);
-                            //UnityEditor.EditorApplication.isPaused = true;
+                            UnityEditor.EditorApplication.isPaused = true;
                             Debug.Log("判定　成功2");
                         }
                     }
@@ -1152,7 +1152,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             SetState(Enemy_State_.Stagger);
         }
 
-        if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        if (E_State == Enemy_State_.Spin)
         {
             UkeL = false;
             UkeR = false;
@@ -1226,5 +1226,4 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             //Testobj.SetActive(false);
         }
     }
-    //ここまで加藤
 }
