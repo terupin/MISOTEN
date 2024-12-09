@@ -66,7 +66,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 4021fda1c122f6d4db0c8f54d857028f,
         type: 3}
       propertyPath: m_TagString
-      value: Denchiku
+      value: Cut
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

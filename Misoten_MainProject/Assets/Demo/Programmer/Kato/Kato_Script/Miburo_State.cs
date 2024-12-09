@@ -30,8 +30,7 @@ public class Miburo_State : MonoBehaviour
     private bool StickR;//スティック右スティック
 
     private bool _KnockBack;//ノックバック
-    private bool _Muteki;//無敵
-    Vector3 dir;//ノックバックで使用する
+    Vector3 dir;//ノックバックで使用する距離
 
     private bool sippai;//入力失敗時
 
@@ -96,6 +95,7 @@ public class Miburo_State : MonoBehaviour
 
     [SerializeField, Header("マテリアル(debugテスト用)")]
     public Material TestMat;
+    [SerializeField, Header("UIアイコン用マテリアル")]
     public Material M_UkenagasiIcon;
     public Material M_StepIcon;
     public Material M_AttackIcon;
@@ -109,8 +109,10 @@ public class Miburo_State : MonoBehaviour
      public GameObject Miburo_HitBox;
     private GameObject M_HitBox;
 
-    [SerializeField, Header("攻撃エフェクト")]
-    public ParticleSystem slash_effect;
+    [SerializeField, Header("被ダメージ")]
+    public AudioClip AudioClip00;
+
+    private AudioSource audioSource_P;
 
     // Start is called before the first frame update
     void Start()
@@ -119,7 +121,7 @@ public class Miburo_State : MonoBehaviour
         _Katana_Direction = -1;
 
         Test.AddComponent<MeshRenderer>();
-
+        audioSource_P = GetComponent<AudioSource>();
         //UI
         M_UkenagasiIcon.SetFloat("_CoolDown", 1.0f);
         M_StepIcon.SetFloat("_CoolDown", 1.0f);
@@ -129,7 +131,6 @@ public class Miburo_State : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         M_HitBox= GameObject.Find("Player");
 
         //HP0以下ならゲームオーバー
@@ -147,16 +148,11 @@ public class Miburo_State : MonoBehaviour
 
         if(_KnockBack ||_StepMuteki)
         {
-
         }
         else
         {
             gameObject.transform.LookAt(Target.transform);
         }
-
-
-
-
 
         //R1ボタン押下(攻撃)
         if (UnityEngine.Input.GetKeyDown("joystick button 5"))
@@ -165,13 +161,11 @@ public class Miburo_State : MonoBehaviour
             {
                 StartCoroutine(ChangeCoolDown(M_AttackIcon, 0.0f, 1.0f, Attack02_Time + Attack02_WaitTime));
                 StartCoroutine(Miburo_Attack02());
-                Instantiate(slash_effect, transform.position, transform.rotation);
             }
             else
             {
                 StartCoroutine(ChangeCoolDown(M_AttackIcon, 0.0f, 1.0f, Attack01_Time + Attack01_WaitTime));
                 StartCoroutine(Miburo_Attack01());
-                Instantiate(slash_effect, transform.position, transform.rotation);
             }
         }
 
@@ -214,7 +208,7 @@ public class Miburo_State : MonoBehaviour
         }
         else
         {
-                Miburo_HitBox.SetActive(true);                     
+            Miburo_HitBox.SetActive(true);                     
         }
 
         GetKatana_Direction();
@@ -291,7 +285,6 @@ public class Miburo_State : MonoBehaviour
         {
             if (!_Ren22)
             {
-                //UnityEditor.EditorApplication.isPaused = true;
                 Miburo_Animator.SetTrigger("Ren22");
                 _Ren22 = true;
                 _RenCounter02 = true;
@@ -310,14 +303,10 @@ public class Miburo_State : MonoBehaviour
         if (!_Attack01)
         {
             _Attack01 = true;
-            Debug.Log("攻撃1開始");
             Miburo_Animator.SetBool("Attack01", true);
-            //StartCoroutine(ChangeCoolDown(M_AttackIcon, 0.0f, 1.0f, Attack01_Time + Attack01_WaitTime));
             yield return new WaitForSeconds(Attack01_Time);
             Miburo_Animator.SetBool("Attack01", false);
             yield return new WaitForSeconds(Attack01_WaitTime);
-            Debug.Log("攻撃1待ち時間終了");
-
             _Attack01 = false;
         }
         else
@@ -332,11 +321,8 @@ public class Miburo_State : MonoBehaviour
         if (!_Attack02)
         {
             _Attack02 = true;
-            Debug.Log("攻撃2開始");
             Miburo_Animator.SetBool("Attack02", true);
-            //StartCoroutine(ChangeCoolDown(M_AttackIcon, 0.0f, 1.0f, Attack02_Time + Attack02_WaitTime));
             yield return new WaitForSeconds(Attack02_Time);
-            Debug.Log("攻撃2待ち時間終了");
             Miburo_Animator.SetBool("Attack02", false);
             yield return new WaitForSeconds(Attack02_WaitTime);
             _Attack02 = false;
@@ -353,12 +339,10 @@ public class Miburo_State : MonoBehaviour
         if (!_Parry)
         {
             _Parry = true;
-            Debug.Log("パリイ開始");
             yield return new WaitForSeconds(Katana_DirectionSet_Time);
 
             M_UkenagasiIcon.SetFloat("_CoolDown", 0.0f);
 
-            // 新しく追加：M_UkenagasiIcon の変更を開始
             if(Matsunaga_Enemy01_State.UkeL|| Matsunaga_Enemy01_State.UkeR|| Matsunaga_Enemy01_State.UKe__Ren01 || Matsunaga_Enemy01_State.UKe__Ren02)
             {
                 //UnityEditor.EditorApplication.isPaused = true;
@@ -372,8 +356,6 @@ public class Miburo_State : MonoBehaviour
                 yield return new WaitForSeconds(Parry_WaitTime + Katana_DirectionSet_WaitTime);
                 sippai = false;
             }
-
-            Debug.Log("パリイ待ち時間終了");
             _Parry = false;
 
         }
@@ -391,11 +373,9 @@ public class Miburo_State : MonoBehaviour
             _Step = true;
             _StepMuteki = true;
             Miburo_HitBox.SetActive(false);
-            Debug.Log("ステップ開始");
             Miburo_Animator.SetTrigger("Step");
             StartCoroutine(ChangeCoolDown(M_StepIcon, 0.0f, 1.0f, Step_WaitTime+Step_Time));
-            yield return new WaitForSeconds(Step_Time);
-            Debug.Log("ステップ待ち時間終了");
+            yield return new WaitForSeconds(Step_Time);            
             _StepMuteki = false;
             Miburo_HitBox.SetActive(true);
             yield return new WaitForSeconds(Step_WaitTime);
@@ -413,11 +393,9 @@ public class Miburo_State : MonoBehaviour
         return Miburo_Animator.GetCurrentAnimatorStateInfo(0).IsName(animationName) && Miburo_Animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f;
     }
 
-
     //コントローラーから斬撃の方向を取得
     void GetKatana_Direction()
     {
-
         float h = UnityEngine.Input.GetAxis("Horizontal2");
         float v = UnityEngine.Input.GetAxis("Vertical2");
 
@@ -445,8 +423,6 @@ public class Miburo_State : MonoBehaviour
             else { _Katana_Direction = 0; }
         }
     }
-
-
     //アニメーターからステート名を取得
     void GetCurrentAnimationStateName()
     {
@@ -459,32 +435,20 @@ public class Miburo_State : MonoBehaviour
         }
         else
         {
-
         }
-
     }
-
-
     //ゲームオーバー
     private IEnumerator Gameover()
     {
-
         yield return new WaitForSeconds(5);
         SceneManager.LoadScene(SceneName);
 
     }  
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        //if (collision. == "EWeapon")
-    }
-
     private IEnumerator KnockBack()
     {
         if (!_KnockBack)
         {
-
-
             _KnockBack = true;
             yield return new WaitForSeconds(KnockBack_Time);
             _KnockBack = false;
@@ -520,9 +484,6 @@ public class Miburo_State : MonoBehaviour
     // UIに反映させるためのコルーチン
     IEnumerator ChangeCoolDown(Material _material,float startValue, float endValue, float duration)
     {
-        //if(!_CoolDown)
-        //{
-        //    _CoolDown = true;
             float time = 0.0f;
 
             // 時間経過で M_UkenagasiIcon の CoolDown 値を徐々に変更
@@ -536,11 +497,6 @@ public class Miburo_State : MonoBehaviour
 
             // 最終値を確定
             _material.SetFloat("_CoolDown", endValue);
-        //    _CoolDown = false;
-        //}
-        //else
-        //{
-        //}
     }
 
     //当たり判定
@@ -557,30 +513,11 @@ public class Miburo_State : MonoBehaviour
                     Rigidbody rb = GetComponent<Rigidbody>();
                     dir = (Target.transform.position - rb.position).normalized;
                     Miburo_Animator.SetTrigger("Damage");
+                    audioSource_P.PlayOneShot(AudioClip00);
                     Kato_Status_P.instance.Damage(1);
                     StartCoroutine(KnockBack());
                 }
             }
-        }
-    }
-
-    private IEnumerator Damage_Muteki()
-    {
-        //Miburo_HitBox.SetActive(false);
-        yield return new WaitForSeconds(Damage_MutekiTime);
-        //Miburo_HitBox.SetActive(true);
-
-    }
-
-    private IEnumerator Muteki()
-    {
-        if (!_Muteki)
-        {
-
-
-            _Muteki = true;
-            yield return new WaitForSeconds(Damage_MutekiTime);
-            _Muteki = false;
         }
     }
 }
