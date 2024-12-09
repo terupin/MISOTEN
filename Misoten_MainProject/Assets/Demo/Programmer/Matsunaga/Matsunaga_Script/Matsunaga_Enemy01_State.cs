@@ -269,7 +269,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
                 case Enemy_State_.Attack:
 
-                    DecideAttackType();
+                    //DecideAttackType();
 
                     //Debug.Log("attack状態");
                     //UnityEditor.EditorApplication.isPaused = true;
@@ -458,8 +458,9 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         // 目標半径（内側の円に到達したら攻撃状態に遷移）
         if (direction.magnitude <= AttackLength)
         {
-            E_State = Enemy_State_.Attack; // Attack状態に遷移
+            //E_State = Enemy_State_.Attack; // Attack状態に遷移
             Debug.Log("Attack状態に遷移！");
+            DecideAttackType();
             //UnityEditor.EditorApplication.isPaused = true;
         }
 
@@ -864,7 +865,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     // シーンが読み込まれたときの処理
     private void HandleSceneLoaded()
     {
-        transform.position = new Vector3(0, 0, 10);
+        transform.position = new Vector3(-4.798425f, 0, 8.773547f);
         elapsedTime = 0f;
         E_State = Enemy_State_.Idle;
 
