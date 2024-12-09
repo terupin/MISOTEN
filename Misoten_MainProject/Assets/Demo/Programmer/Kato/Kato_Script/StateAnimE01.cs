@@ -393,4 +393,4 @@ public class StateAnimE01 : MonoBehaviour
     //}
     ////‚±‚±‚Ü‚Å‰Á“¡
 }
-}
+
