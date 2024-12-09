@@ -7,6 +7,10 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     //ここから加藤
     [SerializeField, Header("テストに使うオブジェクト")]
     public GameObject Testobj;//テストに使うオブジェクト
+    [SerializeField, Header("テストに使うオブジェクトのマテリアル通常")]
+    public Material Defultmat;
+    [SerializeField, Header("テストに使うオブジェクトのマテリアル発光")]
+    public Material Testobjmat;
 
     //縦切り 最大入力猶予 1.7秒
     //連撃1 最大入力猶予 1.2秒
@@ -884,7 +888,11 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     //ここから加藤入力判定処理
     private void KatoUpdateAnim()
     {
-
+        if (E_State==Enemy_State_.Goto)
+        {
+            Testobj.SetActive(true);
+            Testobj.transform.localScale += Vector3.one * Time.deltaTime*0.1f;
+        }
 
         //縦切り振り上げ
         if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Tategiri"))
@@ -940,6 +948,11 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             else
             {
                 Check_Current_Time0 += Time.deltaTime;
+            }
+
+            if (Check_Current_Time0 > 0.0f && Check_Time0 >= Check_Current_Time0)
+            {
+                Testobj.GetComponent<MeshRenderer>().material = Testobjmat;
             }
         }
         else
@@ -1000,7 +1013,10 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                 Check_Current_Time1 += Time.deltaTime;
             }
 
-
+            if (Check_Current_Time0 > 0.0f && Check_Time0 >= Check_Current_Time0)
+            {
+                Testobj.GetComponent<MeshRenderer>().material = Testobjmat;
+            }
 
         }
         else
@@ -1054,6 +1070,11 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             else
             {
                 Check_Current_Time2 += Time.deltaTime;
+            }
+
+            if (Check_Current_Time0 > 0.0f && Check_Time0 >= Check_Current_Time0)
+            {
+                Testobj.GetComponent<MeshRenderer>().material = Testobjmat;
             }
         }
         else
@@ -1153,15 +1174,18 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             Attack = false;
         }
 
-        if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren01") || E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren02") || E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Tategiri"))
+        if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren01") || E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren02") || E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Tategiri") || E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Walk"))
         {
             Testobj.SetActive(true);
-            Testobj.transform.localScale += Vector3.one * Time.deltaTime;
+            //Testobj.transform.localScale += Vector3.one * Time.deltaTime;
         }
         else
         {
+            Testobj.GetComponent<MeshRenderer>().material = Defultmat;
             Testobj.transform.localScale = Vector3.one;
             Testobj.SetActive(false);
+            //Testobj.transform.localScale = Vector3.one;
+            //Testobj.SetActive(false);
         }
     }
     //ここまで加藤

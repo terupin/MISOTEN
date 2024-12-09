@@ -1219,9 +1219,19 @@ PrefabInstance:
       objectReference: {fileID: 1322884133}
     - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
+      propertyPath: Defultmat
+      value: 
+      objectReference: {fileID: 2100000, guid: bf9044ae4f4de53439d0d3fb6110bf34, type: 2}
+    - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
       propertyPath: spinSpeed
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
+      propertyPath: Testobjmat
+      value: 
+      objectReference: {fileID: 2100000, guid: 7c8f564ee923b5f4b929e7e0268f8180, type: 2}
     - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
       propertyPath: spinRadius
