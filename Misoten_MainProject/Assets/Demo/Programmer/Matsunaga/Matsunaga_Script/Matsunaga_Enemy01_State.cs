@@ -311,6 +311,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                 case Enemy_State_.Ukenagasare:
 
                     //StartCoroutine(WaitForUke());
+                    HandleNagasare();
 
                     break;
             }
@@ -619,15 +620,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             E_State = Enemy_State_.Jumpback;
         }
 
-        if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("NagasereL") && E01Anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f)
-        {
-            E_State = Enemy_State_.Jumpback;
-        }
 
-        if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("NagasereR") && E01Anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f)
-        {
-            E_State = Enemy_State_.Jumpback;
-        }
     }
 
     // 連撃攻撃の処理
@@ -640,6 +633,21 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             E01Anim.SetBool("RenGeki", false); // アニメーションをリセット
             //SetState(Enemy_State_.Cooldown);
 
+            E_State = Enemy_State_.Jumpback;
+        }
+
+
+    }
+
+    private void HandleNagasare()
+    {
+        if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("NagasereL") && E01Anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f)
+        {
+            E_State = Enemy_State_.Jumpback;
+        }
+
+        if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("NagasereR") && E01Anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f)
+        {
             E_State = Enemy_State_.Jumpback;
         }
 
