@@ -12,6 +12,14 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     [SerializeField, Header("テストに使うオブジェクトのマテリアル発光")]
     public Material Testobjmat;
 
+    [Header("開放時に隠す電竹")]
+    public GameObject Den01; // 頂点に生成するオブジェクト
+    public GameObject Den02; // 頂点に生成するオブジェクト
+    public GameObject Den03; // 頂点に生成するオブジェクト
+    public GameObject Den04; // 頂点に生成するオブジェクト
+    public GameObject Den05; // 頂点に生成するオブジェクト
+    public GameObject Den06; // 頂点に生成するオブジェクト
+
     //縦切り 最大入力猶予 1.7秒
     //連撃1 最大入力猶予 1.2秒
     //連撃2 最大入力猶予 0.5秒
@@ -1225,6 +1233,25 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             Testobj.SetActive(false);
             //Testobj.transform.localScale = Vector3.one;
             //Testobj.SetActive(false);
+        }
+
+       if( E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Kaihou"))
+        {
+            Den01.SetActive(false);
+            Den02.SetActive(false);
+            Den03.SetActive(false);
+            Den04.SetActive(false);
+            Den05.SetActive(false);
+            Den06.SetActive(false);
+        }
+       else
+        {
+            Den01.SetActive(true);
+            Den02.SetActive(true);
+            Den03.SetActive(true);
+            Den04.SetActive(true);
+            Den05.SetActive(true);
+            Den06.SetActive(true);
         }
     }
 }
