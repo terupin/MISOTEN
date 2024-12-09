@@ -109,9 +109,6 @@ public class Miburo_State : MonoBehaviour
      public GameObject Miburo_HitBox;
     private GameObject M_HitBox;
 
-    [SerializeField, Header("攻撃エフェクト")]
-    public ParticleSystem slash_effect;
-
     [SerializeField, Header("被ダメージ")]
     public AudioClip AudioClip00;
 
@@ -164,13 +161,11 @@ public class Miburo_State : MonoBehaviour
             {
                 StartCoroutine(ChangeCoolDown(M_AttackIcon, 0.0f, 1.0f, Attack02_Time + Attack02_WaitTime));
                 StartCoroutine(Miburo_Attack02());
-                Instantiate(slash_effect, transform.position, transform.rotation);
             }
             else
             {
                 StartCoroutine(ChangeCoolDown(M_AttackIcon, 0.0f, 1.0f, Attack01_Time + Attack01_WaitTime));
                 StartCoroutine(Miburo_Attack01());
-                Instantiate(slash_effect, transform.position, transform.rotation);
             }
         }
 
