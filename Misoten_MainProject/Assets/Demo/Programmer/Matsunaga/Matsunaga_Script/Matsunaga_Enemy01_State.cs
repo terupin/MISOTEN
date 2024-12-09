@@ -113,11 +113,10 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     private float StaggerTime = 1.0f; // ひるみ状態の持続時間
 
     private float currentHP; // 敵の現在のHP
-    private bool hasUsedDurabilityFieldMAX = false;
     private bool hasUsedDurabilityField100 = false;
-    private bool hasUsedDurabilityField75 = false; // HP75%で耐久フィールドを生成済みかを管理
-    private bool hasUsedDurabilityField50 = false; // HP50%で耐久フィールドを生成済みかを管理
-    private bool hasUsedDurabilityField25 = false; // HP25%で耐久フィールドを生成済みかを管理
+    private bool hasUsedDurabilityField75 = true; // HP75%で耐久フィールドを生成済みかを管理
+    private bool hasUsedDurabilityField50 = true; // HP50%で耐久フィールドを生成済みかを管理
+    private bool hasUsedDurabilityField25 = true; // HP25%で耐久フィールドを生成済みかを管理
 
     private float elapsedTime = 0f; // 経過時間を記録
 
@@ -292,24 +291,35 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
                 case Enemy_State_.Kaihou:
 
-                    if (!hasUsedDurabilityField100)
+                    if (hasUsedDurabilityField25 == false)
+                    {
+                        GenerateObjectsAtVertices(lowerVertices);
+                        StartCoroutine(DelayedBarrierSpawn());
+                        hasUsedDurabilityField25 = true;
+                        Debug.Log($"hasUsedDurabilityField25: {hasUsedDurabilityField25} ");
+                    }
+                    if (hasUsedDurabilityField50 == false)
+                    {
+                        GenerateObjectsAtVertices(lowerVertices);
+                        StartCoroutine(DelayedBarrierSpawn());
+                        hasUsedDurabilityField50 = true;
+                        Debug.Log($"hasUsedDurabilityField50: {hasUsedDurabilityField50} ");
+                    }
+                    if (hasUsedDurabilityField75 == false)
+                    {
+                        GenerateObjectsAtVertices(lowerVertices);
+                        StartCoroutine(DelayedBarrierSpawn());
+                        hasUsedDurabilityField75 = true;
+                        Debug.Log($"hasUsedDurabilityField75: {hasUsedDurabilityField75} ");
+                    }
+                    if (hasUsedDurabilityField100 == false)
                     {
                         GenerateObjectsAtVertices(lowerVertices);
                         StartCoroutine(DelayedBarrierSpawn());
                         hasUsedDurabilityField100 = true;
                         Debug.Log($"hasUsedDurabilityField100: {hasUsedDurabilityField100} ");
-
-                        //StartCoroutine(WaitForKaihouAnimation());
-                        /*
-                        if (IsAnimationFinished("Kaihou"))
-                        {
-                            E_State = Enemy_State_.Spin;
-                        }
-                        */
                     }
-
                     
-
                     break;
 
                 case Enemy_State_.Ukenagasare:
@@ -394,11 +404,31 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         // 現在位置が攻撃ポイントに到達したらGoto状態に遷移
 
         CheckAttackPointReached(x, z);
-        if(E_State == Enemy_State_.Spin &&
-          ((currentHP == 1.0f) && !hasUsedDurabilityField100))
-
+        if(E_State == Enemy_State_.Spin)
         {
-            E_State = Enemy_State_.Kaihou;
+            if((currentHP == 1.0f) && !hasUsedDurabilityField100)
+            {
+                E_State = Enemy_State_.Kaihou;
+                Debug.Log("100%時の解放実行");
+            }
+            else if ((currentHP <= 0.75f) && !hasUsedDurabilityField75)
+            {
+                E_State = Enemy_State_.Kaihou;
+                hasUsedDurabilityField75 = false;
+                Debug.Log("75%時の解放実行");
+            }
+            else if ((currentHP <= 0.5f) && !hasUsedDurabilityField50)
+            {
+                E_State = Enemy_State_.Kaihou;
+                hasUsedDurabilityField50 = false;
+                Debug.Log("50%時の解放実行");
+            }
+            else if ((currentHP <= 0.25f) && !hasUsedDurabilityField25)
+            {
+                E_State = Enemy_State_.Kaihou;
+                hasUsedDurabilityField25 = false;
+                Debug.Log("25%時の解放実行");
+            }
         }
 
         Debug.Log($"Spin状態: 現在の方向 = {(isReverse ? "逆" : "正")}, 半径 = {spinRadius}, 位置 = ({x}, {z})");
@@ -871,7 +901,15 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     // シーンが読み込まれたときの処理
     private void HandleSceneLoaded()
     {
+        //初期位置の初期化
         transform.position = new Vector3(0, 0, 10);
+        //耐久フィールド生成のフラグの初期化
+        hasUsedDurabilityField100 = false;
+        hasUsedDurabilityField75 = true;
+        hasUsedDurabilityField50 = true;
+        hasUsedDurabilityField25 = true;
+
+
         StartCoroutine(Waitwhenload());
     }
 
