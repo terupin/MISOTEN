@@ -88,209 +88,309 @@ public class StateAnimE01 : MonoBehaviour
         //_Animator.SetTrigger();
     }
 
-    private void KatoUpdateAnim()
-    {
-        if (_AnimatorE01.GetCurrentAnimatorStateInfo(0).IsName("Walk"))
-        {
-            Testobj.SetActive(true);
-            Testobj.transform.localScale += Vector3.one * Time.deltaTime;
-        }
+    ////Ç±Ç±Ç©ÇÁâ¡ì°ì¸óÕîªíËèàóù
+    //private void KatoUpdateAnim()
+    //{
+    //    if (E_State == Enemy_State_.Goto)
+    //    {
+    //        Testobj.SetActive(true);
+    //        Testobj.transform.localScale += Vector3.one * Time.deltaTime * 0.1f;
+    //    }
+
+    //    //ècêÿÇËêUÇËè„Ç∞
+    //    if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Tategiri"))
+    //    {
+    //        //UnityEditor.EditorApplication.isPaused = true;
+    //        if (P_Input)
+    //        {
+    //            if (Check_Current_Time0 > 0.0f && Check_Time0 >= Check_Current_Time0)
+    //            {
+    //                Debug.Log("aaaaaaaa" + Check_Current_Time0);
+    //                //éÛÇØó¨Çµê¨å˜
+    //                Debug.Log(Check_Current_Time0);
+    //                //UnityEditor.EditorApplication.isPaused = true;
+    //                Debug.Log("îªíË" + Miburo_State._Katana_Direction);
+    //                if (Miburo_State._Katana_Direction == 0 || Miburo_State._Katana_Direction == 1 || Miburo_State._Katana_Direction == 2 || Miburo_State._Katana_Direction == 7)
+    //                {
+    //                    UkeL = true;
+    //                    E01Anim.SetBool("UkeL", true);
+    //                    UkeR = false;
+    //                    E01Anim.SetBool("UkeR", false);
+    //                    Debug.Log("îªíËÅ@ê¨å˜0L");
+    //                    //UnityEditor.EditorApplication.isPaused = true;
+
+    //                    E_State = Enemy_State_.Ukenagasare;
+    //                    //E_State = Enemy_State_.Idle;
+
+    //                }
+    //                else if (Miburo_State._Katana_Direction == 3 || Miburo_State._Katana_Direction == 4 || Miburo_State._Katana_Direction == 5 || Miburo_State._Katana_Direction == 6)
+    //                {
+    //                    UkeL = false;
+    //                    E01Anim.SetBool("UkeL", false);
+    //                    UkeR = true;
+    //                    E01Anim.SetBool("UkeR", true);
+    //                    Debug.Log("îªíËÅ@ê¨å˜0R");
+    //                    //UnityEditor.EditorApplication.isPaused = true;
+
+    //                    E_State = Enemy_State_.Ukenagasare;
+    //                    //E_State = Enemy_State_.Idle;
+    //                }
+    //                else
+    //                {
+    //                    UkeL = false;
+    //                    UkeR = false;
+    //                    //E_State = Enemy_State_.Jumpback;
+    //                    //E_State = Enemy_State_.Idle;
+    //                }
+    //            }
+    //            else
+    //            {
+    //                Debug.Log("îªíËÅ@éûä‘êÿÇÍÅ@" + Check_Current_Time0);
+    //            }
+    //        }
+    //        else
+    //        {
+    //            Check_Current_Time0 += Time.deltaTime;
+    //        }
+
+    //        if (Check_Current_Time0 > 0.0f && Check_Time0 >= Check_Current_Time0)
+    //        {
+    //            Testobj.GetComponent<MeshRenderer>().material = Testobjmat;
+    //        }
+    //    }
+    //    else
+    //    {
+
+    //        E01Anim.SetBool("UkeL", false);
+    //        E01Anim.SetBool("UkeR", false);
+    //        Check_Current_Time0 = 0;
+    //    }
+
+    //    //ècêÿÇËêUÇËÇ®ÇÎÇµ
+    //    if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Tategiri 0"))
+    //    {
+    //        Debug.Log(Check_Current_Time0);
 
 
-            //ècêÿÇËêUÇËè„Ç∞
-            if (_AnimatorE01.GetCurrentAnimatorStateInfo(0).IsName("Tategiri"))
-        {
-            if (P_Input)
-            {
-                if (Check_Current_Time0 > 0.0f && Check_Time0 >= Check_Current_Time0)
-                {
-                    if (Miburo_State._Katana_Direction == 0 || Miburo_State._Katana_Direction == 1 || Miburo_State._Katana_Direction == 2 || Miburo_State._Katana_Direction == 7)
-                    {
-                        UkeL = true;
-                        _AnimatorE01.SetBool("UkeL", true);
-                        UkeR = false;
-                        _AnimatorE01.SetBool("UkeR", false);
-                    }
-                    else if (Miburo_State._Katana_Direction == 3 || Miburo_State._Katana_Direction == 4 || Miburo_State._Katana_Direction == 5 || Miburo_State._Katana_Direction == 6)
-                    {
-                        UkeL = false;
-                        _AnimatorE01.SetBool("UkeL", false);
-                        UkeR = true;
-                        _AnimatorE01.SetBool("UkeR", true);
-                    }
-                    else
-                    {
-                        UkeL = false;
-                        UkeR = false;
-                    }
-                }
-            }
-            else
-            {
-                Check_Current_Time0 += Time.deltaTime;
-            }
+    //        Check_Current_Time0 = 0;
+    //        //UnityEditor.EditorApplication.isPaused = true;
+    //    }
 
-            if (Check_Current_Time0 > 0.0f && Check_Time0 >= Check_Current_Time0)
-            {
-                Testobj.GetComponent<MeshRenderer>().material = Testobjmat;
-            }
-        }
-        else
-        {
-            _AnimatorE01.SetBool("UkeL", false);
-            _AnimatorE01.SetBool("UkeR", false);
-            Check_Current_Time0 = 0;
-        }
+    //    //òAåÇ1êUÇËè„Ç∞
+    //    if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren01"))
+    //    {
+    //        //UnityEditor.EditorApplication.isPaused = true;
+    //        if (P_Input)
+    //        {
+    //            if (Check_Current_Time1 > 0.0f && Check_Time1 > Check_Current_Time1)
+    //            {
+    //                if (Miburo_State._Katana_Direction == 0 || Miburo_State._Katana_Direction == 1 || Miburo_State._Katana_Direction == 2 || Miburo_State._Katana_Direction == 7)
+    //                {
+    //                    if (!UKe__Ren01)
+    //                    {
+    //                        Debug.Log("îªíËÅ@ê¨å˜1");
+    //                        Debug.Log("iiiiiiiii" + Check_Current_Time1);
+    //                        //UnityEditor.EditorApplication.isPaused = true;
+    //                        UKe__Ren01 = true;
+    //                        E01Anim.SetBool("RenUke01", true);
+    //                        E_State = Enemy_State_.Ukenagasare;
+    //                        //E_State = Enemy_State_.Idle;
 
-        //ècêÿÇËêUÇËÇ®ÇÎÇµ
-        if (_AnimatorE01.GetCurrentAnimatorStateInfo(0).IsName("Tategiri 0"))
-        {
-            Debug.Log(Check_Current_Time0);
-            Check_Current_Time0 = 0;
-        }
+    //                    }
+    //                }
+    //                else if (Miburo_State._Katana_Direction == 3 || Miburo_State._Katana_Direction == 4 || Miburo_State._Katana_Direction == 5 || Miburo_State._Katana_Direction == 6)
+    //                {
+    //                    UKe__Ren01 = false;
+    //                    E01Anim.SetBool("RenUke01", false);
+    //                }
 
-        //òAåÇ1êUÇËè„Ç∞
-        if (_AnimatorE01.GetCurrentAnimatorStateInfo(0).IsName("Ren01"))
-        {
-            if (P_Input)
-            {
-                if (Check_Current_Time1 > 0.0f && Check_Time1 > Check_Current_Time1)
-                {
-                    if (Miburo_State._Katana_Direction == 0 || Miburo_State._Katana_Direction == 1 || Miburo_State._Katana_Direction == 2 || Miburo_State._Katana_Direction == 7)
-                    {
-                        if (!UKe__Ren01)
-                        {
-                            UKe__Ren01 = true;
-                            _AnimatorE01.SetBool("RenUke01", true);
+    //            }
+    //            else
+    //            {
+    //                Debug.Log("îªíËÅ@éûä‘êÿÇÍ1Å@" + Check_Current_Time1);
+    //                //UnityEditor.EditorApplication.isPaused = true;
+    //            }
+    //        }
+    //        else
+    //        {
+    //            Check_Current_Time1 += Time.deltaTime;
+    //        }
 
-                        }
-                    }
-                    else if (Miburo_State._Katana_Direction == 3 || Miburo_State._Katana_Direction == 4 || Miburo_State._Katana_Direction == 5 || Miburo_State._Katana_Direction == 6)
-                    {
-                        UKe__Ren01 = false;
-                        _AnimatorE01.SetBool("RenUke01", false);
-                    }
-                }
-            }
-            else
-            {
-                Check_Current_Time1 += Time.deltaTime;
-            }
+    //        if (Check_Current_Time0 > 0.0f && Check_Time0 >= Check_Current_Time0)
+    //        {
+    //            Testobj.GetComponent<MeshRenderer>().material = Testobjmat;
+    //        }
 
-            if (Check_Current_Time1 > 0.0f && Check_Time1 >= Check_Current_Time1)
-            {
-                Testobj.GetComponent<MeshRenderer>().material = Testobjmat;
-            }
-        }
-        else
-        {
-        }
+    //    }
+    //    else
+    //    {
 
-        //òAåÇ1êUÇËÇ®ÇÎÇµ
-        if (_AnimatorE01.GetCurrentAnimatorStateInfo(0).IsName("Ren1")){Check_Current_Time1 = 0;}
+    //    }
 
-        //òAåÇ2êUÇËè„Ç∞
-        if (_AnimatorE01.GetCurrentAnimatorStateInfo(0).IsName("Ren02"))
-        {
-            if (P_Input)
-            {
-                if (Check_Current_Time2 > 0.0f && Check_Time2 > Check_Current_Time2)
-                {
-                    if (Miburo_State._Katana_Direction == 0 || Miburo_State._Katana_Direction == 1 || Miburo_State._Katana_Direction == 2 || Miburo_State._Katana_Direction == 7)
-                    {
-                        UKe__Ren02 = false;
-                        _AnimatorE01.SetBool("RenUke02", false);
-                    }
-                    else if (Miburo_State._Katana_Direction == 3 || Miburo_State._Katana_Direction == 4 || Miburo_State._Katana_Direction == 5 || Miburo_State._Katana_Direction == 6)
-                    {
-                        if (!UKe__Ren02)
-                        {
-                            UKe__Ren02 = true;
-                            _AnimatorE01.SetBool("RenUke02", true);
-                        }
-                    }
-                }
-            }
-            else
-            {
-                Check_Current_Time2 += Time.deltaTime;
-            }
+    //    //òAåÇ1êUÇËÇ®ÇÎÇµ
+    //    if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren1"))
+    //    {
+    //        Debug.Log(Check_Current_Time1);
+    //        //UnityEditor.EditorApplication.isPaused = true;
+    //        Check_Current_Time1 = 0;
 
-            if (Check_Current_Time2 > 0.0f && Check_Time2 >= Check_Current_Time2)
-            {
-                Testobj.GetComponent<MeshRenderer>().material = Testobjmat;
-            }
-        }
 
-        //òAåÇ2êUÇËÇ®ÇÎÇµ         
-        if (_AnimatorE01.GetCurrentAnimatorStateInfo(0).IsName("Ren2")){Check_Current_Time2 = 0;}
+    //    }
 
-        if (_AnimatorE01.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
-        {
-            UkeL = false;
-            UkeR = false;
-            P_Input = false;
-            Effectflg = false;
-        }
+    //    //òAåÇ2êUÇËè„Ç∞
+    //    if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren02"))
+    //    {
+    //        if (P_Input)
+    //        {
+    //            if (Check_Current_Time2 > 0.0f && Check_Time2 > Check_Current_Time2)
+    //            {
+    //                if (Miburo_State._Katana_Direction == 0 || Miburo_State._Katana_Direction == 1 || Miburo_State._Katana_Direction == 2 || Miburo_State._Katana_Direction == 7)
+    //                {
+    //                    UKe__Ren02 = false;
+    //                    E01Anim.SetBool("RenUke02", false);
+    //                }
+    //                else if (Miburo_State._Katana_Direction == 3 || Miburo_State._Katana_Direction == 4 || Miburo_State._Katana_Direction == 5 || Miburo_State._Katana_Direction == 6)
+    //                {
+    //                    if (!UKe__Ren02)
+    //                    {
+    //                        UKe__Ren02 = true;
+    //                        E01Anim.SetBool("RenUke02", true);
+    //                        UnityEditor.EditorApplication.isPaused = true;
+    //                        Debug.Log("îªíËÅ@ê¨å˜2");
+    //                    }
+    //                }
 
-        if (_AnimatorE01.GetCurrentAnimatorStateInfo(0).IsName("NagasereR") || _AnimatorE01.GetCurrentAnimatorStateInfo(0).IsName("NagasereL"))
-        {
-            Clone_Effect = GameObject.Find("Slash_Effect(Clone)");
 
-            if (Clone_Effect == null && !Effectflg)
-            {
-                Instantiate(S_Effect);
-                Effectflg = true;
-            }
-            UkeL = false;
-            UkeR = false;
-            Check_Current_Time0 = 0;
-        }
 
-        if (_AnimatorE01.GetCurrentAnimatorStateInfo(0).IsName("RtoNagasare"))
-        {
-            Clone_Effect = GameObject.Find("Slash_Effect(Clone)");
-            if (Clone_Effect == null && !Effectflg)
-            {
-                Instantiate(S_Effect);
-                Effectflg = true;
-            }
-            UKe__Ren01 = false;
-            Check_Current_Time1 = 0;
-            _AnimatorE01.SetBool("RenUke01", false);
-        }
+    //            }
+    //            else
+    //            {
+    //                Debug.Log("îªíËÅ@éûä‘êÿÇÍ2 " + Check_Current_Time2);
 
-        if (_AnimatorE01.GetCurrentAnimatorStateInfo(0).IsName("RtoLtoNagasare"))
-        {
-            Clone_Effect = GameObject.Find("Slash_Effect(Clone)");
-            if (Clone_Effect == null && !Effectflg)
-            {
-                Instantiate(S_Effect);
-                Effectflg = true;
-            }
-            _AnimatorE01.SetBool("RenUke02", false);
-            UKe__Ren02 = false;
-            Check_Current_Time2 = 0;
-        }
+    //            }
 
-        if (_AnimatorE01.GetCurrentAnimatorStateInfo(0).IsName("Ren1") || _AnimatorE01.GetCurrentAnimatorStateInfo(0).IsName("Ren2") || _AnimatorE01.GetCurrentAnimatorStateInfo(0).IsName("Tategiri 0"))
-        {
-            Attack = true;
-            Effectflg = false;
-        }
-        else
-        {
-            Attack = false;
-        }
+    //        }
+    //        else
+    //        {
+    //            Check_Current_Time2 += Time.deltaTime;
+    //        }
 
-        if (_AnimatorE01.GetCurrentAnimatorStateInfo(0).IsName("Ren01") || _AnimatorE01.GetCurrentAnimatorStateInfo(0).IsName("Ren02") || _AnimatorE01.GetCurrentAnimatorStateInfo(0).IsName("Tategiri"))
-        {
-        }
-        else
-        {
-            Testobj.GetComponent<MeshRenderer>().material = Defultmat;
-            Testobj.transform.localScale = Vector3.one;
-            Testobj.SetActive(false);
-        }
-    }
+    //        if (Check_Current_Time0 > 0.0f && Check_Time0 >= Check_Current_Time0)
+    //        {
+    //            Testobj.GetComponent<MeshRenderer>().material = Testobjmat;
+    //        }
+    //    }
+    //    else
+    //    {
+
+    //    }
+
+    //    if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("NagasereL") || E01Anim.GetCurrentAnimatorStateInfo(0).IsName("NagasereR"))
+    //    {
+    //        UkeL = false;
+    //        UkeR = false;
+    //        Check_Current_Time0 = 0;
+    //        Debug.Log("asd" + Check_Current_Time0);
+    //        //UnityEditor.EditorApplication.isPaused = true;
+    //    }
+
+    //    //òAåÇ2êUÇËÇ®ÇÎÇµ         
+    //    if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren1"))
+    //    {
+
+    //        Debug.Log(Check_Current_Time1);
+    //        //UnityEditor.EditorApplication.isPaused = true;
+    //        Check_Current_Time1 = 0;
+    //    }
+
+    //    //òAåÇ2êUÇËÇ®ÇÎÇµ         
+    //    if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren2"))
+    //    {
+
+    //        Debug.Log(Check_Current_Time2);
+    //        //UnityEditor.EditorApplication.isPaused = true;
+    //        Check_Current_Time2 = 0;
+    //    }
+
+    //    if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Hirumi"))
+    //    {
+    //        SetState(Enemy_State_.Stagger);
+    //    }
+
+    //    if (E_State == Enemy_State_.Spin)
+    //    {
+    //        UkeL = false;
+    //        UkeR = false;
+    //        P_Input = false;
+    //        Effectflg = false;
+    //    }
+
+    //    if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("NagasereR") || E01Anim.GetCurrentAnimatorStateInfo(0).IsName("NagasereL"))
+    //    {
+
+    //        Clone_Effect = GameObject.Find("Slash_Effect(Clone)");
+    //        if (Clone_Effect == null && !Effectflg)
+    //        {
+    //            Instantiate(S_Effect);
+    //            Effectflg = true;
+    //        }
+    //    }
+
+    //    if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("RtoNagasare"))
+    //    {
+    //        Clone_Effect = GameObject.Find("Slash_Effect(Clone)");
+    //        if (Clone_Effect == null && !Effectflg)
+    //        {
+    //            Instantiate(S_Effect);
+
+    //            Effectflg = true;
+    //        }
+
+    //        UKe__Ren01 = false;
+    //        Check_Current_Time1 = 0;
+    //        E01Anim.SetBool("RenUke01", false);
+    //    }
+
+    //    if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("RtoLtoNagasare"))
+    //    {
+    //        Clone_Effect = GameObject.Find("Slash_Effect(Clone)");
+    //        if (Clone_Effect == null && !Effectflg)
+    //        {
+    //            Instantiate(S_Effect);
+    //            Effectflg = true;
+    //            //UnityEditor.EditorApplication.isPaused = true;
+    //        }
+
+    //        E01Anim.SetBool("RenUke02", false);
+    //        UKe__Ren02 = false;
+    //        Check_Current_Time2 = 0;
+    //    }
+
+    //    if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren1") || E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren2") || E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Tategiri 0"))
+    //    {
+    //        Attack = true;
+    //        //UnityEditor.EditorApplication.isPaused = true;
+    //        Effectflg = false;
+    //    }
+    //    else
+    //    {
+    //        Attack = false;
+    //    }
+
+    //    if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren01") || E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren02") || E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Tategiri") || E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Walk"))
+    //    {
+    //        Testobj.SetActive(true);
+    //        //Testobj.transform.localScale += Vector3.one * Time.deltaTime;
+    //    }
+    //    else
+    //    {
+    //        Testobj.GetComponent<MeshRenderer>().material = Defultmat;
+    //        Testobj.transform.localScale = Vector3.one;
+    //        Testobj.SetActive(false);
+    //        //Testobj.transform.localScale = Vector3.one;
+    //        //Testobj.SetActive(false);
+    //    }
+    //}
+    ////Ç±Ç±Ç‹Ç≈â¡ì°
 }
+
