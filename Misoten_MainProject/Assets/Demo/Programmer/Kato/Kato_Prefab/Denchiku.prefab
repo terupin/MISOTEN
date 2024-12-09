@@ -80,6 +80,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 6359311040815098284}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4021fda1c122f6d4db0c8f54d857028f,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6991716677006072834}
   m_SourcePrefab: {fileID: 100100000, guid: 4021fda1c122f6d4db0c8f54d857028f, type: 3}
 --- !u!1 &9219549096807305038 stripped
 GameObject:
@@ -135,3 +139,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &6991716677006072834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9219549096807305038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5488bc5fe75de947814d373fbd62d7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cut_materal: {fileID: 2100000, guid: 63d7c61626a50ef4fa3f792c1f78b696, type: 2}
+  droping_item: {fileID: 0}
+  item_particle: {fileID: 0}
+  vector_particle: {x: 0, y: 0, z: 0, w: 0}
