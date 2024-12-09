@@ -181,7 +181,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     {
         // 初期状態を設定
         //E_State = Enemy_State_.Idle;
-        E_State = Enemy_State_.Spin;
+        E_State = Enemy_State_.Idle;
         StateCurrentTime = 0.0f; // 経過時間を初期化
         currentHP = Kato_Status_E.NowHP / Kato_Status_E.MaxHP; // 初期HPを設定
         elapsedTime = 0f; // 経過時間を初期化
@@ -198,7 +198,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             upperVertices[i] = new Vector3(x, height, z) + centerOffset;
         }
 
-        run_for_me = true;
+        run_for_me = false;
 
         //E_State = Enemy_State_.Spin;
     }
@@ -284,23 +284,22 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
                 case Enemy_State_.Kaihou:
 
-                    if (!hasUsedDurabilityField100)
+                    if (hasUsedDurabilityField100 == false)
                     {
                         GenerateObjectsAtVertices(lowerVertices);
                         StartCoroutine(DelayedBarrierSpawn());
                         hasUsedDurabilityField100 = true;
                         Debug.Log($"hasUsedDurabilityField100: {hasUsedDurabilityField100} ");
 
-                        StartCoroutine(WaitForKaihouAnimation());
-                        /*
-                        if (IsAnimationFinished("Kaihou"))
-                        {
-                            E_State = Enemy_State_.Spin;
-                        }
-                        */
+                        //StartCoroutine(WaitForKaihouAnimation());
+                        
+                        
                     }
 
-                    
+                    if (IsAnimationFinished("Kaihou"))
+                    {
+                        E_State = Enemy_State_.Spin;
+                    }
 
                     break;
 
@@ -313,11 +312,8 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
             Debug.Log($"状態チェック: {E_State} ");
         }
-        
 
-        {
-            currentHP = (float)Kato_Status_E.NowHP / (float)Kato_Status_E.MaxHP;
-        }
+        currentHP = (float)Kato_Status_E.NowHP / (float)Kato_Status_E.MaxHP;
 
         if (Target_P == null)
         {
@@ -399,7 +395,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         */
 
         if(E_State == Enemy_State_.Spin &&
-          ((currentHP == 1.0f) && !hasUsedDurabilityField100))
+          ((currentHP == 1.0f) && (hasUsedDurabilityField100 == false)))
 
         {
             E_State = Enemy_State_.Kaihou;
@@ -423,7 +419,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         // 0度を開始として360度を6等分した攻撃ポイントを計算
         for (int i = 0; i < 6; i++)
         {
-            float angleInRadians = Mathf.Deg2Rad * (i * 60); // 60度間隔で分割
+            float angleInRadians = 90.0f + Mathf.Deg2Rad * (i * 60); // 60度間隔で分割
             float attackX = Mathf.Cos(angleInRadians) * spinRadius;
             float attackZ = Mathf.Sin(angleInRadians) * spinRadius;
 
@@ -869,6 +865,9 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     private void HandleSceneLoaded()
     {
         transform.position = new Vector3(0, 0, 10);
+        elapsedTime = 0f;
+        E_State = Enemy_State_.Idle;
+
         StartCoroutine(Waitwhenload());
     }
 
@@ -880,6 +879,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
         // 待機終了後、M_state を Spin に変更
         E_State = Enemy_State_.Spin;
+        run_for_me = true;
     }
 
     //ここから加藤
