@@ -20,14 +20,20 @@ public class MainCamera : MonoBehaviour
     public CinemachineInputProvider MainCamLock;
     public bool LDownflg = false;
 
+    public CinemachineVirtualCamera LockOnCamera2;
+    public CinemachineTargetGroup targetGroup;
+    public Transform player;
+    private Transform currentTargetEnemy;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        // 初期設定: プレイヤーをターゲットグループに追加
+        targetGroup.AddMember(player, 1.0f, 2.0f); // Weight=1, Radius=2
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         ukenagashicam();
         LockOncamerachange();
@@ -39,6 +45,20 @@ public class MainCamera : MonoBehaviour
         if (isLockOn == true)
         {
             LockOnCamera.Priority = 15;
+            Transform newTargetEnemy = FindClosestEnemy();
+
+            if (currentTargetEnemy != null)
+            {
+                // 既存の敵をターゲットグループから削除
+                targetGroup.RemoveMember(currentTargetEnemy);
+            }
+
+            if (newTargetEnemy != null)
+            {
+                // 新しい敵をターゲットグループに追加
+                targetGroup.AddMember(newTargetEnemy, 1.0f, 2.0f); // Weight=1, Radius=2
+                currentTargetEnemy = newTargetEnemy;
+            }
 
         }
         else
@@ -69,25 +89,25 @@ public class MainCamera : MonoBehaviour
     }
     void ukenagashicam()
     {
-        //確認用後で戻す
+        
         C_ukenagashi = Miburo_State._Katana_Direction;
 
         if (C_ukenagashi == 0 || C_ukenagashi == 1 || C_ukenagashi == 2 || C_ukenagashi == 7)
         {
-        //    if(Enemy01_State.UkeL)
-        //    {
-        //        changecamstartR = true;
-        //        Debug.Log(changecamstartL);
-        //}
+            if (Matsunaga_Enemy01_State.UkeL)
+            {
+                changecamstartR = true;
+                Debug.Log(changecamstartL);
+            }
 
         }
         else if (C_ukenagashi == 3 || C_ukenagashi == 4 || C_ukenagashi == 5 || C_ukenagashi == 6)
         {
-        //    if (Enemy01_State.UkeR)
-        //    {
-        //        changecamstartL = true;
-        //        Debug.Log(changecamstartR);
-        //    }
+            if (Matsunaga_Enemy01_State.UkeR)
+            {
+                changecamstartL = true;
+                Debug.Log(changecamstartR);
+            }
         }
 
 
@@ -143,4 +163,23 @@ public class MainCamera : MonoBehaviour
         //}
     }
 
+    Transform FindClosestEnemy()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        Transform closestEnemy = null;
+        float closestDistance = Mathf.Infinity;
+
+        foreach (GameObject enemy in enemies)
+        {
+            float distance = Vector3.Distance(player.position, enemy.transform.position);
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+                closestEnemy = enemy.transform;
+            }
+        }
+        return closestEnemy;
+    }
+
+   
 }
