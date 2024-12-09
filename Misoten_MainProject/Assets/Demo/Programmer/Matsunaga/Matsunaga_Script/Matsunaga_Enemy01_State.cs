@@ -286,15 +286,21 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
                     if (!hasUsedDurabilityField100)
                     {
-                        //UnityEditor.EditorApplication.isPaused = true;
                         GenerateObjectsAtVertices(lowerVertices);
                         StartCoroutine(DelayedBarrierSpawn());
                         hasUsedDurabilityField100 = true;
-                        hasUsedDurabilityFieldMAX = true;
-                        //StartCoroutine(WaitForKaihouAnimation());
+                        Debug.Log($"hasUsedDurabilityField100: {hasUsedDurabilityField100} ");
+
+                        StartCoroutine(WaitForKaihouAnimation());
+                        /*
+                        if (IsAnimationFinished("Kaihou"))
+                        {
+                            E_State = Enemy_State_.Spin;
+                        }
+                        */
                     }
 
-                    //E_State = Enemy_State_.Spin;
+                    
 
                     break;
 
@@ -307,11 +313,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
             Debug.Log($"状態チェック: {E_State} ");
         }
-
-       if( IsAnimationFinished("Kaihou"))
-        {
-            E_State = Enemy_State_.Spin;
-        }
+        
 
         {
             currentHP = (float)Kato_Status_E.NowHP / (float)Kato_Status_E.MaxHP;
@@ -381,8 +383,10 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
         CheckAttackPointReached(x, z);
 
-        // HPが75%以下なら即座にGoto状態に遷移
-        if (((currentHP == 1.0f) && !hasUsedDurabilityField100 && hasUsedDurabilityFieldMAX == false) ||
+        /*
+        // HPがなら即座にGoto状態に遷移
+        if (E_State == Enemy_State_.Spin ||
+            ((currentHP == 1.0f) && !hasUsedDurabilityField100)||
             (currentHP <= 0.75f && !hasUsedDurabilityField75) ||
             (currentHP <= 0.5f && !hasUsedDurabilityField50) ||
             (currentHP <= 0.25f && !hasUsedDurabilityField25))
@@ -392,8 +396,14 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             Debug.Log("HPが指定状態まで減少: Kaihou状態に遷移");
             E_State = Enemy_State_.Kaihou;
         }
+        */
 
+        if(E_State == Enemy_State_.Spin &&
+          ((currentHP == 1.0f) && !hasUsedDurabilityField100))
 
+        {
+            E_State = Enemy_State_.Kaihou;
+        }
 
         Debug.Log($"Spin状態: 現在の方向 = {(isReverse ? "逆" : "正")}, 半径 = {spinRadius}, 位置 = ({x}, {z})");
     }
@@ -869,7 +879,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
 
         // 待機終了後、M_state を Spin に変更
-        E_State = Enemy_State_.Kaihou;
+        E_State = Enemy_State_.Spin;
     }
 
     //ここから加藤
