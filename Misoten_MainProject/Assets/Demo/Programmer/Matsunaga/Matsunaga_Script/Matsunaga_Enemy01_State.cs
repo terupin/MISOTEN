@@ -213,6 +213,8 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
         run_for_me = true;
 
+        CalculateAttackPoints();
+
         //E_State = Enemy_State_.Spin;
     }
 
@@ -408,7 +410,6 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
     private void UpdateSpin()
     {
-
         // 方向を変更（正方向または逆方向）
         float direction = isReverse ? -1f : 1f;
 
@@ -423,10 +424,9 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         transform.position = new Vector3(x, transform.position.y, z);
 
         // 6等分された攻撃ポイントを計算
-        CalculateAttackPoints();
+        //CalculateAttackPoints();
 
         // 現在位置が攻撃ポイントに到達したらGoto状態に遷移
-
         CheckAttackPointReached(x, z);
 
         if(E_State == Enemy_State_.Spin)
@@ -514,17 +514,26 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         direction.y = 0; // 高さは変えずにXY平面で移動
 
         // 目標半径（内側の円に到達したら攻撃状態に遷移）
+        /*
         if (direction.magnitude <= AttackLength)
         {
             E_State = Enemy_State_.Attack; // Attack状態に遷移
             Debug.Log("Attack状態に遷移！");
             //UnityEditor.EditorApplication.isPaused = true;
         }
-        else
+        */
+
+        if (direction.magnitude >= AttackLength)
         {
             // 移動処理
             float step = moveSpeed * Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, Vector3.zero, step);
+        }
+        else
+        {
+            E_State = Enemy_State_.Attack; // Attack状態に遷移
+            Debug.Log("Attack状態に遷移！");
+            //UnityEditor.EditorApplication.isPaused = true;
         }
 
         /*
@@ -542,10 +551,11 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         Vector3 directionToGotoStart = gotoStartPosition - transform.position;
         directionToGotoStart.y = 0; // 高さは変えずにXY平面で移動
 
-        /*
+        
         // 到着したら指定の待機時間を待つ
         jumpbackTimer += Time.deltaTime;
 
+        /*
         // 待機時間を経過したらSpin状態に遷移
         if (jumpbackTimer >= waitTime)
         {
@@ -556,18 +566,22 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         }
         */
 
-        // 目標半径（内側の円に到達したら攻撃状態に遷移）
-        if (directionToGotoStart.magnitude <= 0.0f)
+        if (jumpbackTimer >= 1.0f)
         {
-            E_State = Enemy_State_.Spin; // Attack状態に遷移
-            Debug.Log("Spin状態に遷移！");
-            //UnityEditor.EditorApplication.isPaused = true;
-        }
-        else
-        {
-            // 移動処理
-            float step = moveSpeed * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, gotoStartPosition, step);
+            // 目標半径（内側の円に到達したら攻撃状態に遷移）
+            if (directionToGotoStart.magnitude <= 0.0f)
+            {
+                E_State = Enemy_State_.Spin; // Attack状態に遷移
+                Debug.Log("Spin状態に遷移！");
+                //UnityEditor.EditorApplication.isPaused = true;
+                jumpbackTimer = 0f; // タイマーをリセット
+            }
+            else
+            {
+                // 移動処理
+                float step = moveSpeed * Time.deltaTime;
+                transform.position = Vector3.MoveTowards(transform.position, gotoStartPosition, step);
+            }
         }
     }
 
@@ -672,8 +686,8 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             E01Anim.SetBool("Tategiri", false); // アニメーションをリセット
             
             E_State = Enemy_State_.Jumpback;
+            //UnityEditor.EditorApplication.isPaused = true;
         }
-
 
     }
 
@@ -688,8 +702,6 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             
             E_State = Enemy_State_.Jumpback;
         }
-
-
     }
 
     private void HandleNagasare()
