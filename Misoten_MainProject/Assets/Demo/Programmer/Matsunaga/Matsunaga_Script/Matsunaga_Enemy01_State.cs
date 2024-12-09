@@ -1090,7 +1090,8 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                         {
                             UKe__Ren02 = true;
                             E01Anim.SetBool("RenUke02", true);
-                            UnityEditor.EditorApplication.isPaused = true;
+                            E_State = Enemy_State_.Ukenagasare;
+                            //UnityEditor.EditorApplication.isPaused = true;
                             Debug.Log("判定　成功2");
                         }
                     }
