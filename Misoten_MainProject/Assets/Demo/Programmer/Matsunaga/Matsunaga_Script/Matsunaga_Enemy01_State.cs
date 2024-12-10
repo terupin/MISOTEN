@@ -388,25 +388,15 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         {
             HandleCooldown();
         }
-        if (E_State == Enemy_State_.Idle) //|| E_State == Enemy_State_.Walk)
-        {
-            //HandleMovementAndState();
-        }
-        /*
-        else if (E_State == Enemy_State_.RenGeki)
-        {
-            HandleRenGeki();
-        }
-        else if (E_State == Enemy_State_.Tategiri)
-        {
-            HandleTategiri();   
-        }
-        */
         else if (E_State == Enemy_State_.Stagger)
         {
             HandleStagger();
         }
 
+        if (IsAnimationFinished("BackStep"))
+        {
+            E_State = Enemy_State_.Spin;
+        }
 
 
 
