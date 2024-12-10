@@ -29,11 +29,11 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     public float Check_TimeWait1;
     [SerializeField, Header("連撃2ディレイ時間")]
     public float Check_TimeWait2;
-    [SerializeField, Header("縦切り 最大入力猶予 1.7秒")]
+    [SerializeField, Header("縦切り 最大入力猶予")]
     public float Check_Time0;
-    [SerializeField, Header("連撃1 最大入力猶予 1.2秒")]
+    [SerializeField, Header("連撃1 最大入力猶予")]
     public float Check_Time1;
-    [SerializeField, Header("連撃2 最大入力猶予 0.75秒")]
+    [SerializeField, Header("連撃2 最大入力猶予 ")]
     public float Check_Time2;
 
     private float Check_Current_Time0;//入力開始から経過した時間
