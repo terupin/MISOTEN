@@ -974,7 +974,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             }
 
             //if (Check_Time1 + Check_TimeWait1 < Check_Current_Time1)
-            if (2.4f < Check_Current_Time1)
+            if (Check_Time1 + Check_TimeWait1 < Check_Current_Time1)
             {
                 //Debug.Log("時間時間　" + Check_Current_Time1);
                 //UnityEditor.EditorApplication.isPaused = true;
@@ -998,7 +998,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                 }
             }
 
-            if (4.2f < Check_Current_Time1)
+            if (Check_Time1 + Check_TimeWait1 + Check_Time2 + Check_TimeWait2 < Check_Current_Time1)
             {
                 //UnityEditor.EditorApplication.isPaused = true;
                 if (UKe__Ren02)
