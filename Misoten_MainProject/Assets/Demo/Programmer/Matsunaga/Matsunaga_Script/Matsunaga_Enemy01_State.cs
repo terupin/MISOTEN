@@ -393,10 +393,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             HandleStagger();
         }
 
-        if (IsAnimationFinished("BackStep"))
-        {
-            E_State = Enemy_State_.Spin;
-        }
+
 
 
 
@@ -685,6 +682,11 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             //UnityEditor.EditorApplication.isPaused = true;
         }
 
+        if (IsAnimationFinished("NagasereL") || IsAnimationFinished("NagasereR"))
+        {
+            E_State = Enemy_State_.Jumpback;
+        }
+
     }
 
     // 連撃攻撃の処理
@@ -696,6 +698,11 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             Debug.Log("連撃攻撃が完了しました。Cooldown 状態に遷移します。");
             E01Anim.SetBool("RenGeki", false); // アニメーションをリセット
             
+            E_State = Enemy_State_.Jumpback;
+        }
+
+        if (IsAnimationFinished("RtoNagasare") || IsAnimationFinished("RtoLtoNagasare"))
+        {
             E_State = Enemy_State_.Jumpback;
         }
     }
