@@ -1072,9 +1072,6 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                             Debug.Log("iiiiiiiii" + Check_Current_Time1);
                             //UnityEditor.EditorApplication.isPaused = true;
                             UKe__Ren01 = true;
-            
-                            //E_State = Enemy_State_.Idle;
-
                         }
                     }
 
@@ -1102,9 +1099,6 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                             Debug.Log("iiiiiiiii" + Check_Current_Time1);
                             //UnityEditor.EditorApplication.isPaused = true;
                             UKe__Ren02 = true;
-
-                            //E_State = Enemy_State_.Idle;
-
                         }
                     }
 
@@ -1149,7 +1143,6 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                 else
                 {
                     Attack = true;
-                    //UnityEditor.EditorApplication.isPaused = true;
                 }
             }
 
@@ -1163,27 +1156,16 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             SetState(Enemy_State_.Stagger);
         }
 
-        if (E_State == Enemy_State_.Spin)
-        {
-
-        }
-
-
-
         if ( E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren1"))
         {
             Testobj.SetActive(true);
             Debug.Log("時間時間　" + Check_Current_Time1);
-            //UnityEditor.EditorApplication.isPaused = true;
-            //Testobj.transform.localScale += Vector3.one * Time.deltaTime;
         }
         else
         {
             Testobj.GetComponent<MeshRenderer>().material = Defultmat;
             Testobj.transform.localScale = Vector3.one;
             Testobj.SetActive(false);
-            //Testobj.transform.localScale = Vector3.one;
-            //Testobj.SetActive(false);
         }
 
        if( E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Kaihou"))
@@ -1204,23 +1186,5 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             Den05.SetActive(true);
             Den06.SetActive(true);
         }
-    }
-
-    private IEnumerator WaitA()
-    {
-        yield return new WaitForSeconds(0.6f);
-        Check_Current_Time0 = 0.001f;
-    }
-
-    private IEnumerator WaitB()
-    {
-        yield return new WaitForSeconds(0.6f);
-        Check_Current_Time1 = 0.001f;
-    }
-
-    private IEnumerator WaitC()
-    {
-        yield return new WaitForSeconds(0.6f);
-        Check_Current_Time2 = 0.001f;
     }
 }
