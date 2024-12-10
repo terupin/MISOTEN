@@ -963,6 +963,18 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             Testobj.transform.localScale += Vector3.one * Time.deltaTime * 0.1f;
         }
 
+        if (E_State == Enemy_State_.Tategiri)
+        {
+
+        }
+
+        if (E_State == Enemy_State_.RenGeki)
+        {
+
+        }
+
+
+
         //縦切り振り上げ
         if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Tategiri"))
         {
@@ -1126,16 +1138,12 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                             Debug.Log("判定　成功2");
                         }
                     }
-
-
-
                 }
                 else
                 {
                     Debug.Log("判定　時間切れ2 " + Check_Current_Time2);
 
                 }
-
             }
             else
             {
@@ -1276,5 +1284,23 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             Den05.SetActive(true);
             Den06.SetActive(true);
         }
+    }
+
+    private IEnumerator WaitA()
+    {
+        yield return new WaitForSeconds(0.6f);
+        Check_Current_Time0 = 0.001f;
+    }
+
+    private IEnumerator WaitB()
+    {
+        yield return new WaitForSeconds(0.6f);
+        Check_Current_Time1 = 0.001f;
+    }
+
+    private IEnumerator WaitC()
+    {
+        yield return new WaitForSeconds(0.6f);
+        Check_Current_Time2 = 0.001f;
     }
 }
