@@ -1350,6 +1350,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
+      propertyPath: Check_TimeD0
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
+      propertyPath: Check_TimeD1
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
+      propertyPath: Check_TimeD2
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
       propertyPath: debug_switch
       value: 0
       objectReference: {fileID: 0}
