@@ -866,7 +866,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
         if (E_State == Enemy_State_.Tategiri)
         {
-            if(Check_Current_Time0 > Check_TimeWait0 && Check_Time0+ Check_TimeWait0 >= Check_Current_Time0)
+            if (Check_Current_Time0 > Check_TimeWait0 && Check_Time0 + Check_TimeWait0 >= Check_Current_Time0)
             {
                 //UnityEditor.EditorApplication.isPaused = true;
                 if (P_Input)
@@ -885,7 +885,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
             }
 
-           if( Check_Time0 + Check_TimeWait0 < Check_Current_Time0)
+            if (Check_Time0 + Check_TimeWait0 < Check_Current_Time0)
             {
                 if (UkeR)
                 {
@@ -914,7 +914,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                 else
                 {
                     Attack = true;
-                     //UnityEditor.EditorApplication.isPaused = true;
+                    //UnityEditor.EditorApplication.isPaused = true;
                 }
             }
 
@@ -929,7 +929,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             UKe__Ren02 = false;
         }
 
-            if (E_State == Enemy_State_.Jumpback)
+        if (E_State == Enemy_State_.Jumpback)
         {
             UkeL = false;
             UkeR = false;
@@ -947,11 +947,12 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
         if (E_State == Enemy_State_.RenGeki)
         {
-            if (Check_Current_Time1 > Check_TimeWait1 && Check_Time1 + Check_TimeWait1 > Check_Current_Time1 )
+            //1回目判定
+            if (Check_Current_Time1 > Check_TimeWait1 && Check_Time1 + Check_TimeWait1 > Check_Current_Time1)
             {
-                if (P_Input)  
+                if (P_Input)
                 {
-                if (Miburo_State._Katana_Direction == 0 || Miburo_State._Katana_Direction == 1 || Miburo_State._Katana_Direction == 2 || Miburo_State._Katana_Direction == 7)
+                    if (Miburo_State._Katana_Direction == 0 || Miburo_State._Katana_Direction == 1 || Miburo_State._Katana_Direction == 2 || Miburo_State._Katana_Direction == 7)
                     {
                         if (!UKe__Ren01)
                         {
@@ -965,23 +966,18 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                 }
             }
 
-            if (Check_Time1+ Check_TimeWait1 < Check_Current_Time1)
+            //2回目判定
+            if (Check_Current_Time1 > Check_TimeWait2 + Check_Time1 + Check_TimeWait1 && Check_Time1 + Check_TimeWait1 + Check_Time2 + Check_TimeWait2 >= Check_Current_Time1)
             {
-                if (UKe__Ren01)
-                {
-                    E01Anim.SetBool("RenUke01", true);
-                    E_State = Enemy_State_.Ukenagasare;
-                }
-            }
-
-            if (Check_Current_Time1 > Check_TimeWait2+ Check_Current_Time1 + Check_TimeWait1 && Check_Time1 + Check_TimeWait1 + Check_Time2 + Check_TimeWait2 >= Check_Current_Time1 )
-            {
+                //UnityEditor.EditorApplication.isPaused = true;
                 if (P_Input)
                 {
+
                     if (Miburo_State._Katana_Direction == 3 || Miburo_State._Katana_Direction == 4 || Miburo_State._Katana_Direction == 5 || Miburo_State._Katana_Direction == 6)
                     {
                         if (!UKe__Ren02)
                         {
+                            //UnityEditor.EditorApplication.isPaused = true;
                             Debug.Log("判定　成功1");
                             Debug.Log("iiiiiiiii" + Check_Current_Time1);
                             //UnityEditor.EditorApplication.isPaused = true;
@@ -992,8 +988,12 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                 }
             }
 
-            if (Check_Time1 + Check_TimeWait1 < Check_Current_Time1)
+            //if (Check_Time1 + Check_TimeWait1 < Check_Current_Time1)
+            if (2.4f < Check_Current_Time1)
             {
+                //Debug.Log("時間時間　" + Check_Current_Time1);
+                //UnityEditor.EditorApplication.isPaused = true;
+
                 if (UKe__Ren01)
                 {
                     E01Anim.SetBool("RenUke01", true);
@@ -1013,8 +1013,9 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                 }
             }
 
-            if (Check_Time1 + Check_TimeWait1 + Check_Time2 + Check_TimeWait2 < Check_Current_Time1)
+            if (4.2f < Check_Current_Time1)
             {
+                //UnityEditor.EditorApplication.isPaused = true;
                 if (UKe__Ren02)
                 {
                     E01Anim.SetBool("RenUke02", true);
@@ -1043,10 +1044,17 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             SetState(Enemy_State_.Stagger);
         }
 
-        if ( E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren1"))
+        //if(IsAnimationFinished("Ren02"))
+        //{
+        //    Debug.Log("時間時間　" + Check_Current_Time1);
+        //    UnityEditor.EditorApplication.isPaused = true;
+        //}
+
+        if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren2"))
         {
             Testobj.SetActive(true);
             Debug.Log("時間時間　" + Check_Current_Time1);
+            //UnityEditor.EditorApplication.isPaused = true;
         }
         else
         {
@@ -1055,7 +1063,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             Testobj.SetActive(false);
         }
 
-       if( E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Kaihou"))
+        if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Kaihou"))
         {
             Den01.SetActive(false);
             Den02.SetActive(false);
@@ -1064,7 +1072,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             Den05.SetActive(false);
             Den06.SetActive(false);
         }
-       else
+        else
         {
             Den01.SetActive(true);
             Den02.SetActive(true);
@@ -1075,3 +1083,4 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         }
     }
 }
+
