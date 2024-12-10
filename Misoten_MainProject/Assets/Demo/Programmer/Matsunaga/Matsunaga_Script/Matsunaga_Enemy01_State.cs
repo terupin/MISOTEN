@@ -580,41 +580,26 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
     private void HandleNagasare()
     {
-        /*
-        if(IsAnimationFinished("NagasereL") || IsAnimationFinished("NagasereR"))
+        if (IsAnimationFinished("NagasereL"))
         {
             E_State = Enemy_State_.Jumpback;
-            Debug.Log("NagasareL & NagasareR");
-            //UnityEditor.EditorApplication.isPaused = true;
-        }
-        */
-        
-        if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("NagasereL") && E01Anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f)
-        {
-            E_State = Enemy_State_.Jumpback;
-            Debug.Log("NagasareL");
             //UnityEditor.EditorApplication.isPaused = true;
         }
 
-        if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("NagasereR") && E01Anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f)
+        if (IsAnimationFinished("NagasereR"))
         {
             E_State = Enemy_State_.Jumpback;
-            Debug.Log("NagasareR");
-            //UnityEditor.EditorApplication.isPaused = true;
-        }
-        
-        if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("RtoLtoNagasare") && E01Anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f)
-        {
-            E_State = Enemy_State_.Jumpback;
-            Debug.Log("NagasareR");
             //UnityEditor.EditorApplication.isPaused = true;
         }
 
-        if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("RtoNagasare") && E01Anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f)
+        if (IsAnimationFinished("RtoLtoNagasare"))
         {
             E_State = Enemy_State_.Jumpback;
-            Debug.Log("NagasareR");
-            //UnityEditor.EditorApplication.isPaused = true;
+        }
+
+        if (IsAnimationFinished("RtoNagasare"))
+        {
+            E_State = Enemy_State_.Jumpback;
         }
     }
 
