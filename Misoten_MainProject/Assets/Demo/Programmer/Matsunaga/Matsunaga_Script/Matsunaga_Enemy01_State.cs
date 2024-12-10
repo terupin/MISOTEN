@@ -172,7 +172,16 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
     private string mySceneName; // 自身が配置されているシーン名
 
-    private GameObject[] denthiku_num;
+    public string objectName; // 検索するオブジェクト名
+    private int previousCount = 0; // 前回のオブジェクト数
+    private int objectCount = 0; // 同名オブジェクトの数を格納する
+    public float updateInterval = 0.5f; // 更新間隔（秒）
+    private bool haddenchiku = false; //電竹を生成したかのフラグ //true 電竹が存在　//false 電竹が不在
+
+    [SerializeField, Header("怯むまでの電竹破壊数"), Range(1, 6)]
+    public int numtostagg; //怯むまでの電竹破壊数
+    private int counttostagg;
+    private int totalDestroyed = 0; // 累積破壊数
 
     private void Start()
     {
@@ -288,13 +297,19 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
                     break;
 
-                    //撤退時
+                case Enemy_State_.Stagger:
+
+                    HandleStagger();
+
+                    break;
+
+                //撤退時
                 case Enemy_State_.Jumpback:
 
                     UpdateJumpback();
 
                     break;
-
+                    
                     //耐久フィールド展開時
                 case Enemy_State_.Kaihou:
 
@@ -360,10 +375,12 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         {
             HandleCooldown();
         }
+        /*
         else if (E_State == Enemy_State_.Stagger)
         {
             HandleStagger();
         }
+        */
 
         // 状態に応じてアニメーションを更新
         UpdateAnimations();
@@ -633,7 +650,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             // ひるみ状態終了後、待機状態に遷移
             Debug.Log("ひるみ状態が終了しました。Idle 状態に遷移します。");
             E01Anim.SetBool("Hiruimi", false); // ひるみアニメーションのフラグをリセット
-            SetState(Enemy_State_.Idle);
+            SetState(Enemy_State_.Jumpback);
         }
     }
 
@@ -649,19 +666,22 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         yield return new WaitForSeconds(2f); // 2秒待機
         //SpawnBarrier();
 
-        // 辺を描画
-        for (int i = 0; i < 6; i++)
+        if(objectCount != 0)
         {
-            // 水平辺 (下)
-            DrawLine(lowerVertices[i], lowerVertices[(i + 1) % 6]);
-            // 水平辺 (上)
-            DrawLine(upperVertices[i], upperVertices[(i + 1) % 6]);
-            // 垂直辺
-            DrawLine(lowerVertices[i], upperVertices[i]);
-        }
+            // 辺を描画
+            for (int i = 0; i < 6; i++)
+            {
+                // 水平辺 (下)
+                DrawLine(lowerVertices[i], lowerVertices[(i + 1) % 6]);
+                // 水平辺 (上)
+                DrawLine(upperVertices[i], upperVertices[(i + 1) % 6]);
+                // 垂直辺
+                DrawLine(lowerVertices[i], upperVertices[i]);
+            }
 
-        // 面を描画
-        CreateMesh(lowerVertices, upperVertices);
+            // 面を描画
+            CreateMesh(lowerVertices, upperVertices);
+        }
     }
     
     private IEnumerator WaitForKaihouAnimation()
@@ -837,25 +857,71 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         hasUsedDurabilityField75 = true;
         hasUsedDurabilityField50 = true;
         hasUsedDurabilityField25 = true;
-        
+
         StateCurrentTime = 0.0f; // 経過時間を初期化
         elapsedTime = 0f; // 経過時間を初期化
 
         CalculateAttackPoints();
 
+        haddenchiku = false;
+
         E_State = Enemy_State_.Spin;
-        //StartCoroutine(Waitwhenload());
-        
+
+        // 定期的にオブジェクト数を確認
+        StartCoroutine(UpdateObjectCount());
+
     }
 
-    private IEnumerator Waitwhenload()
+    IEnumerator UpdateObjectCount()
     {
-        // 指定した秒数待機（例: 5秒）
-        float waitTime = 10.0f;
-        yield return new WaitForSeconds(waitTime);
+        while (true)
+        {
+            // シーン内の全オブジェクトを取得
+            GameObject[] allObjects = FindObjectsOfType<GameObject>();
 
-        // 待機終了後、M_state を Spin に変更
-        E_State = Enemy_State_.Spin;
+            // 同名オブジェクトの数をカウント
+            objectCount = 0;
+            foreach (GameObject obj in allObjects)
+            {
+                if (obj.name == objectName)
+                {
+                    objectCount++;
+                }
+            }
+
+            // オブジェクトが破壊されたかをチェック
+            int destroyedCount = previousCount - objectCount;
+            if (destroyedCount > 0)
+            {
+                totalDestroyed += destroyedCount; // 累積破壊数を更新
+            }
+
+            // 累積破壊数がしきい値を超えた場合にフラグを立てる
+            if (totalDestroyed >= numtostagg)
+            {
+                haddenchiku = true;
+                Debug.Log($"フラグが true になりました。累積破壊数: {totalDestroyed}");
+                totalDestroyed = 0; // しきい値を超えたら累積カウントをリセット
+
+                if(E_State == Enemy_State_.Ukenagasare)
+                {
+                    E_State = Enemy_State_.Stagger;
+                }
+            }
+            else
+            {
+                haddenchiku = false;
+            }
+
+            // 現在のカウントを保存
+            previousCount = objectCount;
+
+            // 結果を表示
+            Debug.Log($"オブジェクト '{objectName}' の現在の数: {objectCount}");
+
+            // 次の更新まで待機
+            yield return new WaitForSeconds(updateInterval);
+        }
     }
 
 
