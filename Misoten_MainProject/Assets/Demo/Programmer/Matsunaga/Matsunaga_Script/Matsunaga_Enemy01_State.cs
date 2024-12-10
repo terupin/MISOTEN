@@ -439,6 +439,11 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             if (Vector3.Distance(new Vector3(x, transform.position.y, z), point) < threshold)
             {
                 Debug.Log("攻撃ポイント到達!");
+                for(int i = 0; i < 6; i++)
+                {
+                    Debug.Log($"attackpoints{attackPoints[i]}");
+                }
+                
                 E_State = Enemy_State_.Goto; // Goto状態に遷移
                 gotoStartPosition = transform.position;
                 //UnityEditor.EditorApplication.isPaused = true;
@@ -553,10 +558,12 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             //UnityEditor.EditorApplication.isPaused = true;
         }
 
+        /*
         if (IsAnimationFinished("NagasereL") || IsAnimationFinished("NagasereR"))
         {
             E_State = Enemy_State_.Jumpback;
         }
+        */
 
     }
 
@@ -834,7 +841,11 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         StateCurrentTime = 0.0f; // 経過時間を初期化
         elapsedTime = 0f; // 経過時間を初期化
 
-        StartCoroutine(Waitwhenload());
+        CalculateAttackPoints();
+
+        E_State = Enemy_State_.Spin;
+        //StartCoroutine(Waitwhenload());
+        
     }
 
     private IEnumerator Waitwhenload()
