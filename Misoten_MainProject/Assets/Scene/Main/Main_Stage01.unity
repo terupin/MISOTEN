@@ -1336,7 +1336,7 @@ PrefabInstance:
     - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
       propertyPath: Check_Time0
-      value: 0.5
+      value: 0.55
       objectReference: {fileID: 0}
     - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
@@ -1356,7 +1356,7 @@ PrefabInstance:
     - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
       propertyPath: RenGekiChance
-      value: 100
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
@@ -1366,7 +1366,7 @@ PrefabInstance:
     - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
       propertyPath: TategiriChance
-      value: 0
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
@@ -3374,8 +3374,8 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 15
   m_StandbyUpdate: 2
-  m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 0}
+  m_LookAt: {fileID: 343405556}
+  m_Follow: {fileID: 1322884134}
   m_Lens:
     FieldOfView: 80
     OrthographicSize: 10
@@ -3768,6 +3768,11 @@ PrefabInstance:
       objectReference: {fileID: 1498831292}
     - target: {fileID: 5559175423462806870, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}
+      propertyPath: targetGroup
+      value: 
+      objectReference: {fileID: 343405555}
+    - target: {fileID: 5559175423462806870, guid: 8eb4fdc726e23774da71f86d9d295d96,
+        type: 3}
       propertyPath: LockOnCamera
       value: 
       objectReference: {fileID: 221206124}
@@ -3955,6 +3960,12 @@ Transform:
 --- !u!1 &1322884133 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3669612430873067828, guid: 8eb4fdc726e23774da71f86d9d295d96,
+    type: 3}
+  m_PrefabInstance: {fileID: 1322884129}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1322884134 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7990267080315534937, guid: 8eb4fdc726e23774da71f86d9d295d96,
     type: 3}
   m_PrefabInstance: {fileID: 1322884129}
   m_PrefabAsset: {fileID: 0}
@@ -4845,7 +4856,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 80
+  field of view: 7.485621
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
