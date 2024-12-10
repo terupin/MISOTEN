@@ -945,7 +945,7 @@ PrefabInstance:
     - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
       propertyPath: RenGekiChance
-      value: 0
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
@@ -955,7 +955,7 @@ PrefabInstance:
     - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
       propertyPath: TategiriChance
-      value: 100
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
@@ -4237,17 +4237,17 @@ PrefabInstance:
     - target: {fileID: 2191936189096155806, guid: 2dc92fb850458f14681d8c6a4cfe0f04,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.0050889156
+      value: 0.005088916
       objectReference: {fileID: 0}
     - target: {fileID: 2191936189096155806, guid: 2dc92fb850458f14681d8c6a4cfe0f04,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.0000012649349
+      value: 0.000001264935
       objectReference: {fileID: 0}
     - target: {fileID: 2191936189096155806, guid: 2dc92fb850458f14681d8c6a4cfe0f04,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0000000064372165
+      value: -0.0000000064372307
       objectReference: {fileID: 0}
     - target: {fileID: 2946144618930331480, guid: 2dc92fb850458f14681d8c6a4cfe0f04,
         type: 3}
