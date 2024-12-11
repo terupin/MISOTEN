@@ -1330,6 +1330,16 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 7c8f564ee923b5f4b929e7e0268f8180, type: 2}
     - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
+      propertyPath: numtostagg
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
+      propertyPath: objectName
+      value: Denchiku(Clone)
+      objectReference: {fileID: 0}
+    - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
       propertyPath: spinRadius
       value: 10
       objectReference: {fileID: 0}
@@ -1377,6 +1387,11 @@ PrefabInstance:
         type: 3}
       propertyPath: maiclue_speed
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
+      propertyPath: rotationAngle
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
@@ -4840,7 +4855,7 @@ MonoBehaviour:
   - {fileID: 2199455153332803375, guid: 0b1a9079b5c39324fb960cc60bb65918, type: 3}
   SpawnObjScale: {x: 0.2, y: 0.2, z: 0.2}
   SpawnObjRadius: 16
-  SetobjRot: 0
+  SetobjRot: 15
 --- !u!1 &1823688464
 GameObject:
   m_ObjectHideFlags: 0
