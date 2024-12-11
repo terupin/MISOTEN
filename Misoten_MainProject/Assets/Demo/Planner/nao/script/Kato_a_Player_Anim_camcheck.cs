@@ -205,7 +205,7 @@ public class Kato_a_Player_Anim_camcheck : MonoBehaviour
             }
         }
 
-        Player_Animator.SetBool("Gurd", Kato_HitBoxE.Ukenagashi_Flg);
+        //Player_Animator.SetBool("Gurd", Kato_HitBoxE.Ukenagashi_Flg);
 
         Player_Animator.SetInteger("KatanaD", Katana_Direction);
 

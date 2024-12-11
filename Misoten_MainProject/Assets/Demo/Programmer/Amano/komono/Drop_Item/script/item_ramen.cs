@@ -16,11 +16,12 @@ public class item_ramen : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (other.tag == "Player")
+        if (collision.gameObject.tag == "Player")
         {
-            Kato_Status_P Hp_meny = other.gameObject.GetComponent<Kato_Status_P>(); //プレイヤーのHP量の取得
+
+            Kato_Status_P Hp_meny = collision.gameObject.GetComponent<Kato_Status_P>(); //プレイヤーのHP量の取得
 
             //if (Hp_meny.NowHP < Hp_meny.MaxHP)
             //{
@@ -30,4 +31,6 @@ public class item_ramen : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+
+
 }

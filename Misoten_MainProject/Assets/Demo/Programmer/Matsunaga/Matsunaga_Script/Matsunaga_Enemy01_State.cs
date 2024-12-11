@@ -13,32 +13,42 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     public Material Testobjmat;
 
     [Header("開放時に隠す電竹")]
-    public GameObject Den01; // 頂点に生成するオブジェクト
-    public GameObject Den02; // 頂点に生成するオブジェクト
-    public GameObject Den03; // 頂点に生成するオブジェクト
-    public GameObject Den04; // 頂点に生成するオブジェクト
-    public GameObject Den05; // 頂点に生成するオブジェクト
-    public GameObject Den06; // 頂点に生成するオブジェクト
+    public GameObject Den01; 
+    public GameObject Den02; 
+    public GameObject Den03; 
+    public GameObject Den04; 
+    public GameObject Den05; 
+    public GameObject Den06; 
+
+
+    [SerializeField, Header("受け流し時に再生する音声")]
+    public AudioClip AudioClip_Uke;
+    private AudioSource audioSource_E;
 
     //縦切り 最大入力猶予 1.7秒
     //連撃1 最大入力猶予 1.2秒
     //連撃2 最大入力猶予 0.5秒
     [SerializeField, Header("縦切り前ディレイ時間")]
-    public float Check_TimeWait0;
+    public float Check_TimeD0;
     [SerializeField, Header("連撃1ディレイ時間")]
-    public float Check_TimeWait1;
+    public float Check_TimeD1;
     [SerializeField, Header("連撃2ディレイ時間")]
+    public float Check_TimeD2;
+    [SerializeField, Header("縦切り開始まで待ち時間")]
+    public float Check_TimeWait0;
+    [SerializeField, Header("連撃1開始まで待ち時間")]
+    public float Check_TimeWait1;
+    [SerializeField, Header("連撃2開始まで待ち時間")]
     public float Check_TimeWait2;
-    [SerializeField, Header("縦切り 最大入力猶予 1.7秒")]
+    [SerializeField, Header("縦切り 最大入力猶予")]
     public float Check_Time0;
-    [SerializeField, Header("連撃1 最大入力猶予 1.2秒")]
+    [SerializeField, Header("連撃1 最大入力猶予")]
     public float Check_Time1;
-    [SerializeField, Header("連撃2 最大入力猶予 0.75秒")]
+    [SerializeField, Header("連撃2 最大入力猶予 ")]
     public float Check_Time2;
 
     private float Check_Current_Time0;//入力開始から経過した時間
     private float Check_Current_Time1;//入力開始から経過した時間
-    private float Check_Current_Time2;//入力開始から経過した時間
 
     [SerializeField, Header("斬撃エフェクト")]
     public GameObject S_Effect;
@@ -204,7 +214,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         }
 
         run_for_me = true;
-
+        audioSource_E = GetComponent<AudioSource>();
         CalculateAttackPoints();
     }
 
@@ -604,41 +614,26 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
     private void HandleNagasare()
     {
-        /*
-        if(IsAnimationFinished("NagasereL") || IsAnimationFinished("NagasereR"))
+        if (IsAnimationFinished("NagasereL"))
         {
             E_State = Enemy_State_.Jumpback;
-            Debug.Log("NagasareL & NagasareR");
-            //UnityEditor.EditorApplication.isPaused = true;
-        }
-        */
-        
-        if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("NagasereL") && E01Anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f)
-        {
-            E_State = Enemy_State_.Jumpback;
-            Debug.Log("NagasareL");
             //UnityEditor.EditorApplication.isPaused = true;
         }
 
-        if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("NagasereR") && E01Anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f)
+        if (IsAnimationFinished("NagasereR"))
         {
             E_State = Enemy_State_.Jumpback;
-            Debug.Log("NagasareR");
-            //UnityEditor.EditorApplication.isPaused = true;
-        }
-        
-        if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("RtoLtoNagasare") && E01Anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f)
-        {
-            E_State = Enemy_State_.Jumpback;
-            Debug.Log("NagasareR");
             //UnityEditor.EditorApplication.isPaused = true;
         }
 
-        if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("RtoNagasare") && E01Anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f)
+        if (IsAnimationFinished("RtoLtoNagasare"))
         {
             E_State = Enemy_State_.Jumpback;
-            Debug.Log("NagasareR");
-            //UnityEditor.EditorApplication.isPaused = true;
+        }
+
+        if (IsAnimationFinished("RtoNagasare"))
+        {
+            E_State = Enemy_State_.Jumpback;
         }
     }
 
@@ -943,7 +938,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
         if (E_State == Enemy_State_.Tategiri)
         {
-            if(Check_Current_Time0 > Check_TimeWait0 && Check_Time0+ Check_TimeWait0 >= Check_Current_Time0)
+            if (Check_Current_Time0 > Check_TimeWait0 && Check_Time0 + Check_TimeWait0 >= Check_Current_Time0)
             {
                 //UnityEditor.EditorApplication.isPaused = true;
                 if (P_Input)
@@ -962,36 +957,23 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
             }
 
-           if( Check_Time0 + Check_TimeWait0 < Check_Current_Time0)
+            if (Check_Time0 + Check_TimeWait0 < Check_Current_Time0)
             {
                 if (UkeR)
                 {
-                    E01Anim.SetBool("UkeR", true);
-                    E_State = Enemy_State_.Ukenagasare;
-                    Clone_Effect = GameObject.Find("Slash_Effect(Clone)");
-                    if (Clone_Effect == null && !Effectflg)
-                    {
-                        Instantiate(S_Effect);
-                        Effectflg = true;
-                        //UnityEditor.EditorApplication.isPaused = true;
-                    }
+                    StartCoroutine(WaitD01R());
+   
+
                 }
                 else if (UkeL)
                 {
-                    E01Anim.SetBool("UkeL", true);
-                    E_State = Enemy_State_.Ukenagasare;
-                    Clone_Effect = GameObject.Find("Slash_Effect(Clone)");
-                    if (Clone_Effect == null && !Effectflg)
-                    {
-                        Instantiate(S_Effect);
-                        Effectflg = true;
-                        //UnityEditor.EditorApplication.isPaused = true;
-                    }
+                    StartCoroutine(WaitD01L());
+
                 }
                 else
                 {
                     Attack = true;
-                     //UnityEditor.EditorApplication.isPaused = true;
+                    //UnityEditor.EditorApplication.isPaused = true;
                 }
             }
 
@@ -1006,7 +988,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             UKe__Ren02 = false;
         }
 
-            if (E_State == Enemy_State_.Jumpback)
+        if (E_State == Enemy_State_.Jumpback)
         {
             UkeL = false;
             UkeR = false;
@@ -1015,7 +997,6 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             Attack = false;
             Check_Current_Time0 = 0.0f;
             Check_Current_Time1 = 0.0f;
-            Check_Current_Time2 = 0.0f;
             E01Anim.SetBool("UkeL", false);
             E01Anim.SetBool("UkeR", false);
             E01Anim.SetBool("RenUke01", false);
@@ -1024,11 +1005,12 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
         if (E_State == Enemy_State_.RenGeki)
         {
-            if (Check_Current_Time1 > Check_TimeWait1 && Check_Time1 + Check_TimeWait1 > Check_Current_Time1 )
+            //1回目判定
+            if (Check_Current_Time1 > Check_TimeWait1 && Check_Time1 + Check_TimeWait1 > Check_Current_Time1)
             {
-                if (P_Input)  
+                if (P_Input)
                 {
-                if (Miburo_State._Katana_Direction == 0 || Miburo_State._Katana_Direction == 1 || Miburo_State._Katana_Direction == 2 || Miburo_State._Katana_Direction == 7)
+                    if (Miburo_State._Katana_Direction == 0 || Miburo_State._Katana_Direction == 1 || Miburo_State._Katana_Direction == 2 || Miburo_State._Katana_Direction == 7)
                     {
                         if (!UKe__Ren01)
                         {
@@ -1042,23 +1024,18 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                 }
             }
 
-            if (Check_Time1+ Check_TimeWait1 < Check_Current_Time1)
+            //2回目判定
+            if (Check_Current_Time1 > Check_TimeWait2 + Check_Time1 + Check_TimeWait1 && Check_Time1 + Check_TimeWait1 + Check_Time2 + Check_TimeWait2 >= Check_Current_Time1)
             {
-                if (UKe__Ren01)
-                {
-                    E01Anim.SetBool("RenUke01", true);
-                    E_State = Enemy_State_.Ukenagasare;
-                }
-            }
-
-            if (Check_Current_Time1 > Check_TimeWait2+ Check_Current_Time1 + Check_TimeWait1 && Check_Time1 + Check_TimeWait1 + Check_Time2 + Check_TimeWait2 >= Check_Current_Time1 )
-            {
+                //UnityEditor.EditorApplication.isPaused = true;
                 if (P_Input)
                 {
+
                     if (Miburo_State._Katana_Direction == 3 || Miburo_State._Katana_Direction == 4 || Miburo_State._Katana_Direction == 5 || Miburo_State._Katana_Direction == 6)
                     {
                         if (!UKe__Ren02)
                         {
+                            //UnityEditor.EditorApplication.isPaused = true;
                             Debug.Log("判定　成功1");
                             Debug.Log("iiiiiiiii" + Check_Current_Time1);
                             //UnityEditor.EditorApplication.isPaused = true;
@@ -1069,19 +1046,17 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                 }
             }
 
+            //if (Check_Time1 + Check_TimeWait1 < Check_Current_Time1)
             if (Check_Time1 + Check_TimeWait1 < Check_Current_Time1)
             {
+                //Debug.Log("時間時間　" + Check_Current_Time1);
+                //UnityEditor.EditorApplication.isPaused = true;
+
                 if (UKe__Ren01)
                 {
-                    E01Anim.SetBool("RenUke01", true);
-                    Clone_Effect = GameObject.Find("Slash_Effect(Clone)");
-                    if (Clone_Effect == null && !Effectflg)
-                    {
-                        Instantiate(S_Effect);
-                        Effectflg = true;
-                        //UnityEditor.EditorApplication.isPaused = true;
-                    }
-                    E_State = Enemy_State_.Ukenagasare;
+                    Attack = false;
+                    StartCoroutine(WaitDR01());
+
                 }
                 else
                 {
@@ -1092,17 +1067,11 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
             if (Check_Time1 + Check_TimeWait1 + Check_Time2 + Check_TimeWait2 < Check_Current_Time1)
             {
+                //UnityEditor.EditorApplication.isPaused = true;
                 if (UKe__Ren02)
                 {
-                    E01Anim.SetBool("RenUke02", true);
-                    Clone_Effect = GameObject.Find("Slash_Effect(Clone)");
-                    if (Clone_Effect == null && !Effectflg)
-                    {
-                        Instantiate(S_Effect);
-                        Effectflg = true;
-                        //UnityEditor.EditorApplication.isPaused = true;
-                    }
-                    E_State = Enemy_State_.Ukenagasare;
+                    Attack = false;
+                    StartCoroutine(WaitDR02());
                 }
                 else
                 {
@@ -1120,10 +1089,17 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             SetState(Enemy_State_.Stagger);
         }
 
-        if ( E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren1"))
+        //if(IsAnimationFinished("Ren02"))
+        //{
+        //    Debug.Log("時間時間　" + Check_Current_Time1);
+        //    UnityEditor.EditorApplication.isPaused = true;
+        //}
+
+        if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren2"))
         {
             Testobj.SetActive(true);
             Debug.Log("時間時間　" + Check_Current_Time1);
+            //UnityEditor.EditorApplication.isPaused = true;
         }
         else
         {
@@ -1132,7 +1108,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             Testobj.SetActive(false);
         }
 
-       if( E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Kaihou"))
+        if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Kaihou"))
         {
             Den01.SetActive(false);
             Den02.SetActive(false);
@@ -1141,7 +1117,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             Den05.SetActive(false);
             Den06.SetActive(false);
         }
-       else
+        else
         {
             Den01.SetActive(true);
             Den02.SetActive(true);
@@ -1151,4 +1127,66 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             Den06.SetActive(true);
         }
     }
+
+    private IEnumerator WaitD01R()
+    {
+        yield return new WaitForSeconds(Check_TimeD0);
+        E01Anim.SetBool("UkeR", true);
+        E_State = Enemy_State_.Ukenagasare;
+        Clone_Effect = GameObject.Find("Slash_Effect(Clone)");
+        if (Clone_Effect == null && !Effectflg)
+        {
+            Instantiate(S_Effect);
+            Effectflg = true;
+            audioSource_E.PlayOneShot(AudioClip_Uke);
+            //UnityEditor.EditorApplication.isPaused = true;
+        }
+    }
+
+    private IEnumerator WaitD01L()
+    {
+        yield return new WaitForSeconds(Check_TimeD0);
+        E01Anim.SetBool("UkeL", true);
+        E_State = Enemy_State_.Ukenagasare;
+        Clone_Effect = GameObject.Find("Slash_Effect(Clone)");
+        if (Clone_Effect == null && !Effectflg)
+        {
+            Instantiate(S_Effect);
+            Effectflg = true;
+            audioSource_E.PlayOneShot(AudioClip_Uke);
+            //UnityEditor.EditorApplication.isPaused = true;
+        }
+    }
+
+    private IEnumerator WaitDR01()
+    {
+        yield return new WaitForSeconds(Check_TimeD1);
+        E01Anim.SetBool("RenUke01", true);
+        Clone_Effect = GameObject.Find("Slash_Effect(Clone)");
+        if (Clone_Effect == null && !Effectflg)
+        {
+            Instantiate(S_Effect);
+            Effectflg = true;
+
+            audioSource_E.PlayOneShot(AudioClip_Uke);
+            //UnityEditor.EditorApplication.isPaused = true;
+        }
+        E_State = Enemy_State_.Ukenagasare;
+    }
+
+    private IEnumerator WaitDR02()
+    {
+        yield return new WaitForSeconds(Check_TimeD2);
+        E01Anim.SetBool("RenUke02", true);
+        Clone_Effect = GameObject.Find("Slash_Effect(Clone)");
+        if (Clone_Effect == null && !Effectflg)
+        {
+            Instantiate(S_Effect);
+            Effectflg = true;
+            audioSource_E.PlayOneShot(AudioClip_Uke);
+            //UnityEditor.EditorApplication.isPaused = true;
+        }
+        E_State = Enemy_State_.Ukenagasare;
+    }
 }
+

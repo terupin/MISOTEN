@@ -16,12 +16,16 @@ public class item_drink : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        Kato_Status_P Armor_meny = other.gameObject.GetComponent<Kato_Status_P>(); //プレイヤーのHP量の取得
-        //Armor_meny.Armor++;
-        Destroy(this.gameObject);
+        if (collision.gameObject.tag == "Player")
+        {
+            Kato_Status_P Armor_meny = collision.gameObject.GetComponent<Kato_Status_P>(); //プレイヤーのHP量の取得
+                                                                                       //Armor_meny.Armor++;
+            Destroy(this.gameObject);
+        }
     }
+
 
 
 

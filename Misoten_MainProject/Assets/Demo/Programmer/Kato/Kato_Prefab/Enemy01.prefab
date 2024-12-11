@@ -395,13 +395,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Testobj: {fileID: 1549096205295157176}
+  Defultmat: {fileID: 0}
+  Testobjmat: {fileID: 0}
+  Den01: {fileID: 0}
+  Den02: {fileID: 0}
+  Den03: {fileID: 0}
+  Den04: {fileID: 0}
+  Den05: {fileID: 0}
+  Den06: {fileID: 0}
+  AudioClip_Uke: {fileID: 8300000, guid: 3d460d3d022297e47bfdf264c997e7e7, type: 3}
+  Check_TimeD0: 0
+  Check_TimeD1: 0
+  Check_TimeD2: 0
+  Check_TimeWait0: 0
+  Check_TimeWait1: 0
+  Check_TimeWait2: 0
   Check_Time0: 0.5
   Check_Time1: 0.5
   Check_Time2: 0.5
   S_Effect: {fileID: 9060970370165693562, guid: 9eef12dc538892048b21bbc76811f6c8,
     type: 3}
   Effectflg: 0
-  debug_switch: 1
   Target_P: {fileID: 0}
   SearchLength: 10
   AttackLength: 3.5
@@ -423,7 +437,11 @@ MonoBehaviour:
   rotationAngle: 90
   spinRadius: 5
   spinSpeed: 2
+  moveSpeed: 5
   waitTime: 2
+  objectName: 
+  updateInterval: 0.5
+  numtostagg: 1
 --- !u!1001 &4859386567887339926
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -203,20 +203,20 @@ public class Kato_a_Player_Anim : MonoBehaviour
 
 
         Player_Animator.SetBool("GurdNotInput", Uke_Input_Flg);
-        Player_Animator.SetBool("Gurd",Kato_HitBoxE.Ukenagashi_Flg);
-        if(G_Flg)
-        {
-            Player_Animator.SetInteger("KatanaD", Katana_Direction);
-        }
-        else
-        {
-            Player_Animator.SetInteger("KatanaD", -1);
-        }
+        //Player_Animator.SetBool("Gurd",Kato_HitBoxE.Ukenagashi_Flg);
+        //if(G_Flg)
+        //{
+        //    Player_Animator.SetInteger("KatanaD", Katana_Direction);
+        //}
+        //else
+        //{
+        //    Player_Animator.SetInteger("KatanaD", -1);
+        //}
 
-        if (Kato_HitBoxE.Damage_Flg)
-        {
-            Player_Animator.SetTrigger("Damage");
-        }
+        //if (Kato_HitBoxE.Damage_Flg)
+        //{
+        //    Player_Animator.SetTrigger("Damage");
+        //}
 
 
 
