@@ -232,6 +232,11 @@ public class Miburo_State : MonoBehaviour
         Miburo_Animator.SetBool("StickR", StickR);
         Miburo_Animator.SetBool("StickL", StickL);
 
+        if(!Matsunaga_Enemy01_State.UkeL && !Matsunaga_Enemy01_State.UkeR)
+        {
+            _Parry = false;
+        }
+
         if(sippai)
         {
             Test.GetComponent<MeshRenderer>().material = TestMat;
@@ -345,7 +350,6 @@ public class Miburo_State : MonoBehaviour
 
             if(Matsunaga_Enemy01_State.UkeL|| Matsunaga_Enemy01_State.UkeR|| Matsunaga_Enemy01_State.UKe__Ren01 || Matsunaga_Enemy01_State.UKe__Ren02)
             {
-                //UnityEditor.EditorApplication.isPaused = true;
                 StartCoroutine(ChangeCoolDown(M_UkenagasiIcon, 0.0f, 1.0f, Parry_WaitTime));
                 yield return new WaitForSeconds(Parry_WaitTime);
             }
@@ -433,9 +437,6 @@ public class Miburo_State : MonoBehaviour
             _CounterL = false;
             _CounterR = false;
         }
-        else
-        {
-        }
     }
     //ゲームオーバー
     private IEnumerator Gameover()
@@ -452,32 +453,6 @@ public class Miburo_State : MonoBehaviour
             _KnockBack = true;
             yield return new WaitForSeconds(KnockBack_Time);
             _KnockBack = false;
-        }
-    }
-
-    // UIに反映させるためのコルーチン
-    IEnumerator aChangeCoolDown(Material _material, float startValue, float endValue, float duration)
-    {
-        if (!_CoolDown)
-        {
-            _CoolDown = true;
-            float time = 0.0f;
-
-            // 時間経過で M_UkenagasiIcon の CoolDown 値を徐々に変更
-            while (time < duration)
-            {
-                time += Time.deltaTime;
-                float value = Mathf.Lerp(startValue, endValue, time / duration);
-                _material.SetFloat("_CoolDown", value); // M_UkenagasiIcon のみを操作
-                yield return null;
-            }
-
-            // 最終値を確定
-            _material.SetFloat("_CoolDown", endValue);
-            _CoolDown = false;
-        }
-        else
-        {
         }
     }
 
@@ -502,24 +477,28 @@ public class Miburo_State : MonoBehaviour
     //当たり判定
     private void OnTriggerEnter(Collider other)
     {
-        //if (other.tag == "EWeapon")
-        //{
-        //    //Miburo_HitBox =GameObject.Find("Player");
-        //    if (M_HitBox && Matsunaga_Enemy01_State.Attack)
-        //    {
-
-        //        if (!Miburo_Animator.GetCurrentAnimatorStateInfo(0).IsName("Battou"))
-        //        {
-        //            Rigidbody rb = GetComponent<Rigidbody>();
-        //            dir = (Target.transform.position - rb.position).normalized;
-        //            Miburo_Animator.SetTrigger("Damage");
-        //            audioSource_P.PlayOneShot(AudioClip00);
-        //            Kato_Status_P.instance.Damage(1);
-        //            StartCoroutine(KnockBack());
-        //        }
-        //    }
-        //}
+        if (other.tag == "EWeapon")
+        {
+            if (M_HitBox && Matsunaga_Enemy01_State.Attack)
+            {
+               
+                if (!Miburo_Animator.GetCurrentAnimatorStateInfo(0).IsName("Battou"))
+                {
+                    Rigidbody rb = GetComponent<Rigidbody>();
+                    dir = (Target.transform.position - rb.position).normalized;
+                    Miburo_Animator.SetTrigger("Damage");
+                    audioSource_P.PlayOneShot(AudioClip00);
+                    Kato_Status_P.instance.Damage(1);
+                    StartCoroutine(KnockBack());
+                }
+            }
+        }
     }
+
+    //void OnTriggerStay(Collider other)
+    //{
+    //    Debug.Log("すり抜けている");
+    //}
 }
 
 

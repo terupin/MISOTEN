@@ -181,8 +181,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.5, y: 1.5, z: 0.5}
-  m_Center: {x: 0, y: 0.75, z: 0}
+  m_Size: {x: 0.5, y: 0.1, z: 0.5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &788636680117603469
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -248,7 +248,6 @@ MonoBehaviour:
   Reset: {fileID: 0}
   SceneName: 
   Miburo_HitBox: {fileID: 0}
-  slash_effect: {fileID: 0}
   AudioClip00: {fileID: 8300000, guid: fa809c1f9fb4cfb4d8e2e302d26aa618, type: 3}
 --- !u!114 &5559175423462806870
 MonoBehaviour:
@@ -271,6 +270,9 @@ MonoBehaviour:
   camchangecountlimit: 10
   MainCamLock: {fileID: 0}
   LDownflg: 0
+  LockOnCamera2: {fileID: 0}
+  targetGroup: {fileID: 0}
+  player: {fileID: 0}
 --- !u!82 &4895577840581524868
 AudioSource:
   m_ObjectHideFlags: 0
