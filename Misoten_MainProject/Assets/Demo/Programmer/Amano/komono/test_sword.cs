@@ -101,6 +101,7 @@ public class TestSword : MonoBehaviour
 
         // オブジェクトの位置を親オブジェクトに合わせる
         obj.transform.position = parent.position;
+        obj.transform.localScale = parent.lossyScale;
 
         // 指定秒数後に削除
         Destroy(obj, lifetime);

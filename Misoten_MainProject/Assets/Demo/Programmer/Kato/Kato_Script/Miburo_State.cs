@@ -481,6 +481,7 @@ public class Miburo_State : MonoBehaviour
         {
             if (M_HitBox && Matsunaga_Enemy01_State.Attack)
             {
+               
                 if (!Miburo_Animator.GetCurrentAnimatorStateInfo(0).IsName("Battou"))
                 {
                     Rigidbody rb = GetComponent<Rigidbody>();
@@ -493,6 +494,11 @@ public class Miburo_State : MonoBehaviour
             }
         }
     }
+
+    //void OnTriggerStay(Collider other)
+    //{
+    //    Debug.Log("‚·‚è”²‚¯‚Ä‚¢‚é");
+    //}
 }
 
 
