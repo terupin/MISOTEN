@@ -71,7 +71,7 @@ public class Kato_MainCamera : MonoBehaviour
     {
         C_ukenagashi = Kato_a_Player_Anim.Katana_Direction;
 
-        if(Kato_HitBoxE.Ukenagashi_Flg)
+        //if(Kato_HitBoxE.Ukenagashi_Flg)
         {
             if (C_ukenagashi == 0 || C_ukenagashi == 1 || C_ukenagashi == 2 || C_ukenagashi == 7)
             {
