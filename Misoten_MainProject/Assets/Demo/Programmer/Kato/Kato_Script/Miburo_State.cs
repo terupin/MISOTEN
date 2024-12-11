@@ -507,23 +507,23 @@ public class Miburo_State : MonoBehaviour
     //“–‚½‚è”»’è
     private void OnTriggerEnter(Collider other)
     {
-        //if (other.tag == "EWeapon")
-        //{
-        //    //Miburo_HitBox =GameObject.Find("Player");
-        //    if (M_HitBox && Matsunaga_Enemy01_State.Attack)
-        //    {
+        if (other.tag == "EWeapon")
+        {
+            //Miburo_HitBox =GameObject.Find("Player");
+            if (M_HitBox && Matsunaga_Enemy01_State.Attack)
+            {
 
-        //        if (!Miburo_Animator.GetCurrentAnimatorStateInfo(0).IsName("Battou"))
-        //        {
-        //            Rigidbody rb = GetComponent<Rigidbody>();
-        //            dir = (Target.transform.position - rb.position).normalized;
-        //            Miburo_Animator.SetTrigger("Damage");
-        //            audioSource_P.PlayOneShot(AudioClip00);
-        //            Kato_Status_P.instance.Damage(1);
-        //            StartCoroutine(KnockBack());
-        //        }
-        //    }
-        //}
+                if (!Miburo_Animator.GetCurrentAnimatorStateInfo(0).IsName("Battou"))
+                {
+                    Rigidbody rb = GetComponent<Rigidbody>();
+                    dir = (Target.transform.position - rb.position).normalized;
+                    Miburo_Animator.SetTrigger("Damage");
+                    audioSource_P.PlayOneShot(AudioClip00);
+                    Kato_Status_P.instance.Damage(1);
+                    StartCoroutine(KnockBack());
+                }
+            }
+        }
     }
 }
 
