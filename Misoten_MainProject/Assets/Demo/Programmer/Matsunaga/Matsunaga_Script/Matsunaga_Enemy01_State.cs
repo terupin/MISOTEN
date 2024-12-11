@@ -44,7 +44,6 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
     private float Check_Current_Time0;//入力開始から経過した時間
     private float Check_Current_Time1;//入力開始から経過した時間
-    private float Check_Current_Time2;//入力開始から経過した時間
 
     [SerializeField, Header("斬撃エフェクト")]
     public GameObject S_Effect;
@@ -993,7 +992,6 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             Attack = false;
             Check_Current_Time0 = 0.0f;
             Check_Current_Time1 = 0.0f;
-            Check_Current_Time2 = 0.0f;
             E01Anim.SetBool("UkeL", false);
             E01Anim.SetBool("UkeR", false);
             E01Anim.SetBool("RenUke01", false);
