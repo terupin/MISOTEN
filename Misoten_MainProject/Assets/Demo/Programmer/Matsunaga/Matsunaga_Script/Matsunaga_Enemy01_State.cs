@@ -1049,6 +1049,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
                 if (UKe__Ren01)
                 {
+                    Attack = false;
                     StartCoroutine(WaitDR01());
 
                 }
@@ -1064,6 +1065,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                 //UnityEditor.EditorApplication.isPaused = true;
                 if (UKe__Ren02)
                 {
+                    Attack = false;
                     StartCoroutine(WaitDR02());
                 }
                 else
