@@ -69,7 +69,7 @@ public class Matsunaga_Player_Anim : MonoBehaviour
             Player_Animator.SetBool(Gard_Anim_bool, true);
 
             Kato_GetKatana_Direction();
-            if(Kato_Hittest.Ukenagashi_Flg)
+            //if(Kato_Hittest.Ukenagashi_Flg)
             {
                 if (Katana_Direction == 0 || Katana_Direction == 1 || Katana_Direction == 2 || Katana_Direction == 7)
                 {
