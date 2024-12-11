@@ -21,6 +21,10 @@ public class TestSword : MonoBehaviour
     [SerializeField, Header("破片が消えるまでの秒数")]
     public float lifetime = 5.0f;
 
+    [SerializeField, Header("切断時に再生する音声")]
+    public AudioClip AudioClip_Slash;
+    private AudioSource audioSource_S;
+
     private Vector3 startPos; // 切り始めの刀の位置
     private Vector3 endPos;   // 切り終わりの刀の位置
 
@@ -36,6 +40,7 @@ public class TestSword : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        audioSource_S = GetComponent<AudioSource>();
         // 切れるオブジェクトかどうか確認
         if (other.CompareTag(cut_tag))
         {
@@ -78,6 +83,7 @@ public class TestSword : MonoBehaviour
 
                 // 元のオブジェクトを削除
                 Destroy(targetObject);
+                audioSource_S.PlayOneShot(AudioClip_Slash);
             }
         }
     }

@@ -7,6 +7,7 @@ using UnityEngine;
 public class Enemy01_Box : MonoBehaviour
 {
     //public TagValueType TagName;
+    [SerializeField, Header("ƒ_ƒ[ƒW‚ÉÄ¶‚·‚é‰¹º")]
     public AudioClip AudioClip_E01;
     private AudioSource audioSource_E;
 

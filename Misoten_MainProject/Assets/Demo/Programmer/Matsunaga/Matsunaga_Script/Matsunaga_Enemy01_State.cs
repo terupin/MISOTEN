@@ -13,12 +13,17 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     public Material Testobjmat;
 
     [Header("開放時に隠す電竹")]
-    public GameObject Den01; // 頂点に生成するオブジェクト
-    public GameObject Den02; // 頂点に生成するオブジェクト
-    public GameObject Den03; // 頂点に生成するオブジェクト
-    public GameObject Den04; // 頂点に生成するオブジェクト
-    public GameObject Den05; // 頂点に生成するオブジェクト
-    public GameObject Den06; // 頂点に生成するオブジェクト
+    public GameObject Den01; 
+    public GameObject Den02; 
+    public GameObject Den03; 
+    public GameObject Den04; 
+    public GameObject Den05; 
+    public GameObject Den06; 
+
+
+    [SerializeField, Header("受け流し時に再生する音声")]
+    public AudioClip AudioClip_Uke;
+    private AudioSource audioSource_E;
 
     //縦切り 最大入力猶予 1.7秒
     //連撃1 最大入力猶予 1.2秒
@@ -209,7 +214,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         }
 
         run_for_me = true;
-
+        audioSource_E = GetComponent<AudioSource>();
         CalculateAttackPoints();
     }
 
@@ -1133,6 +1138,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         {
             Instantiate(S_Effect);
             Effectflg = true;
+            audioSource_E.PlayOneShot(AudioClip_Uke);
             //UnityEditor.EditorApplication.isPaused = true;
         }
     }
@@ -1147,6 +1153,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         {
             Instantiate(S_Effect);
             Effectflg = true;
+            audioSource_E.PlayOneShot(AudioClip_Uke);
             //UnityEditor.EditorApplication.isPaused = true;
         }
     }
@@ -1160,6 +1167,8 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         {
             Instantiate(S_Effect);
             Effectflg = true;
+
+            audioSource_E.PlayOneShot(AudioClip_Uke);
             //UnityEditor.EditorApplication.isPaused = true;
         }
         E_State = Enemy_State_.Ukenagasare;
@@ -1174,6 +1183,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         {
             Instantiate(S_Effect);
             Effectflg = true;
+            audioSource_E.PlayOneShot(AudioClip_Uke);
             //UnityEditor.EditorApplication.isPaused = true;
         }
         E_State = Enemy_State_.Ukenagasare;
