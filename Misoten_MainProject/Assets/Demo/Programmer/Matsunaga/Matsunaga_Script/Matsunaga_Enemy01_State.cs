@@ -18,7 +18,10 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     public GameObject Den03; 
     public GameObject Den04; 
     public GameObject Den05; 
-    public GameObject Den06; 
+    public GameObject Den06;
+
+    [Header("HP0時に遷移するシーン名")]
+    public string SceneName;
 
 
     [SerializeField, Header("受け流し時に再生する音声")]
@@ -227,6 +230,17 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             {
                 P_Input = true;
             }
+        }
+
+        if (IsAnimationFinished("HP0"))
+        {
+            SceneManager.LoadScene(SceneName);
+        }
+
+            if (Kato_Status_E.NowHP<=0)
+        {
+            E01Anim.SetBool("HP0", true);
+            return;
         }
         //加藤  
 
