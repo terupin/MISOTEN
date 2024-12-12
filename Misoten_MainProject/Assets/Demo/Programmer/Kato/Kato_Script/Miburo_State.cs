@@ -232,7 +232,11 @@ public class Miburo_State : MonoBehaviour
         Miburo_Animator.SetBool("StickR", StickR);
         Miburo_Animator.SetBool("StickL", StickL);
 
-        if(!Matsunaga_Enemy01_State.UkeL && !Matsunaga_Enemy01_State.UkeR)
+        if(_Parry_Timing)
+        {
+            _Parry = true;
+        }
+        else if(!Matsunaga_Enemy01_State.UkeL && !Matsunaga_Enemy01_State.UkeR)
         {
             _Parry = false;
         }
