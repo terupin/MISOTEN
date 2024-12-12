@@ -23,10 +23,10 @@ public class item_ramen : MonoBehaviour
 
             Kato_Status_P Hp_meny = collision.gameObject.GetComponent<Kato_Status_P>(); //ƒvƒŒƒCƒ„[‚ÌHP—Ê‚Ìæ“¾
 
-            //if (Hp_meny.NowHP < Hp_meny.MaxHP)
-            //{
-            //    Hp_meny.NowHP++;
-            //}
+            if (Hp_meny.NowHP < Hp_meny.MaxHP)
+            {
+                Hp_meny.NowHP++;
+            }
 
             Destroy(this.gameObject);
         }
