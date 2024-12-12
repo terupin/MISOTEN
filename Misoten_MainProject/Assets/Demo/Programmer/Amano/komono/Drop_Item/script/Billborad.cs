@@ -45,8 +45,6 @@ public class Billboard : MonoBehaviour
         if (Length.z > 0) { force.z = -speeeed; } else { force.z = speeeed; }
 
         this.transform.position += force * Time.deltaTime; // Time.deltaTimeでフレーム依存を回避
-
-        this.transform.position = new Vector3(transform.position.x, 0.5f, transform.position.z);
     }
 
     IEnumerator WaitAndMove()
@@ -56,5 +54,6 @@ public class Billboard : MonoBehaviour
 
         // 移動を開始
         isMoving = true;
+        rb.constraints = RigidbodyConstraints.FreezePositionY; //上下の移動をさせない
     }
 }
