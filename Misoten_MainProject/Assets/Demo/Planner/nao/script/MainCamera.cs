@@ -113,7 +113,7 @@ public class MainCamera : MonoBehaviour
                 changecamstartL = true;
                 Debug.Log(changecamstartR);
             }
-            else if(Matsunaga_Enemy01_State.UkeR)
+            else if(Matsunaga_Enemy01_State.UKe__Ren02)
             {
                 changecamstartL = true;
             }
