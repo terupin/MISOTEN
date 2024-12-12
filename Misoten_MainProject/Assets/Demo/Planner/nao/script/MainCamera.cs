@@ -70,22 +70,22 @@ public class MainCamera : MonoBehaviour
     void LockOncamerachange()
     {
         //R3を押したときにロックオンフラグをTRUEにする
-        if (UnityEngine.Input.GetKeyUp("joystick button 9") && isLockOn == false)
-        {
-            isLockOn = true;
-            CameraChenge();
-        }
-        //R3を離したときにロックオンフラグをfalseにする
-        else if (UnityEngine.Input.GetKeyUp("joystick button 9") && isLockOn == true)
-        {
-            isLockOn = false;
-            CameraChenge();
-        }
-        if (UnityEngine.Input.GetKeyUp("joystick button 9"))
-        {
-            Debug.Log("R3押し込み確認");
-            Debug.Log(isLockOn);
-        }
+        //if (unityengine.input.getkeyup("joystick button 9") && islockon == false)
+        //{
+        //    islockon = true;
+        //    camerachenge();
+        //}
+        //r3を離したときにロックオンフラグをfalseにする
+        //else if (unityengine.input.getkeyup("joystick button 9") && islockon == true)
+        //{
+        //    islockon = false;
+        //    camerachenge();
+        //}
+        //if (unityengine.input.getkeyup("joystick button 9"))
+        //{
+        //    debug.log("r3押し込み確認");
+        //    debug.log(islockon);
+        //}
     }
     void ukenagashicam()
     {
