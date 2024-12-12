@@ -57,6 +57,9 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     public GameObject S_Effect;
     public bool Effectflg;//無駄なエフェクトが出ないようにする
 
+    [SerializeField, Header("刀のつばぜり合いエフェクト")]
+    public ParticleSystem Hit_Effect;
+
     private GameObject Clone_Effect;
 
     static public bool UkeL;
@@ -1130,6 +1133,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             Instantiate(S_Effect);//衝撃波生成
             Effectflg = true;//衝撃波が出たフラグ
             audioSource_E.PlayOneShot(AudioClip_Uke);//受け流し音鳴らす
+            Instantiate(Hit_Effect);
         }
     }
 }

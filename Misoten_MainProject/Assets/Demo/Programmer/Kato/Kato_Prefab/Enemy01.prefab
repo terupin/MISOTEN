@@ -382,6 +382,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AudioClip_E01: {fileID: 8300000, guid: d8fcff07b80e7534b9100d803c9d3cea, type: 3}
+  Attack_effect: {fileID: 7367293601913032954, guid: 3105eef322b8a404d9aaa9b614f6b5d1,
+    type: 3}
 --- !u!114 &432260384158943923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -403,6 +405,7 @@ MonoBehaviour:
   Den04: {fileID: 0}
   Den05: {fileID: 0}
   Den06: {fileID: 0}
+  SceneName: 
   AudioClip_Uke: {fileID: 8300000, guid: 3d460d3d022297e47bfdf264c997e7e7, type: 3}
   Check_TimeD0: 0
   Check_TimeD1: 0
@@ -416,6 +419,8 @@ MonoBehaviour:
   S_Effect: {fileID: 9060970370165693562, guid: 9eef12dc538892048b21bbc76811f6c8,
     type: 3}
   Effectflg: 0
+  Hit_Effect: {fileID: 7367293601913032954, guid: 3105eef322b8a404d9aaa9b614f6b5d1,
+    type: 3}
   Target_P: {fileID: 0}
   SearchLength: 10
   AttackLength: 3.5
