@@ -18,6 +18,8 @@ public class PlayerArmor : MonoBehaviour
     //Update is called once per frame
     void Update()
     {
+        Armor = Kato_Status_P.instance.Armor;
+        UpdateArmorImage();
         //テスト用のArmor変更処理
         if (Input.GetKeyDown(KeyCode.T))
         {
@@ -49,5 +51,3 @@ public class PlayerArmor : MonoBehaviour
         }
     }
 }
-
-
