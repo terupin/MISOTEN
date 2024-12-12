@@ -12,7 +12,7 @@ public class EnemyHp : MonoBehaviour
     private float TargetHp; // ダメージ後の目標HP
     public float DamageUiSpeed = 0.1f; // ダメージが減るスピード
 
-    public string SceneName;
+    //public string SceneName;
     public float WaitTime = 2.0f;
     private float timer = 0.0f;
     
@@ -58,15 +58,15 @@ public class EnemyHp : MonoBehaviour
         }
 
         //シーン遷移用の処理
-        if (Kato_Status_E.NowHP <= 0)
-        {
-            timer += Time.deltaTime;
+        //if (Kato_Status_E.NowHP <= 0)
+        //{
+        //    timer += Time.deltaTime;
 
-            if (timer >= WaitTime)
-            {
-                SceneManager.LoadScene(SceneName);
-            }
-        }
+        //    if (timer >= WaitTime)
+        //    {
+        //        SceneManager.LoadScene(SceneName);
+        //    }
+        //}
     }
 
     // ダメージを適用する
