@@ -45,6 +45,8 @@ public class Billboard : MonoBehaviour
         if (Length.z > 0) { force.z = -speeeed; } else { force.z = speeeed; }
 
         this.transform.position += force * Time.deltaTime; // Time.deltaTime‚ÅƒtƒŒ[ƒ€ˆË‘¶‚ğ‰ñ”ğ
+
+        this.transform.position = new Vector3(transform.position.x, 0.5f, transform.position.z);
     }
 
     IEnumerator WaitAndMove()
