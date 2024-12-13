@@ -202,6 +202,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     private int totalDestroyed = 0; // 累積破壊数
 
     GameObject[] allObjects; //シーン内のオブジェクトを格納する配列
+    GameObject[] LObjects; //シーン内のオブジェクトを格納する配列
     GameObject meshObject;
 
 
@@ -275,9 +276,9 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                 //待機時
 
                 case Enemy_State_.Idle:
-
+                    
                     E_State = Enemy_State_.Spin;
-
+                    
                     for (int i = 0; i < hp_kaihoupoint.Length; i++)
                     {
                         //Debug.Log($"currentHP : {currentHP} <= hp_kaihoupoint[{i}]: {hp_kaihoupoint[i]} ");
@@ -501,10 +502,10 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             // 目標半径（内側の円に到達したら攻撃状態に遷移）
             if (directionToGotoStart.magnitude <= 0.0f)
             {
-                E_State = Enemy_State_.Idle; // Idle状態に遷移
-                //Debug.Log("Spin状態に遷移！");
-                //UnityEditor.EditorApplication.isPaused = true;
                 jumpbackTimer = 0f; // タイマーをリセット
+                
+                E_State = Enemy_State_.Idle; // Idle状態に遷移
+                
             }
             else
             {
@@ -636,6 +637,14 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                 }
             }
             Destroy(meshObject);  //バリアの破壊
+            
+            foreach (GameObject obj in LObjects)
+            {
+                if (obj.name == "Line")
+                {
+                    Destroy(obj); //電竹の破壊
+                }
+            }
         }
     }
 
@@ -863,6 +872,8 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         {
             // シーン内の全オブジェクトを取得
             allObjects = FindObjectsOfType<GameObject>();
+
+            LObjects = FindObjectsOfType<GameObject>();
 
             // 同名オブジェクトの数をカウント
             objectCount = 0;
