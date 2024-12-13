@@ -204,8 +204,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     GameObject[] allObjects; //シーン内のオブジェクトを格納する配列
     GameObject[] LObjects; //シーン内のオブジェクトを格納する配列
     GameObject meshObject;
-    GameObject lineObject;
-
+    
     private float startTimer = 0.0f; //開始時までの待ち時間カウンター
 
     private void Start()
@@ -739,7 +738,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
     void DrawLine(Vector3 start, Vector3 end)
     {
-        lineObject = new GameObject("Line");
+        GameObject lineObject = new GameObject("Line");
         LineRenderer lineRenderer = lineObject.AddComponent<LineRenderer>();
         lineRenderer.material = lineMaterial;
         lineRenderer.positionCount = 2;
