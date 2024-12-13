@@ -20,7 +20,9 @@ public class item_drink : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            Kato_Status_P Armor_meny = collision.gameObject.GetComponent<Kato_Status_P>(); //ƒvƒŒƒCƒ„[‚ÌHP—Ê‚Ìæ“¾
+            GameObject get_Player = transform.parent.gameObject;
+            Kato_Status_P Armor_meny = get_Player.gameObject.GetComponent<Kato_Status_P>();
+
             Armor_meny.Armor++;
             Destroy(this.gameObject);
         }

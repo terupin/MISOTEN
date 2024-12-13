@@ -146,13 +146,7 @@ public class Miburo_State : MonoBehaviour
             return;
         }
 
-        if(_KnockBack ||_StepMuteki)
-        {
-        }
-        else
-        {
-            gameObject.transform.LookAt(Target.transform);
-        }
+
 
         //R1ボタン押下(攻撃)
         if (UnityEngine.Input.GetKeyDown("joystick button 5"))
@@ -202,14 +196,25 @@ public class Miburo_State : MonoBehaviour
         }
 
         _StepBoll.SetActive(_StepMuteki);
-        if (_StepMuteki)
+
+        if (_KnockBack || _StepMuteki)
         {
             Miburo_HitBox.SetActive(false);
         }
         else
         {
-            Miburo_HitBox.SetActive(true);                     
+            Miburo_HitBox.SetActive(true);
+            gameObject.transform.LookAt(Target.transform);
         }
+
+        //if (_StepMuteki)
+        //{
+        //    Miburo_HitBox.SetActive(false);
+        //}
+        //else
+        //{
+        //    Miburo_HitBox.SetActive(true);
+        //}
 
         GetKatana_Direction();
 
@@ -380,12 +385,10 @@ public class Miburo_State : MonoBehaviour
         {
             _Step = true;
             _StepMuteki = true;
-            Miburo_HitBox.SetActive(false);
             Miburo_Animator.SetTrigger("Step");
             StartCoroutine(ChangeCoolDown(M_StepIcon, 0.0f, 1.0f, Step_WaitTime+Step_Time));
             yield return new WaitForSeconds(Step_Time);            
             _StepMuteki = false;
-            Miburo_HitBox.SetActive(true);
             yield return new WaitForSeconds(Step_WaitTime);
             _Step = false;
         }
@@ -487,8 +490,9 @@ public class Miburo_State : MonoBehaviour
             {             
                 if (!Miburo_Animator.GetCurrentAnimatorStateInfo(0).IsName("Battou"))
                 {
-                    if(Kato_Status_P.instance.Armor==0)//アーマー0
+                    //if(Kato_Status_P.instance.Armor==0)//アーマー0
                     {
+                        //UnityEditor.EditorApplication.isPaused = true;
                         Rigidbody rb = GetComponent<Rigidbody>();
                         dir = (Target.transform.position - rb.position).normalized;
                         Miburo_Animator.SetTrigger("Damage");

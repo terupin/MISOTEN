@@ -1371,7 +1371,7 @@ PrefabInstance:
     - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
       propertyPath: Check_TimeD1
-      value: 0.05
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
@@ -1386,7 +1386,7 @@ PrefabInstance:
     - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
       propertyPath: RenGekiChance
-      value: 40
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
@@ -1401,7 +1401,7 @@ PrefabInstance:
     - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
       propertyPath: TategiriChance
-      value: 60
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
@@ -1418,11 +1418,6 @@ PrefabInstance:
       propertyPath: Check_TimeWait2
       value: 1.6
       objectReference: {fileID: 0}
-    - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
-        type: 3}
-      propertyPath: Hit_EffectSpawn
-      value: 
-      objectReference: {fileID: 1405806335}
     - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
       propertyPath: maiclue_maxtime
@@ -2323,11 +2318,6 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
-    - target: {fileID: 7930574039795249098, guid: 5a5dfd0327ec98346a40d1796a249e1e,
-        type: 3}
-      propertyPath: Effect_Spawn
-      value: 
-      objectReference: {fileID: 1873599053}
     - target: {fileID: 7930574039795249098, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
       propertyPath: Attack_effect
@@ -3657,11 +3647,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 7309694239314744269, guid: 8eb4fdc726e23774da71f86d9d295d96,
-        type: 3}
-      propertyPath: m_TagString
-      value: Untagged
-      objectReference: {fileID: 0}
     - target: {fileID: 7402921998873306554, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}
       propertyPath: m_Enabled
@@ -4869,7 +4854,7 @@ PrefabInstance:
     - target: {fileID: 5973180769403263343, guid: 4dd33527dbc82c042a136a42eb7fa2ae,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5973180769403263343, guid: 4dd33527dbc82c042a136a42eb7fa2ae,
         type: 3}
@@ -4879,7 +4864,7 @@ PrefabInstance:
     - target: {fileID: 5973180769403263343, guid: 4dd33527dbc82c042a136a42eb7fa2ae,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5973180769403263343, guid: 4dd33527dbc82c042a136a42eb7fa2ae,
         type: 3}
