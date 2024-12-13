@@ -275,7 +275,7 @@ AnimatorStateMachine:
     m_Position: {x: 1610, y: 720, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 566027755775240191}
-    m_Position: {x: 1960, y: 710, z: 0}
+    m_Position: {x: 1960, y: 700, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 726567170490139440}
     m_Position: {x: 510, y: 590, z: 0}
@@ -284,7 +284,7 @@ AnimatorStateMachine:
     m_Position: {x: 730, y: 590, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 2204719647266347192}
-    m_Position: {x: 420, y: 290, z: 0}
+    m_Position: {x: 450, y: 240, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 9186315792420157083}
     m_Position: {x: 330, y: 790, z: 0}
@@ -768,7 +768,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Enemy01
+  m_Name: Enemy01_nao
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: Direction
@@ -1230,7 +1230,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Tategiri
-  m_Speed: 1.1
+  m_Speed: 1.5
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -8390855361553880420}
@@ -1334,7 +1334,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Ren1
-  m_Speed: 2
+  m_Speed: 1.5
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -7732791066250020786}
@@ -1361,7 +1361,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Ren01 0
-  m_Speed: 1
+  m_Speed: 2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1307181200029342717}
@@ -1569,7 +1569,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Ren02
-  m_Speed: 1
+  m_Speed: 0.9
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -7776843064740266507}

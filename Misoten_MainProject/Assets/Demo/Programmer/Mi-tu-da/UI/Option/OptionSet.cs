@@ -10,7 +10,7 @@ public class OptionSet : MonoBehaviour{
 
     void Start(){
 
-        GetComponent<Canvas>().enabled = true;/*”ñ•\Ž¦*/
+        GetComponent<Canvas>().enabled = false;/*”ñ•\Ž¦*/
     }
 
     void Update(){

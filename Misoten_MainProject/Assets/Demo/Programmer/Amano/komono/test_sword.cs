@@ -81,6 +81,9 @@ public class TestSword : MonoBehaviour
                 MakeItPhysical(upperHull, other.transform);
                 MakeItPhysical(lowerHull, other.transform);
 
+                targetObject.GetComponent<Dropitem_cutmaterial>().Set_itemdrop();
+                targetObject.GetComponent<Dropitem_cutmaterial>().CreateItem();
+
                 // 元のオブジェクトを削除
                 Destroy(targetObject);
                 audioSource_S.PlayOneShot(AudioClip_Slash);
@@ -106,7 +109,5 @@ public class TestSword : MonoBehaviour
         // 指定秒数後に削除
         Destroy(obj, lifetime);
 
-        // 切れたものを再度切れるようにするためのタグ付け（必要なら有効化）
-        // obj.tag = cut_tag;
     }
 }

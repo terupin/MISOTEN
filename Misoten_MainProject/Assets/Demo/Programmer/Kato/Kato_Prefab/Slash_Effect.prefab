@@ -141,8 +141,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b0501053e407b4d97a56fa9bf910e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveSpeed: 10
+  MoveSpeed: 20
   MoveTime: 3
+  HomingStartTime: 0.05
 --- !u!65 &205618945350092926
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -179,7 +180,7 @@ MonoBehaviour:
   cut_tag: Cut
   swordTop: {fileID: 5461352653414619621}
   swordHit: {fileID: 6498996385561069836}
-  lifetime: 5
+  lifetime: 2
   AudioClip_Slash: {fileID: 8300000, guid: e03c0dff1189b8146903a93e5da68bfd, type: 3}
 --- !u!54 &5748125425979797658
 Rigidbody:

@@ -18,7 +18,10 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     public GameObject Den03; 
     public GameObject Den04; 
     public GameObject Den05; 
-    public GameObject Den06; 
+    public GameObject Den06;
+
+    [Header("HP0時に遷移するシーン名")]
+    public string SceneName;
 
 
     [SerializeField, Header("受け流し時に再生する音声")]
@@ -53,6 +56,9 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     [SerializeField, Header("斬撃エフェクト")]
     public GameObject S_Effect;
     public bool Effectflg;//無駄なエフェクトが出ないようにする
+
+    [SerializeField, Header("刀のつばぜり合いエフェクト")]
+    public ParticleSystem Hit_Effect;
 
     private GameObject Clone_Effect;
 
@@ -220,13 +226,17 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
     private void Update()
     {
-        //加藤(入力判定)  
-        if (Miburo_State._Parry_Timing)
+
+
+        if (IsAnimationFinished("HP0"))
         {
-            if (!P_Input)
-            {
-                P_Input = true;
-            }
+            SceneManager.LoadScene(SceneName);
+        }
+
+            if (Kato_Status_E.NowHP<=0)
+        {
+            E01Anim.SetBool("HP0", true);
+            return;
         }
         //加藤  
 
@@ -328,28 +338,28 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                         GenerateObjectsAtVertices(lowerVertices);
                         StartCoroutine(DelayedBarrierSpawn());
                         hasUsedDurabilityField25 = true;
-                        Debug.Log($"hasUsedDurabilityField25: {hasUsedDurabilityField25} ");
+                        //Debug.Log($"hasUsedDurabilityField25: {hasUsedDurabilityField25} ");
                     }
                     if (hasUsedDurabilityField50 == false)
                     {
                         GenerateObjectsAtVertices(lowerVertices);
                         StartCoroutine(DelayedBarrierSpawn());
                         hasUsedDurabilityField50 = true;
-                        Debug.Log($"hasUsedDurabilityField50: {hasUsedDurabilityField50} ");
+                        //Debug.Log($"hasUsedDurabilityField50: {hasUsedDurabilityField50} ");
                     }
                     if (hasUsedDurabilityField75 == false)
                     {
                         GenerateObjectsAtVertices(lowerVertices);
                         StartCoroutine(DelayedBarrierSpawn());
                         hasUsedDurabilityField75 = true;
-                        Debug.Log($"hasUsedDurabilityField75: {hasUsedDurabilityField75} ");
+                        //Debug.Log($"hasUsedDurabilityField75: {hasUsedDurabilityField75} ");
                     }
                     if (hasUsedDurabilityField100 == false)
                     {
                         GenerateObjectsAtVertices(lowerVertices);
                         StartCoroutine(DelayedBarrierSpawn());
                         hasUsedDurabilityField100 = true;
-                        Debug.Log($"hasUsedDurabilityField100: {hasUsedDurabilityField100} ");
+                        //Debug.Log($"hasUsedDurabilityField100: {hasUsedDurabilityField100} ");
                     }
                     
                     break;
@@ -363,7 +373,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                     break;
             }
 
-            Debug.Log($"状態チェック: {E_State} ");
+            //Debug.Log($"状態チェック: {E_State} ");
         }
         
         {
@@ -372,7 +382,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
         if (Target_P == null)
         {
-            Debug.LogWarning("Target_P が設定されていません！");
+            //Debug.LogWarning("Target_P が設定されていません！");
             return;
         }
         
@@ -419,29 +429,29 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             if((currentHP == 1.0f) && !hasUsedDurabilityField100)
             {
                 E_State = Enemy_State_.Kaihou;
-                Debug.Log("100%時の解放実行");
+                //Debug.Log("100%時の解放実行");
             }
             else if ((currentHP <= 0.75f) && !hasUsedDurabilityField75)
             {
                 E_State = Enemy_State_.Kaihou;
                 hasUsedDurabilityField75 = false;
-                Debug.Log("75%時の解放実行");
+                //Debug.Log("75%時の解放実行");
             }
             else if ((currentHP <= 0.5f) && !hasUsedDurabilityField50)
             {
                 E_State = Enemy_State_.Kaihou;
                 hasUsedDurabilityField50 = false;
-                Debug.Log("50%時の解放実行");
+                //Debug.Log("50%時の解放実行");
             }
             else if ((currentHP <= 0.25f) && !hasUsedDurabilityField25)
             {
                 E_State = Enemy_State_.Kaihou;
                 hasUsedDurabilityField25 = false;
-                Debug.Log("25%時の解放実行");
+                //Debug.Log("25%時の解放実行");
             }
         }
 
-        Debug.Log($"Spin状態: 現在の方向 = {(isReverse ? "逆" : "正")}, 半径 = {spinRadius}, 位置 = ({x}, {z})");
+        //Debug.Log($"Spin状態: 現在の方向 = {(isReverse ? "逆" : "正")}, 半径 = {spinRadius}, 位置 = ({x}, {z})");
     }
 
     private void CalculateAttackPoints()
@@ -465,10 +475,10 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         {
             if (Vector3.Distance(new Vector3(x, transform.position.y, z), point) < threshold)
             {
-                Debug.Log("攻撃ポイント到達!");
+                //Debug.Log("攻撃ポイント到達!");
                 for(int i = 0; i < 6; i++)
                 {
-                    Debug.Log($"attackpoints{attackPoints[i]}");
+                    //Debug.Log($"attackpoints{attackPoints[i]}");
                 }
                 
                 E_State = Enemy_State_.Goto; // Goto状態に遷移
@@ -501,11 +511,11 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         else
         {
             E_State = Enemy_State_.Attack; // Attack状態に遷移
-            Debug.Log("Attack状態に遷移！");
-            //UnityEditor.EditorApplication.isPaused = true;
+           //Debug.Log("Attack状態に遷移！");
+           //UnityEditor.EditorApplication.isPaused = true;
         }
         
-        Debug.Log($"Goto状態: 位置 = {transform.position}");
+        //Debug.Log($"Goto状態: 位置 = {transform.position}");
     }
 
     private void UpdateJumpback()
@@ -523,7 +533,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             if (directionToGotoStart.magnitude <= 0.0f)
             {
                 E_State = Enemy_State_.Spin; // Attack状態に遷移
-                Debug.Log("Spin状態に遷移！");
+                //Debug.Log("Spin状態に遷移！");
                 //UnityEditor.EditorApplication.isPaused = true;
                 jumpbackTimer = 0f; // タイマーをリセット
             }
@@ -542,28 +552,28 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         if (E_State == newState) return; // 同じ状態への遷移を防ぐ
         E_State = newState;
         StateCurrentTime = 0.0f;
-        Debug.Log($"状態が {newState} に変更されました");
+        //Debug.Log($"状態が {newState} に変更されました");
     }
 
     // 攻撃タイプを決定する
     private void DecideAttackType()
     {
         int randomValue = Random.Range(0, 100); // 0～100のランダム値を生成
-        Debug.Log($"DecideAttackType: Random Value = {randomValue}, TategiriChance = {TategiriChance}");
+        //Debug.Log($"DecideAttackType: Random Value = {randomValue}, TategiriChance = {TategiriChance}");
         
-        Debug.Log($"穂{E01Anim.GetBool("Walk")}");
+        //Debug.Log($"穂{E01Anim.GetBool("Walk")}");
 
         if (randomValue < TategiriChance)
         {
             // 縦切り攻撃を選択
-            Debug.Log("縦切り攻撃を選択しました！");
+            //Debug.Log("縦切り攻撃を選択しました！");
             SetState(Enemy_State_.Tategiri);
             //UnityEditor.EditorApplication.isPaused = true;
         }
         else
         {
             // 連撃攻撃を選択
-            Debug.Log("連撃攻撃を選択しました！");
+            //Debug.Log("連撃攻撃を選択しました！");
             SetState(Enemy_State_.RenGeki);
             //UnityEditor.EditorApplication.isPaused = true;
         }
@@ -572,13 +582,13 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     // 縦切り攻撃の処理
     private void HandleTategiri()
     {
-        Debug.Log("handletategiri状態");
+        //Debug.Log("handletategiri状態");
         //UnityEditor.EditorApplication.isPaused = true;
 
         if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Tategiri 0") && E01Anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f)
         {
             // 縦切り攻撃完了後、クールダウンに遷移
-            Debug.Log("縦切り攻撃が完了しました。Cooldown 状態に遷移します。");
+            //Debug.Log("縦切り攻撃が完了しました。Cooldown 状態に遷移します。");
             E01Anim.SetBool("Tategiri", false); // アニメーションをリセット
             
             E_State = Enemy_State_.Jumpback;
@@ -600,7 +610,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren2") && E01Anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f)
         {
             // 連撃攻撃完了後、クールダウンに遷移
-            Debug.Log("連撃攻撃が完了しました。Cooldown 状態に遷移します。");
+            //Debug.Log("連撃攻撃が完了しました。Cooldown 状態に遷移します。");
             E01Anim.SetBool("RenGeki", false); // アニメーションをリセット
             
             E_State = Enemy_State_.Jumpback;
@@ -643,7 +653,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Hirumi") && E01Anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f)
         {
             // ひるみ状態終了後、待機状態に遷移
-            Debug.Log("ひるみ状態が終了しました。Idle 状態に遷移します。");
+            //Debug.Log("ひるみ状態が終了しました。Idle 状態に遷移します。");
             E01Anim.SetBool("Hiruimi", false); // ひるみアニメーションのフラグをリセット
             SetState(Enemy_State_.Jumpback);
         }
@@ -681,33 +691,33 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     
     private IEnumerator WaitForKaihouAnimation()
     {
-        Debug.Log("解放アニメーションの待機を開始します");
+        //Debug.Log("解放アニメーションの待機を開始します");
         float waitTime = 8.0f;
         yield return new WaitForSeconds(waitTime);
 
         E01Anim.SetBool("Kaihou", false);
-        Debug.Log("解放アニメーションが終了しました");
+        //Debug.Log("解放アニメーションが終了しました");
 
         //UnityEditor.EditorApplication.isPaused = true;
         E_State = Enemy_State_.Spin; // 次の状態に遷移
 
-        Debug.Log($"状態がSpinに設定されました: {E_State}");
+        //Debug.Log($"状態がSpinに設定されました: {E_State}");
     }
 
     private IEnumerator WaitForUke()
     {
-        Debug.Log("受け流しの待機を開始します");
+        //Debug.Log("受け流しの待機を開始します");
 
         // 指定した秒数待機（例: 5秒）
         float waitTime = 0.5f;
         yield return new WaitForSeconds(waitTime);
         
         E_State = Enemy_State_.Jumpback;
-        Debug.Log($"待機が完了しました。M_state が Jumpback に設定されました: {E_State}");
+        //Debug.Log($"待機が完了しました。M_state が Jumpback に設定されました: {E_State}");
 
         // 状態リセット（モックの状態変更）
         UkeTestFlag = false;
-        Debug.Log("受け流し状態がリセットされました");
+        //Debug.Log("受け流し状態がリセットされました");
     }
 
     // プレイヤーを向く処理
@@ -802,7 +812,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     {
         if (vertexObjectPrefab == null)
         {
-            Debug.LogWarning("Vertex object prefab is not assigned.");
+            //Debug.LogWarning("Vertex object prefab is not assigned.");
             return;
         }
 
@@ -837,7 +847,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     {
         if (scene.name == mySceneName)
         {
-            Debug.Log($"シーン '{mySceneName}' が読み込まれました。オブジェクト: {gameObject.name}");
+            //Debug.Log($"シーン '{mySceneName}' が読み込まれました。オブジェクト: {gameObject.name}");
             HandleSceneLoaded(); // シーン読み込み時の処理
         }
     }
@@ -895,7 +905,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             if (totalDestroyed >= numtostagg)
             {
                 haddenchiku = true;
-                Debug.Log($"フラグが true になりました。累積破壊数: {totalDestroyed}");
+                //Debug.Log($"フラグが true になりました。累積破壊数: {totalDestroyed}");
                 totalDestroyed = 0; // しきい値を超えたら累積カウントをリセット
 
                 if(E_State == Enemy_State_.Ukenagasare)
@@ -912,7 +922,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             previousCount = objectCount;
 
             // 結果を表示
-            Debug.Log($"オブジェクト '{objectName}' の現在の数: {objectCount}");
+            //Debug.Log($"オブジェクト '{objectName}' の現在の数: {objectCount}");
 
             // 次の更新まで待機
             yield return new WaitForSeconds(updateInterval);
@@ -932,6 +942,8 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         {
             if (Check_Current_Time0 > Check_TimeWait0 && Check_Time0 + Check_TimeWait0 >= Check_Current_Time0)
             {
+                Input_Timing();
+
                 if (P_Input)
                 {
                     if (Miburo_State._Katana_Direction == 0 || Miburo_State._Katana_Direction == 1 || Miburo_State._Katana_Direction == 2 || Miburo_State._Katana_Direction == 7)
@@ -986,11 +998,16 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             //1回目入力判定
             if (Check_Current_Time1 > Check_TimeWait1 && Check_Time1 + Check_TimeWait1 > Check_Current_Time1)
             {
+                Debug.Log("連撃１入力受付中");
+                //UnityEditor.EditorApplication.isPaused = true;
+                Input_Timing();
+
                 if (P_Input)
                 {
                     if (Miburo_State._Katana_Direction == 0 || Miburo_State._Katana_Direction == 1 || Miburo_State._Katana_Direction == 2 || Miburo_State._Katana_Direction == 7)
                     {
-                        if (!UKe__Ren01) { UKe__Ren01 = true; }
+                        if (!UKe__Ren01) { UKe__Ren01 = true; Debug.Log("連撃１入力受付成功"); }
+
                     }
                 }
             }
@@ -998,11 +1015,13 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             //2回目入力判定
             if (Check_Current_Time1 > Check_TimeWait2 + Check_Time1 + Check_TimeWait1 && Check_Time1 + Check_TimeWait1 + Check_Time2 + Check_TimeWait2 >= Check_Current_Time1)
             {
+                Input_Timing();
+                Debug.Log("連撃２入力受付中");
                 if (P_Input)
                 {
                     if (Miburo_State._Katana_Direction == 3 || Miburo_State._Katana_Direction == 4 || Miburo_State._Katana_Direction == 5 || Miburo_State._Katana_Direction == 6)
                     {
-                        if (!UKe__Ren02) { UKe__Ren02 = true; }
+                        if (!UKe__Ren02) { UKe__Ren02 = true; Debug.Log("連撃２入力受付成功"); }
                     }
                 }
             }
@@ -1018,6 +1037,9 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                 else
                 {
                     Attack = true;
+                    P_Input = false;
+                    Debug.Log("連撃１入力受付失敗");
+                    
                 }
             }
 
@@ -1032,6 +1054,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                 else
                 {
                     Attack = true;
+                    Debug.Log("連撃２入力受付失敗");
                 }
             }
 
@@ -1116,6 +1139,19 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             Instantiate(S_Effect);//衝撃波生成
             Effectflg = true;//衝撃波が出たフラグ
             audioSource_E.PlayOneShot(AudioClip_Uke);//受け流し音鳴らす
+            Instantiate(Hit_Effect);
+        }
+    }
+
+    private void Input_Timing()
+    {
+        //加藤(入力判定)  
+        if (Miburo_State._Parry_Timing)
+        {
+            if (!P_Input)
+            {
+                P_Input = true;
+            }
         }
     }
 }
