@@ -226,14 +226,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
     private void Update()
     {
-        //加藤(入力判定)  
-        if (Miburo_State._Parry_Timing)
-        {
-            if (!P_Input)
-            {
-                P_Input = true;
-            }
-        }
+
 
         if (IsAnimationFinished("HP0"))
         {
@@ -949,6 +942,8 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         {
             if (Check_Current_Time0 > Check_TimeWait0 && Check_Time0 + Check_TimeWait0 >= Check_Current_Time0)
             {
+                Input_Timing();
+
                 if (P_Input)
                 {
                     if (Miburo_State._Katana_Direction == 0 || Miburo_State._Katana_Direction == 1 || Miburo_State._Katana_Direction == 2 || Miburo_State._Katana_Direction == 7)
@@ -1003,6 +998,8 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             //1回目入力判定
             if (Check_Current_Time1 > Check_TimeWait1 && Check_Time1 + Check_TimeWait1 > Check_Current_Time1)
             {
+                Input_Timing();
+
                 if (P_Input)
                 {
                     if (Miburo_State._Katana_Direction == 0 || Miburo_State._Katana_Direction == 1 || Miburo_State._Katana_Direction == 2 || Miburo_State._Katana_Direction == 7)
@@ -1015,6 +1012,8 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             //2回目入力判定
             if (Check_Current_Time1 > Check_TimeWait2 + Check_Time1 + Check_TimeWait1 && Check_Time1 + Check_TimeWait1 + Check_Time2 + Check_TimeWait2 >= Check_Current_Time1)
             {
+                Input_Timing();
+
                 if (P_Input)
                 {
                     if (Miburo_State._Katana_Direction == 3 || Miburo_State._Katana_Direction == 4 || Miburo_State._Katana_Direction == 5 || Miburo_State._Katana_Direction == 6)
@@ -1134,6 +1133,18 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             Effectflg = true;//衝撃波が出たフラグ
             audioSource_E.PlayOneShot(AudioClip_Uke);//受け流し音鳴らす
             Instantiate(Hit_Effect);
+        }
+    }
+
+    private void Input_Timing()
+    {
+        //加藤(入力判定)  
+        if (Miburo_State._Parry_Timing)
+        {
+            if (!P_Input)
+            {
+                P_Input = true;
+            }
         }
     }
 }
