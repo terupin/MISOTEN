@@ -128,6 +128,11 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     private bool hasUsedDurabilityField50 = true; // HP50%で耐久フィールドを生成済みかを管理
     private bool hasUsedDurabilityField25 = true; // HP25%で耐久フィールドを生成済みかを管理
 
+    private float[] hp_kaihoupoint = { 1.0f, 0.75f, 0.5f, 0.25f };
+    private bool[] hp_kaihouflag = { false, false, false, false };
+    private bool[] hp_kaihoulock = { false, false, false, false };
+    //private bool hasUsedDurabilityField = false;
+
     private float elapsedTime = 0f; // 経過時間を記録
 
     [Header("六角形の半径")]
@@ -199,10 +204,13 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     private int counttostagg;
     private int totalDestroyed = 0; // 累積破壊数
 
+    GameObject[] allObjects; //シーン内のオブジェクトを格納する配列
+    GameObject meshObject;
+
     private void Start()
     {
         // 初期状態を設定
-        E_State = Enemy_State_.Kaihou;
+        E_State = Enemy_State_.Idle;
         StateCurrentTime = 0.0f; // 経過時間を初期化
         currentHP = Kato_Status_E.NowHP / Kato_Status_E.MaxHP; // 初期HPを設定
         elapsedTime = 0f; // 経過時間を初期化
@@ -246,17 +254,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             return;
         }
         //加藤  
-
-        // テスト用の入力
-        if (Input.GetKeyDown(KeyCode.Space)) // スペースキーを押すとテストを実行
-        {
-            Debug.Log("受け流しが成功しました");
-            UkeTestFlag = true;
-
-            // 受け流し成功時の処理開始
-            StartCoroutine(WaitForUke());
-        }
-
+        
         // プレイヤーが設定されている場合のみ方向を向く処理を実行
         if (Target_P != null)
         {
@@ -277,14 +275,32 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         }
 
         KatoUpdateAnim();
+
         if (run_for_me)
         {
             switch (E_State)
             {
+                //待機時
                 case Enemy_State_.Idle:
 
-                    E_State= Enemy_State_.Spin;
+                    E_State = Enemy_State_.Spin;
 
+                    for (int i = 0; i < hp_kaihoupoint.Length; i++)
+                    {
+                        //Debug.Log($"currentHP : {currentHP} <= hp_kaihoupoint[{i}]: {hp_kaihoupoint[i]} ");
+
+                        if (currentHP <= hp_kaihoupoint[i] && hp_kaihouflag[i] == false && hp_kaihoulock[i] == false)
+                        {
+                            E_State = Enemy_State_.Kaihou;
+                            hp_kaihouflag[i] = true;
+                            //Debug.Log($"hp_kaihouflag[{i}]: {hp_kaihouflag[i]} ");
+                            Debug.Log($"{hp_kaihoupoint[i] * 100}%時の解放実行");
+                            break; // 1回だけ実行
+                        }
+
+                        Debug.Log($"hp_kaihouflag[{i}]: {hp_kaihouflag[i]} ");
+                    }
+                    
                     break;
 
                     //周回時
@@ -340,6 +356,22 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                     //耐久フィールド展開時
                 case Enemy_State_.Kaihou:
 
+                    for (int i = 0; i < hp_kaihoupoint.Length; i++)
+                    {
+                        //Debug.Log($"hp_kaihouflag[{i}]: {hp_kaihouflag[i]} ");
+                        Debug.Log($"hp_kaihoulock[{i}]: {hp_kaihoulock[i]} ");
+
+                        if (hp_kaihouflag[i] == true && hp_kaihoulock[i] == false)
+                        {
+                            Debug.Log($"hasUsedDurabilityField25: {hasUsedDurabilityField25} ");
+                            GenerateObjectsAtVertices(lowerVertices);
+                            StartCoroutine(DelayedBarrierSpawn());
+
+                            hp_kaihoulock[i] = true;
+                        }
+                    }
+
+                    /*
                     if (hasUsedDurabilityField25 == false)
                     {
                         GenerateObjectsAtVertices(lowerVertices);
@@ -368,7 +400,8 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                         hasUsedDurabilityField100 = true;
                         Debug.Log($"hasUsedDurabilityField100: {hasUsedDurabilityField100} ");
                     }
-                    
+                    */
+
                     break;
 
                     //受け流され時
@@ -402,12 +435,8 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         {
             HandleCooldown();
         }
-        /*
-        else if (E_State == Enemy_State_.Stagger)
-        {
-            HandleStagger();
-        }
-        */
+
+        Debug.Log($"現状のHP: {currentHP} ");
 
         // 状態に応じてアニメーションを更新
         UpdateAnimations();
@@ -430,34 +459,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         
         // 現在位置が攻撃ポイントに到達したらGoto状態に遷移
         CheckAttackPointReached(x, z);
-
-        if(E_State == Enemy_State_.Spin)
-        {
-            if((currentHP == 1.0f) && !hasUsedDurabilityField100)
-            {
-                E_State = Enemy_State_.Kaihou;
-                Debug.Log("100%時の解放実行");
-            }
-            else if ((currentHP <= 0.75f) && !hasUsedDurabilityField75)
-            {
-                E_State = Enemy_State_.Kaihou;
-                hasUsedDurabilityField75 = false;
-                Debug.Log("75%時の解放実行");
-            }
-            else if ((currentHP <= 0.5f) && !hasUsedDurabilityField50)
-            {
-                E_State = Enemy_State_.Kaihou;
-                hasUsedDurabilityField50 = false;
-                Debug.Log("50%時の解放実行");
-            }
-            else if ((currentHP <= 0.25f) && !hasUsedDurabilityField25)
-            {
-                E_State = Enemy_State_.Kaihou;
-                hasUsedDurabilityField25 = false;
-                Debug.Log("25%時の解放実行");
-            }
-        }
-
+        
         Debug.Log($"Spin状態: 現在の方向 = {(isReverse ? "逆" : "正")}, 半径 = {spinRadius}, 位置 = ({x}, {z})");
     }
 
@@ -539,7 +541,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             // 目標半径（内側の円に到達したら攻撃状態に遷移）
             if (directionToGotoStart.magnitude <= 0.0f)
             {
-                E_State = Enemy_State_.Spin; // Attack状態に遷移
+                E_State = Enemy_State_.Idle; // idle状態に遷移
                 Debug.Log("Spin状態に遷移！");
                 //UnityEditor.EditorApplication.isPaused = true;
                 jumpbackTimer = 0f; // タイマーをリセット
@@ -664,6 +666,17 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             E01Anim.SetBool("Hiruimi", false); // ひるみアニメーションのフラグをリセット
             SetState(Enemy_State_.Jumpback);
         }
+        else
+        {
+            foreach (GameObject obj in allObjects)
+            {
+                if (obj.name == objectName)
+                {
+                    Destroy(obj);
+                }
+            }
+            Destroy(meshObject);
+        }
     }
 
     // クールダウン状態の処理
@@ -677,23 +690,20 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     {
         yield return new WaitForSeconds(2f); // 2秒待機
         //SpawnBarrier();
-
-        if(objectCount != 0)
+        
+        // 辺を描画
+        for (int i = 0; i < 6; i++)
         {
-            // 辺を描画
-            for (int i = 0; i < 6; i++)
-            {
-                // 水平辺 (下)
-                DrawLine(lowerVertices[i], lowerVertices[(i + 1) % 6]);
-                // 水平辺 (上)
-                DrawLine(upperVertices[i], upperVertices[(i + 1) % 6]);
-                // 垂直辺
-                DrawLine(lowerVertices[i], upperVertices[i]);
-            }
-
-            // 面を描画
-            CreateMesh(lowerVertices, upperVertices);
+            // 水平辺 (下)
+            DrawLine(lowerVertices[i], lowerVertices[(i + 1) % 6]);
+            // 水平辺 (上)
+            DrawLine(upperVertices[i], upperVertices[(i + 1) % 6]);
+            // 垂直辺
+            DrawLine(lowerVertices[i], upperVertices[i]);
         }
+
+        // 面を描画
+        CreateMesh(lowerVertices, upperVertices);
     }
     
     private IEnumerator WaitForKaihouAnimation()
@@ -774,7 +784,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
     void CreateMesh(Vector3[] lowerVertices, Vector3[] upperVertices)
     {
-        GameObject meshObject = new GameObject("HexagonalPrism");
+        meshObject = new GameObject("HexagonalPrism");
         MeshFilter meshFilter = meshObject.AddComponent<MeshFilter>();
         MeshRenderer meshRenderer = meshObject.AddComponent<MeshRenderer>();
         Mesh mesh = new Mesh();
@@ -877,7 +887,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
         haddenchiku = false;
 
-        E_State = Enemy_State_.Spin;
+        E_State = Enemy_State_.Idle;
 
         // 定期的にオブジェクト数を確認
         StartCoroutine(UpdateObjectCount());
@@ -889,7 +899,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         while (true)
         {
             // シーン内の全オブジェクトを取得
-            GameObject[] allObjects = FindObjectsOfType<GameObject>();
+            allObjects = FindObjectsOfType<GameObject>();
 
             // 同名オブジェクトの数をカウント
             objectCount = 0;
