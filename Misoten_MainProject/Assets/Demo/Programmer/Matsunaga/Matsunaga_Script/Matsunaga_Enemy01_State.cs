@@ -205,8 +205,6 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     GameObject[] LObjects; //シーン内のオブジェクトを格納する配列
     GameObject meshObject;
     
-    private float startTimer = 0.0f; //開始時までの待ち時間カウンター
-
     private void Start()
     {
         // 初期状態を設定
