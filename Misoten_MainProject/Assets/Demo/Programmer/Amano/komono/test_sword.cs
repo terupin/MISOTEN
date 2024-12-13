@@ -106,7 +106,5 @@ public class TestSword : MonoBehaviour
         // 指定秒数後に削除
         Destroy(obj, lifetime);
 
-        // 切れたものを再度切れるようにするためのタグ付け（必要なら有効化）
-        // obj.tag = cut_tag;
     }
 }
