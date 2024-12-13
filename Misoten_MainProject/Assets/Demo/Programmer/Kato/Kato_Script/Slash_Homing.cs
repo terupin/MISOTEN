@@ -18,11 +18,17 @@ public class Slash_Homing : MonoBehaviour
     //[SerializeField, Header("trueなら最も近いオブジェクトをfalseなら最も遠いオブジェクト")]
     //public bool SearchPriority;
 
+
+
     [SerializeField, Header("衝撃波が生成されている時間(秒)")]
     public float MoveTime ;
+    [SerializeField, Header("衝撃波ホーミング開始時間(秒)")]
+    public float HomingStartTime;
     private float CurrentTime = 0.0f;
 
     private GameObject Target; // プレイヤーオブジェクトのTransform
+
+    private bool HomingFlg;//ホーミングフラグ
 
     //デンチクと切断可能タグのゲームオブジェクトをすべて取得する
     private GameObject[] _Denchiku ;
@@ -101,82 +107,97 @@ public class Slash_Homing : MonoBehaviour
 
         //}
 
+        if(HomingFlg)
+        {
+          
+        }
+
+
+        if (CurrentTime >= HomingStartTime)
+        {
+            if (!HomingFlg)
+            {
+                StartCoroutine(Homing_Search());
+                HomingFlg = true;
+            }
+                    
+        }
+
 
 
         if (CurrentTime >= MoveTime )
         {
-            //UnityEditor.EditorApplication.isPaused = true;
             Destroy(gameObject);
         }
         CurrentTime += Time.deltaTime;
     }
 
-    ////ホーミング対象をサーチ
-    //private IEnumerator Homing_Search()
-    //{
+    //ホーミング対象をサーチ
+    private IEnumerator Homing_Search()
+    {
 
-    //    ////デンチクと切断可能タグのゲームオブジェクトをすべて取得する
-    //    //_Denchiku = GameObject.FindGameObjectsWithTag("Denchiku");
-    //    //_Cut = GameObject.FindGameObjectsWithTag("Cut");
+        //デンチクと切断可能タグのゲームオブジェクトをすべて取得する
+        _Denchiku = GameObject.FindGameObjectsWithTag("Denchiku");
+        _Cut = GameObject.FindGameObjectsWithTag("Cut");
 
-    //    ////ひとまとめにする
-    //    //_HomingList = new GameObject[_Denchiku.Length + _Cut.Length];
+        //ひとまとめにする
+        _HomingList = new GameObject[_Denchiku.Length + _Cut.Length];
 
-    //    //_HomingDistance = new float[_HomingList.Length];
+        _HomingDistance = new float[_HomingList.Length];
 
-    //    //Debug.Log(_HomingList.Length);
+        Debug.Log(_HomingList.Length);
 
-    //    //int ListCount = 0;
-    //    //foreach (GameObject obj in _HomingList)
-    //    //{
+        int ListCount = 0;
+        foreach (GameObject obj in _HomingList)
+        {
 
-    //    //    if (ListCount < _Denchiku.Length)
-    //    //    {
-    //    //        _HomingList[ListCount] = _Denchiku[ListCount];
-    //    //    }
-    //    //    else
-    //    //    {
-    //    //        _HomingList[ListCount] = _Cut[ListCount - _Denchiku.Length];
-    //    //    }
+            if (ListCount < _Denchiku.Length)
+            {
+                _HomingList[ListCount] = _Denchiku[ListCount];
+            }
+            else
+            {
+                _HomingList[ListCount] = _Cut[ListCount - _Denchiku.Length];
+            }
 
-    //    //    _HomingDistance[ListCount] = Vector3.Distance(_HomingList[ListCount].transform.position, gameObject.transform.position);
-    //    //    Debug.LogFormat("オブジェクト名　{0}\n距離　{1}",_HomingList[ListCount].name, _HomingDistance[ListCount]);
-    //    //    Debug.Log(_HomingList[ListCount].name);
-    //    //    Debug.Log(_HomingDistance[ListCount]);
-    //    //    ListCount++;
-    //    //}
-    //    //int DistanceCount = 0;
+            _HomingDistance[ListCount] = Vector3.Distance(_HomingList[ListCount].transform.position, gameObject.transform.position);
+            Debug.LogFormat("オブジェクト名　{0}\n距離　{1}", _HomingList[ListCount].name, _HomingDistance[ListCount]);
+            Debug.Log(_HomingList[ListCount].name);
+            Debug.Log(_HomingDistance[ListCount]);
+            ListCount++;
+        }
+        int DistanceCount = 0;
 
-    //    //if (SearchPriority)
-    //    //{
-    //    //    foreach (float dis in _HomingDistance)
-    //    //    {
-    //    //        if (dis == _HomingDistance.Min())
-    //    //        {
-    //    //            Target=  _HomingList[DistanceCount];
-    //    //        }
-    //    //        DistanceCount++;
-    //    //    }
+        //if (SearchPriority)
+        {
+            foreach (float dis in _HomingDistance)
+            {
+                if (dis == _HomingDistance.Min())
+                {
+                    Target = _HomingList[DistanceCount];
+                }
+                DistanceCount++;
+            }
 
-    //    //    //Debug.LogFormat("一番近いオブジェクト名　{0}\n距離　{1}", Target.name, Vector3.Distance(Target.transform.position, gameObject.transform.position));
+            //Debug.LogFormat("一番近いオブジェクト名　{0}\n距離　{1}", Target.name, Vector3.Distance(Target.transform.position, gameObject.transform.position));
 
-    //    //}
-    //    //else
-    //    //{
-    //    //    foreach (float dis in _HomingDistance)
-    //    //    {
-    //    //        if (dis == _HomingDistance.Max())
-    //    //        {
-    //    //            Target = _HomingList[DistanceCount];
-    //    //        }
-    //    //        DistanceCount++;
-    //    //    }
-    //    //    //Debug.LogFormat("一番遠いオブジェクト名　{0}\n距離　{1}", Target.name, Vector3.Distance(Target.transform.position, gameObject.transform.position));
+        }
+        //else
+        //{
+        //    foreach (float dis in _HomingDistance)
+        //    {
+        //        if (dis == _HomingDistance.Max())
+        //        {
+        //            Target = _HomingList[DistanceCount];
+        //        }
+        //        DistanceCount++;
+        //    }
+        //    //Debug.LogFormat("一番遠いオブジェクト名　{0}\n距離　{1}", Target.name, Vector3.Distance(Target.transform.position, gameObject.transform.position));
 
-    //    //}
+        //}
+        gameObject.transform.LookAt(new Vector3(Target.transform.position.x, gameObject.transform.position.y, Target.transform.position.z));
 
-
-    //    //yield break;
-    //}
+        yield break;
+    }
 
 }

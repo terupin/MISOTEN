@@ -35,9 +35,9 @@ public class PlayerHp : MonoBehaviour
     //HPに応じてImageを変更する
     void UpdateHpImage()
     {
-        Kato_Status_P Hp_UI = GameObject.FindGameObjectWithTag("Player").GetComponent<Kato_Status_P>(); //プレイヤータグを探して、プレイヤーのステータスを獲得
+        Kato_Status_P Hp_UI = GameObject.Find("Player_Miburo").GetComponent<Kato_Status_P>();
 
-       
+
         if (Hp_UI.NowHP >= 0 && Hp_UI.NowHP < hpSprites.Length)
         {
             image.sprite = hpSprites[Hp_UI.NowHP];
