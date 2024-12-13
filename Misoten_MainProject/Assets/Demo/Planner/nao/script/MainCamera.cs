@@ -97,12 +97,12 @@ public class MainCamera : MonoBehaviour
             if (Matsunaga_Enemy01_State.UkeL)
             {
                 changecamstartR = true;
-                Debug.Log(changecamstartL);
+                //Debug.Log(changecamstartL);
             }
             else if(Matsunaga_Enemy01_State.UKe__Ren01)
             {
                 changecamstartR = true;
-                Debug.Log(changecamstartL);
+                //Debug.Log(changecamstartL);
             }
 
         }
@@ -111,7 +111,7 @@ public class MainCamera : MonoBehaviour
             if (Matsunaga_Enemy01_State.UkeR)
             {
                 changecamstartL = true;
-                Debug.Log(changecamstartR);
+                //Debug.Log(changecamstartR);
             }
             else if(Matsunaga_Enemy01_State.UKe__Ren02)
             {
@@ -143,10 +143,10 @@ public class MainCamera : MonoBehaviour
             ukenagasiRCam.Priority = 2;
 
         }
-        Debug.Log(camchangecount);
-        Debug.Log(ukenagasiLCam.Priority);
-        Debug.Log(ukenagasiRCam.Priority);
-        Debug.Log(C_ukenagashi);
+        //Debug.Log(camchangecount);
+        //Debug.Log(ukenagasiLCam.Priority);
+        //Debug.Log(ukenagasiRCam.Priority);
+        //Debug.Log(C_ukenagashi);
     }
 
     void maincamlock()
