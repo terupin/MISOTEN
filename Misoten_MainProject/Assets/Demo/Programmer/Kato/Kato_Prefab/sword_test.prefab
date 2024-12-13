@@ -167,8 +167,6 @@ GameObject:
   - component: {fileID: 4022526758393173867}
   - component: {fileID: 6615943181791576895}
   - component: {fileID: 4953635993245577795}
-  - component: {fileID: 7212790627483328091}
-  - component: {fileID: 7217087118849587027}
   m_Layer: 0
   m_Name: sword_test
   m_TagString: Untagged
@@ -244,43 +242,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7212790627483328091
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3987149692112920800}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7217087118849587027
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3987149692112920800}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba9d84c504b4f404b91e5ddde5080782, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Slice_Color: {fileID: 2100000, guid: dcad5658b4d2a85499cd1fe5d5805534, type: 2}
-  cut_tag: Cut
-  swordTop: {fileID: 7328406583074852004}
-  swordHit: {fileID: 9024336825175944357}
 --- !u!1 &4667138723666862049
 GameObject:
   m_ObjectHideFlags: 0
