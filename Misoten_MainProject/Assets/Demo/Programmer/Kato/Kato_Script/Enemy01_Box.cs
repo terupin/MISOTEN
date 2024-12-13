@@ -47,31 +47,29 @@ public class Enemy01_Box : MonoBehaviour
                 {
                     gameObject.AddComponent<Enemy_Damage2>();
                     audioSource_E.PlayOneShot(AudioClip_E01);
-                    Instantiate(Attack_effect, transform.position + new Vector3(0.0f, 1.0f, 0.0f), Quaternion.identity);
+                    Instantiate(Attack_effect, transform.localPosition + new Vector3(0.0f, 1.0f, 0.0f), Quaternion.identity);
 
                 }
                 else if (Miburo_State._Attack01 )
                 {
                     gameObject.AddComponent<Enemy_Damage>();
                     audioSource_E.PlayOneShot(AudioClip_E01);
-                    Instantiate(Attack_effect, transform.position + new Vector3(0.0f, 1.0f, 0.0f), Quaternion.identity);
+                    Instantiate(Attack_effect, transform.localPosition + new Vector3(0.0f, 1.0f, 0.0f), Quaternion.identity);
                 }
                 else if (Miburo_State._RenCounter01)
                 {
                     gameObject.AddComponent<Enemy_Damage3>();
                     audioSource_E.PlayOneShot(AudioClip_E01);
                     //UnityEditor.EditorApplication.isPaused = true;
-                    Instantiate(Attack_effect, transform.position + new Vector3(0.0f, 1.0f, 0.0f), Quaternion.identity);
+                    Instantiate(Attack_effect, transform.localPosition + new Vector3(0.0f, 1.0f, 0.0f), Quaternion.identity);
                 }
                 else if (Miburo_State._RenCounter02)
                 {
                     gameObject.AddComponent<Enemy_Damage4>();
                     audioSource_E.PlayOneShot(AudioClip_E01);
                     //UnityEditor.EditorApplication.isPaused = true;
-                    Instantiate(Attack_effect, transform.position+new Vector3(0.0f,1.0f,0.0f), Quaternion.identity);
+                    Instantiate(Attack_effect, transform.localPosition+new Vector3(0.0f,1.0f,0.0f), Quaternion.identity);
                 }
-
-
             }
         }
     }
