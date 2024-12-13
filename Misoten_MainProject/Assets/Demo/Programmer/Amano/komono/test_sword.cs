@@ -81,6 +81,7 @@ public class TestSword : MonoBehaviour
                 MakeItPhysical(upperHull, other.transform);
                 MakeItPhysical(lowerHull, other.transform);
 
+                targetObject.GetComponent<Dropitem_cutmaterial>().Set_itemdrop();
                 targetObject.GetComponent<Dropitem_cutmaterial>().CreateItem();
 
                 // 元のオブジェクトを削除
