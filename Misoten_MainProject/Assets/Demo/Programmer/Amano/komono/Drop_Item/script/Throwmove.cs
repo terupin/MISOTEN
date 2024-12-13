@@ -10,6 +10,9 @@ public class Throwmove : MonoBehaviour
     [SerializeField, Header("待機時間")]
     public float waitTime = 2.0f;
 
+    [SerializeField, Header("動く速さ")]
+    public float itemspeed = 5;
+
     [SerializeField, Header("飛ばす高さ")]
     public float Tall;
 
@@ -43,13 +46,16 @@ public class Throwmove : MonoBehaviour
         Vector3 StartPoint =transform.position;
         Vector3 EndPoint =Vector3.zero;
         Vector3 CenterPoint = StartPoint - EndPoint;
+
+        this.transform.position = CalcLerpPoint(StartPoint, CenterPoint, EndPoint);
     }
 
     //ベジェ曲線の補間
     Vector3 CalcLerpPoint(Vector3 start, Vector3 center,Vector3 end)
     {
-        Vector3 a = Vector3.Lerp(start, center, Time.deltaTime);
-        Vector3 b = Vector3.Lerp(center,end,Time.deltaTime);
-        return Vector3.Lerp(a, b, Time.deltaTime);
+        float movingspeed= itemspeed * Time.deltaTime;
+        Vector3 a = Vector3.Lerp(start, center, movingspeed);
+        Vector3 b = Vector3.Lerp(center,end, movingspeed);
+        return Vector3.Lerp(a, b, movingspeed);
     }
 }
