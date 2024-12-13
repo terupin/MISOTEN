@@ -13,11 +13,11 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     public Material Testobjmat;
 
     [Header("開放時に隠す電竹")]
-    public GameObject Den01; 
-    public GameObject Den02; 
-    public GameObject Den03; 
-    public GameObject Den04; 
-    public GameObject Den05; 
+    public GameObject Den01;
+    public GameObject Den02;
+    public GameObject Den03;
+    public GameObject Den04;
+    public GameObject Den05;
     public GameObject Den06;
 
     [Header("HP0時に遷移するシーン名")]
@@ -93,9 +93,9 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         Kaihou,     //耐久フィールド展開
         Ukenagasare,//受け流しが成功
     };
-    
+
     private Enemy_State_ E_State; // 現在の敵の状態を格納
-    
+
     [SerializeField, Header("ターゲットとなるプレイヤー")]
     public GameObject Target_P; // 敵がターゲットするプレイヤーオブジェクト
 
@@ -151,7 +151,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
     Vector3[] lowerVertices = new Vector3[6];
     Vector3[] upperVertices = new Vector3[6];
-    
+
     private bool run_for_me = false;
 
     [SerializeField]
@@ -203,7 +203,8 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
     GameObject[] allObjects; //シーン内のオブジェクトを格納する配列
     GameObject meshObject;
-    
+
+
     private void Start()
     {
         // 初期状態を設定
@@ -238,7 +239,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             SceneManager.LoadScene(SceneName);
         }
 
-            if (Kato_Status_E.NowHP<=0)
+        if (Kato_Status_E.NowHP <= 0)
         {
             E01Anim.SetBool("HP0", true);
             return;
@@ -270,7 +271,9 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         {
             switch (E_State)
             {
-                   //待機時
+
+                //待機時
+
                 case Enemy_State_.Idle:
 
                     E_State = Enemy_State_.Spin;
@@ -293,14 +296,14 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
                     break;
 
-                    //周回時
+                //周回時
                 case Enemy_State_.Spin:
 
-                    UpdateSpin();                  
+                    UpdateSpin();
 
                     break;
 
-                    //接近時
+                //接近時
                 case Enemy_State_.Goto:
 
                     UpdateGoto();
@@ -309,21 +312,21 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
                     break;
 
-                    //攻撃時
+                //攻撃時
                 case Enemy_State_.Attack:
 
                     DecideAttackType();
 
                     break;
 
-                    //攻撃時（縦切り）
+                //攻撃時（縦切り）
                 case Enemy_State_.Tategiri:
 
                     HandleTategiri();
 
                     break;
 
-                    //攻撃時（連撃）
+                //攻撃時（連撃）
                 case Enemy_State_.RenGeki:
 
                     HandleRenGeki();
@@ -342,8 +345,8 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                     UpdateJumpback();
 
                     break;
-                    
-                    //耐久フィールド展開時
+
+                //耐久フィールド展開時
                 case Enemy_State_.Kaihou:
 
                     for (int i = 0; i < hp_kaihoupoint.Length; i++)
@@ -363,7 +366,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
                     break;
 
-                    //受け流され時
+                //受け流され時
                 case Enemy_State_.Ukenagasare:
 
                     //StartCoroutine(WaitForUke());
@@ -374,7 +377,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
             //Debug.Log($"状態チェック: {E_State} ");
         }
-        
+
         {
             currentHP = (float)Kato_Status_E.NowHP / (float)Kato_Status_E.MaxHP;
         }
@@ -384,7 +387,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             //Debug.LogWarning("Target_P が設定されていません！");
             return;
         }
-        
+
         // 状態ごとの経過時間を更新
         StateCurrentTime += Time.deltaTime;
         elapsedTime += Time.deltaTime;
@@ -413,10 +416,10 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
         // オブジェクトの位置を更新
         transform.position = new Vector3(x, transform.position.y, z);
-        
+
         // 現在位置が攻撃ポイントに到達したらGoto状態に遷移
         CheckAttackPointReached(x, z);
-        
+
         //Debug.Log($"Spin状態: 現在の方向 = {(isReverse ? "逆" : "正")}, 半径 = {spinRadius}, 位置 = ({x}, {z})");
     }
 
@@ -425,7 +428,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         // 0度を開始として360度を6等分した攻撃ポイントを計算
         for (int i = 0; i < 6; i++)
         {
-            float angleInRadians = Mathf.Deg2Rad * (i * 60+30); // 60度間隔で分割
+            float angleInRadians = Mathf.Deg2Rad * (i * 60 + 30); // 60度間隔で分割
             float attackX = Mathf.Cos(angleInRadians) * spinRadius;
             float attackZ = Mathf.Sin(angleInRadians) * spinRadius;
 
@@ -442,11 +445,11 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             if (Vector3.Distance(new Vector3(x, transform.position.y, z), point) < threshold)
             {
                 //Debug.Log("攻撃ポイント到達!");
-                for(int i = 0; i < 6; i++)
+                for (int i = 0; i < 6; i++)
                 {
                     //Debug.Log($"attackpoints{attackPoints[i]}");
                 }
-                
+
                 E_State = Enemy_State_.Goto; // Goto状態に遷移
                 gotoStartPosition = transform.position;
                 //UnityEditor.EditorApplication.isPaused = true;
@@ -477,10 +480,10 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         else
         {
             E_State = Enemy_State_.Attack; // Attack状態に遷移
-           //Debug.Log("Attack状態に遷移！");
-           //UnityEditor.EditorApplication.isPaused = true;
+                                           //Debug.Log("Attack状態に遷移！");
+                                           //UnityEditor.EditorApplication.isPaused = true;
         }
-        
+
         //Debug.Log($"Goto状態: 位置 = {transform.position}");
     }
 
@@ -489,10 +492,10 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         // Goto状態開始時に格納した位置に戻る処理
         Vector3 directionToGotoStart = gotoStartPosition - transform.position;
         directionToGotoStart.y = 0; // 高さは変えずにXY平面で移動
-        
+
         // 到着したら指定の待機時間を待つ
         jumpbackTimer += Time.deltaTime;
-        
+
         if (jumpbackTimer >= 1.0f)
         {
             // 目標半径（内側の円に到達したら攻撃状態に遷移）
@@ -511,7 +514,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             }
         }
     }
-    
+
     // 新しい状態を設定し経過時間をリセット
     private void SetState(Enemy_State_ newState)
     {
@@ -525,8 +528,8 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     private void DecideAttackType()
     {
         int randomValue = Random.Range(0, 100); // 0～100のランダム値を生成
-        //Debug.Log($"DecideAttackType: Random Value = {randomValue}, TategiriChance = {TategiriChance}");
-        
+                                                //Debug.Log($"DecideAttackType: Random Value = {randomValue}, TategiriChance = {TategiriChance}");
+
         //Debug.Log($"穂{E01Anim.GetBool("Walk")}");
 
         if (randomValue < TategiriChance)
@@ -556,7 +559,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             // 縦切り攻撃完了後、クールダウンに遷移
             //Debug.Log("縦切り攻撃が完了しました。Cooldown 状態に遷移します。");
             E01Anim.SetBool("Tategiri", false); // アニメーションをリセット
-            
+
             E_State = Enemy_State_.Jumpback;
             //UnityEditor.EditorApplication.isPaused = true;
         }
@@ -578,7 +581,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             // 連撃攻撃完了後、クールダウンに遷移
             //Debug.Log("連撃攻撃が完了しました。Cooldown 状態に遷移します。");
             E01Anim.SetBool("RenGeki", false); // アニメーションをリセット
-            
+
             E_State = Enemy_State_.Jumpback;
         }
 
@@ -662,7 +665,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         // 面を描画
         CreateMesh(lowerVertices, upperVertices);
     }
-    
+
     private IEnumerator WaitForKaihouAnimation()
     {
         //Debug.Log("解放アニメーションの待機を開始します");
@@ -685,7 +688,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         // 指定した秒数待機（例: 5秒）
         float waitTime = 0.5f;
         yield return new WaitForSeconds(waitTime);
-        
+
         E_State = Enemy_State_.Jumpback;
         //Debug.Log($"待機が完了しました。M_state が Jumpback に設定されました: {E_State}");
 
@@ -714,7 +717,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     private void UpdateAnimations()
     {
         // 状態ごとのアニメーションフラグを更新
-        E01Anim.SetBool("Idle", E_State == Enemy_State_.Idle );
+        E01Anim.SetBool("Idle", E_State == Enemy_State_.Idle);
         E01Anim.SetBool("RunR", E_State == Enemy_State_.Spin && !isReverse);
         E01Anim.SetBool("RunL", E_State == Enemy_State_.Spin && isReverse);
         E01Anim.SetBool("Walk", E_State == Enemy_State_.Goto);
@@ -832,7 +835,9 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         //初期位置の初期化
         transform.position = new Vector3(0, 0, 10);
         //耐久フィールド生成のフラグの初期化
-        for(int i = 0; i < hp_kaihouflag.Length; i++)
+
+        for (int i = 0; i < hp_kaihouflag.Length; i++)
+
         {
             hp_kaihouflag[i] = false;
             hp_kaihoulock[i] = false;
@@ -883,7 +888,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                 //Debug.Log($"フラグが true になりました。累積破壊数: {totalDestroyed}");
                 totalDestroyed = 0; // しきい値を超えたら累積カウントをリセット
 
-                if(E_State == Enemy_State_.Ukenagasare)
+                if (E_State == Enemy_State_.Ukenagasare)
                 {
                     E_State = Enemy_State_.Stagger;
                 }
@@ -1014,7 +1019,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                     Attack = true;
                     P_Input = false;
                     Debug.Log("連撃１入力受付失敗");
-                    
+
                 }
             }
 
