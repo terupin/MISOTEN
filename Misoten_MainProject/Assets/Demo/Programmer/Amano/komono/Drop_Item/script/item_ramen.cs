@@ -20,8 +20,8 @@ public class item_ramen : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-
-            Kato_Status_P Hp_meny = collision.gameObject.GetComponent<Kato_Status_P>(); //プレイヤーのHP量の取得
+            GameObject get_Player = transform.parent.gameObject;
+            Kato_Status_P Hp_meny = get_Player.gameObject.GetComponent<Kato_Status_P>(); //プレイヤーのHP量の取得
 
             if (Hp_meny.NowHP < Hp_meny.MaxHP)
             {
