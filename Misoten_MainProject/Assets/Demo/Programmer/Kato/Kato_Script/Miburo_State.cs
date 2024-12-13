@@ -232,7 +232,11 @@ public class Miburo_State : MonoBehaviour
         Miburo_Animator.SetBool("StickR", StickR);
         Miburo_Animator.SetBool("StickL", StickL);
 
-        if(!Matsunaga_Enemy01_State.UkeL && !Matsunaga_Enemy01_State.UkeR)
+        if(_Parry_Timing)
+        {
+            _Parry = true;
+        }
+        else if(!Matsunaga_Enemy01_State.UkeL && !Matsunaga_Enemy01_State.UkeR)
         {
             _Parry = false;
         }
@@ -480,25 +484,24 @@ public class Miburo_State : MonoBehaviour
         if (other.tag == "EWeapon")
         {
             if (M_HitBox && Matsunaga_Enemy01_State.Attack)
-            {
-               
+            {             
                 if (!Miburo_Animator.GetCurrentAnimatorStateInfo(0).IsName("Battou"))
                 {
-                    Rigidbody rb = GetComponent<Rigidbody>();
-                    dir = (Target.transform.position - rb.position).normalized;
-                    Miburo_Animator.SetTrigger("Damage");
-                    audioSource_P.PlayOneShot(AudioClip00);
-                    Kato_Status_P.instance.Damage(1);
-                    StartCoroutine(KnockBack());
+                    if(Kato_Status_P.instance.Armor==0)//アーマー0
+                    {
+                        Rigidbody rb = GetComponent<Rigidbody>();
+                        dir = (Target.transform.position - rb.position).normalized;
+                        Miburo_Animator.SetTrigger("Damage");
+                        audioSource_P.PlayOneShot(AudioClip00);
+
+                        StartCoroutine(KnockBack());
+                    }
+
+                    Kato_Status_P.instance.Damage(1);//ダメージもしくはアーマー減少
                 }
             }
         }
     }
-
-    //void OnTriggerStay(Collider other)
-    //{
-    //    Debug.Log("すり抜けている");
-    //}
 }
 
 

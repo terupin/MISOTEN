@@ -10,6 +10,7 @@ public class Enemy01_Box : MonoBehaviour
     [SerializeField, Header("É_ÉÅÅ[ÉWéûÇ…çƒê∂Ç∑ÇÈâπê∫")]
     public AudioClip AudioClip_E01;
     private AudioSource audioSource_E;
+    public ParticleSystem Attack_effect;
 
     // Start is called before the first frame update
     void Start()
@@ -66,6 +67,8 @@ public class Enemy01_Box : MonoBehaviour
                     audioSource_E.PlayOneShot(AudioClip_E01);
                     //UnityEditor.EditorApplication.isPaused = true;
                 }
+
+                Instantiate(Attack_effect);
             }
         }
     }

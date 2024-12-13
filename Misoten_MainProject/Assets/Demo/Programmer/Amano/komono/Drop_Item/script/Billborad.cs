@@ -54,5 +54,6 @@ public class Billboard : MonoBehaviour
 
         // ˆÚ“®‚ğŠJn
         isMoving = true;
+        rb.constraints = RigidbodyConstraints.FreezePositionY; //ã‰º‚ÌˆÚ“®‚ğ‚³‚¹‚È‚¢
     }
 }

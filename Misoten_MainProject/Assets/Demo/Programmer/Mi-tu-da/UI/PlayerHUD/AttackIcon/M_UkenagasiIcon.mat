@@ -33,6 +33,6 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _CoolDown: 0.49917012
+    - _CoolDown: 1
     m_Colors: []
   m_BuildTextureStacks: []

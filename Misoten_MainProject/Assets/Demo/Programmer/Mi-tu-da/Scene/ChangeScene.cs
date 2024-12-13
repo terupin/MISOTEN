@@ -13,4 +13,12 @@ public class ChangeScene : MonoBehaviour
     {
         SceneManager.LoadScene(SceneName);
     }
+
+    public void Update()
+    {
+        if (UnityEngine.Input.GetKeyDown("joystick button 0"))
+        {
+            SceneManager.LoadScene(SceneName);
+        }
+    }
 }

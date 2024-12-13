@@ -29,7 +29,11 @@ public class Kato_Status_P : MonoBehaviour
 
             if(ArmorCurrentTime>=ArmorTime)
             {
-                Armor = 0;
+                if (Armor > 0)
+                {
+                    Armor--;
+                }
+                   
                 ArmorCurrentTime = 0;
             }
         }
@@ -37,12 +41,18 @@ public class Kato_Status_P : MonoBehaviour
         {
             ArmorCurrentTime = 0;
         }
-        
     }
 
     public void Damage(int  Damage)
     {
-        NowHP= NowHP - Damage;
-        Debug.LogFormat("Žc‚èHP‚Í {0}", NowHP);
+        if (Armor > 0)
+        {
+            Armor--;
+        }
+        else
+        {
+            NowHP = NowHP - Damage;
+            Debug.LogFormat("Žc‚èHP‚Í {0}", NowHP);
+        }
     }
 }
