@@ -100,17 +100,17 @@ public class Slash_Homing : MonoBehaviour
 
 
         if (30.0f > gameObject.transform.localEulerAngles.y && gameObject.transform.localEulerAngles.y > 0.0f) { roty = 15; }
-        if (60.0f > gameObject.transform.localEulerAngles.y && gameObject.transform.localEulerAngles.y > 30.0f) { roty = 45; }
-        if (90.0f > gameObject.transform.localEulerAngles.y && gameObject.transform.localEulerAngles.y > 60.0f) { roty = 75; }
-        if (120.0f > gameObject.transform.localEulerAngles.y && gameObject.transform.localEulerAngles.y > 90.0f) { roty = 105; }
-        if (150.0f > gameObject.transform.localEulerAngles.y && gameObject.transform.localEulerAngles.y > 120.0f) { roty = 135; }
-        if (180.0f > gameObject.transform.localEulerAngles.y && gameObject.transform.localEulerAngles.y > 150.0f) { roty = 165; }
-        if (210.0f > gameObject.transform.localEulerAngles.y && gameObject.transform.localEulerAngles.y > 180.0f) { roty = 195; }
-        if (240.0f > gameObject.transform.localEulerAngles.y && gameObject.transform.localEulerAngles.y > 210.0f) { roty = 225; }
-        if (270.0f > gameObject.transform.localEulerAngles.y && gameObject.transform.localEulerAngles.y > 240.0f) { roty = 255; }
-        if (300.0f > gameObject.transform.localEulerAngles.y && gameObject.transform.localEulerAngles.y > 270.0f) { roty = 285; }
-        if (330.0f > gameObject.transform.localEulerAngles.y && gameObject.transform.localEulerAngles.y > 300.0f) { roty = 315; }
-        if (30.0f > gameObject.transform.localEulerAngles.y && gameObject.transform.localEulerAngles.y > 330.0f) { roty = 345; }
+        else if (60.0f > gameObject.transform.localEulerAngles.y && gameObject.transform.localEulerAngles.y > 30.0f) { roty = 45; }
+        else if (90.0f > gameObject.transform.localEulerAngles.y && gameObject.transform.localEulerAngles.y > 60.0f) { roty = 75; }
+        else if (120.0f > gameObject.transform.localEulerAngles.y && gameObject.transform.localEulerAngles.y > 90.0f) { roty = 105; }
+        else if (150.0f > gameObject.transform.localEulerAngles.y && gameObject.transform.localEulerAngles.y > 120.0f) { roty = 135; }
+        else if (180.0f > gameObject.transform.localEulerAngles.y && gameObject.transform.localEulerAngles.y > 150.0f) { roty = 165; }
+        else if (210.0f > gameObject.transform.localEulerAngles.y && gameObject.transform.localEulerAngles.y > 180.0f) { roty = 195; }
+        else if (240.0f > gameObject.transform.localEulerAngles.y && gameObject.transform.localEulerAngles.y > 210.0f) { roty = 225; }
+        else if (270.0f > gameObject.transform.localEulerAngles.y && gameObject.transform.localEulerAngles.y > 240.0f) { roty = 255; }
+        else if (300.0f > gameObject.transform.localEulerAngles.y && gameObject.transform.localEulerAngles.y > 270.0f) { roty = 285; }
+        else if (330.0f > gameObject.transform.localEulerAngles.y && gameObject.transform.localEulerAngles.y > 300.0f) { roty = 315; }
+        else if (360.0f > gameObject.transform.localEulerAngles.y && gameObject.transform.localEulerAngles.y > 330.0f) { roty = 345; }
 
         gameObject.transform.rotation = Quaternion.Euler(EnemyObj.transform.localEulerAngles.x, roty, EnemyObj.transform.localEulerAngles.z);
 
