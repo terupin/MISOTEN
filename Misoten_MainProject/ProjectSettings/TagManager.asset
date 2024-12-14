@@ -10,6 +10,7 @@ TagManager:
   - ShockWave
   - PWeapon
   - EWeapon
+  - ItemSenser
   layers:
   - Default
   - TransparentFX

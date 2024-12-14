@@ -71,47 +71,6 @@ public class Slash_Homing : MonoBehaviour
         //  衝撃波はホーミング時以外は直進します。
         gameObject.transform.position += gameObject.transform.forward * MoveSpeed * Time.deltaTime;
 
-        //if (!Seach_Flg)
-        //{
-        //    StartCoroutine(Homing_Search());
-        //    Seach_Flg = true;
-        //}
-
-        //if (Target != null)
-        //{
-        //    float HomingDistance = Vector3.Distance(Target.transform.position, gameObject.transform.position);
-
-
-
-
-        //    if (HomingDistance <= Homing_Start_Dis && HomingDistance >= Homing_End_Dis)
-        //    {
-        //        // 対象物と自分自身の座標からベクトルを算出してQuaternion(回転値)を取得
-        //        Vector3 HomingVector = Target.transform.position - this.transform.position;
-        //        // もし上下方向の回転はしないようにしたければ以下のようにする。
-        //        HomingVector.y = 0f;
-
-        //        // Quaternion(回転値)を取得
-        //        Quaternion quaternion = Quaternion.LookRotation(HomingVector);
-        //        // 取得した回転値をこのゲームオブジェクトのrotationに代入
-        //        this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(HomingVector), RotateSpeed * Time.deltaTime);
-
-        //    }
-
-        //    if (HomingDistance <= Homing_End_Dis && !Seach_END_Flg)
-        //    {
-        //        gameObject.transform.LookAt(new Vector3(Target.transform.position.x, gameObject.transform.position.y, Target.transform.position.z));
-        //        Seach_END_Flg = true;
-        //    }
-
-
-        //}
-
-        if(HomingFlg)
-        {
-          
-        }
-
 
         if (CurrentTime >= HomingStartTime)
         {
@@ -132,70 +91,30 @@ public class Slash_Homing : MonoBehaviour
         CurrentTime += Time.deltaTime;
     }
 
-    //ホーミング対象をサーチ
+    //ホーミング角度補正
     private IEnumerator Homing_Search()
     {
+        float roty= 0;
 
-        //デンチクと切断可能タグのゲームオブジェクトをすべて取得する
-        _Denchiku = GameObject.FindGameObjectsWithTag("Denchiku");
-        _Cut = GameObject.FindGameObjectsWithTag("Cut");
+        if (gameObject.transform.localEulerAngles.y < 0) { gameObject.transform.rotation =  Quaternion.Euler(EnemyObj.transform.localEulerAngles.x, EnemyObj.transform.localEulerAngles.y+360, EnemyObj.transform.localEulerAngles.z); }
 
-        //ひとまとめにする
-        _HomingList = new GameObject[_Denchiku.Length + _Cut.Length];
 
-        _HomingDistance = new float[_HomingList.Length];
+        if (30.0f > gameObject.transform.localEulerAngles.y && gameObject.transform.localEulerAngles.y > 0.0f) { roty = 15; }
+        else if (60.0f > gameObject.transform.localEulerAngles.y && gameObject.transform.localEulerAngles.y > 30.0f) { roty = 45; }
+        else if (90.0f > gameObject.transform.localEulerAngles.y && gameObject.transform.localEulerAngles.y > 60.0f) { roty = 75; }
+        else if (120.0f > gameObject.transform.localEulerAngles.y && gameObject.transform.localEulerAngles.y > 90.0f) { roty = 105; }
+        else if (150.0f > gameObject.transform.localEulerAngles.y && gameObject.transform.localEulerAngles.y > 120.0f) { roty = 135; }
+        else if (180.0f > gameObject.transform.localEulerAngles.y && gameObject.transform.localEulerAngles.y > 150.0f) { roty = 165; }
+        else if (210.0f > gameObject.transform.localEulerAngles.y && gameObject.transform.localEulerAngles.y > 180.0f) { roty = 195; }
+        else if (240.0f > gameObject.transform.localEulerAngles.y && gameObject.transform.localEulerAngles.y > 210.0f) { roty = 225; }
+        else if (270.0f > gameObject.transform.localEulerAngles.y && gameObject.transform.localEulerAngles.y > 240.0f) { roty = 255; }
+        else if (300.0f > gameObject.transform.localEulerAngles.y && gameObject.transform.localEulerAngles.y > 270.0f) { roty = 285; }
+        else if (330.0f > gameObject.transform.localEulerAngles.y && gameObject.transform.localEulerAngles.y > 300.0f) { roty = 315; }
+        else if (360.0f > gameObject.transform.localEulerAngles.y && gameObject.transform.localEulerAngles.y > 330.0f) { roty = 345; }
 
-        Debug.Log(_HomingList.Length);
+        gameObject.transform.rotation = Quaternion.Euler(EnemyObj.transform.localEulerAngles.x, roty, EnemyObj.transform.localEulerAngles.z);
 
-        int ListCount = 0;
-        foreach (GameObject obj in _HomingList)
-        {
 
-            if (ListCount < _Denchiku.Length)
-            {
-                _HomingList[ListCount] = _Denchiku[ListCount];
-            }
-            else
-            {
-                _HomingList[ListCount] = _Cut[ListCount - _Denchiku.Length];
-            }
-
-            _HomingDistance[ListCount] = Vector3.Distance(_HomingList[ListCount].transform.position, gameObject.transform.position);
-            Debug.LogFormat("オブジェクト名　{0}\n距離　{1}", _HomingList[ListCount].name, _HomingDistance[ListCount]);
-            Debug.Log(_HomingList[ListCount].name);
-            Debug.Log(_HomingDistance[ListCount]);
-            ListCount++;
-        }
-        int DistanceCount = 0;
-
-        //if (SearchPriority)
-        {
-            foreach (float dis in _HomingDistance)
-            {
-                if (dis == _HomingDistance.Min())
-                {
-                    Target = _HomingList[DistanceCount];
-                }
-                DistanceCount++;
-            }
-
-            //Debug.LogFormat("一番近いオブジェクト名　{0}\n距離　{1}", Target.name, Vector3.Distance(Target.transform.position, gameObject.transform.position));
-
-        }
-        //else
-        //{
-        //    foreach (float dis in _HomingDistance)
-        //    {
-        //        if (dis == _HomingDistance.Max())
-        //        {
-        //            Target = _HomingList[DistanceCount];
-        //        }
-        //        DistanceCount++;
-        //    }
-        //    //Debug.LogFormat("一番遠いオブジェクト名　{0}\n距離　{1}", Target.name, Vector3.Distance(Target.transform.position, gameObject.transform.position));
-
-        //}
-        gameObject.transform.LookAt(new Vector3(Target.transform.position.x, gameObject.transform.position.y, Target.transform.position.z));
 
         yield break;
     }
