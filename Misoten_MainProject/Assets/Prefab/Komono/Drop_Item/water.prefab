@@ -174,5 +174,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 5
-  itemspeed: 0.5
-  Tall: 30
+  itemspeed: 1
+  Tall: 5
