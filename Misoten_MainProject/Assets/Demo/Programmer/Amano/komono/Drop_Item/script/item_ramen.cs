@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class item_ramen : MonoBehaviour
 {
+    private GameObject player_obj;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        player_obj = GameObject.FindWithTag("Player");
     }
 
     // Update is called once per frame
@@ -16,12 +18,13 @@ public class item_ramen : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.tag == "Player")
+        if (other.gameObject.tag == "ItemSenser")
         {
-            GameObject get_Player = transform.parent.gameObject;
-            Kato_Status_P Hp_meny = get_Player.gameObject.GetComponent<Kato_Status_P>(); //プレイヤーのHP量の取得
+            Debug.Log("当たった");
+
+            Kato_Status_P Hp_meny = player_obj.gameObject.GetComponent<Kato_Status_P>(); //プレイヤーのHP量の取得
 
             if (Hp_meny.NowHP < Hp_meny.MaxHP)
             {
@@ -31,6 +34,4 @@ public class item_ramen : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-
-
 }

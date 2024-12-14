@@ -37,7 +37,7 @@ public class Throwmove : MonoBehaviour
         {
             rb.velocity = Vector3.zero;
 
-            float elapsedTime = Time.time - movestart;
+            float elapsedTime = Time.time - movestart;  //時間のリセット
             float progress = elapsedTime * itemspeed;
 
             if (progress > 1.0f) // 終了条件
@@ -67,9 +67,11 @@ public class Throwmove : MonoBehaviour
 
         isMoving = true;
 
+        //始めと最後の点を取得
         StartPoint = transform.parent.position;
         EndPoint = Vector3.zero;
 
+        //Y軸だけ0だとめり込むので上に移動
         StartPoint.y = transform.position.y * 2;
         EndPoint.y = transform.position.y * 2;
 
@@ -77,6 +79,13 @@ public class Throwmove : MonoBehaviour
         Debug.Log(EndPoint);
 
         movestart = Time.time;
+
+        Collider item_col = this.gameObject.GetComponent<Collider>();
+
+        //トリガーの有効と重力の無効
+        item_col.isTrigger = true;
+        rb.useGravity = false;
+
     }
 
 }

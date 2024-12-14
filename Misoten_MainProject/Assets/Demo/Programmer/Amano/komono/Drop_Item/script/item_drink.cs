@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class item_drink : MonoBehaviour
 {
+    private GameObject player_obj;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        player_obj = GameObject.FindWithTag("Player");
     }
 
     // Update is called once per frame
@@ -16,19 +18,17 @@ public class item_drink : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.tag == "Player")
+        if (other.gameObject.tag == "ItemSenser")
         {
-            GameObject get_Player = transform.parent.gameObject;
-            Kato_Status_P Armor_meny = get_Player.gameObject.GetComponent<Kato_Status_P>();
+            Debug.Log("“–‚½‚Á‚½");
+
+            Kato_Status_P Armor_meny = player_obj.gameObject.GetComponent<Kato_Status_P>();
 
             Armor_meny.Armor++;
+
             Destroy(this.gameObject);
         }
     }
-
-
-
-
 }
