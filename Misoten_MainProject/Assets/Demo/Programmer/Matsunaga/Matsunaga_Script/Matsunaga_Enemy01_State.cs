@@ -158,7 +158,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     private float spinRadius = 5f; // 円の半径（インスペクタで編集可能）
 
     [SerializeField]
-    private float spinSpeed = 2f; // 周回速度（ラジアン/秒）
+    private float spinSpeed = 0.5f; // 周回速度（ラジアン/秒）
 
     private float currentAngle = 90.0f; // 現在の角度（ラジアン）
 
@@ -185,6 +185,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
     // Jumpback状態で経過した時間
     private float jumpbackTimer = 0f;
+    private float jumpbackTimer_fnished = 0f;
 
     private bool UkeTestFlag = false;
 
@@ -349,7 +350,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
                 //耐久フィールド展開時
                 case Enemy_State_.Kaihou:
-
+                    
                     for (int i = 0; i < hp_kaihoupoint.Length; i++)
                     {
                         //Debug.Log($"hp_kaihouflag[{i}]: {hp_kaihouflag[i]} ");
@@ -358,7 +359,8 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                         if (hp_kaihouflag[i] == true && hp_kaihoulock[i] == false)
                         {
                             //Debug.Log($"hasUsedDurabilityField25: {hasUsedDurabilityField25} ");
-                            GenerateObjectsAtVertices(lowerVertices);
+                            //GenerateObjectsAtVertices(lowerVertices);
+                            StartCoroutine(DelayedDenchikuSpawn());
                             StartCoroutine(DelayedBarrierSpawn());
 
                             hp_kaihoulock[i] = true;
@@ -502,10 +504,14 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             // 目標半径（内側の円に到達したら攻撃状態に遷移）
             if (directionToGotoStart.magnitude <= 0.0f)
             {
-                jumpbackTimer = 0f; // タイマーをリセット
-                
-                E_State = Enemy_State_.Idle; // Idle状態に遷移
-                
+                jumpbackTimer_fnished += Time.deltaTime;
+
+                if (jumpbackTimer_fnished >= 0.8f)
+                {
+                    jumpbackTimer = 0.0f; // タイマーをリセット
+                    jumpbackTimer_fnished = 0.0f;
+                    E_State = Enemy_State_.Idle; // Idle状態に遷移
+                }
             }
             else
             {
@@ -657,8 +663,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     // バリア生成を遅延するコルーチン
     private IEnumerator DelayedBarrierSpawn()
     {
-        yield return new WaitForSeconds(2f); // 2秒待機
-                                             //SpawnBarrier();
+        yield return new WaitForSeconds(4f); // 2秒待機
 
         // 辺を描画
         for (int i = 0; i < 6; i++)
@@ -673,6 +678,13 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
         // 面を描画
         CreateMesh(lowerVertices, upperVertices);
+    }
+
+    private IEnumerator DelayedDenchikuSpawn()
+    {
+        yield return new WaitForSeconds(2f); // 2秒待機
+
+        GenerateObjectsAtVertices(lowerVertices);
     }
 
     private IEnumerator WaitForKaihouAnimation()
