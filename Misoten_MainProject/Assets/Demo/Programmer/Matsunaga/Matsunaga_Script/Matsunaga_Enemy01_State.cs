@@ -1142,7 +1142,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             Instantiate(S_Effect);//衝撃波生成
             Effectflg = true;//衝撃波が出たフラグ
             audioSource_E.PlayOneShot(AudioClip_Uke);//受け流し音鳴らす
-            Instantiate(Hit_Effect, Hit_EffectSpawn.transform.localPosition, Quaternion.identity);
+            Instantiate(Hit_Effect, Hit_EffectSpawn.transform.localPosition, Quaternion.Euler(0f, gameObject.transform.localEulerAngles.y, 0.0f));
         }
     }
 
