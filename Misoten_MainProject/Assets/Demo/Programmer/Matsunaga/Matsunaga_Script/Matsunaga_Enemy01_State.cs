@@ -163,6 +163,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     private float currentAngle = 90.0f; // 現在の角度（ラジアン）
 
     private bool isReverse = false; // 逆方向かどうか
+    private float direction;
 
     private bool hasStartedSpin = false; // Spin開始済みかどうか
 
@@ -277,9 +278,11 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                 //待機時
 
                 case Enemy_State_.Idle:
-                    
+
                     E_State = Enemy_State_.Spin;
                     
+                    direction = isReverse ? -1f : 1f;
+
                     for (int i = 0; i < hp_kaihoupoint.Length; i++)
                     {
                         //Debug.Log($"currentHP : {currentHP} <= hp_kaihoupoint[{i}]: {hp_kaihoupoint[i]} ");
@@ -408,8 +411,8 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     private void UpdateSpin()
     {
         // 方向を変更（正方向または逆方向）
-        float direction = isReverse ? -1f : 1f;
-
+        //float direction = isReverse ? -1f : 1f;
+        
         // 角度を更新（時間経過に応じて進む）
         currentAngle += direction * spinSpeed * Time.deltaTime;
 
@@ -445,19 +448,23 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         float threshold = 0.2f; // 近づく距離の閾値
         foreach (var point in attackPoints)
         {
-            if (Vector3.Distance(new Vector3(x, transform.position.y, z), point) < threshold)
+            if(gotoStartPosition != transform.position)
             {
-                //Debug.Log("攻撃ポイント到達!");
-                for (int i = 0; i < 6; i++)
+                if (Vector3.Distance(new Vector3(x, transform.position.y, z), point) < threshold)
                 {
-                    //Debug.Log($"attackpoints{attackPoints[i]}");
-                }
+                    //Debug.Log("攻撃ポイント到達!");
+                    for (int i = 0; i < 6; i++)
+                    {
+                        //Debug.Log($"attackpoints{attackPoints[i]}");
+                    }
 
-                E_State = Enemy_State_.Goto; // Goto状態に遷移
-                gotoStartPosition = transform.position;
-                //UnityEditor.EditorApplication.isPaused = true;
-                break;
+                    E_State = Enemy_State_.Goto; // Goto状態に遷移
+                    gotoStartPosition = transform.position;
+                    //UnityEditor.EditorApplication.isPaused = true;
+                    break;
+                }
             }
+            
         }
     }
 
@@ -508,6 +515,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
                 if (jumpbackTimer_fnished >= 0.8f)
                 {
+                    isReverse = Random.value < 0.65f;
                     jumpbackTimer = 0.0f; // タイマーをリセット
                     jumpbackTimer_fnished = 0.0f;
                     E_State = Enemy_State_.Idle; // Idle状態に遷移
