@@ -1336,7 +1336,7 @@ PrefabInstance:
     - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
       propertyPath: numtostagg
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
@@ -3399,6 +3399,12 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 1243681727059629837, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}
+      propertyPath: Attack_effect
+      value: 
+      objectReference: {fileID: 5284832064705368359, guid: b6987ad60d37e7549acd83f10ae1cef7,
+        type: 3}
+    - target: {fileID: 1243681727059629837, guid: 8eb4fdc726e23774da71f86d9d295d96,
+        type: 3}
       propertyPath: Miburo_HitBox
       value: 
       objectReference: {fileID: 706112271}
@@ -3775,7 +3781,7 @@ PrefabInstance:
     - target: {fileID: 8499532041928091207, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8499532041928091207, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}

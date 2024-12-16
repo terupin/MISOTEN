@@ -111,6 +111,8 @@ public class Miburo_State : MonoBehaviour
 
     [SerializeField, Header("被ダメージ")]
     public AudioClip AudioClip00;
+    [SerializeField, Header("攻撃時に再生するエフェクト")]
+    public ParticleSystem Attack_effect;
 
     private AudioSource audioSource_P;
 
@@ -318,6 +320,7 @@ public class Miburo_State : MonoBehaviour
         {
             _Attack01 = true;
             Miburo_Animator.SetBool("Attack01", true);
+            Instantiate(Attack_effect, transform.localPosition + new Vector3(0.0f, 1.0f, 0.0f), Quaternion.Euler(0f, gameObject.transform.localEulerAngles.y, 0.0f));
             yield return new WaitForSeconds(Attack01_Time);
             Miburo_Animator.SetBool("Attack01", false);
             yield return new WaitForSeconds(Attack01_WaitTime);
@@ -336,6 +339,7 @@ public class Miburo_State : MonoBehaviour
         {
             _Attack02 = true;
             Miburo_Animator.SetBool("Attack02", true);
+            Instantiate(Attack_effect, transform.localPosition + new Vector3(0.0f, 1.0f, 0.0f), Quaternion.Euler(0f, gameObject.transform.localEulerAngles.y, 0.0f));
             yield return new WaitForSeconds(Attack02_Time);
             Miburo_Animator.SetBool("Attack02", false);
             yield return new WaitForSeconds(Attack02_WaitTime);
