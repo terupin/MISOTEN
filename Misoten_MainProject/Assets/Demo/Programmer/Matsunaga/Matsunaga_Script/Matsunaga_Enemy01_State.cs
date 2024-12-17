@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 public class Matsunaga_Enemy01_State : MonoBehaviour
 {
@@ -13,12 +15,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     public Material Testobjmat;
 
     [Header("開放時に隠す電竹")]
-    public GameObject Den01;
-    public GameObject Den02;
-    public GameObject Den03;
-    public GameObject Den04;
-    public GameObject Den05;
-    public GameObject Den06;
+    public GameObject[] Den;
 
     [Header("HP0時に遷移するシーン名")]
     public string SceneName;
@@ -62,6 +59,10 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
     [SerializeField, Header("刀のつばぜり合いエフェクト出す場所")]
     public GameObject Hit_EffectSpawn;
+
+    [SerializeField, Header("敵攻撃時に再生するエフェクト")]
+    public ParticleSystem Attack_effectE;
+    private bool A_EffectFlg;
 
     private GameObject Clone_Effect;
 
@@ -1077,8 +1078,20 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             SetState(Enemy_State_.Stagger);
         }
 
+        if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren1"))
+        {
+            E_AEffectSpawn();
+        }
+
+        if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Tategiri0"))
+        {
+
+            StartCoroutine(E_AEffectSpawn());
+        }
+
         if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Ren2"))
         {
+            StartCoroutine(E_AEffectSpawn());
             Testobj.SetActive(true);
         }
         else
@@ -1090,21 +1103,17 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
         if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Kaihou"))
         {
-            Den01.SetActive(false);
-            Den02.SetActive(false);
-            Den03.SetActive(false);
-            Den04.SetActive(false);
-            Den05.SetActive(false);
-            Den06.SetActive(false);
+            for (int i = 0; i < Den.Length; i++)
+            {
+                Den[i].SetActive(false);
+            }
         }
         else
         {
-            Den01.SetActive(true);
-            Den02.SetActive(true);
-            Den03.SetActive(true);
-            Den04.SetActive(true);
-            Den05.SetActive(true);
-            Den06.SetActive(true);
+            for (int i = 0; i < Den.Length; i++)
+            {
+                Den[i].SetActive(true);
+            }
         }
     }
 
@@ -1152,6 +1161,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             audioSource_E.PlayOneShot(AudioClip_Uke);//受け流し音鳴らす
             Instantiate(Hit_Effect, Hit_EffectSpawn.transform.localPosition, Quaternion.Euler(0f, gameObject.transform.localEulerAngles.y, 0.0f));
         }
+        //UnityEditor.EditorApplication.isPaused = true;
     }
 
     private void Input_Timing()
@@ -1164,5 +1174,17 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                 P_Input = true;
             }
         }
+    }
+
+    private IEnumerator E_AEffectSpawn()
+    {
+        if(!A_EffectFlg)
+        {
+            A_EffectFlg = true;
+            Instantiate(Attack_effectE, transform.localPosition + new Vector3(0.0f, 1.0f, 0.0f), Quaternion.Euler(Hit_EffectSpawn.transform.localEulerAngles.x, Hit_EffectSpawn.transform.localEulerAngles.y, Hit_EffectSpawn.transform.localEulerAngles.z));
+            yield return new WaitForSeconds(1.0f);
+            A_EffectFlg = false;
+        }
+
     }
 }

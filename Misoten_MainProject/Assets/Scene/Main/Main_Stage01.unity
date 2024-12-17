@@ -347,6 +347,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerHUD
       objectReference: {fileID: 0}
+    - target: {fileID: 4251359641106091581, guid: f509d4b0097336c4487c96b5a65054f9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1083,6 +1088,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -100
       objectReference: {fileID: 0}
+    - target: {fileID: 4244719324280021721, guid: 1d950f3ea5279f14b8e4f4d517c02b43,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4839828742758489051, guid: 1d950f3ea5279f14b8e4f4d517c02b43,
         type: 3}
       propertyPath: m_Pivot.x
@@ -1386,7 +1396,7 @@ PrefabInstance:
     - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
       propertyPath: RenGekiChance
-      value: 40
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
@@ -1400,8 +1410,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
+      propertyPath: Attack_effectE
+      value: 
+      objectReference: {fileID: 5284832064705368359, guid: b6987ad60d37e7549acd83f10ae1cef7,
+        type: 3}
+    - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
+      propertyPath: Den.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
       propertyPath: TategiriChance
-      value: 60
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
@@ -1433,6 +1454,36 @@ PrefabInstance:
       propertyPath: maiclue_mintime
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
+      propertyPath: Den.Array.data[0]
+      value: 
+      objectReference: {fileID: 47614712}
+    - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
+      propertyPath: Den.Array.data[1]
+      value: 
+      objectReference: {fileID: 1564264414}
+    - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
+      propertyPath: Den.Array.data[2]
+      value: 
+      objectReference: {fileID: 1347106546}
+    - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
+      propertyPath: Den.Array.data[3]
+      value: 
+      objectReference: {fileID: 1981748179}
+    - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
+      propertyPath: Den.Array.data[4]
+      value: 
+      objectReference: {fileID: 749626226}
+    - target: {fileID: 432260384158943923, guid: 5a5dfd0327ec98346a40d1796a249e1e,
+        type: 3}
+      propertyPath: Den.Array.data[5]
+      value: 
+      objectReference: {fileID: 276017460}
     - target: {fileID: 536073772360287028, guid: 5a5dfd0327ec98346a40d1796a249e1e,
         type: 3}
       propertyPath: m_RenderingLayerMask
@@ -3169,8 +3220,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1275855445}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0050889156, y: 0.0000012649349, z: -0.0000000064372165, w: 0.99998707}
-  m_LocalPosition: {x: 1.8670828, y: -5.6969714, z: 3.7123184}
+  m_LocalRotation: {x: 0.005113011, y: -0.00000002980557, z: 1.5239822e-10, w: 0.99998695}
+  m_LocalPosition: {x: 1.8671057, y: -5.6969233, z: 3.7123187}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4598,7 +4649,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 7.485621
+  field of view: 7.48604
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -4624,8 +4675,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1823688464}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0050889156, y: 0.0000012649349, z: -0.0000000064372165, w: 0.99998707}
-  m_LocalPosition: {x: 1.8670828, y: -5.6969714, z: 3.7123184}
+  m_LocalRotation: {x: 0.0051130117, y: -0.00000002980557, z: 1.5239822e-10, w: 0.99998695}
+  m_LocalPosition: {x: 1.8671057, y: -5.6969233, z: 3.7123187}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
