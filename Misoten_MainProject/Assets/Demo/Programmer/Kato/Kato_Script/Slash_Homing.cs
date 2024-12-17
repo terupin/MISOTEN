@@ -52,7 +52,7 @@ public class Slash_Homing : MonoBehaviour
         EnemyObj = GameObject.FindWithTag("Enemy");
         EnemyKatanaBox = GameObject.Find("Enemy_HitBox");
 
-        gameObject.transform.position = new Vector3(EnemyKatanaBox.transform.localPosition.x, 0.0f, EnemyKatanaBox.transform.localPosition.z);
+        gameObject.transform.position = Vector3.zero;
 
         if ( Matsunaga_Enemy01_State.UKe__Ren01 || Matsunaga_Enemy01_State.UkeR)
         {
