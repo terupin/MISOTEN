@@ -243,7 +243,7 @@ PrefabInstance:
     - target: {fileID: 4937772553933678695, guid: c69cce786416265409985e909b2e282d,
         type: 3}
       propertyPath: SceneName
-      value: Kato_Stage01
+      value: Main_Stage01
       objectReference: {fileID: 0}
     - target: {fileID: 5858644138731488590, guid: c69cce786416265409985e909b2e282d,
         type: 3}
