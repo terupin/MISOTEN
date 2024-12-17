@@ -335,6 +335,36 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6415051936417566495, guid: 58fbaf5545a84d2408f9c10278ceca72,
+        type: 3}
+      propertyPath: m_Colors.m_NormalColor.b
+      value: 0.6313726
+      objectReference: {fileID: 0}
+    - target: {fileID: 6415051936417566495, guid: 58fbaf5545a84d2408f9c10278ceca72,
+        type: 3}
+      propertyPath: m_Colors.m_NormalColor.g
+      value: 0.6313726
+      objectReference: {fileID: 0}
+    - target: {fileID: 6415051936417566495, guid: 58fbaf5545a84d2408f9c10278ceca72,
+        type: 3}
+      propertyPath: m_Colors.m_NormalColor.r
+      value: 0.6313726
+      objectReference: {fileID: 0}
+    - target: {fileID: 6415051936417566495, guid: 58fbaf5545a84d2408f9c10278ceca72,
+        type: 3}
+      propertyPath: m_Colors.m_SelectedColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6415051936417566495, guid: 58fbaf5545a84d2408f9c10278ceca72,
+        type: 3}
+      propertyPath: m_Colors.m_SelectedColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6415051936417566495, guid: 58fbaf5545a84d2408f9c10278ceca72,
+        type: 3}
+      propertyPath: m_Colors.m_SelectedColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8248951822638313976, guid: 58fbaf5545a84d2408f9c10278ceca72,
         type: 3}
       propertyPath: m_Name
@@ -760,6 +790,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7621788879143901890, guid: c69cce786416265409985e909b2e282d,
+        type: 3}
+      propertyPath: m_Colors.m_NormalColor.b
+      value: 0.6313726
+      objectReference: {fileID: 0}
+    - target: {fileID: 7621788879143901890, guid: c69cce786416265409985e909b2e282d,
+        type: 3}
+      propertyPath: m_Colors.m_NormalColor.g
+      value: 0.6313726
+      objectReference: {fileID: 0}
+    - target: {fileID: 7621788879143901890, guid: c69cce786416265409985e909b2e282d,
+        type: 3}
+      propertyPath: m_Colors.m_NormalColor.r
+      value: 0.6313726
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
