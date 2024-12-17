@@ -1156,6 +1156,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         Clone_Effect = GameObject.Find("Slash_Effect(Clone)");
         if (Clone_Effect == null && !Effectflg)//一度に衝撃波が複数出ないように
         {
+            StartCoroutine(HitStop.instance.HitStop_());
             Instantiate(S_Effect);//衝撃波生成
             Effectflg = true;//衝撃波が出たフラグ
             audioSource_E.PlayOneShot(AudioClip_Uke);//受け流し音鳴らす
