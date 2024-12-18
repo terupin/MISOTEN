@@ -706,7 +706,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
     private IEnumerator Delayedbeforespawn()
     {
-        yield return new WaitForSeconds(2f); // 2秒待機
+        yield return new WaitForSeconds(1f); // 2秒待機
         
         foreach (GameObject obj in allObjects)
         {
