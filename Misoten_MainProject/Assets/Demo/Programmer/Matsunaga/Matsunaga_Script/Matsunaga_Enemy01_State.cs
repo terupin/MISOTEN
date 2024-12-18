@@ -362,6 +362,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
                         if (hp_kaihouflag[i] == true && hp_kaihoulock[i] == false)
                         {
+                            StartCoroutine(Delayedbeforespawn());
                             //Debug.Log($"hasUsedDurabilityField25: {hasUsedDurabilityField25} ");
                             //GenerateObjectsAtVertices(lowerVertices);
                             StartCoroutine(DelayedDenchikuSpawn());
@@ -681,19 +682,6 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     {
         yield return new WaitForSeconds(4f); // 2秒待機
 
-        Destroy(meshObject);  //バリアの破壊
-
-        foreach (GameObject obj in LObjects)
-        {
-            if (obj != null)
-            {
-                if (obj.name == "Line")
-                {
-                    Destroy(obj);
-                }
-            }
-        }
-
         // 辺を描画
         for (int i = 0; i < 6; i++)
         {
@@ -712,7 +700,14 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     private IEnumerator DelayedDenchikuSpawn()
     {
         yield return new WaitForSeconds(2f); // 2秒待機
+        
+        GenerateObjectsAtVertices(lowerVertices);
+    }
 
+    private IEnumerator Delayedbeforespawn()
+    {
+        yield return new WaitForSeconds(1f); // 2秒待機
+        
         foreach (GameObject obj in allObjects)
         {
             if (obj != null)
@@ -723,8 +718,19 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
                 }
             }
         }
+        Destroy(meshObject);  //バリアの破壊
 
-        GenerateObjectsAtVertices(lowerVertices);
+        foreach (GameObject obj in LObjects)
+        {
+            if (obj != null)
+            {
+                if (obj.name == "Line")
+                {
+                    Destroy(obj);
+                }
+            }
+        }
+
     }
 
     private IEnumerator WaitForKaihouAnimation()
