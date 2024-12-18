@@ -13,16 +13,29 @@ public class OptionClick : MonoBehaviour
         }
     }
 
+
     public void OnClick()
     {
-        if (targetCanvas != null)
+        if(UnityEngine.Input.GetKeyDown("joystick button 0"))
         {
-            UISetflag = !UISetflag;
+            UISetflag = true;
             targetCanvas.enabled = UISetflag;
         }
-        else
+        else if (UnityEngine.Input.GetKeyDown("joystick button 1"))
         {
-            Debug.LogError("Canvas‚ªİ’è‚³‚ê‚Ä‚¢‚Ü‚¹‚ñI");
+            UISetflag = false;
+            targetCanvas.enabled = UISetflag;
         }
+
+        //if (targetCanvas != null)
+        //{
+        //    UISetflag = !UISetflag;
+        //    targetCanvas.enabled = UISetflag;
+
+        //}
+        //else
+        //{
+        //    Debug.LogError("Canvas‚ªİ’è‚³‚ê‚Ä‚¢‚Ü‚¹‚ñI");
+        //}
     }
 }
