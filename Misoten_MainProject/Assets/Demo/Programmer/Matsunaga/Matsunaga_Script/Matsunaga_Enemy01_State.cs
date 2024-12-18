@@ -516,7 +516,8 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
                 if (jumpbackTimer_fnished >= 0.8f)
                 {
-                    isReverse = Random.value < 0.65f;
+                    isReverse = isReverse ? Random.value < 0.35f : Random.value < 0.65f;
+                    //isReverse = Random.value < 0.65f;
                     jumpbackTimer = 0.0f; // タイマーをリセット
                     jumpbackTimer_fnished = 0.0f;
                     E_State = Enemy_State_.Idle; // Idle状態に遷移
@@ -646,18 +647,24 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         {
             foreach (GameObject obj in allObjects)
             {
-                if (obj.name == objectName)
+                if( obj != null )
                 {
-                    Destroy(obj); //電竹の破壊
+                    if (obj.name == objectName)
+                    {
+                        Destroy(obj); //電竹の破壊
+                    }
                 }
             }
             Destroy(meshObject);  //バリアの破壊
             
             foreach (GameObject obj in LObjects)
             {
-                if (obj.name == "Line")
+                if( obj != null )
                 {
-                    Destroy(obj); //電竹の破壊
+                    if (obj.name == "Line")
+                    {
+                        Destroy(obj);
+                    }
                 }
             }
         }
