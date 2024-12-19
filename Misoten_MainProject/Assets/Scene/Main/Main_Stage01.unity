@@ -242,6 +242,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 380987912180167896, guid: f509d4b0097336c4487c96b5a65054f9,
+        type: 3}
+      propertyPath: m_CullTransparentMesh
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1606487956782903260, guid: f509d4b0097336c4487c96b5a65054f9,
         type: 3}
       propertyPath: m_Pivot.x
@@ -5414,11 +5419,11 @@ SceneRoots:
   - {fileID: 1322884129}
   - {fileID: 723284140}
   - {fileID: 1873599052}
+  - {fileID: 130481136}
   - {fileID: 357175248}
   - {fileID: 1405806334}
   - {fileID: 1763175675}
   - {fileID: 817200536}
-  - {fileID: 130481136}
   - {fileID: 343405556}
   - {fileID: 1480632076}
   - {fileID: 1004821544}
