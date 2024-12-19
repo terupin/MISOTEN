@@ -1156,6 +1156,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
     private IEnumerator WaitD01R()
     {
+        StartCoroutine(HitStop.instance.SlowMotion_(0.1f, Check_TimeD0));
         yield return new WaitForSeconds(Check_TimeD0);
         E01Anim.SetBool("UkeR", true);
         E_State = Enemy_State_.Ukenagasare;
@@ -1164,6 +1165,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
     private IEnumerator WaitD01L()
     {
+        StartCoroutine(HitStop.instance.SlowMotion_(0.1f, Check_TimeD0));
         yield return new WaitForSeconds(Check_TimeD0);
         E01Anim.SetBool("UkeL", true);
         ShockWaveSpawn();
@@ -1172,6 +1174,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
     private IEnumerator WaitDR01()
     {
+        StartCoroutine(HitStop.instance.SlowMotion_(0.1f, Check_TimeD1));
         yield return new WaitForSeconds(Check_TimeD1);
         E01Anim.SetBool("RenUke01", true);
         ShockWaveSpawn();
@@ -1181,6 +1184,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     //
     private IEnumerator WaitDR02()
     {
+        StartCoroutine(HitStop.instance.SlowMotion_(0.1f, Check_TimeD2));
         yield return new WaitForSeconds(Check_TimeD2);
         E01Anim.SetBool("RenUke02", true);
         ShockWaveSpawn();
@@ -1193,7 +1197,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         Clone_Effect = GameObject.Find("Slash_Effect(Clone)");
         if (Clone_Effect == null && !Effectflg)//一度に衝撃波が複数出ないように
         {
-            StartCoroutine(HitStop.instance.HitStop_());
+            StartCoroutine(HitStop.instance.HitStop_(0.25f));
             Instantiate(S_Effect);//衝撃波生成
             Effectflg = true;//衝撃波が出たフラグ
             audioSource_E.PlayOneShot(AudioClip_Uke);//受け流し音鳴らす
