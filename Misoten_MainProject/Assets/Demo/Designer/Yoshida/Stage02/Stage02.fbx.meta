@@ -1,0 +1,264 @@
+fileFormatVersion: 2
+guid: 69d833edfa8429645ad9e720318298da
+ModelImporter:
+  serializedVersion: 22200
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mt_Stage02_Hashira
+    second: {fileID: 2100000, guid: 4be37c4207ea2ce4c9c941b9f5f36d82, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mt_Stage02_Kabe
+    second: {fileID: 2100000, guid: 87d98bcf9b78808438f933a7a254a791, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mt_Stage02_NunoKami
+    second: {fileID: 2100000, guid: 17a363ec8439ccc468c033a53da05036, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mt_Stage02_Stage
+    second: {fileID: 2100000, guid: df4455c4b5fd73e43a2762878e4f3412, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mt_Stage02_TatamiDai
+    second: {fileID: 2100000, guid: 38668af175b4d37449ec11eae946f348, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mt_Stage02_Yuka
+    second: {fileID: 2100000, guid: d9296b2d3ca45f64db35eaa2e1b741f7, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tx_Stage02_Hashira_BaseColor
+    second: {fileID: 2800000, guid: 30b8835ac34b4504dbf6961911d8a082, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tx_Stage02_Hashira_Emissive
+    second: {fileID: 2800000, guid: ec49bd88f37fac640bbb22a015dbf341, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tx_Stage02_Hashira_Metallic
+    second: {fileID: 2800000, guid: 8d6657b217594e041b6d58b78639a123, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tx_Stage02_Hashira_Normal
+    second: {fileID: 2800000, guid: 40b5bbcde02465143b01b83a40b22232, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tx_Stage02_Hashira_Roughness
+    second: {fileID: 2800000, guid: 2cfe262bb9043bd45ae7ca95a0339d3b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tx_Stage02_Kabe_BaseColor
+    second: {fileID: 2800000, guid: 1305a912eba33d24cb62b7fa9bc81916, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tx_Stage02_Kabe_Emissive
+    second: {fileID: 2800000, guid: efd28e3d85d17534787f0881237dae82, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tx_Stage02_Kabe_Metallic
+    second: {fileID: 2800000, guid: be80e2f69290690418f681174563b375, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tx_Stage02_Kabe_Normal
+    second: {fileID: 2800000, guid: e5dc086344e657045ab301dd00527057, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tx_Stage02_Kabe_Roughness
+    second: {fileID: 2800000, guid: 924746fa3b23c9a4f9e52123d104d0e0, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tx_Stage02_NunoKami_BaseColor
+    second: {fileID: 2800000, guid: 3ca9af0d8c826c84daf87a5cd2e81e5b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tx_Stage02_NunoKami_Emissive
+    second: {fileID: 2800000, guid: 930ec2df034425041a02a9443c21ecfe, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tx_Stage02_NunoKami_Normal
+    second: {fileID: 2800000, guid: e2aa87eaca5871948a6b5f7faf619955, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tx_Stage02_NunoKami_Roughness
+    second: {fileID: 2800000, guid: 68c5c2547d87e034cabe84a0f3e6a17a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tx_Stage02_Stage_BaseColor
+    second: {fileID: 2800000, guid: 4ca1c60fdab26aa4da3f54873b922658, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tx_Stage02_Stage_Normal
+    second: {fileID: 2800000, guid: de3527f1be5fdc947bf7d116c0e0ba5b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tx_Stage02_Stage_Roughness
+    second: {fileID: 2800000, guid: 5db397616c6f3a6408d531d0e7bb5c48, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tx_Stage02_TatamiDai_BaseColor
+    second: {fileID: 2800000, guid: c9b2c60104c858b4b836efd43469ccca, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tx_Stage02_TatamiDai_Emissive
+    second: {fileID: 2800000, guid: 4ee066ac2cef81547a338aa7334e5c29, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tx_Stage02_TatamiDai_Normal
+    second: {fileID: 2800000, guid: e890142a443dee14b97b7bfdd69312ae, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tx_Stage02_TatamiDai_Roughness
+    second: {fileID: 2800000, guid: 1c4ea4af34e0dcc459dd17c1734054a4, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tx_Stage02_Yuka_BaseColor
+    second: {fileID: 2800000, guid: f113f7e18069f5e48be62895b0aa8d7c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tx_Stage02_Yuka_Emissive
+    second: {fileID: 2800000, guid: 374d75de269b4274ca00a120dbe4f4d4, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tx_Stage02_Yuka_Normal
+    second: {fileID: 2800000, guid: 5f20d24957a37f74684cbf8b0d21ffd6, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tx_Stage02_Yuka_Roughness
+    second: {fileID: 2800000, guid: 5244b589af9a8c7468053bcd7a85ea7d, type: 3}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
