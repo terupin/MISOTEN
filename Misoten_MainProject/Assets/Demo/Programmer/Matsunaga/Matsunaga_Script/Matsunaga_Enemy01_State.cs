@@ -991,6 +991,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         {
             if (Check_Current_Time0 > Check_TimeWait0 && Check_Time0 + Check_TimeWait0 >= Check_Current_Time0)
             {
+                SpriteAnimation.Instance.AnimStart(Check_Current_Time0 - Check_TimeWait0, Check_Time0);
                 Input_Timing();
 
                 if (P_Input)
@@ -1048,7 +1049,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             if (Check_Current_Time1 > Check_TimeWait1 && Check_Time1 + Check_TimeWait1 > Check_Current_Time1)
             {
                 Debug.Log("連撃１入力受付中");
-                //UnityEditor.EditorApplication.isPaused = true;
+                SpriteAnimation.Instance.AnimStart(Check_Current_Time1 - Check_TimeWait1, Check_Time1);
                 Input_Timing();
 
                 if (P_Input)
@@ -1064,6 +1065,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             //2回目入力判定
             if (Check_Current_Time1 > Check_TimeWait2 + Check_Time1 + Check_TimeWait1 && Check_Time1 + Check_TimeWait1 + Check_Time2 + Check_TimeWait2 >= Check_Current_Time1)
             {
+                SpriteAnimation.Instance.AnimStart(Check_Current_Time1 - Check_TimeWait2 - Check_Time1 - Check_TimeWait1, Check_Time2);
                 Input_Timing();
                 Debug.Log("連撃２入力受付中");
                 if (P_Input)
