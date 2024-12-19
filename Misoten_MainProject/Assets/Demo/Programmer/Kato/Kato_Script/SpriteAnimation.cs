@@ -20,7 +20,7 @@ public class SpriteAnimation : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {9       
+    {       
     }
 
     public void AnimStart(float NowTime ,float Maxtime)
