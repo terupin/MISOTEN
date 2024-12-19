@@ -75,6 +75,81 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &1882639945110949065
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3952140172227279612}
+  - component: {fileID: 380987912180167896}
+  - component: {fileID: 2417184781439332759}
+  m_Layer: 5
+  m_Name: UkenagasuEffect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &3952140172227279612
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1882639945110949065}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1606487956782903260}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 150, y: 150}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &380987912180167896
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1882639945110949065}
+  m_CullTransparentMesh: 1
+--- !u!114 &2417184781439332759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1882639945110949065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &2142409297049174189
 GameObject:
   m_ObjectHideFlags: 0
@@ -164,6 +239,7 @@ GameObject:
   - component: {fileID: 8092340130943360204}
   - component: {fileID: 2273829717076489811}
   - component: {fileID: 640152044001827080}
+  - component: {fileID: 6190163095498553275}
   m_Layer: 5
   m_Name: PlayerHUD
   m_TagString: Untagged
@@ -184,6 +260,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 59637975357823271}
+  - {fileID: 3952140172227279612}
   - {fileID: 3151776331068616072}
   - {fileID: 3564864849174717845}
   - {fileID: 73799418166091128}
@@ -296,6 +373,31 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 530a714747534c1429c162712502f9d2, type: 3}
   - {fileID: 21300000, guid: ba8e180c9bbd5624a9f52f476b86b7ff, type: 3}
   - {fileID: 21300000, guid: a9d5b377fdcaaf94f82a80f75de06318, type: 3}
+--- !u!114 &6190163095498553275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4251359641106091581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fd619b120751054fb2948d350bfaf87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _image: {fileID: 2417184781439332759}
+  AnimationImage:
+  - {fileID: 21300000, guid: 0dd568f27800d5944a51065530fb5632, type: 3}
+  - {fileID: 21300000, guid: 3bcc8f7f834f4a94384c4770b42623e5, type: 3}
+  - {fileID: 21300000, guid: b6b92f50b58c2b9429499ce9d85734b5, type: 3}
+  - {fileID: 21300000, guid: 811dbc9806be06749998002fde2771ea, type: 3}
+  - {fileID: 21300000, guid: 26212d8950188a840ba7c5c59fa7cb36, type: 3}
+  - {fileID: 21300000, guid: 11ba32290f817a64ca1e78bc30d8d043, type: 3}
+  - {fileID: 21300000, guid: 0499ffea29d4d194683ec03c88b1ee18, type: 3}
+  - {fileID: 21300000, guid: 88b9ff011645a7d4a8dc03c577888ad0, type: 3}
+  - {fileID: 21300000, guid: 08d42c78b80d2fc44812a30054033c73, type: 3}
+  - {fileID: 21300000, guid: 0dd568f27800d5944a51065530fb5632, type: 3}
+  Animtime: 0
 --- !u!1 &5665261922148366883
 GameObject:
   m_ObjectHideFlags: 0

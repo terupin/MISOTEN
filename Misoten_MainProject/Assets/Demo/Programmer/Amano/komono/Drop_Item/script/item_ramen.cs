@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class item_ramen : MonoBehaviour
 {
+    [SerializeField, Header("回復時エフェクト")]
+    public GameObject heal;
+
     private GameObject player_obj;
 
     // Start is called before the first frame update
@@ -29,6 +33,7 @@ public class item_ramen : MonoBehaviour
             if (Hp_meny.NowHP < Hp_meny.MaxHP)
             {
                 Hp_meny.NowHP++;
+                Instantiate(heal,new Vector3(player_obj.transform.position.x,0.01f,player_obj.transform.position.z),Quaternion.identity);
             }
 
             Destroy(this.gameObject);
