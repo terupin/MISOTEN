@@ -1223,7 +1223,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         if(!A_EffectFlg)
         {
             A_EffectFlg = true;
-            Instantiate(Attack_effectE, transform.localPosition + new Vector3(0.0f, 1.0f, 0.0f), Quaternion.Euler(Hit_EffectSpawn.transform.localEulerAngles.x, Hit_EffectSpawn.transform.localEulerAngles.y, Hit_EffectSpawn.transform.localEulerAngles.z));
+            //Instantiate(Attack_effectE, transform.localPosition + new Vector3(0.0f, 1.0f, 0.0f), Quaternion.Euler(Hit_EffectSpawn.transform.localEulerAngles.x, Hit_EffectSpawn.transform.localEulerAngles.y, Hit_EffectSpawn.transform.localEulerAngles.z));
             yield return new WaitForSeconds(1.0f);
             A_EffectFlg = false;
         }
