@@ -43,7 +43,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EMISSION_COLOR_MAP:
-        m_Texture: {fileID: 2800000, guid: fa8fc9f362d430f49b72cbb8e46df12b, type: 3}
+        m_Texture: {fileID: 2800000, guid: d9c227f21de7d7f4bab3b71877cfd4d5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _METALNESS_MAP:
