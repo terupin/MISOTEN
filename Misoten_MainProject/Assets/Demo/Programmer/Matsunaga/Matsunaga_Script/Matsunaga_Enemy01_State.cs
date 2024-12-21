@@ -238,7 +238,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     {
 
 
-        if (IsAnimationFinished("HP0"))
+        if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("HP0") && E01Anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.5f)
         {
             SceneManager.LoadScene(SceneName);
         }
