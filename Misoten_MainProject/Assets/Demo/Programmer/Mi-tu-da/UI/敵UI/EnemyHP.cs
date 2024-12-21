@@ -46,11 +46,11 @@ public class EnemyHp : MonoBehaviour
         }
 
         // Dキーが押されたときにダメージを与える(テスト用)
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            Kato_Status_E.NowHP = Kato_Status_E.NowHP- 1000;
-            //ApplyDamage(1000); // 1ダメージを与える
-        }
+        //if (Input.GetKeyDown(KeyCode.Z))
+        //{
+        //    Kato_Status_E.NowHP = Kato_Status_E.NowHP- 1000;
+        //    //ApplyDamage(1000); // 1ダメージを与える
+        //}
 
         if(CurrentHp <= 0)
         {
