@@ -991,6 +991,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         {
             if (Check_Current_Time0 > Check_TimeWait0 && Check_Time0 + Check_TimeWait0 >= Check_Current_Time0)
             {
+                SpriteAnimation.Instance.AnimStart(Check_Current_Time0 - Check_TimeWait0, Check_Time0);
                 Input_Timing();
 
                 if (P_Input)
@@ -1048,7 +1049,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             if (Check_Current_Time1 > Check_TimeWait1 && Check_Time1 + Check_TimeWait1 > Check_Current_Time1)
             {
                 Debug.Log("連撃１入力受付中");
-                //UnityEditor.EditorApplication.isPaused = true;
+                SpriteAnimation.Instance.AnimStart(Check_Current_Time1 - Check_TimeWait1, Check_Time1);
                 Input_Timing();
 
                 if (P_Input)
@@ -1064,6 +1065,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
             //2回目入力判定
             if (Check_Current_Time1 > Check_TimeWait2 + Check_Time1 + Check_TimeWait1 && Check_Time1 + Check_TimeWait1 + Check_Time2 + Check_TimeWait2 >= Check_Current_Time1)
             {
+                SpriteAnimation.Instance.AnimStart(Check_Current_Time1 - Check_TimeWait2 - Check_Time1 - Check_TimeWait1, Check_Time2);
                 Input_Timing();
                 Debug.Log("連撃２入力受付中");
                 if (P_Input)
@@ -1156,6 +1158,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
     private IEnumerator WaitD01R()
     {
+        StartCoroutine(HitStop.instance.SlowMotion_(0.1f, Check_TimeD0));
         yield return new WaitForSeconds(Check_TimeD0);
         E01Anim.SetBool("UkeR", true);
         E_State = Enemy_State_.Ukenagasare;
@@ -1164,6 +1167,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
     private IEnumerator WaitD01L()
     {
+        StartCoroutine(HitStop.instance.SlowMotion_(0.1f, Check_TimeD0));
         yield return new WaitForSeconds(Check_TimeD0);
         E01Anim.SetBool("UkeL", true);
         ShockWaveSpawn();
@@ -1172,6 +1176,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
 
     private IEnumerator WaitDR01()
     {
+        StartCoroutine(HitStop.instance.SlowMotion_(0.1f, Check_TimeD1));
         yield return new WaitForSeconds(Check_TimeD1);
         E01Anim.SetBool("RenUke01", true);
         ShockWaveSpawn();
@@ -1181,6 +1186,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
     //
     private IEnumerator WaitDR02()
     {
+        StartCoroutine(HitStop.instance.SlowMotion_(0.1f, Check_TimeD2));
         yield return new WaitForSeconds(Check_TimeD2);
         E01Anim.SetBool("RenUke02", true);
         ShockWaveSpawn();
@@ -1193,7 +1199,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         Clone_Effect = GameObject.Find("Slash_Effect(Clone)");
         if (Clone_Effect == null && !Effectflg)//一度に衝撃波が複数出ないように
         {
-            StartCoroutine(HitStop.instance.HitStop_());
+            StartCoroutine(HitStop.instance.HitStop_(0.25f));
             Instantiate(S_Effect);//衝撃波生成
             Effectflg = true;//衝撃波が出たフラグ
             audioSource_E.PlayOneShot(AudioClip_Uke);//受け流し音鳴らす
@@ -1219,7 +1225,7 @@ public class Matsunaga_Enemy01_State : MonoBehaviour
         if(!A_EffectFlg)
         {
             A_EffectFlg = true;
-            Instantiate(Attack_effectE, transform.localPosition + new Vector3(0.0f, 1.0f, 0.0f), Quaternion.Euler(Hit_EffectSpawn.transform.localEulerAngles.x, Hit_EffectSpawn.transform.localEulerAngles.y, Hit_EffectSpawn.transform.localEulerAngles.z));
+            //Instantiate(Attack_effectE, transform.localPosition + new Vector3(0.0f, 1.0f, 0.0f), Quaternion.Euler(Hit_EffectSpawn.transform.localEulerAngles.x, Hit_EffectSpawn.transform.localEulerAngles.y, Hit_EffectSpawn.transform.localEulerAngles.z));
             yield return new WaitForSeconds(1.0f);
             A_EffectFlg = false;
         }

@@ -5,10 +5,6 @@ using UnityEngine;
 public class HitStop : MonoBehaviour
 {
    public static HitStop instance;
-    [SerializeField, Header("ヒットストップ時間")]
-    public float HitStopTime;
-    [SerializeField, Header("ヒットストップスピード(スローモーションにもできるよ)") ,Range(0, 1)]
-    public float HitStopSpeed;
 
     // Start is called before the first frame update
     void Start()
@@ -22,10 +18,17 @@ public class HitStop : MonoBehaviour
         
     }
 
-    public IEnumerator HitStop_()
+    public IEnumerator HitStop_(float StopTime)
     {
-        Time.timeScale = HitStopSpeed;
-        yield return new WaitForSecondsRealtime(HitStopTime);
+        Time.timeScale = 0.0f;
+        yield return new WaitForSecondsRealtime(StopTime);
+        Time.timeScale = 1f;
+    }
+
+    public IEnumerator SlowMotion_(float SlowSpeed, float SlowTime)
+    {
+        Time.timeScale = SlowSpeed;
+        yield return new WaitForSeconds(SlowTime);
         Time.timeScale = 1f;
     }
 }
