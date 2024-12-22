@@ -22,6 +22,7 @@ public class Throwmove : MonoBehaviour
 
     private float movestart;
 
+    public float progress;
 
     // Start is called before the first frame update
     void Start()
@@ -38,7 +39,7 @@ public class Throwmove : MonoBehaviour
             rb.velocity = Vector3.zero;
 
             float elapsedTime = Time.time - movestart;  //時間のリセット
-            float progress = elapsedTime * itemspeed;
+             progress = elapsedTime * itemspeed;
 
             if (progress > 1.0f) // 終了条件
             {
