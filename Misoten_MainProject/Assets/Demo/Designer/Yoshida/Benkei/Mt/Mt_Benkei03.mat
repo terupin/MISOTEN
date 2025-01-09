@@ -24,7 +24,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Mt_Benkei03
-  m_Shader: {fileID: -6465566751694194690, guid: 4fa86247815678346a8537b65b956b28,
+  m_Shader: {fileID: -6465566751694194690, guid: ea33102d83d712b4581d567888a90442,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
