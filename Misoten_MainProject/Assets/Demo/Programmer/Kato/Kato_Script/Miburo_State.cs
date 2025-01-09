@@ -119,7 +119,7 @@ public class Miburo_State : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Application.targetFrameRate = 60;
+        Application.targetFrameRate = 30;
         _Katana_Direction = -1;
 
         Test.AddComponent<MeshRenderer>();
@@ -133,7 +133,7 @@ public class Miburo_State : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        M_HitBox= GameObject.Find("Player");
+        M_HitBox = GameObject.Find("Player");
 
         //HP0以下ならゲームオーバー
         if (Kato_Status_P.instance.NowHP <= 0)
