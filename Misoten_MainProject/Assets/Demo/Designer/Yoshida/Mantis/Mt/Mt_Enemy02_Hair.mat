@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Mt_Enemy02_Hair
-  m_Shader: {fileID: -6465566751694194690, guid: aefc63699cf4eff49a6bbb7c9ef5d160,
+  m_Shader: {fileID: -6465566751694194690, guid: ea33102d83d712b4581d567888a90442,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -128,6 +128,7 @@ Material:
     - _DoubleSidedGIMode: 0
     - _DoubleSidedNormalMode: 1
     - _DstBlend: 0
+    - _EmissionIntensity: 0
     - _EmissiveColorMode: 1
     - _EmissiveExposureWeight: 1
     - _EmissiveIntensity: 1
@@ -183,7 +184,7 @@ Material:
     - _SPECULAR_IOR: 1.5
     - _SPECULAR_ROTATION: 0
     - _SPECULAR_ROUGHNESS: 1
-    - _SPECULAR_WEIGHT: 1
+    - _SPECULAR_WEIGHT: 0.61
     - _Smoothness: 0
     - _SmoothnessRemapMax: 1
     - _SmoothnessRemapMin: 0
@@ -242,7 +243,7 @@ Material:
     - _EmissiveColorLDR: {r: 0, g: 0, b: 0, a: 1}
     - _InvPrimScale: {r: 1, g: 1, b: 0, a: 0}
     - _IridescenceThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
-    - _SPECULAR_COLOR: {r: 0.6248, g: 0.2745, b: 1, a: 1}
+    - _SPECULAR_COLOR: {r: 0.43551418, g: 0.15008187, b: 0.7433963, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
     - _ThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
     - _TransmittanceColor: {r: 1, g: 1, b: 1, a: 1}
