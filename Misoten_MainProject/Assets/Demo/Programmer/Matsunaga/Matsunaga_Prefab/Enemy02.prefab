@@ -282,7 +282,6 @@ GameObject:
   - component: {fileID: 3148915597662609761}
   - component: {fileID: 1770043382980743518}
   - component: {fileID: 7930574039795249098}
-  - component: {fileID: 432260384158943923}
   - component: {fileID: 1356565687168976484}
   m_Layer: 0
   m_Name: Enemy02
@@ -385,66 +384,6 @@ MonoBehaviour:
   AudioClip_E01: {fileID: 8300000, guid: d8fcff07b80e7534b9100d803c9d3cea, type: 3}
   Attack_effect: {fileID: 7367293601913032954, guid: 3105eef322b8a404d9aaa9b614f6b5d1,
     type: 3}
---- !u!114 &432260384158943923
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3847602336648284765}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79129bb46919246499af5e7ec2ac2bf5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Testobj: {fileID: 1549096205295157176}
-  Defultmat: {fileID: 0}
-  Testobjmat: {fileID: 0}
-  Den: []
-  SceneName: 
-  AudioClip_Uke: {fileID: 8300000, guid: 3d460d3d022297e47bfdf264c997e7e7, type: 3}
-  Check_TimeD0: 0
-  Check_TimeD1: 0
-  Check_TimeD2: 0
-  Check_TimeWait0: 0
-  Check_TimeWait1: 0
-  Check_TimeWait2: 0
-  Check_Time0: 0.5
-  Check_Time1: 0.5
-  Check_Time2: 0.5
-  S_Effect: {fileID: 9060970370165693562, guid: 9eef12dc538892048b21bbc76811f6c8,
-    type: 3}
-  Effectflg: 0
-  Hit_Effect: {fileID: 7367293601913032954, guid: 3105eef322b8a404d9aaa9b614f6b5d1,
-    type: 3}
-  Hit_EffectSpawn: {fileID: 0}
-  Attack_effectE: {fileID: 0}
-  Target_P: {fileID: 0}
-  SearchLength: 10
-  AttackLength: 3.5
-  MoveSpeed: 12
-  TategiriChance: 60
-  RenGekiChance: 40
-  E01Anim: {fileID: 0}
-  StateTime: 0
-  CooldownTime: 2.5
-  StaggerTime: 1
-  radius: 10
-  height: 15
-  centerOffset: {x: 0, y: 0, z: 0}
-  lineMaterial: {fileID: 2100000, guid: 426ab8c9cf4c37c4e9b6a3713e1697a0, type: 2}
-  faceMaterial: {fileID: 2100000, guid: 426ab8c9cf4c37c4e9b6a3713e1697a0, type: 2}
-  vertexObjectPrefab: {fileID: 9219549096807305038, guid: ba6f924de61fb164cb25456e3a9d4b85,
-    type: 3}
-  vertexObjectScale: {x: 2.5, y: 2.5, z: 2.5}
-  rotationAngle: 90
-  spinRadius: 5
-  spinSpeed: 2
-  moveSpeed: 5
-  waitTime: 2
-  objectName: 
-  updateInterval: 0.5
-  numtostagg: 1
 --- !u!114 &1356565687168976484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -460,12 +399,12 @@ MonoBehaviour:
   Testobj: {fileID: 1549096205295157176}
   Defultmat: {fileID: 0}
   Testobjmat: {fileID: 0}
-  Den: []
-  SceneName: 
-  AudioClip_Uke: {fileID: 0}
-  Check_TimeD0: 0
-  Check_TimeD1: 0
-  Check_TimeD2: 0
+  Den01: {fileID: 0}
+  Den02: {fileID: 0}
+  Den03: {fileID: 0}
+  Den04: {fileID: 0}
+  Den05: {fileID: 0}
+  Den06: {fileID: 0}
   Check_TimeWait0: 0
   Check_TimeWait1: 0
   Check_TimeWait2: 0
@@ -474,15 +413,12 @@ MonoBehaviour:
   Check_Time2: 0
   S_Effect: {fileID: 0}
   Effectflg: 0
-  Hit_Effect: {fileID: 0}
-  Hit_EffectSpawn: {fileID: 0}
-  Attack_effectE: {fileID: 0}
   Target_P: {fileID: 0}
   SearchLength: 100
   AttackLength: 3.5
   MoveSpeed: 12
-  TategiriChance: 60
-  RenGekiChance: 40
+  TwoRenGekiChance: 50
+  ThreeRenGekiChance: 50
   E01Anim: {fileID: 0}
   StateTime: 2.5
   CooldownTime: 2.5
@@ -502,6 +438,7 @@ MonoBehaviour:
   objectName: 
   updateInterval: 0.5
   numtostagg: 1
+  startTimerMax: 6
 --- !u!1001 &4859386567887339926
 PrefabInstance:
   m_ObjectHideFlags: 0

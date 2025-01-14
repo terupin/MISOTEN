@@ -7,6 +7,7 @@ public class Matsunaga_HitBoxEM : MonoBehaviour
 {
     [SerializeField, Header("剣先")]
     public GameObject WeponPoint;
+
     [SerializeField, Header("剣根本")]
     public GameObject WeponRoot;
     private GameObject Clone_Effect;//エフェクトのクローン
@@ -29,7 +30,6 @@ public class Matsunaga_HitBoxEM : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         gameObject.transform.position = WeponPoint.transform.position;
         gameObject.transform.rotation = WeponPoint.transform.rotation;
     }
