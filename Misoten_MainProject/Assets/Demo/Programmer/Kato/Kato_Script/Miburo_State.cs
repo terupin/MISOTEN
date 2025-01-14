@@ -133,7 +133,7 @@ public class Miburo_State : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        M_HitBox= GameObject.Find("Player");
+        M_HitBox = GameObject.Find("Player");
 
         //HP0以下ならゲームオーバー
         if (Kato_Status_P.instance.NowHP <= 0)

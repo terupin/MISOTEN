@@ -7,9 +7,9 @@ public class Revival_komono : MonoBehaviour
     public GameObject prefab; // ¶¬‚µ‚½‚¢Prefab‚ğInspector‚Åw’è
     Kato_Status_E get_HP;
 
-    private bool seven_five;
-    private bool five_one;
-    private bool two_five;
+    private bool seven_five = true;
+    private bool five_one = true;
+    private bool two_five = true;
 
     // Start is called before the first frame update
     void Start()
