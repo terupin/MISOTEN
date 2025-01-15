@@ -490,7 +490,7 @@ public class Miburo_State : MonoBehaviour
     {
         if (other.tag == "EWeapon")
         {
-            if (M_HitBox && Matsunaga_Enemy01_State.Attack)
+            if (M_HitBox &&( Matsunaga_Enemy01_State.Attack || Matsunaga_Enemy02_State.Attack))
             {             
                 if (!Miburo_Animator.GetCurrentAnimatorStateInfo(0).IsName("Battou"))
                 {
