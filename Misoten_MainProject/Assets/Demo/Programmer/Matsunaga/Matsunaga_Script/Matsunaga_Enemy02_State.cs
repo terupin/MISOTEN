@@ -576,7 +576,7 @@ public class Matsunaga_Enemy02_State : MonoBehaviour
         Debug.Log("handleTwo_Rengeki状態");
         //UnityEditor.EditorApplication.isPaused = true;
 
-        if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Two_rengeki3") && E01Anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f)
+        if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Two_rengeki2") && E01Anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f)
         {
             //二連撃攻撃完了後、クールダウンに遷移
             Debug.Log("二連撃攻撃が完了しました。Cooldown 状態に遷移します。");
