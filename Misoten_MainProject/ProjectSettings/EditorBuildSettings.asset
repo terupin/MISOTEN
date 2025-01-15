@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scene/Main/Main_OverScene.unity
     guid: 640c2758d2f5d104e846ba69a654a198
+  - enabled: 1
+    path: Assets/Scene/Main/Main_Stage02.unity
+    guid: 92ef5090c37a3c54c83064e8f0851edd
   m_configObjects: {}
