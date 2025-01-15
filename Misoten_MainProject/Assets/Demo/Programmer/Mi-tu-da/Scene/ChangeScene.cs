@@ -16,4 +16,12 @@ public class ChangeScene : MonoBehaviour
             SceneManager.LoadScene(SceneName);
         }
     }
+
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            SceneManager.LoadScene("Main_Stage02");
+        }
+    }
 }
