@@ -223,6 +223,8 @@ public class Matsunaga_Enemy02_State : MonoBehaviour
         onlywhenstart = true;
 
         CalculateAttackPoints();
+
+        currentHP = 0.65f;
     }
 
     private void Update()

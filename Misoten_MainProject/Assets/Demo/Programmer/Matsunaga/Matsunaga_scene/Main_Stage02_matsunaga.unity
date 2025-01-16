@@ -510,7 +510,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 221206121}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.014103662, y: 1.6039171e-17, z: 7.225989e-19, w: 0.9999006}
+  m_LocalRotation: {x: -0.014103671, y: -0.000000029770774, z: -4.1991893e-10, w: 0.9999006}
   m_LocalPosition: {x: 1.8671056, y: -5.4471493, z: 5.6622667}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3875,8 +3875,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1275855445}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.039870847, y: -5.8536e-17, z: -2.3413221e-18, w: 0.9992049}
-  m_LocalPosition: {x: 1.8671056, y: -5.627471, z: 3.7154455}
+  m_LocalRotation: {x: 0.03994094, y: -1.6246598e-17, z: 1.3599736e-18, w: 0.9992021}
+  m_LocalPosition: {x: 1.8671056, y: -5.627331, z: 3.715457}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5440,8 +5440,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1823688464}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.039870847, y: -5.872293e-17, z: 2.343196e-18, w: 0.9992049}
-  m_LocalPosition: {x: 1.8671056, y: -5.627471, z: 3.7154455}
+  m_LocalRotation: {x: 0.03994094, y: -1.621815e-17, z: 6.4828543e-19, w: 0.9992021}
+  m_LocalPosition: {x: 1.8671056, y: -5.627331, z: 3.715457}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6145,7 +6145,7 @@ PrefabInstance:
     - target: {fileID: 1356565687168976484, guid: e2ffd6f94f45b74439d67e0f10bfba65,
         type: 3}
       propertyPath: objectName
-      value: Denchiku(Clone)
+      value: tekki_kumo(Clone)
       objectReference: {fileID: 0}
     - target: {fileID: 1356565687168976484, guid: e2ffd6f94f45b74439d67e0f10bfba65,
         type: 3}
@@ -6236,7 +6236,7 @@ PrefabInstance:
         type: 3}
       propertyPath: vertexObjectPrefab
       value: 
-      objectReference: {fileID: 9219549096807305038, guid: ba6f924de61fb164cb25456e3a9d4b85,
+      objectReference: {fileID: 8947898960210966734, guid: 21e9d4b3618902b4294626c4e10eae97,
         type: 3}
     - target: {fileID: 1376716437394767396, guid: e2ffd6f94f45b74439d67e0f10bfba65,
         type: 3}
