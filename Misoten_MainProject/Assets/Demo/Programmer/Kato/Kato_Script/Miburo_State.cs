@@ -209,15 +209,6 @@ public class Miburo_State : MonoBehaviour
             gameObject.transform.LookAt(Target.transform);
         }
 
-        //if (_StepMuteki)
-        //{
-        //    Miburo_HitBox.SetActive(false);
-        //}
-        //else
-        //{
-        //    Miburo_HitBox.SetActive(true);
-        //}
-
         GetKatana_Direction();
 
         if (_Katana_Direction == 0 || _Katana_Direction == 1 || _Katana_Direction == 2 || _Katana_Direction == 7)
@@ -283,7 +274,7 @@ public class Miburo_State : MonoBehaviour
 
         GetCurrentAnimationStateName();//ステート取得して
 
-        if (Matsunaga_Enemy01_State.UKe__Ren01)
+        if (Matsunaga_Enemy01_State.UKe__Ren01 || Matsunaga_Enemy02_State.UKe__Ren01)
         {
             if (!_Ren11)
             {
@@ -297,7 +288,7 @@ public class Miburo_State : MonoBehaviour
             _Ren11 = false;
         }
 
-        if (Matsunaga_Enemy01_State.UKe__Ren02)
+        if (Matsunaga_Enemy01_State.UKe__Ren02 || Matsunaga_Enemy02_State.UKe__Ren02)
         {
             if (!_Ren22)
             {
