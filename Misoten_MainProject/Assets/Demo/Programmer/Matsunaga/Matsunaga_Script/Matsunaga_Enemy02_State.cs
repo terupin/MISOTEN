@@ -991,7 +991,7 @@ public class Matsunaga_Enemy02_State : MonoBehaviour
 
             if (Check_Current_Time0 > Check_TimeWait1 + Check_Current_Time0 + Check_TimeWait0 && Check_Time0 + Check_TimeWait0 + Check_Time1 + Check_TimeWait1 >= Check_Current_Time0)
             {
-                SpriteAnimation.Instance.AnimStart(Check_Current_Time0 - Check_TimeWait1 - Check_Time0 - Check_TimeWait1, Check_Time1);
+                SpriteAnimation.Instance.AnimStart(Check_Current_Time0 - Check_TimeWait1 - Check_Time0 - Check_TimeWait0, Check_Time1);
                 Input_Timing();
                 Attack = false;
                 if (P_Input)
@@ -1017,13 +1017,7 @@ public class Matsunaga_Enemy02_State : MonoBehaviour
                 if (UKe__Ren01)
                 {
                     E01Anim.SetBool("Two_rengekiUkeR", true);
-                    Clone_Effect = GameObject.Find("Slash_Effect(Clone)");
-                    if (Clone_Effect == null && !Effectflg)
-                    {
-                        Instantiate(S_Effect);
-                        Effectflg = true;
-                        //UnityEditor.EditorApplication.isPaused = true;
-                    }
+                    ShockWaveSpawn();
                     E_State = Enemy_State_.Ukenagasare;
                 }
                 else
@@ -1035,18 +1029,12 @@ public class Matsunaga_Enemy02_State : MonoBehaviour
 
             if (Check_Time0 + Check_TimeWait0 + Check_Time1 + Check_TimeWait1 < Check_Current_Time0)
             {
-                UKe__Ren02 = true;
+                //UKe__Ren02 = true;
 
                 if (UKe__Ren02)
                 {
                     E01Anim.SetBool("Two_rengekiUkeL", true);
-                    Clone_Effect = GameObject.Find("Slash_Effect(Clone)");
-                    if (Clone_Effect == null && !Effectflg)
-                    {
-                        Instantiate(S_Effect);
-                        Effectflg = true;
-                        //UnityEditor.EditorApplication.isPaused = true;
-                    }
+                    ShockWaveSpawn();
                     E_State = Enemy_State_.Ukenagasare;
                 }
                 else
@@ -1086,5 +1074,18 @@ public class Matsunaga_Enemy02_State : MonoBehaviour
                 P_Input = true;
             }
         }
+    }
+
+    //衝撃波を出します
+    private void ShockWaveSpawn()
+    {
+        Clone_Effect = GameObject.Find("Slash_Effect(Clone)");
+        if (Clone_Effect == null && !Effectflg)//一度に衝撃波が複数出ないように
+        {
+            StartCoroutine(HitStop.instance.HitStop_(0.25f));
+            Instantiate(S_Effect);//衝撃波生成
+            Effectflg = true;//衝撃波が出たフラグ
+        }
+        //UnityEditor.EditorApplication.isPaused = true;
     }
 }
