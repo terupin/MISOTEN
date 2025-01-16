@@ -4175,12 +4175,12 @@ PrefabInstance:
     - target: {fileID: 1356565687168976484, guid: e2ffd6f94f45b74439d67e0f10bfba65,
         type: 3}
       propertyPath: Check_Time0
-      value: 0.5
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 1356565687168976484, guid: e2ffd6f94f45b74439d67e0f10bfba65,
         type: 3}
       propertyPath: Check_Time1
-      value: 0.5
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 1356565687168976484, guid: e2ffd6f94f45b74439d67e0f10bfba65,
         type: 3}
@@ -4220,12 +4220,12 @@ PrefabInstance:
     - target: {fileID: 1356565687168976484, guid: e2ffd6f94f45b74439d67e0f10bfba65,
         type: 3}
       propertyPath: Check_TimeWait0
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1356565687168976484, guid: e2ffd6f94f45b74439d67e0f10bfba65,
         type: 3}
       propertyPath: Check_TimeWait1
-      value: 1
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 1356565687168976484, guid: e2ffd6f94f45b74439d67e0f10bfba65,
         type: 3}
