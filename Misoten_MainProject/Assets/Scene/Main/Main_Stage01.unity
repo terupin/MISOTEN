@@ -10261,6 +10261,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FPSTestUI
       objectReference: {fileID: 0}
+    - target: {fileID: 3472661116294160183, guid: 84b6af50aabd3e547ad353212794fd58,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
