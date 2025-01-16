@@ -3759,6 +3759,11 @@ PrefabInstance:
       propertyPath: virtualCamera
       value: 
       objectReference: {fileID: 1498831293}
+    - target: {fileID: 5559175423462806870, guid: 8eb4fdc726e23774da71f86d9d295d96,
+        type: 3}
+      propertyPath: camchangecountlimit
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6012198096186939281, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}
       propertyPath: m_RenderingLayerMask

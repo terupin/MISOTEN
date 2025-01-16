@@ -99,7 +99,7 @@ public class MainCamera : MonoBehaviour
                 changecamstartR = true;
                 //Debug.Log(changecamstartL);
             }
-            else if(Matsunaga_Enemy01_State.UKe__Ren01)
+            else if(Matsunaga_Enemy01_State.UKe__Ren01 || Matsunaga_Enemy02_State.UKe__Ren01)
             {
                 changecamstartR = true;
                 //Debug.Log(changecamstartL);
@@ -113,7 +113,7 @@ public class MainCamera : MonoBehaviour
                 changecamstartL = true;
                 //Debug.Log(changecamstartR);
             }
-            else if(Matsunaga_Enemy01_State.UKe__Ren02)
+            else if(Matsunaga_Enemy01_State.UKe__Ren02 || Matsunaga_Enemy02_State.UKe__Ren02)
             {
                 changecamstartL = true;
             }
@@ -123,13 +123,13 @@ public class MainCamera : MonoBehaviour
 
         if (changecamstartL == true)
         {
-            camchangecount = camchangecount + 0.1f;
+            camchangecount = camchangecount + Time.deltaTime;
             ukenagasiLCam.Priority = 15;
 
         }
         else if (changecamstartR == true)
         {
-            camchangecount = camchangecount + 0.1f;
+            camchangecount = camchangecount + Time.deltaTime;
             ukenagasiRCam.Priority = 15;
 
         }
