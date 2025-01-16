@@ -612,14 +612,6 @@ public class Matsunaga_Enemy02_State : MonoBehaviour
 
     private void HandleNagasare()
     {
-        /*
-        if(IsAnimationFinished("NagasereL") || IsAnimationFinished("NagasereR"))
-        {
-            E_State = Enemy_State_.Jumpback;
-            Debug.Log("NagasareL & NagasareR");
-            //UnityEditor.EditorApplication.isPaused = true;
-        }
-        */
         
         if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("Two_rengekiUkeR") && E01Anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f)
         {
@@ -647,6 +639,11 @@ public class Matsunaga_Enemy02_State : MonoBehaviour
             E_State = Enemy_State_.Jumpback;
             Debug.Log("NagasareR");
             //UnityEditor.EditorApplication.isPaused = true;
+        }
+
+        if (IsAnimationFinished("Two_rengekiUkeR") || IsAnimationFinished("Two_rengekiUkeL"))
+        {
+            E_State = Enemy_State_.Jumpback;
         }
     }
 
@@ -947,6 +944,7 @@ public class Matsunaga_Enemy02_State : MonoBehaviour
             UkeR = false;
             UKe__Ren01 = false;
             UKe__Ren02 = false;
+            Attack = false;
         }
 
             if (E_State == Enemy_State_.Jumpback)
@@ -963,8 +961,8 @@ public class Matsunaga_Enemy02_State : MonoBehaviour
             Check_Current_Time4 = 0.0f;
             E01Anim.SetBool("UkeL", false);
             E01Anim.SetBool("UkeR", false);
-            E01Anim.SetBool("RenUke01", false);
-            E01Anim.SetBool("RenUke02", false);
+            E01Anim.SetBool("Two_rengekiUkeR", false);
+            E01Anim.SetBool("Two_rengekiUkeL", false);
         }
 
         if (E_State == Enemy_State_.Two_Rengeki)
@@ -989,19 +987,13 @@ public class Matsunaga_Enemy02_State : MonoBehaviour
                 }
             }
 
-            if (Check_Time0 + Check_TimeWait0 < Check_Current_Time0)
-            {
-                if (UKe__Ren01)
-                {
-                    E01Anim.SetBool("Two_rengekiUkeR", true);
-                    E_State = Enemy_State_.Ukenagasare;
-                }
-            }
+
 
             if (Check_Current_Time0 > Check_TimeWait1 + Check_Current_Time0 + Check_TimeWait0 && Check_Time0 + Check_TimeWait0 + Check_Time1 + Check_TimeWait1 >= Check_Current_Time0)
             {
                 SpriteAnimation.Instance.AnimStart(Check_Current_Time0 - Check_TimeWait1 - Check_Time0 - Check_TimeWait1, Check_Time1);
                 Input_Timing();
+                Attack = false;
                 if (P_Input)
                 {
                     if (Miburo_State._Katana_Direction == 3 || Miburo_State._Katana_Direction == 4 || Miburo_State._Katana_Direction == 5 || Miburo_State._Katana_Direction == 6)
@@ -1020,9 +1012,11 @@ public class Matsunaga_Enemy02_State : MonoBehaviour
 
             if (Check_Time0 + Check_TimeWait0 < Check_Current_Time0)
             {
+                //UKe__Ren01 = true;
+
                 if (UKe__Ren01)
                 {
-                    E01Anim.SetBool("RenUke01", true);
+                    E01Anim.SetBool("Two_rengekiUkeR", true);
                     Clone_Effect = GameObject.Find("Slash_Effect(Clone)");
                     if (Clone_Effect == null && !Effectflg)
                     {
@@ -1041,9 +1035,11 @@ public class Matsunaga_Enemy02_State : MonoBehaviour
 
             if (Check_Time0 + Check_TimeWait0 + Check_Time1 + Check_TimeWait1 < Check_Current_Time0)
             {
+                UKe__Ren02 = true;
+
                 if (UKe__Ren02)
                 {
-                    E01Anim.SetBool("RenUke02", true);
+                    E01Anim.SetBool("Two_rengekiUkeL", true);
                     Clone_Effect = GameObject.Find("Slash_Effect(Clone)");
                     if (Clone_Effect == null && !Effectflg)
                     {
