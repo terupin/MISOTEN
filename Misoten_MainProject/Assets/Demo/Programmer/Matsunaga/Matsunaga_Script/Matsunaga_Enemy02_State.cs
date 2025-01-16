@@ -27,9 +27,9 @@ public class Matsunaga_Enemy02_State : MonoBehaviour
     [SerializeField, Header("三連撃3ディレイ時間")]
     public float Check_TimeWait4;
 
-    [SerializeField, Header("二連撃1 最大入力猶予 1.7秒")]
+    [SerializeField, Header("二連撃1 最大入力猶予 0.4秒")]
     public float Check_Time0;
-    [SerializeField, Header("二連撃2 最大入力猶予 1.2秒")]
+    [SerializeField, Header("二連撃2 最大入力猶予 0.4秒")]
     public float Check_Time1;
     [SerializeField, Header("三連撃1 最大入力猶予 0.75秒")]
     public float Check_Time2;
@@ -370,7 +370,6 @@ public class Matsunaga_Enemy02_State : MonoBehaviour
                     //受け流され時
                 case Enemy_State_.Ukenagasare:
 
-                    //StartCoroutine(WaitForUke());
                     HandleNagasare();
 
                     break;
@@ -398,12 +397,6 @@ public class Matsunaga_Enemy02_State : MonoBehaviour
         {
             HandleCooldown();
         }
-        /*
-        else if (E_State == Enemy_State_.Stagger)
-        {
-            HandleStagger();
-        }
-        */
 
         // 状態に応じてアニメーションを更新
         UpdateAnimations();
@@ -475,7 +468,6 @@ public class Matsunaga_Enemy02_State : MonoBehaviour
                 
                 E_State = Enemy_State_.Goto; // Goto状態に遷移
                 gotoStartPosition = transform.position;
-                //UnityEditor.EditorApplication.isPaused = true;
                 break;
             }
         }
@@ -617,28 +609,6 @@ public class Matsunaga_Enemy02_State : MonoBehaviour
         {
             E_State = Enemy_State_.Jumpback;
             Debug.Log("Two_rengekiUkeR");
-            //UnityEditor.EditorApplication.isPaused = true;
-        }
-
-        if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("NagasereR") && E01Anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f)
-        {
-            E_State = Enemy_State_.Jumpback;
-            Debug.Log("NagasareR");
-            //UnityEditor.EditorApplication.isPaused = true;
-        }
-        
-        if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("RtoLtoNagasare") && E01Anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f)
-        {
-            E_State = Enemy_State_.Jumpback;
-            Debug.Log("NagasareR");
-            //UnityEditor.EditorApplication.isPaused = true;
-        }
-
-        if (E01Anim.GetCurrentAnimatorStateInfo(0).IsName("RtoNagasare") && E01Anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f)
-        {
-            E_State = Enemy_State_.Jumpback;
-            Debug.Log("NagasareR");
-            //UnityEditor.EditorApplication.isPaused = true;
         }
 
         if (IsAnimationFinished("Two_rengekiUkeR") || IsAnimationFinished("Two_rengekiUkeL"))
@@ -947,7 +917,7 @@ public class Matsunaga_Enemy02_State : MonoBehaviour
             Attack = false;
         }
 
-            if (E_State == Enemy_State_.Jumpback)
+         if (E_State == Enemy_State_.Jumpback)
         {
             UkeL = false;
             UkeR = false;
@@ -965,6 +935,7 @@ public class Matsunaga_Enemy02_State : MonoBehaviour
             E01Anim.SetBool("Two_rengekiUkeL", false);
         }
 
+            //2連撃
         if (E_State == Enemy_State_.Two_Rengeki)
         {
             if (Check_Current_Time0 > Check_TimeWait0 && Check_Time0 + Check_TimeWait0 > Check_Current_Time0)
@@ -975,15 +946,8 @@ public class Matsunaga_Enemy02_State : MonoBehaviour
                 {
                     if (Miburo_State._Katana_Direction == 0 || Miburo_State._Katana_Direction == 1 || Miburo_State._Katana_Direction == 2 || Miburo_State._Katana_Direction == 7)
                     {
-                        if (!UKe__Ren01)
-                        {
-                            Debug.Log("判定　成功1");
-                            Debug.Log("iiiiiiiii" + Check_Current_Time0);
-                            //UnityEditor.EditorApplication.isPaused = true;
-                            UKe__Ren01 = true;
-                        }
+                        if (!UKe__Ren01){UKe__Ren01 = true;}
                     }
-
                 }
             }
 
@@ -998,15 +962,8 @@ public class Matsunaga_Enemy02_State : MonoBehaviour
                 {
                     if (Miburo_State._Katana_Direction == 3 || Miburo_State._Katana_Direction == 4 || Miburo_State._Katana_Direction == 5 || Miburo_State._Katana_Direction == 6)
                     {
-                        if (!UKe__Ren02)
-                        {
-                            Debug.Log("判定　成功1");
-                            Debug.Log("iiiiiiiii" + Check_Current_Time0);
-                            //UnityEditor.EditorApplication.isPaused = true;
-                            UKe__Ren02 = true;
-                        }
+                        if (!UKe__Ren02){UKe__Ren02 = true;}
                     }
-
                 }
             }
 
@@ -1020,11 +977,7 @@ public class Matsunaga_Enemy02_State : MonoBehaviour
                     ShockWaveSpawn();
                     E_State = Enemy_State_.Ukenagasare;
                 }
-                else
-                {
-                    Attack = true;
-                    //UnityEditor.EditorApplication.isPaused = true;
-                }
+                else{Attack = true;}
             }
 
             if (Check_Time0 + Check_TimeWait0 + Check_Time1 + Check_TimeWait1 < Check_Current_Time0)
@@ -1037,12 +990,8 @@ public class Matsunaga_Enemy02_State : MonoBehaviour
                     ShockWaveSpawn();
                     E_State = Enemy_State_.Ukenagasare;
                 }
-                else
-                {
-                    Attack = true;
-                }
+                else{Attack = true;}
             }
-
             Check_Current_Time0 += Time.deltaTime;
         }
 
@@ -1065,15 +1014,8 @@ public class Matsunaga_Enemy02_State : MonoBehaviour
     }
 
     private void Input_Timing()
-    {
-        //加藤(入力判定)  
-        if (Miburo_State._Parry_Timing)
-        {
-            if (!P_Input)
-            {
-                P_Input = true;
-            }
-        }
+    { 
+        if (Miburo_State._Parry_Timing){ if (!P_Input){P_Input = true;}}
     }
 
     //衝撃波を出します
@@ -1086,6 +1028,5 @@ public class Matsunaga_Enemy02_State : MonoBehaviour
             Instantiate(S_Effect);//衝撃波生成
             Effectflg = true;//衝撃波が出たフラグ
         }
-        //UnityEditor.EditorApplication.isPaused = true;
     }
 }
