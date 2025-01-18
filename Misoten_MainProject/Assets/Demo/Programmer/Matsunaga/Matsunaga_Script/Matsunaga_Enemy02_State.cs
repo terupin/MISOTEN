@@ -457,7 +457,7 @@ public class Matsunaga_Enemy02_State : MonoBehaviour
     private void CheckAttackPointReached(float x, float z)
     {
         // 現在位置と攻撃ポイントが十分近ければGoto状態に遷移
-        float threshold = 0.2f; // 近づく距離の閾値
+        float threshold = 0.01f; // 近づく距離の閾値
         foreach (var point in attackPoints)
         {
             if (Vector3.Distance(new Vector3(x, transform.position.y, z), point) < threshold)

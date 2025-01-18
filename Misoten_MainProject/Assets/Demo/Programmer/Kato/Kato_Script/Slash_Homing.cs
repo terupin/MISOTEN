@@ -54,11 +54,11 @@ public class Slash_Homing : MonoBehaviour
 
         gameObject.transform.position = Vector3.zero;
 
-        if ( Matsunaga_Enemy01_State.UKe__Ren01 || Matsunaga_Enemy01_State.UkeR)
+        if (Matsunaga_Enemy02_State.UKe__Ren01 || Matsunaga_Enemy01_State.UKe__Ren01 || Matsunaga_Enemy01_State.UkeR)
         {
             gameObject.transform.rotation = Quaternion.Euler(0.0f, EnemyObj.transform.localEulerAngles.y - 15, 0.0f);
         }
-        else if (Matsunaga_Enemy01_State.UKe__Ren02 || Matsunaga_Enemy01_State.UkeL)
+        else if (Matsunaga_Enemy02_State.UKe__Ren02 || Matsunaga_Enemy01_State.UKe__Ren02 || Matsunaga_Enemy01_State.UkeL)
         {
             gameObject.transform.rotation = Quaternion.Euler(0.0f, EnemyObj.transform.localEulerAngles.y + 15, 0.0f);
         }
