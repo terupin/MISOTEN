@@ -882,6 +882,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FPSTestUI
       objectReference: {fileID: 0}
+    - target: {fileID: 3472661116294160183, guid: 84b6af50aabd3e547ad353212794fd58,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3191,6 +3196,11 @@ PrefabInstance:
       propertyPath: Move_Speed
       value: 5.5
       objectReference: {fileID: 0}
+    - target: {fileID: 4362703999566851964, guid: 8eb4fdc726e23774da71f86d9d295d96,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4560278799684788452, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}
       propertyPath: m_RenderingLayerMask
@@ -3222,6 +3232,11 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5152649217762533704, guid: 8eb4fdc726e23774da71f86d9d295d96,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5189402270342433476, guid: 8eb4fdc726e23774da71f86d9d295d96,
         type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -4180,7 +4195,7 @@ PrefabInstance:
     - target: {fileID: 1356565687168976484, guid: e2ffd6f94f45b74439d67e0f10bfba65,
         type: 3}
       propertyPath: Check_Time0
-      value: 0.4
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 1356565687168976484, guid: e2ffd6f94f45b74439d67e0f10bfba65,
         type: 3}
@@ -4230,7 +4245,7 @@ PrefabInstance:
     - target: {fileID: 1356565687168976484, guid: e2ffd6f94f45b74439d67e0f10bfba65,
         type: 3}
       propertyPath: Check_TimeWait1
-      value: 1.4
+      value: 1.45
       objectReference: {fileID: 0}
     - target: {fileID: 1356565687168976484, guid: e2ffd6f94f45b74439d67e0f10bfba65,
         type: 3}
